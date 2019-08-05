@@ -31,7 +31,7 @@
 			<version>2.3.0</version>
 		</dependency>
 		
-<<<<<<< HEAD
+
 		<!-- 병훈쓰 quartz 라이브러러리 2 -->
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
@@ -41,8 +41,6 @@
 		
 
 
-=======
->>>>>>> branch 'master' of https://github.com/rlaaywlscjswo/CRUD.git
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
