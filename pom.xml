@@ -232,7 +232,6 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
-        
         <!-- Spring-test -->
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
         <dependency>
@@ -240,9 +239,7 @@
             <artifactId>spring-test</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
-        
-        
-      
+             
 
 		<!-- Test -->
 		<dependency>
