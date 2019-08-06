@@ -14,5 +14,13 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<context:property-placeholder location="config/db.properties"/>
+	 <!-- MySQL dataSource -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+        <property name="driverClassName" value="${driver}"/> 
+        <property name="url" value="${url}"/> 
+        <property name="username" value="${username}"/> 
+        <property name="password" value="${pwd}"/>
+    </bean>
 
 </beans>
