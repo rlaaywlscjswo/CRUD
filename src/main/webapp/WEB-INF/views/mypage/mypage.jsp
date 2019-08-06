@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	여긴 마이페이지야.
-
+	이름 : ${name}
+	
 </body>
 </html>
