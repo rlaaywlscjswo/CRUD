@@ -2,7 +2,6 @@ package com.bitcamp.conf;
 
 import javax.sql.DataSource;
 
-import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,16 +13,16 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 public class DBConf {
-	@Value("#{dbinfo['db.driver']}")
+	@Value("${db.driver}")
 	private String driver;
 	
-	@Value("#{dbinfo['db.url']}")
+	@Value("${db.url}")
 	private String url;
 	
-	@Value("#{dbinfo['db.user']}")
+	@Value("${dbinfo['db.user']}")
 	private String user;
 	
-	@Value("#{dbinfo['db.pwd']}")
+	@Value("${db.pwd}")
 	private String pwd;
 	
 	@Bean
@@ -37,17 +36,17 @@ public class DBConf {
 		return ds;
 	}
 	
-	@Bean
+	/*@Bean
 	public SqlSessionFactoryBean fact() {
 		SqlSessionFactoryBean fact = new SqlSessionFactoryBean();
 		fact.setDataSource(dataSource());
 		
-		/*Resource[] res = new Resource[1];
+		Resource[] res = new Resource[1];
 		res[0] = new ClassPathResource("mapper/emp.xml");  
-		fact.setMapperLocations(res);*/
+		fact.setMapperLocations(res);
 		fact.setMapperLocations(new Resource[] {new ClassPathResource("mapper/mapper.xml")});
 		return fact;
-	}
+	}*/
 	/*String resource = "config/db.properties";
 	Properties properties = new Properties();
 	try {

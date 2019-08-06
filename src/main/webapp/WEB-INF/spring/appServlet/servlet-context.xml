@@ -25,14 +25,5 @@
 	
 	<context:component-scan base-package="com.bitcamp.app" />
 	
-<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-	<beans:property name="locations">
-		<beans:list>    
-			<beans:value>classpath:/config/db.properties</beans:value>
-		</beans:list>
-	</beans:property>
-</beans:bean>
-
-<util:properties id="dbinfo" location="classpath:/config/db.properties"/>
 	
 </beans:beans>
