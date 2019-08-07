@@ -19,9 +19,9 @@
 	<!-- MySQL dataSource -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="${driver}" />
-		<property name="url" value="${url}" />
-		<property name="username" value="${username}" />
+		<property name="driverClassName" value="${drivername}" />
+		<property name="url" value="${url}"/>
+		<property name="username" value="${user}" />
 		<property name="password" value="${pwd}" />
 	</bean>
 
