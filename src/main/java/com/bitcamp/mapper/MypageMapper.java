@@ -9,6 +9,6 @@ import com.bitcamp.dto.MemberDTO;
 @Mapper
 public interface MypageMapper {
 
-	List<MemberDTO> myPageList();
+	public List<MemberDTO> myPageList();
 
 } // end MypageMapper interface
