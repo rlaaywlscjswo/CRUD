@@ -1,4 +1,4 @@
-package com.bitcamp.mypage;
+package com.bitcamp.app;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class MyController {
 	@Inject
 	private MypageService service;
 
-	@RequestMapping("mypage")
+	@RequestMapping("/mypage")
 	public String myPage(Model model) {
 		
 		List<MemberDTO> list = service.myPageList();
