@@ -1,20 +1,20 @@
 package com.bitcamp.dto;
 
 public class ProjectDTO {
-	private int project_no; // 프로젝트 번호
-	private String project_title; // 제목
-	private String project_photo; // 사진
-	private int targetprice; // 목표금액
-	private String introduce; // 소개글
-	private String startdate; // 시작일
-	private String enddate; // 종료일
-	private String payment_date; // 결제일
-	private String project_contents; // 내용_pdf
-	private String project_contract; // 계약서
-	private int project_views; // 조회수
-	private int project_status; // 승인여부
-	private int no; // 회원번호
-	private int category_no; // 카테고리 번호
+	private int project_no; //
+	private String project_title; //
+	private String project_photo; // 
+	private int targetprice; // 
+	private String introduce; //
+	private String startdate; // 
+	private String enddate; // 
+	private String payment_date; // 
+	private String project_contents; // 
+	private String project_contract; //
+	private int project_views; // 
+	private int project_status; // 
+	private int no; // 
+	private int category_no; //
 	
 	public int getProject_no() {
 		return project_no;

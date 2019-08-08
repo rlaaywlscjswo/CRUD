@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.mapper.ProjectMapper">
+
+	<!-- total -->
+	<select id="totalCount" resultType="int"
+		parameterType="java.util.HashMap">
+		select count(*) from project
+		<where>
+			<if test="searchtxt !=null and searchtxt !='' ">
+				<if test="search.equals('project_title')">
+					project_title like CONCAT('%',#{searchtxt},'%')
+				</if>
+				<if test="search.equals('no')">
+					no like CONCAT('%',#{searchtxt},'%')
+				</if>
+			</if>
+		</where>	
+		order by project_no
+	</select>
+
+
+
+
+
+	<select id="projectList" resultType="com.bitcamp.dto.ProjectDTO"
+		parameterType="java.util.HashMap">	
+	 select no,project_no,project_title,category_no            
+     from project   
+    	<where>
+			<if test="searchtxt !=null and searchtxt !='' ">
+				<if test="search.equals('project_title')">
+					project_title like CONCAT('%',#{searchtxt},'%')
+				</if>
+				<if test="search.equals('no')">
+					no like CONCAT('%',#{searchtxt},'%')
+				</if>
+			</if>
+		</where>	
+     order by project_no
+     limit #{startRow}, 2
+	</select>
+	
+	
+	
+
+</mapper>
+    
