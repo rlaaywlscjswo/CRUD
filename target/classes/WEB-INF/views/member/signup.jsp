@@ -1,4 +1,3 @@
-<%@page import="java.io.File"%>
 <%@page import="java.util.Enumeration"%>
 <%-- <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%> --%>
@@ -55,12 +54,12 @@ input[type=submit]:hover {
 #starttime{
 	margin-right: 10px;
 }
-#shop {
-margin:0 auto;
-width:80%;
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
+#top {
+	margin:30px auto;
+	width:60%;
+	border-radius: 5px;
+	background-color: #f2f2f2;
+	padding: 20px;
 }
 
 textarea {
@@ -269,95 +268,72 @@ margin-top: 50px;
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-function add_item(){
+/* function add_item(){
     var div = document.createElement('div');
     div.innerHTML = document.getElementById('pre_set').innerHTML;
     document.getElementById('field').appendChild(div);
 }
 function remove_item(obj){
     document.getElementById('field').removeChild(obj.parentNode);
-}
-var count = 1;
- function previewImage(targetObj, View_area) {
-	var preview = document.getElementById(View_area); //div id
-	var ua = window.navigator.userAgent;
-  //ie일때(IE8 이하에서만 작동)
-	if (ua.indexOf("MSIE") > -1) {
-		targetObj.select();
-		try {
-			var src = document.selection.createRange().text; // get file full path(IE9, IE10에서 사용 불가)
-			var ie_preview_error = document.getElementById("ie_preview_error_" + View_area);
-
-
-			if (ie_preview_error) {
-				preview.removeChild(ie_preview_error); //error가 있으면 delete
-			}
-
-			var img = document.getElementById(View_area); //이미지가 뿌려질 곳
-
-			//이미지 로딩, sizingMethod는 div에 맞춰서 사이즈를 자동조절 하는 역할
-			img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"+src+"', sizingMethod='scale')";
-		} catch (e) {
-			if (!document.getElementById("ie_preview_error_" + View_area)) {
-				var info = document.createElement("<p>");
-				info.id = "ie_preview_error_" + View_area;
-				info.innerHTML = e.name;
-				preview.insertBefore(info, null);
-			}
+} */
+$(document).ready(function(){
+	
+	let check = $('#check');
+	let pwd1 = $('#pwd').val();
+	let pwd2 = $('#confirmPassword').val();
+	
+	$('#pwd').keyup(function(){
+		check.text('');
+		if(pwd1.length >= 8){
+			let test = $(this).val();
+			console.log(test.length);
+			check.html("비밀번호는 8자리 이상 적어주세요.");
+			check.css('color', 'red');
+			pwd1.css('color', 'red');
+			pwd2.css('color', 'red');
 		}
-  //ie가 아닐때(크롬, 사파리, FF)
-	} else {
-		var files = targetObj.files;
-		for ( var i = 0; i < files.length; i++) {
-			var file = files[i];
-			var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
-			if (!file.type.match(imageType))
-				continue;
-			var prevImg = document.getElementById("prev_" + View_area); //이전에 미리보기가 있다면 삭제
-			if (prevImg) {
-				preview.removeChild(prevImg);
-			}
-			var img = document.createElement("img"); 
-			img.id = "prev_" + View_area;
-			img.classList.add("obj");
-			img.file = file;
-			img.style.width = '100px'; 
-			img.style.height = '100px';
-			preview.appendChild(img);
-			if (window.FileReader) { // FireFox, Chrome, Opera 확인.
-				var reader = new FileReader();
-				reader.onloadend = (function(aImg) {
-					return function(e) {
-						aImg.src = e.target.result;
-					};
-				})(img);
-				reader.readAsDataURL(file);
-			} else { // safari is not supported FileReader
-				//alert('not supported FileReader');
-				if (!document.getElementById("sfr_preview_error_"
-						+ View_area)) {
-					var info = document.createElement("p");
-					info.id = "sfr_preview_error_" + View_area;
-					info.innerHTML = "not supported FileReader";
-					preview.insertBefore(info, null);
-				}
-			}
+	}); //#user_pass.keyup
+	
+	$('#confirmPassword').keyup(function(){
+		
+		if(pwd1 != pwd2){
+			let test = $(this).val();
+			console.log(test.length);
+			check.text('');
+			check.html("암호틀림");
+			check.css('color', 'red');
+			pwd1.css('color', 'red');
+			pwd2.css('color', 'red');
+		} else {
+			console.log(pwd1.length);
+			check.text('');
+			check.html("암호맞음");
+			check.css('color', '#007bff');
+			pwd1.css('color', '#007bff');
+			pwd2.css('color', '#007bff');
 		}
-	}
-} 
-
+	}); //#chpass.keyup
+});
 </script>
 <body>
-<div id="shop">
-<h3>매장 등록</h3>
-
+<div id="top">
+<h3>회원가입</h3>
+<div>
   <form method="post" action="shopadds.do">
   	<div class="form-label-group">
-  	  <input type="text" id="name" name="name" class="form-control" placeholder="매장 이름을 적어주세요." autofocus required>
-  	  <label for="name">매장 이름</label>
+  	  <input type="text" id="name" name="name" class="form-control" placeholder="이름을 적어주세요." autofocus required minlength="2" maxlength="6">
+  	  <label for="name">이름</label>
 	</div>
-	<h5>음식 종류</h5>
-    <div class="checks etrans">
+	<div class="form-label-group">
+		<input type="password" id="pwd" name="pwd" class="form-control" placeholder="Password" required="required" minlength="8">
+		<label for="pwd">Password</label>
+	</div>
+	<div class="form-label-group">
+		<input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm password" required="required" minlength="8">
+		<label for="confirmPassword">Confirm password</label>
+		<font id="check" size="2" color="red"></font> 
+	</div>
+    <!-- <div class="checks etrans">
   		<input type="checkbox" id="korean" name="korean" value="한식"> 
   		<label for="korean" class="cbox">한식</label> 
   		
@@ -369,33 +345,7 @@ var count = 1;
   		
   		<input type="checkbox" id="yangsig" name="yangsig" value="양식"> 
   		<label for="yangsig" class="cbox">양식</label>
-  	
-	</div>
-	<label for="content">매장 소개</label>
-	<textarea id="content" name="content" placeholder="매장 소개 해주세요." required></textarea>
-	
-	<div class="form-label-group">
-    	<input type="text" id="addr" name="addr" placeholder="매장 주소를 입력해주세요." required>
-    	<label for="addr">매장 주소</label>
-	</div>
-	
-	<label for="starttime">영업 시작 시간 </label>
-    <input type="time" id="starttime" name="starttime" >
-    
-    <label for="endtime"> 종료 시간</label>
-    <input type="time" id="endtime" name="endtime" ><br>
-    <label for="fileName1">매장 사진</label><br>
-    
-    <!-- <div id="imgs"> -->
-    <!-- <input type="file" name="fileName1" id="fileName1"> -->
-    <div id="file">
-	    	<label>
-		    	<input type="file" name="fileName1" id="fileName1" onchange="previewImage(this,'View_area')">
-				<img src="reviewimg/addimage.png">
-			</label>
-		</div>
-		<div id='View_area' style='position:relative; width: 100px; height: 100px; color: black; border: 0px solid black; dispaly: inline; '></div>
-	</div>
+  -->
     
     <hr>
     <h3>메뉴</h3>
@@ -418,5 +368,129 @@ var count = 1;
   </form>
 
 </div>
+</div>
+
+<div class="container">
+    <h3>회원가입 폼 입니다.</h3>
+    <form action="/ajax/signup" method="post" id="myForm">
+        <div class="form-group has-feedback">
+            <label class="control-label" for="id">아이디</label>
+            <input class="form-control" type="text" name="id" id="id"/>
+            <span id="overlapErr" class="help-block">사용할 수 없는 아이디 입니다.</span>
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <label class="control-label" for="pwd">비밀번호</label>
+            <input class="form-control" type="password" name="pwd" id="pwd"/>
+            <span id="pwdRegErr" class="help-block">8글자 이상 입력하세요.</span>
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <label class="control-label" for="rePwd">비밀번호 재확인</label>
+            <input class="form-control" type="password" name="rePwd" id="rePwd"/>
+            <span id="rePwdErr" class="help-block">비밀번호와 일치하지 않습니다. 다시 입력해 주세요.</span>
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <label class="control-label" for="email">이메일</label>
+            <input class="form-control" type="text" name="email" id="email"/>
+            <span id="emailErr" class="help-block">올바른 이메일 형식이 아닙니다. 다시 입력해 주세요.</span>
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        </div>
+        <button class="btn btn-success" type="submit">가입</button>
+    </form>
+</div>
+<script>
+    //아이디 입력란에 keyup 이벤트가 일어 났을때 실행할 함수 등록 
+    $("#id").keyup(function(){
+        //입력한 문자열을 읽어온다.
+        var id=$(this).val();
+        //ajax 요청을 해서 서버에 전송한다.
+        $.ajax({
+            method:"post",
+            url:"/idCheck",
+            data:{inputId:id},
+            success:function(data){
+                var obj=JSON.parse(data);
+                if(obj.canUse){//사용 가능한 아이디 라면 
+                    $("#overlapErr").hide();
+                    // 성공한 상태로 바꾸는 함수 호출
+                    successState("#id");
+                    
+                }else{//사용 가능한 아이디가 아니라면 
+                    $("#overlapErr").show();
+                    errorState("#id");
+                }
+            }
+        });
+    });
+    $("#pwd").keyup(function(){
+        var pwd=$(this).val();
+        // 비밀번호 검증할 정규 표현식
+        var reg=/^.{8,}$/;
+        if(reg.test(pwd)){//정규표현식을 통과 한다면
+                    $("#pwdRegErr").hide();
+                    successState("#pwd");
+        }else{//정규표현식을 통과하지 못하면
+                    $("#pwdRegErr").show();
+                    errorState("#pwd");
+        }
+    });
+    $("#rePwd").keyup(function(){
+        var rePwd=$(this).val();
+        var pwd=$("#pwd").val();
+        // 비밀번호 같은지 확인
+        if(rePwd==pwd){//비밀번호 같다면
+            $("#rePwdErr").hide();
+            successState("#rePwd");
+        }else{//비밀번호 다르다면
+            $("#rePwdErr").show();
+            errorState("#rePwd");
+        }
+    });
+    $("#email").keyup(function(){
+        var email=$(this).val();
+        // 이메일 검증할 정규 표현식
+        var reg=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if(reg.test(email)){//정규표현식을 통과 한다면
+                    $("#emailErr").hide();
+                    successState("#email");
+        }else{//정규표현식을 통과하지 못하면
+                    $("#emailErr").show();
+                    errorState("#email");
+        }
+    });
+    // 성공 상태로 바꾸는 함수
+    function successState(sel){
+        $(sel)
+        .parent()
+        .removeClass("has-error")
+        .addClass("has-success")
+        .find(".glyphicon")
+        .removeClass("glyphicon-remove")
+        .addClass("glyphicon-ok")
+        .show();
+ 
+        $("#myForm button[type=submit]")
+                    .removeAttr("disabled");
+    };
+    // 에러 상태로 바꾸는 함수
+    function errorState(sel){
+        $(sel)
+        .parent()
+        .removeClass("has-success")
+        .addClass("has-error")
+        .find(".glyphicon")
+        .removeClass("glyphicon-ok")
+        .addClass("glyphicon-remove")
+        .show();
+ 
+        $("#myForm button[type=submit]")
+                    .attr("disabled","disabled");
+    };
+</script>    
+
+</body>
+</html>
 </body>
 </html>
