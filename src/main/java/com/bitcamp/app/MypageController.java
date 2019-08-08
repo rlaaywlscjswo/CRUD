@@ -12,7 +12,7 @@ import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.service.MypageService;
 
 @Controller
-public class MyController {
+public class MypageController {
 	
 	@Inject
 	private MypageService service;
