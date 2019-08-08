@@ -268,51 +268,95 @@ margin-top: 50px;
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-/* function add_item(){
-    var div = document.createElement('div');
-    div.innerHTML = document.getElementById('pre_set').innerHTML;
-    document.getElementById('field').appendChild(div);
-}
-function remove_item(obj){
-    document.getElementById('field').removeChild(obj.parentNode);
-} */
 $(document).ready(function(){
+	// 이메일 체크
+	$('#email').keyup(function() {
+		let email=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if(document.getElementById("email").value.length > 8){
+		console.log($("#email").val());
+			if(!email.test($("#email").val())){
+				$('#emailcheck').css('color', 'red').html('이메일 형식이 잘못 되었습니다.');
+				status('n');
+			} else {
+				$('#emailcheck').text('');
+				status('y');
+			}
+		}
+	});
 	
+	// 비밀번호 체크	
 	let check = $('#check');
-	let pwd1 = $('#pwd').val();
-	let pwd2 = $('#confirmPassword').val();
+	let pwd1 = $('#pwd');
+	let pwd2 = $('#confirmPassword');
 	
+	function red() {
+		check.css('color', 'red');
+		pwd1.css('color', 'red');
+		pwd2.css('color', 'red');
+	}
+	function blue() {
+		check.css('color', '#007bff');
+		pwd1.css('color', '#007bff');
+		pwd2.css('color', '#007bff');
+	}
+	function pwdcheck(){
+		if(document.getElementById("pwd").value.length < 7){
+			check.html("비밀번호는 8자리 이상 적어주세요.").css('color', 'red');
+		} else {
+			if(pwd1.val() != pwd2.val()){
+				check.text('').html("비밀번호가 서로 다릅니다.");
+				red();
+				status('n');
+			} else {
+				check.text('');
+				blue();
+				status('y');
+			}
+		}
+	}
 	$('#pwd').keyup(function(){
 		check.text('');
-		if(pwd1.length >= 8){
-			let test = $(this).val();
-			console.log(test.length);
-			check.html("비밀번호는 8자리 이상 적어주세요.");
-			check.css('color', 'red');
-			pwd1.css('color', 'red');
-			pwd2.css('color', 'red');
+		if(pwd2.val() != ""){
+			pwdcheck();
 		}
-	}); //#user_pass.keyup
-	
+	}); 
 	$('#confirmPassword').keyup(function(){
-		
-		if(pwd1 != pwd2){
-			let test = $(this).val();
-			console.log(test.length);
-			check.text('');
-			check.html("암호틀림");
-			check.css('color', 'red');
-			pwd1.css('color', 'red');
-			pwd2.css('color', 'red');
+		pwdcheck();
+	});
+	
+	// 이름 체크
+	$('#name').keyup(function() {
+		let getName = RegExp(/^[가-힣]+$/);
+		if($("#name").val() != "" && document.getElementById("name").value.length > 1){
+			if(!getName.test($("#name").val())){
+				$('#namecheck').css('color', 'red').html('이름을 확인 해주세요.');
+				status('n');
+			} else {
+				$('#namecheck').text('');
+				status('y');
+			}
+		}	
+	});
+	let id = 'phone';
+	$("#" + id).bind("keyup", function(event) {
+	    var regNumber = /^[0-9]*$/;
+	    var temp = $("#" + id).val();
+	    if(!regNumber.test(temp))
+	    {
+	        console.log('숫자만 입력하세요');
+	        $("#"+id).val(temp.replace(/[^0-9]/g,""));
+	    }
+	});
+
+	// 가입 버튼(비/활성화)
+	function status(sel){
+		if(sel == 'y'){
+			$("#signup").removeAttr("disabled");
 		} else {
-			console.log(pwd1.length);
-			check.text('');
-			check.html("암호맞음");
-			check.css('color', '#007bff');
-			pwd1.css('color', '#007bff');
-			pwd2.css('color', '#007bff');
+			$("#signup").attr("disabled","disabled");
 		}
-	}); //#chpass.keyup
+	}
+	
 });
 </script>
 <body>
@@ -323,6 +367,7 @@ $(document).ready(function(){
   	<div class="form-label-group">
   	  <input type="text" id="name" name="name" class="form-control" placeholder="이름을 적어주세요." autofocus required minlength="2" maxlength="6">
   	  <label for="name">이름</label>
+  	  <font id="namecheck" size="2" color="red"></font> 
 	</div>
 	<div class="form-label-group">
 		<input type="password" id="pwd" name="pwd" class="form-control" placeholder="Password" required="required" minlength="8">
@@ -332,6 +377,18 @@ $(document).ready(function(){
 		<input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm password" required="required" minlength="8">
 		<label for="confirmPassword">Confirm password</label>
 		<font id="check" size="2" color="red"></font> 
+	</div>
+	
+	<div class="form-label-group">
+		<input type="text" id="email" name="email" class="form-control" placeholder="email" required="required">
+		<label for="email">e-mail</label>
+		<font id="emailcheck" size="2" color="red"></font> 
+	</div>
+	
+	<div class="form-label-group">
+		<input type="text" id="phone" name="phone" class="form-control" placeholder="Phone Number" required="required">
+		<label for="phone">연락처</label>
+		<font id="phonecheck" size="2" color="red"></font> 
 	</div>
     <!-- <div class="checks etrans">
   		<input type="checkbox" id="korean" name="korean" value="한식"> 
@@ -363,43 +420,13 @@ $(document).ready(function(){
 	</div>
     <div id="field"></div>
     <input type="button" value="메뉴 추가 " class="delbtn dbtn" onclick="add_item()">
-    <input type="submit" value="등록">
+    <input type="submit" id="signup" value="가입" disabled="disabled">
     <!-- <button class="delbtn" >등록</button> -->
   </form>
 
 </div>
 </div>
 
-<div class="container">
-    <h3>회원가입 폼 입니다.</h3>
-    <form action="/ajax/signup" method="post" id="myForm">
-        <div class="form-group has-feedback">
-            <label class="control-label" for="id">아이디</label>
-            <input class="form-control" type="text" name="id" id="id"/>
-            <span id="overlapErr" class="help-block">사용할 수 없는 아이디 입니다.</span>
-            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-        </div>
-        <div class="form-group has-feedback">
-            <label class="control-label" for="pwd">비밀번호</label>
-            <input class="form-control" type="password" name="pwd" id="pwd"/>
-            <span id="pwdRegErr" class="help-block">8글자 이상 입력하세요.</span>
-            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-        </div>
-        <div class="form-group has-feedback">
-            <label class="control-label" for="rePwd">비밀번호 재확인</label>
-            <input class="form-control" type="password" name="rePwd" id="rePwd"/>
-            <span id="rePwdErr" class="help-block">비밀번호와 일치하지 않습니다. 다시 입력해 주세요.</span>
-            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-        </div>
-        <div class="form-group has-feedback">
-            <label class="control-label" for="email">이메일</label>
-            <input class="form-control" type="text" name="email" id="email"/>
-            <span id="emailErr" class="help-block">올바른 이메일 형식이 아닙니다. 다시 입력해 주세요.</span>
-            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
-        </div>
-        <button class="btn btn-success" type="submit">가입</button>
-    </form>
-</div>
 <script>
     //아이디 입력란에 keyup 이벤트가 일어 났을때 실행할 함수 등록 
     $("#id").keyup(function(){
@@ -424,71 +451,7 @@ $(document).ready(function(){
             }
         });
     });
-    $("#pwd").keyup(function(){
-        var pwd=$(this).val();
-        // 비밀번호 검증할 정규 표현식
-        var reg=/^.{8,}$/;
-        if(reg.test(pwd)){//정규표현식을 통과 한다면
-                    $("#pwdRegErr").hide();
-                    successState("#pwd");
-        }else{//정규표현식을 통과하지 못하면
-                    $("#pwdRegErr").show();
-                    errorState("#pwd");
-        }
-    });
-    $("#rePwd").keyup(function(){
-        var rePwd=$(this).val();
-        var pwd=$("#pwd").val();
-        // 비밀번호 같은지 확인
-        if(rePwd==pwd){//비밀번호 같다면
-            $("#rePwdErr").hide();
-            successState("#rePwd");
-        }else{//비밀번호 다르다면
-            $("#rePwdErr").show();
-            errorState("#rePwd");
-        }
-    });
-    $("#email").keyup(function(){
-        var email=$(this).val();
-        // 이메일 검증할 정규 표현식
-        var reg=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if(reg.test(email)){//정규표현식을 통과 한다면
-                    $("#emailErr").hide();
-                    successState("#email");
-        }else{//정규표현식을 통과하지 못하면
-                    $("#emailErr").show();
-                    errorState("#email");
-        }
-    });
-    // 성공 상태로 바꾸는 함수
-    function successState(sel){
-        $(sel)
-        .parent()
-        .removeClass("has-error")
-        .addClass("has-success")
-        .find(".glyphicon")
-        .removeClass("glyphicon-remove")
-        .addClass("glyphicon-ok")
-        .show();
- 
-        $("#myForm button[type=submit]")
-                    .removeAttr("disabled");
-    };
-    // 에러 상태로 바꾸는 함수
-    function errorState(sel){
-        $(sel)
-        .parent()
-        .removeClass("has-success")
-        .addClass("has-error")
-        .find(".glyphicon")
-        .removeClass("glyphicon-ok")
-        .addClass("glyphicon-remove")
-        .show();
- 
-        $("#myForm button[type=submit]")
-                    .attr("disabled","disabled");
-    };
-</script>    
+</script>   
 
 </body>
 </html>
