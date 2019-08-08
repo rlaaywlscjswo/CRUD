@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이 페이지 - 내 정보</title>
 </head>
 <body>
 
@@ -18,10 +18,10 @@
 		</thead>
 		<tbody>
 
-			<c:forEach var="myPage" items="${list}">
+			<c:forEach var="list" items="${infoList}">
 				<tr>
-					<td><c:out value="${myPage.name}" /></td>
-					<td><c:out value="${myPage.email}" /></td>
+					<td><c:out value="${list.name}" /></td>
+					<td><c:out value="${list.email}" /></td>
 				</tr>
 			</c:forEach>
 
