@@ -6,27 +6,25 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+
 <script type="text/javascript">
 $(document).ready(function(){
    //아이디 입력란에 keyup 이벤트가 일어 났을때 실행할 함수 등록 
-    $("#main_category").onclick(function(){
+    $("#main_category").on('change',function(){
+    	console.log($(this).val());
         //입력한 문자열을 읽어온다.
-        var category=$(this).val();
+        var main_category=$(this).val();
         //ajax 요청을 해서 서버에 전송한다.
-        $.ajax({
+        $.ajax({      
+        	type:"json",
             method:"post",
-            url:"category",
-            data:{main_category:category},
-            success:function(data){
-                var obj=JSON.parse(data);
-                console.log(obj);
-                if(obj.canUse){//사용 가능한 아이디 라면 
-                    // 성공한 상태로 바꾸는 함수 호출
-                    $('#emailcheck').css('color', 'red').html('사용 가능한 아이디입니다.');
-                    
-                }else{//사용 가능한 아이디가 아니라면 
-                    $('#emailcheck').css('color', 'red').html('중복된 아이디입니다.');
-                }
+            url:"/category",
+            data:"main_category="+main_category,
+            success:function(data){        
+            	
+            	 
             }
         });
     });

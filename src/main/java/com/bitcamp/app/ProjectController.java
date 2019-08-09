@@ -3,10 +3,12 @@ package com.bitcamp.app;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bitcamp.dto.CategoryDTO;
@@ -47,10 +49,13 @@ public class ProjectController {
 		return "project/projectlist";
 	}
 	
-	@RequestMapping("category")
-	public void  category(@RequestParam String main_categry, Model model) {
-		List<CategoryDTO> subcategorylist = categoryservice.subcategoryList(main_categry);
+	@RequestMapping(value="category", method=RequestMethod.POST)
+	public void  category(	
+			@RequestParam String main_category, Model model){
+		 System.out.println(" ajax" + main_category) ;		
+		List<CategoryDTO> subcategorylist = categoryservice.subcategoryList(main_category);
 		model.addAttribute("sublist", subcategorylist);
+		System.out.println(model);
 	}
 	
 	
