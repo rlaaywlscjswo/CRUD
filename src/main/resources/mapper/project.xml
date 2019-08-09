@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.mapper.ProjectMapper">
 
-	<!-- total -->
+<!-- total -->
 	<select id="totalCount" resultType="int"
 		parameterType="java.util.HashMap">
 		select count(*) from project
@@ -40,9 +40,8 @@
 			</if>
 		</where>	
      order by project_no
-     limit #{startRow}, 2
+     limit #{startRow}, 10
 	</select>
-	
 	
 	
 

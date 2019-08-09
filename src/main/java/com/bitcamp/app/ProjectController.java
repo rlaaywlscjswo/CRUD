@@ -26,7 +26,7 @@ public class ProjectController {
 			Model model
 			) {
 		int totalCount = service.totalCount(search, searchtxt);
-		int pageSize =2;
+		int pageSize =10;
 		int blockSize = 5;
 		PageDTO page = new PageDTO(currPage, totalCount, pageSize, blockSize);
 		List<ProjectDTO> list = service.projectList(search.trim(), searchtxt.trim(),page.getStartRow(), page.getEndRow());
