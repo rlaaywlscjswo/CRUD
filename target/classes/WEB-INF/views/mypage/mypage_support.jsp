@@ -30,7 +30,7 @@ div {
 	<c:forEach var="slist" items="${supportList}">
 		<div>
 			후원 일자 :
-			<c:out value="${slist.support_date}" /> <br>
+			<c:out value="${slist.da}" /> <br>
 			썸네일 이미지 :
 			<c:out value="${slist.project_photo}" /> <br>
 			후원 진행 사항 :

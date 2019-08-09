@@ -12,7 +12,7 @@
 	</resultMap>
 
 	<resultMap type="hashMap" id="sdto">
-		<result column="support_date" property="support_date" />
+		<result column="support_date" property="da" />
 		<result column="project_photo" property="project_photo" />
 		<result column="support_status" property="support_status" />
 		<result column="project_title" property="project_title" />
@@ -26,7 +26,7 @@
 	</select>
 
 	<select id="mypageSupportList" resultMap="sdto">
-		select date_format(support_date, '%y %c %e'), project_photo, support_status, project_title, `option`.option_no, option_price
+		select date_format(support_date, '%y년 %c월 %e일') as da, project_photo, support_status, project_title, `option`.option_no, option_price
 		from project join `option` on project.project_no = `option`.project_no
 		join support on `option`.option_no = support.option_no
 	</select>
