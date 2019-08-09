@@ -8,12 +8,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
-  <title>Teatime</title>
-  <!-- Custom fonts for this template-->
-  <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
-
-  <!-- Custom styles for this template-->
-  <link href="resources/css/sb-admin.css" rel="stylesheet">
+	<title>Teatime</title>
+	<link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="resources/css/sb-admin.css" rel="stylesheet">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <style>
 @import url(https://fonts.googleapis.com/css?family=BenchNine:700);
 label{
@@ -39,7 +37,7 @@ input[type=time]{
 
 input[type=submit] {
   width: 100%;
-  background-color: #4CAF50;
+  background-color: #9999;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -265,15 +263,44 @@ margin-top: 50px;
 #imgs{
 	display: inline-block;
 }
+
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(document).ready(function(){
+	//아이디 입력란에 keyup 이벤트가 일어 났을때 실행할 함수 등록 
+    $("#email").on("keyup", function(){
+        //입력한 문자열을 읽어온다.
+        var emailcheck=$(this).val();
+        console.log("jsp 키 액션 : "+emailcheck);
+        //ajax 요청을 해서 서버에 전송한다.
+        $.ajax({
+            method:"post",
+            url:"/emailcheck",
+            //data:{"email":$(this).val()},
+            data:emailcheck,
+            contentType:"application/json;charset=UTF-8",
+           // data:{'email':emailcheck},
+            success:function(data){
+            	console.log(data);
+                //var obj=JSON.parse(data);
+                //console.log(obj);
+                if(data == 0){//사용 가능한 아이디 라면 
+                    // 성공한 상태로 바꾸는 함수 호출
+                    $('#emailcheck').css('color', 'red').html('사용 가능한 아이디입니다.');
+                    
+                }else{//사용 가능한 아이디가 아니라면 
+                    $('#emailcheck').css('color', 'red').html('중복된 아이디입니다.');
+                }
+            }
+        });
+    });
+	
 	// 이메일 체크
-	$('#email').keyup(function() {
+	/* $('#email').keyup(function() {
 		let email=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		if(document.getElementById("email").value.length > 8){
-		console.log($("#email").val());
+		if(document.getElementById("email").value.length > 1){
 			if(!email.test($("#email").val())){
 				$('#emailcheck').css('color', 'red').html('이메일 형식이 잘못 되었습니다.');
 				status('n');
@@ -282,7 +309,7 @@ $(document).ready(function(){
 				status('y');
 			}
 		}
-	});
+	}); */
 	
 	// 비밀번호 체크	
 	let check = $('#check');
@@ -300,10 +327,12 @@ $(document).ready(function(){
 		pwd2.css('color', '#007bff');
 	}
 	function pwdcheck(){
-		if(document.getElementById("pwd").value.length < 7){
+		let password = document.getElementById("pwd");
+		let password2 = document.getElementById("confirmPassword");
+		if(password.value.length < 8 && password.value != ""){
 			check.html("비밀번호는 8자리 이상 적어주세요.").css('color', 'red');
 		} else {
-			if(pwd1.val() != pwd2.val()){
+			if(pwd1.val() != pwd2.val() && password2.value.length >= 8){
 				check.text('').html("비밀번호가 서로 다릅니다.");
 				red();
 				status('n');
@@ -325,10 +354,11 @@ $(document).ready(function(){
 	});
 	
 	// 이름 체크
+	let name = document.getElementById("name");
 	$('#name').keyup(function() {
 		let getName = RegExp(/^[가-힣]+$/);
-		if($("#name").val() != "" && document.getElementById("name").value.length > 1){
-			if(!getName.test($("#name").val())){
+		if(name.value != "" && name.value.length > 1){
+			if(!getName.test(name.value)){
 				$('#namecheck').css('color', 'red').html('이름을 확인 해주세요.');
 				status('n');
 			} else {
@@ -343,19 +373,61 @@ $(document).ready(function(){
 	    var temp = $("#" + id).val();
 	    if(!regNumber.test(temp))
 	    {
-	        console.log('숫자만 입력하세요');
 	        $("#"+id).val(temp.replace(/[^0-9]/g,""));
 	    }
 	});
 
 	// 가입 버튼(비/활성화)
 	function status(sel){
+		let btn = $('#signup');
 		if(sel == 'y'){
-			$("#signup").removeAttr("disabled");
+			btn.hover(function() {
+				$(this).css('background-color', '#45a049');
+			}, function() {
+				$(this).css('background-color', '#4CAF50');
+			});
+			btn.css('background-color', '#4CAF50').removeAttr("disabled");
 		} else {
-			$("#signup").attr("disabled","disabled");
+		    btn.css('background-color', '#9999').attr("disabled","disabled");
 		}
 	}
+	
+	$(function() { 
+	 $(".datepicker").datepicker({
+		  showOn: "both", // 버튼과 텍스트 필드 모두 캘린더를 보여준다.
+		  buttonImageOnly: true, // 버튼에 있는 이미지만 표시한다.
+		  changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
+		  changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
+		  minDate: '-100y', // 현재날짜로부터 100년이전까지 년을 표시한다.
+		  nextText: '다음 달', // next 아이콘의 툴팁.
+		  prevText: '이전 달', // prev 아이콘의 툴팁.
+		  numberOfMonths: [1,1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
+		  stepMonths: 3, // next, prev 버튼을 클릭했을때 얼마나 많은 월을 이동하여 표시하는가. 
+		  yearRange: 'c-100:c+10', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
+		  showButtonPanel: true, // 캘린더 하단에 버튼 패널을 표시한다. 
+		  currentText: '오늘 날짜' , // 오늘 날짜로 이동하는 버튼 패널
+		  closeText: '닫기',  // 닫기 버튼 패널
+		  dateFormat: "yy-mm-dd", // 텍스트 필드에 입력되는 날짜 형식.
+		  showAnim: "slide", //애니메이션을 적용한다.
+		  showMonthAfterYear: true , // 월, 년순의 셀렉트 박스를 년,월 순으로 바꿔준다. 
+		  dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], // 요일의 한글 형식.
+		  monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] // 월의 한글 형식.
+		 });
+	});
+		
+	$(function() {
+		$("#birthday").datepicker({
+			dateFormat:'yy-mm-dd',
+			prevText:'이전 달',
+			nextText:'다음 달',
+			monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+			dayNamesMin:['월', '화', '수', '목', '금', '토', '일'],
+			changeMonth:true,
+			changeYear:true,
+			showMonthAfterYear:true,
+			yearRange:'c-100:c'
+		});
+	});
 	
 });
 </script>
@@ -366,92 +438,44 @@ $(document).ready(function(){
   <form method="post" action="shopadds.do">
   	<div class="form-label-group">
   	  <input type="text" id="name" name="name" class="form-control" placeholder="이름을 적어주세요." autofocus required minlength="2" maxlength="6">
-  	  <label for="name">이름</label>
+  	  <label for="name">이름 *</label>
   	  <font id="namecheck" size="2" color="red"></font> 
 	</div>
 	<div class="form-label-group">
 		<input type="password" id="pwd" name="pwd" class="form-control" placeholder="Password" required="required" minlength="8">
-		<label for="pwd">Password</label>
+		<label for="pwd">Password *</label>
 	</div>
 	<div class="form-label-group">
 		<input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm password" required="required" minlength="8">
-		<label for="confirmPassword">Confirm password</label>
+		<label for="confirmPassword">Confirm password *</label>
 		<font id="check" size="2" color="red"></font> 
 	</div>
 	
 	<div class="form-label-group">
 		<input type="text" id="email" name="email" class="form-control" placeholder="email" required="required">
-		<label for="email">e-mail</label>
+		<label for="text">e-mail *</label>
 		<font id="emailcheck" size="2" color="red"></font> 
 	</div>
 	
 	<div class="form-label-group">
-		<input type="text" id="phone" name="phone" class="form-control" placeholder="Phone Number" required="required">
+		<input type="text" id="phone" name="phone" class="form-control" placeholder="Phone Number" minlength="9" maxlength="11">
 		<label for="phone">연락처</label>
 		<font id="phonecheck" size="2" color="red"></font> 
 	</div>
-    <!-- <div class="checks etrans">
-  		<input type="checkbox" id="korean" name="korean" value="한식"> 
-  		<label for="korean" class="cbox">한식</label> 
-  		
-  		<input type="checkbox" id="japanese" name="japanese" value="일식"> 
-  		<label for="japanese" class="cbox">일식</label>
-  		 
-  		<input type="checkbox" id="chinese" name="chinese" value="중식"> 
-  		<label for="chinese" class="cbox">중식</label> 
-  		
-  		<input type="checkbox" id="yangsig" name="yangsig" value="양식"> 
-  		<label for="yangsig" class="cbox">양식</label>
-  -->
-    
-    <hr>
-    <h3>메뉴</h3>
-    <div id="pre_set"  style="display:none">
-    <div class="form-label-group" id="mn">
-		<input type="text" name="menuname" value="" style="width:200px">
-		<label for="menuname">메뉴이름</label>
-	</div>	
-	<div class="form-label-group" id="pr">
-		<input type="text" name="price" value="" style="width:100px"> 
-		<label for="menuname">가격</label>
+	
+	<div class="form-label-group">
+		<input type="text" id="birth" name="birth" class="form-control datepicker" placeholder="910401" maxlength="6" readonly="readonly">
+		<label for="birth">생년월일</label>
+		
+		<!-- <input type="date" name="date" id="date3" size="12" />
+		<input type="text" class="datepicker" value="달력" /> -->
 	</div>
-		<input  class="delbtn" type="button" onclick="remove_item(this)" value="삭제">
-    	<!-- <button class="delbtn" onclick="remove_item(this)">삭제</button> -->
-	</div>
-    <div id="field"></div>
-    <input type="button" value="메뉴 추가 " class="delbtn dbtn" onclick="add_item()">
+	
     <input type="submit" id="signup" value="가입" disabled="disabled">
-    <!-- <button class="delbtn" >등록</button> -->
   </form>
 
 </div>
 </div>
-
-<script>
-    //아이디 입력란에 keyup 이벤트가 일어 났을때 실행할 함수 등록 
-    $("#id").keyup(function(){
-        //입력한 문자열을 읽어온다.
-        var id=$(this).val();
-        //ajax 요청을 해서 서버에 전송한다.
-        $.ajax({
-            method:"post",
-            url:"/idCheck",
-            data:{inputId:id},
-            success:function(data){
-                var obj=JSON.parse(data);
-                if(obj.canUse){//사용 가능한 아이디 라면 
-                    $("#overlapErr").hide();
-                    // 성공한 상태로 바꾸는 함수 호출
-                    successState("#id");
-                    
-                }else{//사용 가능한 아이디가 아니라면 
-                    $("#overlapErr").show();
-                    errorState("#id");
-                }
-            }
-        });
-    });
-</script>   
 
 </body>
 </html>
