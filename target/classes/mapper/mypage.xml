@@ -9,26 +9,26 @@
 		<result column="no" property="no" />
 		<result column="name" property="name" />
 		<result column="email" property="email" />
-	<collection property="support" javaType="java.util.HashMap" resultSet="sdto" />
 	</resultMap>
 
- 	<resultMap type="hashMap" id="sdto">
-		<result column="support_no" property="support_no" />
-		<result column="support_date" property="support_date" />
+	<resultMap type="hashMap" id="sdto">
+		<result column="support_date" property="da" />
+		<result column="project_photo" property="project_photo" />
 		<result column="support_status" property="support_status" />
-		<result column="no" property="no" />
-		<result column="option_no" property="option_no" />
+		<result column="project_title" property="project_title" />
+		<result column="option_name" property="option_name" />
+		<result column="option_price" property="option_price" />
 	</resultMap>
 
 	<select id="mypageInfoList" resultMap="mdto">
-		select name, email 
+		select name, email
 		from member
 	</select>
-	
+
 	<select id="mypageSupportList" resultMap="sdto">
-		select support_no, support_date, support_status, member.no, `option`.option_no
-		from support join member on support.no = member.no
-		join `option` on `option`.option_no = support.option_no
+		select date_format(support_date, '%y년 %c월 %e일') as da, project_photo, support_status, project_title, `option`.option_no, option_price
+		from project join `option` on project.project_no = `option`.project_no
+		join support on `option`.option_no = support.option_no
 	</select>
 
 </mapper>

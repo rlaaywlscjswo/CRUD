@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.mapper.CategoryMapper">
+<select id="maincategoryList" resultType="com.bitcamp.dto.CategoryDTO">
+select distinct(main_category) from category
+</select>
+
+<select id="subcategoryList" parameterType="String"  resultType="com.bitcamp.dto.CategoryDTO">
+select sub_category from category where main_category = #{main_category}
+</select>
+
+</mapper>
