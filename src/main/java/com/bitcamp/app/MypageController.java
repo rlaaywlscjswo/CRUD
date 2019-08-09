@@ -37,15 +37,5 @@ public class MypageController {
 		return "/mypage/mypage_support";
 		
 	} // end mypageSupportList method
-	
-	@RequestMapping("/test")
-	public String category_test(Model model) {
-		
-		List<CategoryDTO> categoryList = service.category_test();
-		model.addAttribute("categoryList", categoryList);
-		
-		return "/mypage/category_test";
-		
-	} // end category_test method
 
 } // end MyController class
