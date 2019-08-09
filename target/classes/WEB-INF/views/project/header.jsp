@@ -17,10 +17,12 @@
                     <ul class="clearfix">
                         
                         <li class="icons dropdown">
+                        	
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
-                                <img src="resources/img/1.jpg" height="100" width="100" alt="">
+                               <img src="resources/img/1.jpg" height="100" width="100" alt="">
                             </div>
+              
                             <div class="drop-down dropdown-profile   dropdown-menu">
                                 <div class="dropdown-content-body">
                                     <ul>
@@ -89,7 +91,7 @@
                     <a class="nav-link" href="#">대분류7</a>
                 </li> 
             </ul>
-            <button type="button" class="btn btn-light">프로젝트 등록하러가기</button>
+            <a href="project/project_insert"><button type="button" class="btn btn-light">프로젝트 등록하러가기</button></a>
            <button type="button" class="btn btn-light">쪽지함</button>
            <button type="button" class="btn btn-light">고객센터</button>
         </div>

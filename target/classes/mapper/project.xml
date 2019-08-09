@@ -21,10 +21,6 @@
 		order by project_no
 	</select>
 
-
-
-
-
 	<select id="projectList" resultType="com.bitcamp.dto.ProjectDTO"
 		parameterType="java.util.HashMap">	
 	 select no,project_no,project_title,category_no            
@@ -43,6 +39,7 @@
      limit #{startRow}, 10
 	</select>
 	
+
 	
 
 </mapper>
