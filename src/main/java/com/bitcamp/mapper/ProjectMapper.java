@@ -11,4 +11,5 @@ import com.bitcamp.dto.ProjectDTO;
 public interface ProjectMapper {
 	public int totalCount(HashMap<String, Object> dto);
 	public List<ProjectDTO> projectList(HashMap<String, Object> dto); // 목록
+	public int projectInsert(ProjectDTO dto); // 등록
 }

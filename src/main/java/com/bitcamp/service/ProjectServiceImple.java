@@ -32,4 +32,9 @@ public class ProjectServiceImple implements ProjectService {
 		return mapper.projectList(dto);
 	}
 
+	@Override
+	public int projectInsert(ProjectDTO dto) {	
+		return mapper.projectInsert(dto);
+	}
+
 }
