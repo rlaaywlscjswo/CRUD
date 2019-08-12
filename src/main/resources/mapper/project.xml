@@ -39,6 +39,10 @@
      limit #{startRow}, 10
 	</select>
 	
+	<insert id="projectInsert" parameterType="com.bitcamp.dto.ProjectDTO">
+	insert into project
+	(no,project_title,project_photo,category_no) values(1,#{project_title},#{project_photo},#{category_no})
+	</insert>
 
 	
 

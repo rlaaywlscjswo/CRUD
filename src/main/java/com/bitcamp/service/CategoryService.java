@@ -6,5 +6,5 @@ import com.bitcamp.dto.CategoryDTO;
 
 public interface CategoryService {
 	public List<CategoryDTO>  maincategoryList();
-	public List<CategoryDTO> subcategoryList(String main_categry);
+	public List<CategoryDTO> subcategoryList(String main_category);
 }

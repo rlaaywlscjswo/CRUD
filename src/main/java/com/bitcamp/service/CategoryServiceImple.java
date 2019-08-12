@@ -20,8 +20,8 @@ public class CategoryServiceImple implements CategoryService {
 	}
 
 	@Override
-	public List<CategoryDTO> subcategoryList(String main_categry) {		
-		return mapper.subcategoryList(main_categry);
+	public List<CategoryDTO> subcategoryList(String main_category) {		
+		return mapper.subcategoryList(main_category);
 	}
 	
 	

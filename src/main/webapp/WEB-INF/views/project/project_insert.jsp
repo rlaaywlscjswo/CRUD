@@ -11,30 +11,48 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-   //아이디 입력란에 keyup 이벤트가 일어 났을때 실행할 함수 등록 
+ 
     $("#main_category").on('change',function(){
+    	$("#sub_category").empty();
     	console.log($(this).val());
-        //입력한 문자열을 읽어온다.
-        var main_category=$(this).val();
-        //ajax 요청을 해서 서버에 전송한다.
+   
+        var main_category=$(this).val();       
         $.ajax({      
         	type:"json",
             method:"post",
-            url:"/category",
-            data:"main_category="+main_category,
-            success:function(data){        
+            url:"http://localhost:8080/project/category",
+            data:'main_category='+main_category,
+            success:function(data){   
+            	console.log(data);
             	
-            	 
+            	$.each(data,function(i,item){
+            		console.log(item.category_no);  
+            		console.log(item.sub_category);
+            		$("#sub_category").append("<option value='"+item.category_no+"'>"+item.sub_category+"</option>");
+            		
+            	});
             }
         });
     });
+    
+   /*  function checkFile(){
+    	var fm = document.file;
+    	var fnm = fm.project_photo;
+    	var ext = fnm.value;
+    	
+    	if(!(ext.substr(ext.length-3)=='jpg' || ext.substr(ext.length-3)=='png')){
+    	 alert("jpg, png 파일만 가능합니다.");
+    		return false;
+    	}fm.submit();     
+    	} */
 });
 </script>
 
 
 </head>
 <body>
- <form method="post" action="projectlist">
+ <form name="file" method="post" action="projectresult">
+ 
  <ul>
  
  <li>
@@ -53,13 +71,20 @@ $(document).ready(function(){
  
  <li>
  <label for="sub_category">소분류</label>
- <select id="sub_category" name="sub_category">
- <c:forEach var="sub" items="${sublist}">
-<option value="${sub.sub_category }">${sub.sub_category }</option>
-</c:forEach>
+
+<select id="sub_category" name="sub_category">
+
 </select>
  </li> 
  
+ <li>
+ <label for="project_photo">프로젝트 대표사진</label>
+ <input type="file" id="project_photo" name="project_photo"> 
+ </li>
+ 
+ <li>
+ <input type="submit" value="다음"> <!-- onclick="javascript:checkFile()" -->
+ </li>
  </ul>
  
  </form>

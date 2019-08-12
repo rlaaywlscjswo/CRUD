@@ -6,5 +6,5 @@ import com.bitcamp.dto.CategoryDTO;
 
 public interface CategoryMapper {
 	public List<CategoryDTO> maincategoryList(); // 대분류
-	public List<CategoryDTO> subcategoryList(String main_categry); // 소분류
+	public List<CategoryDTO> subcategoryList(String main_category); // 소분류
 }

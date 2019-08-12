@@ -8,7 +8,7 @@ select distinct(main_category) from category
 </select>
 
 <select id="subcategoryList" parameterType="String"  resultType="com.bitcamp.dto.CategoryDTO">
-select sub_category from category where main_category = #{main_category}
+select sub_category , category_no from category where main_category = #{main_category}
 </select>
 
 </mapper>
