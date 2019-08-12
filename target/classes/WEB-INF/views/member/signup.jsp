@@ -263,57 +263,59 @@ margin-top: 50px;
 #imgs{
 	display: inline-block;
 }
+/* 캘린더 */
+.ui-datepicker select.ui-datepicker-month, .ui-datepicker select.ui-datepicker-year {
+    width: 40%;
+}
+.ui-datepicker .ui-datepicker-title select {
+    font-size: 12px;
+    margin: -1px 4px;
+    padding: 4px 0px;
+}
+.ui-datepicker-trigger{cursor: pointer;}
+.hasDatepicker{cursor: pointer;}
 
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(document).ready(function(){
-	//아이디 입력란에 keyup 이벤트가 일어 났을때 실행할 함수 등록 
-    $("#email").on("keyup", function(){
-        //입력한 문자열을 읽어온다.
-        var emailcheck=$(this).val();
-        console.log("jsp 키 액션 : "+emailcheck);
-        //ajax 요청을 해서 서버에 전송한다.
-        $.ajax({
-            method:"post",
-            url:"/emailcheck",
-            //data:{"email":$(this).val()},
-            data:emailcheck,
-            contentType:"application/json;charset=UTF-8",
-           // data:{'email':emailcheck},
-            success:function(data){
-            	console.log(data);
-                //var obj=JSON.parse(data);
-                //console.log(obj);
-                if(data == 0){//사용 가능한 아이디 라면 
-                    // 성공한 상태로 바꾸는 함수 호출
-                    $('#emailcheck').css('color', 'red').html('사용 가능한 아이디입니다.');
-                    
-                }else{//사용 가능한 아이디가 아니라면 
-                    $('#emailcheck').css('color', 'red').html('중복된 아이디입니다.');
-                }
-            }
-        });
-    });
-	
 	// 이메일 체크
-	/* $('#email').keyup(function() {
-		let email=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		if(document.getElementById("email").value.length > 1){
+    $("#email").on("keyup", function(){
+    	let email=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    	let emailcheck = $('#emailcheck');
+		if(document.getElementById("email").value.length < 3){
+			emailcheck.text('');
+		} else {
 			if(!email.test($("#email").val())){
-				$('#emailcheck').css('color', 'red').html('이메일 형식이 잘못 되었습니다.');
+				emailcheck.css('color', 'red').html('이메일 형식이 잘못 되었습니다.');
 				status('n');
 			} else {
-				$('#emailcheck').text('');
-				status('y');
+		        let id=$(this).val();
+		        console.log("jsp 키 액션 : "+emailcheck);
+		        $.ajax({
+		            method:"post",
+		            url:"/emailcheck",
+		            data:id,
+		            contentType:"application/json;charset=UTF-8",
+		            success:function(data){
+		            	console.log(data);
+		                if(data == 0){ 
+							status('y');
+		                	emailcheck.css('color', '#007bff').html('사용 가능한 아이디입니다.');
+		                }else{ 
+		                	status('n');
+		                	emailcheck.css('color', 'red').html('중복된 아이디입니다.');
+		                }
+		            }
+		        });
 			}
 		}
-	}); */
+    });
 	
 	// 비밀번호 체크	
 	let check = $('#check');
-	let pwd1 = $('#pwd');
+	let pwd1 = $('#password');
 	let pwd2 = $('#confirmPassword');
 	
 	function red() {
@@ -327,7 +329,7 @@ $(document).ready(function(){
 		pwd2.css('color', '#007bff');
 	}
 	function pwdcheck(){
-		let password = document.getElementById("pwd");
+		let password = document.getElementById("password");
 		let password2 = document.getElementById("confirmPassword");
 		if(password.value.length < 8 && password.value != ""){
 			check.html("비밀번호는 8자리 이상 적어주세요.").css('color', 'red');
@@ -343,7 +345,7 @@ $(document).ready(function(){
 			}
 		}
 	}
-	$('#pwd').keyup(function(){
+	$('#password').keyup(function(){
 		check.text('');
 		if(pwd2.val() != ""){
 			pwdcheck();
@@ -357,18 +359,17 @@ $(document).ready(function(){
 	let name = document.getElementById("name");
 	$('#name').keyup(function() {
 		let getName = RegExp(/^[가-힣]+$/);
-		if(name.value != "" && name.value.length > 1){
-			if(!getName.test(name.value)){
-				$('#namecheck').css('color', 'red').html('이름을 확인 해주세요.');
-				status('n');
-			} else {
-				$('#namecheck').text('');
-				status('y');
-			}
-		}	
+		if(name.value != "" && !getName.test(name.value)){
+			$('#namecheck').css('color', 'red').html('이름을 확인 해주세요.');
+			status('n');
+		} else {
+			$('#namecheck').text('');
+			status('y');
+		}
 	});
+	
 	let id = 'phone';
-	$("#" + id).bind("keyup", function(event) {
+	$("#" + id).on("keyup", function(event) {
 	    var regNumber = /^[0-9]*$/;
 	    var temp = $("#" + id).val();
 	    if(!regNumber.test(temp))
@@ -393,19 +394,23 @@ $(document).ready(function(){
 	}
 	
 	$(function() { 
+		let year = new Date().getFullYear()-20+'-01-01'; // 20년전.
 	 $(".datepicker").datepicker({
-		  showOn: "both", // 버튼과 텍스트 필드 모두 캘린더를 보여준다.
-		  buttonImageOnly: true, // 버튼에 있는 이미지만 표시한다.
+		  /* showOn: "both", */ // 버튼과 텍스트 필드 모두 캘린더를 보여준다.
+		  /* buttonImageOnly: true, */ // 버튼에 있는 이미지만 표시한다.
 		  changeMonth: true, // 월을 바꿀수 있는 셀렉트 박스를 표시한다.
 		  changeYear: true, // 년을 바꿀 수 있는 셀렉트 박스를 표시한다.
-		  minDate: '-100y', // 현재날짜로부터 100년이전까지 년을 표시한다.
 		  nextText: '다음 달', // next 아이콘의 툴팁.
 		  prevText: '이전 달', // prev 아이콘의 툴팁.
 		  numberOfMonths: [1,1], // 한번에 얼마나 많은 월을 표시할것인가. [2,3] 일 경우, 2(행) x 3(열) = 6개의 월을 표시한다.
-		  stepMonths: 3, // next, prev 버튼을 클릭했을때 얼마나 많은 월을 이동하여 표시하는가. 
+		  stepMonths: 1, // next, prev 버튼을 클릭했을때 얼마나 많은 월을 이동하여 표시하는가. 
 		  yearRange: 'c-100:c+10', // 년도 선택 셀렉트박스를 현재 년도에서 이전, 이후로 얼마의 범위를 표시할것인가.
+		  minDate: '-100Y',
+		  maxDate: '0Y',
+		  defaultDate: year, 
+		  buttonText: "선택", //버튼에 마우스 갖다 댔을 때 표시되는 텍스트    
 		  showButtonPanel: true, // 캘린더 하단에 버튼 패널을 표시한다. 
-		  currentText: '오늘 날짜' , // 오늘 날짜로 이동하는 버튼 패널
+		  currentText: '오늘' , // 오늘 날짜로 이동하는 버튼 패널
 		  closeText: '닫기',  // 닫기 버튼 패널
 		  dateFormat: "yy-mm-dd", // 텍스트 필드에 입력되는 날짜 형식.
 		  showAnim: "slide", //애니메이션을 적용한다.
@@ -414,67 +419,44 @@ $(document).ready(function(){
 		  monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] // 월의 한글 형식.
 		 });
 	});
-		
-	$(function() {
-		$("#birthday").datepicker({
-			dateFormat:'yy-mm-dd',
-			prevText:'이전 달',
-			nextText:'다음 달',
-			monthNamesShort:['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-			dayNamesMin:['월', '화', '수', '목', '금', '토', '일'],
-			changeMonth:true,
-			changeYear:true,
-			showMonthAfterYear:true,
-			yearRange:'c-100:c'
-		});
-	});
 	
 });
 </script>
 <body>
 <div id="top">
 <h3>회원가입</h3>
-<div>
-  <form method="post" action="shopadds.do">
-  	<div class="form-label-group">
-  	  <input type="text" id="name" name="name" class="form-control" placeholder="이름을 적어주세요." autofocus required minlength="2" maxlength="6">
-  	  <label for="name">이름 *</label>
-  	  <font id="namecheck" size="2" color="red"></font> 
-	</div>
-	<div class="form-label-group">
-		<input type="password" id="pwd" name="pwd" class="form-control" placeholder="Password" required="required" minlength="8">
-		<label for="pwd">Password *</label>
-	</div>
-	<div class="form-label-group">
-		<input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm password" required="required" minlength="8">
-		<label for="confirmPassword">Confirm password *</label>
-		<font id="check" size="2" color="red"></font> 
-	</div>
-	
-	<div class="form-label-group">
-		<input type="text" id="email" name="email" class="form-control" placeholder="email" required="required">
-		<label for="text">e-mail *</label>
-		<font id="emailcheck" size="2" color="red"></font> 
-	</div>
-	
-	<div class="form-label-group">
-		<input type="text" id="phone" name="phone" class="form-control" placeholder="Phone Number" minlength="9" maxlength="11">
-		<label for="phone">연락처</label>
-		<font id="phonecheck" size="2" color="red"></font> 
-	</div>
-	
-	<div class="form-label-group">
-		<input type="text" id="birth" name="birth" class="form-control datepicker" placeholder="910401" maxlength="6" readonly="readonly">
-		<label for="birth">생년월일</label>
-		
-		<!-- <input type="date" name="date" id="date3" size="12" />
-		<input type="text" class="datepicker" value="달력" /> -->
-	</div>
-	
-    <input type="submit" id="signup" value="가입" disabled="disabled">
-  </form>
+	<form method="post" action="signupresult">
+		<div class="form-label-group">
+			<input type="text" id="email" name="email" class="form-control" placeholder="email" required="required" autofocus>
+			<label for="text">e-mail *</label>
+			<font id="emailcheck" size="2" color="red"></font> 
+		</div>
+		<div class="form-label-group">
+			<input type="password" id="password" name="password" class="form-control" placeholder="Password" required="required" minlength="8">
+			<label for="password">Password *</label>
+		</div>
+		<div class="form-label-group">
+			<input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm password" required="required" minlength="8">
+			<label for="confirmPassword">Confirm password *</label>
+			<font id="check" size="2" color="red"></font> 
+		</div>
+	  	<div class="form-label-group">
+	  	  <input type="text" id="name" name="name" class="form-control" placeholder="이름을 적어주세요." required minlength="2" maxlength="6">
+	  	  <label for="name">이름 *</label>
+	  	  <font id="namecheck" size="2" color="red"></font> 
+		</div>
+		<div class="form-label-group">
+			<input type="text" id="phone" name="phone" class="form-control" placeholder="Phone Number" minlength="9" maxlength="11">
+			<label for="phone">연락처</label>
+			<font id="phonecheck" size="2" color="red"></font> 
+		</div>
+		<div class="form-label-group">
+			<input type="text" id="birth" name="birth" class="form-control datepicker" placeholder="910401" maxlength="6" readonly="readonly">
+			<label for="birth">생년월일</label>
+		</div>
+	    <input type="submit" id="signup" value="가입" disabled="disabled">
+	</form>
 
-</div>
 </div>
 
 </body>
