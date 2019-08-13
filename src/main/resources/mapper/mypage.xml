@@ -5,6 +5,8 @@
 
 <mapper namespace="com.bitcamp.mapper.MypageMapper">
 
+	<parameterMap type="java.util.HashMap" id="hashmap" />
+
 	<resultMap type="com.bitcamp.dto.MemberDTO" id="mdto">
 		<result column="no" property="no" />
 		<result column="name" property="name" />
@@ -19,16 +21,33 @@
 		<result column="option_name" property="option_name" />
 		<result column="option_price" property="option_price" />
 	</resultMap>
-
-	<select id="mypageInfoList" resultMap="mdto">
-		select name, email
-		from member
-	</select>
-
-	<select id="mypageSupportList" resultMap="sdto">
-		select date_format(support_date, '%y년 %c월 %e일') as da, project_photo, support_status, project_title, `option`.option_no, option_price
+	
+	<select id="totalCount" resultType="int" parameterMap="hashmap">
+		select count(*)
 		from project join `option` on project.project_no = `option`.project_no
 		join support on `option`.option_no = support.option_no
+		<where>
+			<if test="search!=null and search!=''">
+				and project_title like CONCAT('%',#{search},'%')
+			</if>
+		</where>
+	</select>
+
+	<select id="mypageInfoList" resultMap="mdto">
+		select name, email from	member
+	</select>
+
+	<select id="mypageSupportList" resultMap="sdto" parameterMap="hashmap">
+		select date_format(support_date, '%y년 %c월 %e일') as da, 
+		project_photo, support_status, project_title, `option`.option_no, option_price
+		from project join `option` on project.project_no = `option`.project_no
+		join support on `option`.option_no = support.option_no 		
+		<where>
+			<if test="search!=null and search!=''">
+				and project_title like CONCAT('%',#{search},'%')
+			</if>
+		</where>
+		limit #{startRow}, #{pagePerSize}
 	</select>
 
 </mapper>
