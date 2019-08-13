@@ -12,7 +12,7 @@
 			<if test="searchtxt !=null and searchtxt !='' ">
 				<if test="search.equals('project_title')">
 					project_title like CONCAT('%',#{searchtxt},'%')
-				</if>
+				</if> 
 				<if test="search.equals('no')">
 					no like CONCAT('%',#{searchtxt},'%')
 				</if>
