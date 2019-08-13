@@ -9,5 +9,24 @@
 		from member 
 		where email = #{email}
 	</select>
+	
+	<insert id="memberAdd" parameterType="com.bitcamp.dto.MemberDTO">
+		<if test='birth != "404" and phone != "404"'>
+			insert into member(email, name, password, phone, birth)
+			values(#{email}, #{name}, #{password}, #{phone}, #{birth})
+		</if>
+		<if test='birth == "404" and phone == "404"'>
+			insert into member(email, name, password)
+			values(#{email}, #{name}, #{password})
+		</if>
+		<if test='birth == "404" and phone != "404"'>
+			insert into member(email, name, password, phone)
+			values(#{email}, #{name}, #{password}, #{phone	})
+		</if>
+		<if test='birth != "404" and phone == "404"'>
+			insert into member(email, name, password, birth)
+			values(#{email}, #{name}, #{password}, #{birth})
+		</if>
+	</insert>
 
 </mapper>

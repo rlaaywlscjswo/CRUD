@@ -20,7 +20,7 @@
                         	
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
-                               <img src="resources/img/1.jpg" height="100" width="100" alt="">
+                               <img src="/resources/img/1.jpg" height="100" width="100" alt="">
                             </div>
               
                             <div class="drop-down dropdown-profile   dropdown-menu">
@@ -52,7 +52,7 @@
        
        
         <nav class="navbar navbar-light bg-light">
-            <form  class="form-inline" method="get" action="projectlist?currPage=${page.startBlock }">          
+            <form  class="form-inline" method="get" action="/projectlist?currPage=${page.startBlock }">          
                <select class="option" id="search" name="search">
 				<option value="project_title">제목</option>
 				<option value="no">회원번호</option>
@@ -91,7 +91,7 @@
                     <a class="nav-link" href="#">대분류7</a>
                 </li> 
             </ul>
-            <a href="project/project_insert"><button type="button" class="btn btn-light">프로젝트 등록하러가기</button></a>
+            <a href="project_insert"><button type="button" class="btn btn-light">프로젝트 등록하러가기</button></a>
            <button type="button" class="btn btn-light">쪽지함</button>
            <button type="button" class="btn btn-light">고객센터</button>
         </div>

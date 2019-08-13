@@ -1,21 +1,23 @@
 package com.bitcamp.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ProjectDTO {
-	private int project_no; //
-	private String project_title; //
-	private String project_photo; // 
-	private int targetprice; // 
-	private String introduce; //
-	private String startdate; // 
-	private String enddate; // 
-	private String payment_date; // 
-	private String project_contents; // 
-	private String project_contract; //
-	private int project_views; // 
-	private int project_status; // 
-	private int no; // 
-	private int category_no; //
-	
+	private int project_no; // 프로젝트 번호
+	private String project_title; // 프로젝트 제목
+	private MultipartFile file; // 프로젝트 대표사진
+	private String project_photo;
+	private int targetprice; // 달성금액
+	private String introduce; // 소개글
+	private String startdate; // 시작일
+	private String enddate; // 종료일
+	private String payment_date; // 지불날짜
+	private String project_contents; // 내용pdf
+	private String project_contract; // 계약서
+	private int project_views; // 조회수
+	private int project_status; // 승인여부
+	private int no; // 회원번호
+	private int category_no; // 카테고리 번호
 	public int getProject_no() {
 		return project_no;
 	}
@@ -27,6 +29,12 @@ public class ProjectDTO {
 	}
 	public void setProject_title(String project_title) {
 		this.project_title = project_title;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	public String getProject_photo() {
 		return project_photo;
@@ -100,7 +108,6 @@ public class ProjectDTO {
 	public void setCategory_no(int category_no) {
 		this.category_no = category_no;
 	}
-	
 	
 	
 	
