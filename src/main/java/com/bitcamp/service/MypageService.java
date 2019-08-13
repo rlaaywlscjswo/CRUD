@@ -6,8 +6,11 @@ import com.bitcamp.dto.SupportDTO;
 
 public interface MypageService {
 
+	public int totalCount(String search);
+	
 	public List<MemberDTO> mypageInfoList();
 
-	public List<SupportDTO> mypageSupportList();
+	public List<SupportDTO> mypageSupportList(int startRow, int pagePerSize, String search);
+
 
 } // end MypageService interface
