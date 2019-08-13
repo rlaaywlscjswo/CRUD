@@ -56,34 +56,25 @@ li {
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
-	$('.tabmenu').click(function() {
-		var activeTab = $(this).attr('data-tab');
-		console.log(activeTab);
-		
+	$('#1').click(function() {
+		 $("#tabcontent").load("project_insert");		
 		$('li').css('background-color', 'white');
-		$(this).css('background-color', 'green');
-		$(#tabcontent).load("project/project_insert");
-		/* $.ajax({		              
-			data :activeTab,   		
-			success : function(data) {    //통신 성공시 탭 내용담는 div를 읽어들인 값으로 채운다.
-				console.log("data"+data);
-				$('#tabcontent').load(data);
-			}
-		}); */
+		$(this).css('background-color', 'green');		
+		 
 	});
-	/* $('#default').click(); */
+
  
 
 });
-/*   $("#div1").load("project/project_insert");	 */
+
 </script>
 </head>
 <body>
 <div id="container">
 		<ul class="tab">
-			<li data-tab="project/project_insert" class='tabmenu' id="default"><a href="#">TabExample1</a></li>
-			<li data-tab="tab2" class='tabmenu'><a href="#">TabExample2</a></li>
-			<li data-tab="tab3" class='tabmenu'><a href="#">TabExample3</a></li>
+			<li id="1" class='tabmenu' ><a href="#">TabExample1</a></li>
+			<li class='tabmenu'><a href="#">TabExample2</a></li>
+			<li class='tabmenu'><a href="#">TabExample3</a></li>
 		</ul>
 		<div id="tabcontent"></div>
 	</div>

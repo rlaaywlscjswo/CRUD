@@ -32,6 +32,6 @@
     <script src="resources/js/gleek.js"></script>
     <script src="resources/js/styleSwitcher.js"></script>    
     <script src="resources/plugins/highlightjs/highlight.pack.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+
 </body>
 </html>

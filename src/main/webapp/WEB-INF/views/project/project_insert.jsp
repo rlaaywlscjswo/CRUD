@@ -7,8 +7,6 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-
 <script type="text/javascript">
 $(document).ready(function(){
 	/* $('#default').click();   */
@@ -48,11 +46,15 @@ $(document).ready(function(){
     
 });
 </script>
-
-
 </head>
+
+
+
 <body>
- <form name="file" method="post" action="projectresult">
+
+
+
+ <form name="file" method="post" action="projectresult" enctype="multipart/form-data">
  
  <ul>
  
@@ -79,15 +81,15 @@ $(document).ready(function(){
  </li> 
  
  <li>
- <label for="project_photo">프로젝트 대표사진</label>
- <input type="file" id="project_photo" name="project_photo"> 
+ <label for="file">프로젝트 대표사진</label>
+ <input type="file" id="file" name="file"> 
  </li>
  
  <li>
- <input type="submit" value="다음"> <!-- onclick="javascript:checkFile()" -->
+ <input type="submit" value="다음"> 
  </li>
- </ul>
- 
+ </ul> 
  </form>
+
 </body>
 </html>

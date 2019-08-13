@@ -35,7 +35,7 @@ public class ProjectController {
 	
 	@RequestMapping("projectin")
 	public String ininin() {
-		return "project/projectinsert";
+		return "project/projectinsert.temp";
 	}
 	
 	
@@ -75,17 +75,17 @@ public class ProjectController {
 	}
 	
 	// 프로젝트 등록 페이지
-	@RequestMapping("project/project_insert")
+	@RequestMapping("project_insert")
 	public String projectinsert(Model model) {
 		List<CategoryDTO> maincategorylist = categoryservice.maincategoryList();		
 		model.addAttribute("mainlist",maincategorylist);		
 		System.out.println("insert : "+model);
-		return "project/project_insert.temp";
+		return "project/project_insert"; 
 	
 	}
 	
 	// 프로젝트 등록 결과 
-	@RequestMapping("project/projectresult")
+	@RequestMapping("projectresult")
 	public String projectinsertresult(
 			HttpServletRequest request, ProjectDTO dto) { 		
 		MultipartFile multi = dto.getFile();

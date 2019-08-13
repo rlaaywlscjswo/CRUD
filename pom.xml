@@ -240,7 +240,7 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-		<!--Tiles-->
+		<!--Tiles -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
 			<artifactId>tiles-extras</artifactId>
@@ -256,7 +256,8 @@
 			<artifactId>tiles-jsp</artifactId>
 			<version>3.0.8</version>
 		</dependency>
-		
+
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
