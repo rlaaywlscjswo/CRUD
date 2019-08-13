@@ -94,8 +94,10 @@ public class ProjectController {
 			if(!multi.isEmpty()) {
 				File file = new File(uploadpath, multi.getOriginalFilename());
 				multi.transferTo(file);				
-				System.out.println("사진 파일명 : " + dto.getProject_photo());				
 				dto.setProject_photo(dto.getFile().getOriginalFilename());
+				System.out.println("프로젝트 제목 : " + dto.getProject_title());
+				System.out.println("사진 파일명 : " + dto.getProject_photo());				
+				System.out.println("카테고리 번호 : " + dto.getCategory_no());
 			}
 		}catch(IOException e) {
 			System.out.println(e.getMessage());

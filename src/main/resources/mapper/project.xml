@@ -40,8 +40,8 @@
 	</select>
 	
 	<insert id="projectInsert" parameterType="com.bitcamp.dto.ProjectDTO">
-	insert into project
-	(no,project_title,project_photo,category_no) values(1,#{project_title},#{project_photo},#{category_no})
+		insert into project (project_title, project_photo, targetprice, introduce, startdate, enddate, payment_date, project_contents, no, category_no) 
+		values(#{project_title}, #{project_photo}, 10000, '소개글', '2019-08-20', '2019-09-20', '2019-10-01', '테스트.pdf', 2, #{category_no})
 	</insert>
 
 	

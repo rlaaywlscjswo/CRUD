@@ -11,7 +11,7 @@
 $(document).ready(function(){
 	/* $('#default').click();   */
     $("#main_category").on('change',function(){
-    	$("#sub_category").empty();
+    	$("#category_no").empty();
     	console.log($(this).val());
    
         var main_category=$(this).val();       
@@ -26,7 +26,7 @@ $(document).ready(function(){
             	$.each(data,function(i,item){
             		console.log(item.category_no);  
             		console.log(item.sub_category);
-            		$("#sub_category").append("<option value='"+item.category_no+"'>"+item.sub_category+"</option>");
+            		$("#category_no").append("<option value='"+item.category_no+"'>"+item.sub_category+"</option>");
             		
             	});
             }
@@ -73,9 +73,9 @@ $(document).ready(function(){
  </li> 
  
  <li>
- <label for="sub_category">소분류</label>
+ <label for="category_no">소분류</label>
 
-<select id="sub_category" name="sub_category">
+<select id="category_no" name="category_no">
 
 </select>
  </li> 
