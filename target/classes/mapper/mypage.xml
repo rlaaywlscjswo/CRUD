@@ -27,8 +27,8 @@
 		from project join `option` on project.project_no = `option`.project_no
 		join support on `option`.option_no = support.option_no
 		<where>
-			<if test="search!=null and search!=''">
-				and project_title like CONCAT('%',#{search},'%')
+			<if test="support_search!=null and support_search!=''">
+				and project_title like CONCAT('%',#{support_search},'%')
 			</if>
 		</where>
 	</select>
@@ -43,8 +43,8 @@
 		from project join `option` on project.project_no = `option`.project_no
 		join support on `option`.option_no = support.option_no 		
 		<where>
-			<if test="search!=null and search!=''">
-				and project_title like CONCAT('%',#{search},'%')
+			<if test="support_search!=null and support_search!=''">
+				and project_title like CONCAT('%',#{support_search},'%')
 			</if>
 		</where>
 		limit #{startRow}, #{pagePerSize}

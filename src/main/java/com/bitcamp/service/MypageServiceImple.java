@@ -20,10 +20,10 @@ public class MypageServiceImple implements MypageService {
 	private MypageMapper mypageMapper;
 	
 	@Override
-	public int totalCount(String search) {
+	public int totalCount(String support_search) {
 		
 		HashMap<String, Object> hm = new HashMap<>();
-		hm.put("search", search);
+		hm.put("support_search", support_search);
 		
 		return mypageMapper.totalCount(hm);
 		
@@ -37,14 +37,12 @@ public class MypageServiceImple implements MypageService {
 	} // end myPageList method
 
 	@Override
-	public List<SupportDTO> mypageSupportList(int startRow, int pagePerSize, String search) {
+	public List<SupportDTO> mypageSupportList(int startRow, int pagePerSize, String support_search) {
 		
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("startRow", startRow);
 		hm.put("pagePerSize", pagePerSize);
-		hm.put("search", search);
-		
-		System.out.println("★★★★★★★★★★ service - search : " + search);
+		hm.put("support_search", support_search);
 		
 		return mypageMapper.mypageSupportList(hm);
 		

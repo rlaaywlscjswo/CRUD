@@ -26,28 +26,26 @@ public class MypageController {
 		List<MemberDTO> infoList = service.mypageInfoList();
 		model.addAttribute("infoList", infoList);
 
-		return "/mypage/mypage_info";
+		return "/mypage/mypage_info.temp";
 
 	} // end myList method
 
 	@RequestMapping("/support")
 	public String mypageSupportList(@RequestParam(required = false, defaultValue = "1") int currPage,
-			@RequestParam(required = false, defaultValue = "") String search, Model model) {
+			@RequestParam(required = false, defaultValue = "") String support_search, Model model) {
 
-		int totalCount = service.totalCount(search);
+		int totalCount = service.totalCount(support_search);
 		int pagePerSize = 2;
 		int blockPerSize = 3;
 
 		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
 
-		List<SupportDTO> supportList = service.mypageSupportList(dto.getStartRow(), pagePerSize, search);
-		model.addAttribute("search", search);
+		List<SupportDTO> supportList = service.mypageSupportList(dto.getStartRow(), pagePerSize, support_search);
+		model.addAttribute("support_search", support_search);
 		model.addAttribute("dto", dto);
 		model.addAttribute("supportList", supportList);
-		
-		System.out.println("★★★★★★★★★★ search : " + search);
 
-		return "/mypage/mypage_support";
+		return "/mypage/mypage_support.temp";
 
 	} // end mypageSupportList method
 
