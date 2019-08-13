@@ -60,7 +60,7 @@ public class ProjectController {
 		System.out.println("page : " +page);
 		System.out.println("search : "+search);
 		System.out.println("searchtxt : "+searchtxt);
-		return "project/projectlist";
+		return "project/projectlist.temp";
 	}
 	
 	// 카테고리선택 json ( 프로젝트 등록페이지에서)
@@ -80,7 +80,7 @@ public class ProjectController {
 		List<CategoryDTO> maincategorylist = categoryservice.maincategoryList();		
 		model.addAttribute("mainlist",maincategorylist);		
 		System.out.println("insert : "+model);
-		return "project/project_insert";
+		return "project/project_insert.temp";
 	
 	}
 	
@@ -102,7 +102,7 @@ public class ProjectController {
 		}
 		int result = service.projectInsert(dto);
 		System.out.println("filename : "+dto.getFile().getOriginalFilename() );	
-		return "redirect:/projectlist";
+		return "redirect:/projectlist.temp";
 	}
 	
 }

@@ -24,7 +24,7 @@ public class MypageController {
 		List<MemberDTO> infoList = service.mypageInfoList();
 		model.addAttribute("infoList", infoList);
 
-		return "/mypage/mypage_info";
+		return "/mypage/mypage_info.temp";
 
 	} // end myList method
 	
@@ -34,7 +34,7 @@ public class MypageController {
 		List<SupportDTO> supportList = service.mypageSupportList();
 		model.addAttribute("supportList", supportList);
 		
-		return "/mypage/mypage_support";
+		return "/mypage/mypage_support.temp";
 		
 	} // end mypageSupportList method
 

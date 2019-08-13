@@ -6,26 +6,9 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-<!-- Bootstrap core CSS -->
-  <!-- <link href="resources\vendor\bootstrap\css\bootstrap.min.css" rel="stylesheet"> -->
-  <!-- Custom styles for this template -->    
-   <link href="resources\css\style.css" rel="stylesheet">
-<style type="text/css">
-
-table,th,td{
-border-collapse: collapse;
-border:1px solid;  
-}
-li{
-display: inline-block;
-}
-ul,li{
-list-style: none;
-}
-</style>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+
    <!-- Page Content -->
   <div class="container">
 
@@ -131,19 +114,10 @@ list-style: none;
 		
 		
 		
-		<jsp:include page="footer.jsp"/>
+	
 		
 		
-		 <!-- Bootstrap core JavaScript -->
-  	<script src="resources/vendor/jquery/jquery.min.js"></script>
-  	<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="resources/plugins/common/common.min.js"></script>
-    <script src="resources/js/custom.min.js"></script>
-    <script src="resources/js/settings.js"></script>
-    <script src="resources/js/gleek.js"></script>
-    <script src="resources/js/styleSwitcher.js"></script>    
-    <script src="resources/plugins/highlightjs/highlight.pack.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+		
         
 </body>
 </html>
