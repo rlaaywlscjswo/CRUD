@@ -11,7 +11,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
- 
+	/* $('#default').click();   */
     $("#main_category").on('change',function(){
     	$("#sub_category").empty();
     	console.log($(this).val());
@@ -32,7 +32,7 @@ $(document).ready(function(){
             		
             	});
             }
-        });
+        });        
     });
     
    /*  function checkFile(){
@@ -44,7 +44,8 @@ $(document).ready(function(){
     	 alert("jpg, png 파일만 가능합니다.");
     		return false;
     	}fm.submit();     
-    	} */
+    	} */   	
+    
 });
 </script>
 
@@ -62,7 +63,7 @@ $(document).ready(function(){
  
  <li>
 <label for="main_category">대분류</label>
-<select id="main_category" name="main_category">
+<select id="main_category" name="main_category" id="default">
 <c:forEach var="main" items="${mainlist }">
 <option value="${main.main_category }">${main.main_category }</option>
 </c:forEach>

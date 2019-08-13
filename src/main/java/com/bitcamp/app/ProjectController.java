@@ -33,6 +33,12 @@ public class ProjectController {
 	@Resource(name="categoryservice")
 	private CategoryService categoryservice;
 	
+	@RequestMapping("projectin")
+	public String ininin() {
+		return "project/projectinsert";
+	}
+	
+	
 	// 프로젝트 목록 페이지
 	@RequestMapping("projectlist")
 	public String list(
