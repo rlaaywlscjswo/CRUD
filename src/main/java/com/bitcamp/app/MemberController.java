@@ -52,4 +52,9 @@ public class MemberController {
 		return "/payment/jusoPopup";
 	}
 	
+	@RequestMapping("/success")
+	public String paymentsuccess() {
+		return "/payment/success";
+	}
+	
 }
