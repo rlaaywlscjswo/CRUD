@@ -18,6 +18,7 @@ public class ProjectDTO {
 	private int project_status; // 승인여부
 	private int no; // 회원번호
 	private int category_no; // 카테고리 번호
+	
 	public int getProject_no() {
 		return project_no;
 	}

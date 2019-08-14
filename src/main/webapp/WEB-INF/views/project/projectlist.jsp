@@ -6,6 +6,16 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<style type="text/css">
+#page{
+position: relative;
+
+left: 900px;
+}
+#page li{
+display: inline-block;
+}
+</style>
 </head>
 <body>
 
@@ -25,7 +35,7 @@
 
       </div>
       <!-- /.col-lg-3 -->
-
+<%-- 검색 결과 총 ${total }개 나왔습니다~ --%>
       <div class="col-lg-9">
 
         <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
@@ -54,14 +64,14 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
-
+		<p>검색 결과 총 ${total }개 나왔습니다~ </p>
         <div class="row">
 			
 			
 		<c:forEach var="item" items="${list }">
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <a href="projectdetail=${item.project_no }"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
               <div class="card-body">           
 
 <c:out value="${item.no}"></c:out><br>
@@ -88,11 +98,11 @@
   </div>
   <!-- /.container -->
 
-검색 결과 총 ${total }개 나왔습니다~
+
 
 
 <!-- 페이징 -->
-<ul>		
+<ul id="page">		
 			<li>			
 				<c:if test="${page.prev}">
 			<a href="projectlist?currPage=${page.startBlock-1 }&search=${search}&searchtxt=${searchtxt}">이전</a>	

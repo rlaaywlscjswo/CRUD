@@ -57,7 +57,7 @@ li {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
+$(document).ready(function(){	
 	$('#1').click(function() {
 		 $("#tabcontent").load("project_insert");		
 		$('li').css('background-color', 'white');
@@ -88,7 +88,7 @@ $(document).ready(function(){
 		$(this).css('background-color', 'green');			 
 	});
 
- 
+	
 
 });
 
@@ -97,7 +97,7 @@ $(document).ready(function(){
 <body>
 <div id="container">
 		<ul class="tab">
-			<li id="1" class='tabmenu' ><a href="#">(1)기본 정보</a></li>
+			<li id="1" class='tabmenu'><a href="#">(1)기본 정보</a></li>
 			<li id="2" class='tabmenu'><a href="#">(2)사업자 정보</a></li>
 			<li id="3" class='tabmenu'><a href="#">(3)창작자 정보</a></li>
 			<li id="4" class='tabmenu'><a href="#">(4)프로젝트 설명</a></li>

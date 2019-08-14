@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bitcamp.dto.OptionDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.mapper.ProjectMapper;
 
@@ -35,6 +36,21 @@ public class ProjectServiceImple implements ProjectService {
 	@Override
 	public int projectInsert(ProjectDTO dto) {	
 		return mapper.projectInsert(dto);
+	}
+
+	@Override
+	public List<ProjectDTO> projectcategoryList(String main_category) {		
+		return mapper.projectcategoryList(main_category);
+	}
+
+	@Override
+	public ProjectDTO projectDetail(int project_no) {		
+		return mapper.projectDetail(project_no);
+	}
+
+	@Override
+	public List<OptionDTO> projectoptionList(int project_no) {		
+		return mapper.projectoptionList(project_no);
 	}
 
 }

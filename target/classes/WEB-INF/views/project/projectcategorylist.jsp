@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-카테고리 선택후 나오는 list.jsp
+
+<c:forEach var="list" items="${list }">
+${list.no }<br>
+${list.project_no }<br>
+${list.project_title }<br>
+${list.category_no }<br>
+</c:forEach>
 </body>
-</html>
+</html>	

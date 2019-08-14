@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.junit.runners.Parameterized.Parameter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bitcamp.dto.BusinessDTO;
 import com.bitcamp.dto.CategoryDTO;
+import com.bitcamp.dto.OptionDTO;
 import com.bitcamp.dto.PageDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.service.BusinessService;
@@ -46,8 +48,12 @@ public class ProjectController {
 	}
 	
 	// 프로젝트 카테고리 선택 결과 목록 페이지 
-	@RequestMapping("projectcategorylist")
-	public String categorylist() {
+	@RequestMapping("projectcategorylist={main_category}")
+	public String categorylist(@PathVariable String main_category , Model model) {		
+		System.out.println(main_category);
+		List<ProjectDTO> projectlist = service.projectcategoryList(main_category);
+		model.addAttribute("list", projectlist);
+		System.out.println("나와라ㅏㅏㅏㅏㅏ");
 		return "project/projectcategorylist.temp";
 	}
 	
@@ -63,9 +69,7 @@ public class ProjectController {
 		int pageSize =9;
 		int blockSize = 5;
 		PageDTO page = new PageDTO(currPage, totalCount, pageSize, blockSize);
-		List<ProjectDTO> projectlist = service.projectList(searchtxt.trim(),page.getStartRow(), page.getEndRow());
-		List<CategoryDTO> maincategorylist = categoryservice.maincategoryList();		
-		model.addAttribute("mainlist",maincategorylist);		
+		List<ProjectDTO> projectlist = service.projectList(searchtxt.trim(),page.getStartRow(), page.getEndRow());	
 		model.addAttribute("list",projectlist);
 		model.addAttribute("page", page);
 	
@@ -134,4 +138,20 @@ public class ProjectController {
 		return "redirect:/projectlist.temp";
 	}
 	
+	// 프로젝트 상세 페이지
+	@RequestMapping("projectdetail={project_no}")
+	public String projectdetail(@PathVariable int project_no, Model model) {		
+		ProjectDTO detail = service.projectDetail(project_no);
+		List<OptionDTO> option= service.projectoptionList(project_no);
+		model.addAttribute("list", detail);
+		model.addAttribute("option", option);
+		return "project/projectdetail.temp";
+	}
+	
+	@RequestMapping("projectoption={project_no}")
+	public String projectoption(@PathVariable int project_no, Model model) {
+		List<OptionDTO> option = service.projectoptionList(project_no);
+		model.addAttribute("option", option);
+		return "project/projectoption.temp";
+	}
 }
