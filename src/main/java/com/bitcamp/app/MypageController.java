@@ -48,5 +48,12 @@ public class MypageController {
 		return "/mypage/mypage_support.temp";
 
 	} // end mypageSupportList method
+	
+	@RequestMapping("/mypro")
+	public String theNumbersOfMyProject() {
+		
+		return "/mypage/mypage_project.temp";
+		
+	} // end theNumbersOfMyProject method
 
 } // end MyController class

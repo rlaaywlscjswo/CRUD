@@ -17,5 +17,6 @@ public interface MypageMapper {
 
 	public List<SupportDTO> mypageSupportList(HashMap<String, Object> hm);
 
+	public int theNumbersOfMyProject();
 
 } // end MypageMapper interface

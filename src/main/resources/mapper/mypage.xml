@@ -5,13 +5,22 @@
 
 <mapper namespace="com.bitcamp.mapper.MypageMapper">
 
-	<parameterMap type="java.util.HashMap" id="hashmap" />
+	<!-- 마이 페이지 - 내 정보 설정 -->
 
 	<resultMap type="com.bitcamp.dto.MemberDTO" id="mdto">
 		<result column="no" property="no" />
 		<result column="name" property="name" />
 		<result column="email" property="email" />
 	</resultMap>
+
+	<select id="mypageInfoList" resultMap="mdto">
+		select name, email from
+		member
+	</select>
+
+	<!-- 마이 페이지 - 내 후원 현황 -->
+
+	<parameterMap type="java.util.HashMap" id="hashmap" />
 
 	<resultMap type="hashMap" id="sdto">
 		<result column="support_date" property="da" />
@@ -21,11 +30,13 @@
 		<result column="option_name" property="option_name" />
 		<result column="option_price" property="option_price" />
 	</resultMap>
-	
+
 	<select id="totalCount" resultType="int" parameterMap="hashmap">
 		select count(*)
-		from project join `option` on project.project_no = `option`.project_no
-		join support on `option`.option_no = support.option_no
+		from project join `option` on project.project_no =
+		`option`.project_no
+		join support on `option`.option_no =
+		support.option_no
 		<where>
 			<if test="support_search!=null and support_search!=''">
 				and project_title like CONCAT('%',#{support_search},'%')
@@ -33,21 +44,32 @@
 		</where>
 	</select>
 
-	<select id="mypageInfoList" resultMap="mdto">
-		select name, email from	member
-	</select>
-
-	<select id="mypageSupportList" resultMap="sdto" parameterMap="hashmap">
-		select date_format(support_date, '%y년 %c월 %e일') as da, 
-		project_photo, support_status, project_title, `option`.option_no, option_price
-		from project join `option` on project.project_no = `option`.project_no
-		join support on `option`.option_no = support.option_no 		
+	<select id="mypageSupportList" resultMap="sdto"
+		parameterMap="hashmap">
+		select date_format(support_date, '%y년 %c월 %e일') as da,
+		project_photo,
+		support_status, project_title, `option`.option_no, option_price
+		from
+		project join `option` on project.project_no = `option`.project_no
+		join
+		support on `option`.option_no = support.option_no
 		<where>
 			<if test="support_search!=null and support_search!=''">
 				and project_title like CONCAT('%',#{support_search},'%')
 			</if>
 		</where>
 		limit #{startRow}, #{pagePerSize}
+	</select>
+	
+	<!-- 마이 페이지 - 내 프로젝트 -->
+	
+	<select id="theNumbersOfMyProject" resultType="int">
+		select count(project_title)
+		from project join member
+		on project.no = member.no
+		<where>
+			and member.no = 2
+		</where>
 	</select>
 
 </mapper>

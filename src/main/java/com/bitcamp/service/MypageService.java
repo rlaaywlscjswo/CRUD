@@ -12,5 +12,6 @@ public interface MypageService {
 
 	public List<SupportDTO> mypageSupportList(int startRow, int pagePerSize, String support_search);
 
-
+	public int theNumbersOfMyProject();
+	
 } // end MypageService interface

@@ -47,5 +47,12 @@ public class MypageServiceImple implements MypageService {
 		return mypageMapper.mypageSupportList(hm);
 		
 	} // end mypageSupportList method
+	
+	@Override
+	public int theNumbersOfMyProject() {
+		
+		return mypageMapper.theNumbersOfMyProject();
+		
+	} // end theNumbersOfMyProject method
 
 } // end MypageServiceImple class
