@@ -74,10 +74,11 @@ display: inline-block;
               <a href="projectdetail=${item.project_no }"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
               <div class="card-body">           
 
-<c:out value="${item.name}"></c:out><br>
-<c:out value="${item.project_no }"></c:out><br>
-<c:out value="${item.project_title }"></c:out><br>
-<c:out value="${item.category_no }"></c:out><br>		
+				이름:<c:out value="${item.name}"></c:out><br>
+				프로젝트번호:<c:out value="${item.project_no }"></c:out><br>
+				프로젝트제목:<c:out value="${item.project_title }"></c:out><br>
+				카테고리번호:<c:out value="${item.category_no }"></c:out><br>
+				조회수:<c:out value="${item.project_views }"></c:out><br>		
               </div>
               <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
