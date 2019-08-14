@@ -36,7 +36,7 @@ public class MemberController {
 		int result = memberService.memberAdd(dto);
 		return "redirect:main";
 	}
-	
+	 
 	@RequestMapping(value = "/emailcheck", method=RequestMethod.POST)
 	public @ResponseBody int eamilcheck(@RequestBody String email) {
 		int result  = memberService.emailCheck(email);
