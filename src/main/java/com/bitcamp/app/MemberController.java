@@ -43,5 +43,13 @@ public class MemberController {
 		return result;
 	}
 	
+	@RequestMapping("/pay")
+	public String pay() {
+		return "/payment/pay";
+	}
+	@RequestMapping("/jusoPopup")
+	public String jusoPopup() {
+		return "/payment/jusoPopup";
+	}
 	
 }

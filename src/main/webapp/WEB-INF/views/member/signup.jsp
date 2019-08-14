@@ -281,7 +281,7 @@ margin-top: 50px;
 <script>
 $(document).ready(function(){
 	// 이메일 체크
-    $("#email").on("keyup", function(){
+    $("#email").on("keyup", function email(){
     	let email=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     	let emailcheck = $('#emailcheck');
 		if(document.getElementById("email").value.length < 3){
@@ -419,6 +419,7 @@ $(document).ready(function(){
 		  monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] // 월의 한글 형식.
 		 });
 	});
+	
 	
 });
 </script>
