@@ -4,47 +4,39 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.mapper.ProjectMapper">
 
-<!-- total -->
+	<!-- total -->
 	<select id="totalCount" resultType="int"
 		parameterType="java.util.HashMap">
 		select count(*) from project
 		<where>
 			<if test="searchtxt !=null and searchtxt !='' ">
-				<if test="search.equals('project_title')">
-					project_title like CONCAT('%',#{searchtxt},'%')
-				</if>
-				<if test="search.equals('no')">
-					no like CONCAT('%',#{searchtxt},'%')
-				</if>
+				and project_title like CONCAT('%',#{searchtxt},'%')
 			</if>
-		</where>	
+		</where>
 		order by project_no
 	</select>
 
 	<select id="projectList" resultType="com.bitcamp.dto.ProjectDTO"
-		parameterType="java.util.HashMap">	
-	 select no,project_no,project_title,category_no            
-     from project   
-    	<where>
+		parameterType="java.util.HashMap">
+		select no,project_no,project_title,category_no
+		from project
+		<where>
 			<if test="searchtxt !=null and searchtxt !='' ">
-				<if test="search.equals('project_title')">
-					project_title like CONCAT('%',#{searchtxt},'%')
-				</if>
-				<if test="search.equals('no')">
-					no like CONCAT('%',#{searchtxt},'%')
-				</if>
+				and project_title like CONCAT('%',#{searchtxt},'%')
 			</if>
-		</where>	
-     order by project_no
-     limit #{startRow}, 10
+		</where>
+		order by project_no
+		limit #{startRow},9
 	</select>
-	
-	<insert id="projectInsert" parameterType="com.bitcamp.dto.ProjectDTO">
-	insert into project
-	(no,project_title,project_photo,category_no) values(1,#{project_title},#{project_photo},#{category_no})
+
+	<insert id="projectInsert"
+		parameterType="com.bitcamp.dto.ProjectDTO">
+		insert into project (project_title, project_photo, targetprice, introduce,
+		startdate, enddate, payment_date, project_contents, no, category_no)
+		values(#{project_title}, #{project_photo}, 10000, '소개글', '2019-08-20',
+		'2019-09-20', '2019-10-01', '테스트.pdf', 2, #{category_no})
 	</insert>
 
-	
 
 </mapper>
     

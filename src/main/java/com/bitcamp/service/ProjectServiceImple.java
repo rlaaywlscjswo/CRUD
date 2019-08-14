@@ -15,17 +15,17 @@ public class ProjectServiceImple implements ProjectService {
 	private ProjectMapper mapper;
 	
 	@Override
-	public int totalCount(String search, String searchtxt) {
+	public int totalCount(String searchtxt) {
 		HashMap<String, Object> dto = new HashMap<>();
-		dto.put("search", search);
+	
 		dto.put("searchtxt",searchtxt);
 		return mapper.totalCount(dto);
 	}
 
 	@Override
-	public List<ProjectDTO> projectList(String search, String searchtxt, int startRow, int endRow) {
+	public List<ProjectDTO> projectList(String searchtxt, int startRow, int endRow) {
 		HashMap<String, Object> dto = new HashMap<>();
-		dto.put("search", search);
+	
 		dto.put("searchtxt",searchtxt);
 		dto.put("startRow",startRow);
 		dto.put("endRow", endRow);
