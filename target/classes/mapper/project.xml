@@ -4,6 +4,15 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.mapper.ProjectMapper">
 
+
+	<!-- list resultmap -->
+	<resultMap type="hashMap" id="listdto">
+	<result column="name" property="name"/>
+	<result column="project_no" property="project_no"/>
+	<result column="project_title" property="project_title"/>
+	<result column="category_no" property="category_no"/>	
+	</resultMap>
+
 	<!-- detail resultmap -->
 	<resultMap type="hashMap" id="optdto">
 	<result column="option_no" property="option_no"/>
@@ -17,22 +26,24 @@
    <!-- total -->
    <select id="totalCount" resultType="int"
       parameterType="java.util.HashMap">
-      select count(*) from project
+     select count(*)
+		from project join member
+		on project.no=member.no
       <where>
          <if test="searchtxt !=null and searchtxt !='' ">
-            and project_title like CONCAT('%',#{searchtxt},'%')
-         </if>
-      </where>
-      order by project_no
+           and project.project_title like CONCAT('%',#{searchtxt},'%')   or member.name like CONCAT('%',#{searchtxt},'%')        
+         </if>         
+      </where>   
    </select>
 
-   <select id="projectList" resultType="com.bitcamp.dto.ProjectDTO"
+   <select id="projectList" resultMap="listdto"
       parameterType="java.util.HashMap">
-      select no,project_no,project_title,category_no
-      from project
+      	select member.name,project_no,project_title,category_no     
+		from project join member
+		on project.no=member.no
       <where>
          <if test="searchtxt !=null and searchtxt !='' ">
-            and project_title like CONCAT('%',#{searchtxt},'%')
+             and project.project_title like CONCAT('%',#{searchtxt},'%')   or  member.name like CONCAT('%',#{searchtxt},'%')    
          </if>
       </where>
       order by project_no
