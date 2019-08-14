@@ -7,7 +7,7 @@ public class OptionDTO {
 	private int option_price; // 가격
 	private String option_contents; // 내용
 	private int option_quantity; // 수량
-
+	//private int project_no; // 프로젝트 번호
 	public int getOption_no() {
 		return option_no;
 	}

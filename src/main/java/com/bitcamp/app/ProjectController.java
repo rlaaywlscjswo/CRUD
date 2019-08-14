@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.bitcamp.dto.BusinessDTO;
 import com.bitcamp.dto.CategoryDTO;
 import com.bitcamp.dto.PageDTO;
 import com.bitcamp.dto.ProjectDTO;
+import com.bitcamp.service.BusinessService;
 import com.bitcamp.service.CategoryService;
 import com.bitcamp.service.ProjectService;
 
@@ -33,32 +35,44 @@ public class ProjectController {
 	@Resource(name="categoryservice")
 	private CategoryService categoryservice;
 	
+	@Resource(name="businessservice")
+	private BusinessService businessservice;
+	
+	
+	
 	@RequestMapping("projectin")
 	public String ininin() {
 		return "project/projectinsert.temp";
 	}
 	
+	// 프로젝트 카테고리 선택 결과 목록 페이지 
+	@RequestMapping("projectcategorylist")
+	public String categorylist() {
+		return "project/projectcategorylist.temp";
+	}
 	
-	// 프로젝트 목록 페이지
+	
+	// 프로젝트 검색 결과 목록 페이지
 	@RequestMapping("projectlist")
-	public String list(
-			@RequestParam(required=false, defaultValue="") String search,
+	public String list(			
 			@RequestParam(required=false, defaultValue="") String searchtxt,
 			@RequestParam(required = false, defaultValue = "1") int currPage,
 			Model model
 			) {
-		int totalCount = service.totalCount(search, searchtxt);
-		int pageSize =10;
+		int totalCount = service.totalCount(searchtxt);
+		int pageSize =9;
 		int blockSize = 5;
 		PageDTO page = new PageDTO(currPage, totalCount, pageSize, blockSize);
-		List<ProjectDTO> projectlist = service.projectList(search.trim(), searchtxt.trim(),page.getStartRow(), page.getEndRow());
+		List<ProjectDTO> projectlist = service.projectList(searchtxt.trim(),page.getStartRow(), page.getEndRow());
+		List<CategoryDTO> maincategorylist = categoryservice.maincategoryList();		
+		model.addAttribute("mainlist",maincategorylist);		
 		model.addAttribute("list",projectlist);
 		model.addAttribute("page", page);
-		model.addAttribute("search",search);
+	
 		model.addAttribute("searchtxt",searchtxt);
-		
+		model.addAttribute("total", totalCount);
 		System.out.println("page : " +page);
-		System.out.println("search : "+search);
+		
 		System.out.println("searchtxt : "+searchtxt);
 		return "project/projectlist.temp";
 	}
@@ -83,6 +97,11 @@ public class ProjectController {
 		return "project/project_insert"; 
 	
 	}
+	// 프로젝트 등록 페이지 2
+	@RequestMapping("project_insert2")
+	public String projectinsert2() {
+		return "project/project_insert2";
+	}
 	
 	// 프로젝트 등록 결과 
 	@RequestMapping("projectresult")
@@ -104,6 +123,14 @@ public class ProjectController {
 		}
 		int result = service.projectInsert(dto);
 		System.out.println("filename : "+dto.getFile().getOriginalFilename() );	
+		return "redirect:/projectlist.temp";
+	}
+	
+	// 프로젝트 등록 결과2
+	@RequestMapping("projectresult2")
+	public String projectinsertresult2(BusinessDTO dto) {
+		int result = businessservice.businessInsert(dto);
+		System.out.println(dto.getBusiness_name());
 		return "redirect:/projectlist.temp";
 	}
 	

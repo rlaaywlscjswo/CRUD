@@ -30,7 +30,11 @@ $(document).ready(function(){
             		
             	});
             }
-        });        
+        });  
+        
+        
+      
+        
     });
     
    /*  function checkFile(){
@@ -54,7 +58,7 @@ $(document).ready(function(){
 
 
 
- <form name="file" method="post" action="projectresult" enctype="multipart/form-data">
+ <form  name="file" method="post" action="projectresult" enctype="multipart/form-data">
  
  <ul>
  
@@ -90,6 +94,8 @@ $(document).ready(function(){
  </li>
  </ul> 
  </form>
+
+
 
 </body>
 </html>
