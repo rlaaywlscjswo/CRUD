@@ -5,6 +5,7 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+
 <style>
 #container {  
 	width: 960px;
@@ -52,18 +53,42 @@ li {
 }
 }
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
+$(document).ready(function(){	
 	$('#1').click(function() {
 		 $("#tabcontent").load("project_insert");		
 		$('li').css('background-color', 'white');
-		$(this).css('background-color', 'green');		
-		 
+		$(this).css('background-color', 'green');		 
+	});
+	
+	$('#2').click(function() {
+		 $("#tabcontent").load("project_insert2 #2");		
+		$('li').css('background-color', 'white');
+		$(this).css('background-color', 'green');			 
+	});
+	
+	$('#3').click(function() {
+		 $("#tabcontent").load("project_insert2 #3");		
+		$('li').css('background-color', 'white');
+		$(this).css('background-color', 'green');			 
+	});
+	
+	$('#4').click(function() {
+		 $("#tabcontent").load("project_insert2 #4");		
+		$('li').css('background-color', 'white');
+		$(this).css('background-color', 'green');			 
+	});
+	
+	$('#5').click(function() {
+		 $("#tabcontent").load("project_insert2 #5");		
+		$('li').css('background-color', 'white');
+		$(this).css('background-color', 'green');			 
 	});
 
- 
+	
 
 });
 
@@ -72,13 +97,22 @@ $(document).ready(function(){
 <body>
 <div id="container">
 		<ul class="tab">
-			<li id="1" class='tabmenu' ><a href="#">TabExample1</a></li>
-			<li class='tabmenu'><a href="#">TabExample2</a></li>
-			<li class='tabmenu'><a href="#">TabExample3</a></li>
+			<li id="1" class='tabmenu'><a href="#">(1)기본 정보</a></li>
+			<li id="2" class='tabmenu'><a href="#">(2)사업자 정보</a></li>
+			<li id="3" class='tabmenu'><a href="#">(3)창작자 정보</a></li>
+			<li id="4" class='tabmenu'><a href="#">(4)프로젝트 설명</a></li>
+			<li id="5" class='tabmenu'><a href="#">(5)옵션 설정</a></li>
 		</ul>
 		<div id="tabcontent"></div>
 	</div>
 
+<script>
+      $('#summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 400
+      });
+    </script>
 
 </body>
 </html>

@@ -60,16 +60,47 @@
 		</where>
 		limit #{startRow}, #{pagePerSize}
 	</select>
-	
+
 	<!-- 마이 페이지 - 내 프로젝트 -->
-	
+
 	<select id="theNumbersOfMyProject" resultType="int">
 		select count(project_title)
 		from project join member
-		on project.no = member.no
+		on project.no =
+		member.no
 		<where>
 			and member.no = 2
 		</where>
+	</select>
+
+	<resultMap type="hashMap" id="mpdto">
+		<result column="project_no" property="pno" />
+		<result column="project_photo" property="project_photo" />
+		<result column="enddate" property="liter" />
+		<result column="project_title" property="project_title" />
+		<result column="option_no" property="opp" />
+		<result column="option_price" property="option_price" />
+	</resultMap>
+
+	<select id="theNumberOfMyProject" resultMap="mpdto">
+		select project_no from project
+		<where>
+			and no = 2
+		</where>
+	</select>
+
+
+	<!-- select project_no, project_title, to_days(enddate) - to_days(startdate) 
+		as 'liter', project_photo from project -->
+
+	<select id="propropro" resultMap="mpdto">
+		select project.project_no, project_title
+		, project_photo
+		, concat (to_days(enddate) - to_days(startdate), '일')
+		, sum(option_price)
+		from project join `option` on project.project_no = `option`.project_no
+		where project.project_no = 18
+		group by project.project_no
 	</select>
 
 </mapper>

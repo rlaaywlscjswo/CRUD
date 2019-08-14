@@ -36,12 +36,25 @@ public class MemberController {
 		int result = memberService.memberAdd(dto);
 		return "redirect:main";
 	}
-	
+	 
 	@RequestMapping(value = "/emailcheck", method=RequestMethod.POST)
 	public @ResponseBody int eamilcheck(@RequestBody String email) {
 		int result  = memberService.emailCheck(email);
 		return result;
 	}
 	
+	@RequestMapping("/pay")
+	public String pay() {
+		return "/payment/pay";
+	}
+	@RequestMapping("/jusoPopup")
+	public String jusoPopup() {
+		return "/payment/jusoPopup";
+	}
+	
+	@RequestMapping("/success")
+	public String paymentsuccess() {
+		return "/payment/success";
+	}
 	
 }

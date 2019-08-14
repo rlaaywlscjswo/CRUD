@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 
 import com.bitcamp.dto.MemberDTO;
+import com.bitcamp.dto.OptionDTO;
+import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
 import com.bitcamp.mapper.MypageMapper;
 
@@ -54,5 +56,19 @@ public class MypageServiceImple implements MypageService {
 		return mypageMapper.theNumbersOfMyProject();
 		
 	} // end theNumbersOfMyProject method
+
+	@Override
+	public List<ProjectDTO> theNumberOfMyProject() {
+
+		return mypageMapper.theNumberOfMyProject();
+		
+	} // end myProjectList method
+
+	@Override
+	public List<OptionDTO> propropro() {
+
+		return mypageMapper.propropro();
+		
+	} // end allOfSupport method
 
 } // end MypageServiceImple class

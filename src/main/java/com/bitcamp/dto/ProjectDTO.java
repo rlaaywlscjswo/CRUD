@@ -5,10 +5,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProjectDTO {
 	private int project_no; // 프로젝트 번호
 	private String project_title; // 프로젝트 제목
-	private MultipartFile file; // 프로젝트 대표사진
-	private String project_photo;
+	private MultipartFile file; // 프로젝트 대표사진 파일
+	private String project_photo; // 프로젝트 대표사진 파일명
 	private int targetprice; // 달성금액
-	private String introduce; // 소개글
+	private String introduce; // 창작자 소개글
 	private String startdate; // 시작일
 	private String enddate; // 종료일
 	private String payment_date; // 지불날짜
@@ -18,6 +18,7 @@ public class ProjectDTO {
 	private int project_status; // 승인여부
 	private int no; // 회원번호
 	private int category_no; // 카테고리 번호
+	
 	public int getProject_no() {
 		return project_no;
 	}

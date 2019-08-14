@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bitcamp.dto.MemberDTO;
+import com.bitcamp.dto.OptionDTO;
 import com.bitcamp.dto.PagingDTO;
+import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
 import com.bitcamp.service.MypageService;
 
@@ -50,7 +52,16 @@ public class MypageController {
 	} // end mypageSupportList method
 	
 	@RequestMapping("/mypro")
-	public String theNumbersOfMyProject() {
+	public String theNumbersOfMyProject(Model model) {
+		
+		int myProject = service.theNumbersOfMyProject();
+		List<ProjectDTO> theNumberOfMyProject = service.theNumberOfMyProject();
+		List<OptionDTO> propropro = service.propropro();
+		System.out.println("★★★★★★★★★★ propropro : " + propropro);
+		
+		model.addAttribute("myProject", myProject);
+		model.addAttribute("theNumberOfMyProject", theNumberOfMyProject);
+		model.addAttribute("propropro", propropro);
 		
 		return "/mypage/mypage_project.temp";
 		

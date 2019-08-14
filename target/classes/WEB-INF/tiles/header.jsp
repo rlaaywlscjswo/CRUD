@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,12 +53,7 @@
        
        
         <nav class="navbar navbar-light bg-light">
-            <form  class="form-inline" method="get" action="/projectlist?currPage=${page.startBlock }">          
-               <select class="option" id="search" name="search">
-				<option value="project_title">제목</option>
-				<option value="no">회원번호</option>
-				</select>
-               
+            <form  class="form-inline" method="get" action="/projectlist?currPage=${page.startBlock }">                        
                 <input type="text" id="searchtxt" name="searchtxt" class="searchform" placeholder="검색하세요!">
                 <button class="btn btn-sm btn-outline-secondary" type="submit">Search</button> 
                  
@@ -68,30 +64,19 @@
   
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">      
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">                
+            <ul class="navbar-nav mr-auto">  
+                       
+                
                 <li class="nav-item">
-                    <a class="nav-link" href="#">대분류1</a>
-                </li>              
-                <li class="nav-item">
-                    <a class="nav-link" href="#">대분류2</a>
-                </li> 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">대분류3</a>
-                </li> 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">대분류4</a>
-                </li> 
-                <li class="nav-item">
-                    <a class="nav-link" href="#">대분류5</a>
-                </li> 
+                    <a class="nav-link" href="projectcategorylist=게임">게임</a>
+                </li>	
+			  
                   <li class="nav-item">
-                    <a class="nav-link" href="#">대분류6</a>
-                </li> 
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">대분류7</a>
-                </li> 
+                    <a class="nav-link" href="projectcategorylist=패션">패션</a>
+                </li>	         
+               
             </ul>
-            <a href="project_insert"><button type="button" class="btn btn-light">프로젝트 등록하러가기</button></a>
+            <a href="projectin"><button type="button" class="btn btn-light">프로젝트 등록하러가기</button></a>
            <button type="button" class="btn btn-light">쪽지함</button>
            <button type="button" class="btn btn-light">고객센터</button>
         </div>
