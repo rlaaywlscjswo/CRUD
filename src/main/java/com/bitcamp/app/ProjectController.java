@@ -41,6 +41,10 @@ public class ProjectController {
 	@Resource(name="businessservice")
 	private BusinessService businessservice;
 	
+	@RequestMapping("main")
+	public String main() {
+		return "main";
+	}
 	
 	
 /*	@RequestMapping("projectin")

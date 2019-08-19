@@ -169,48 +169,101 @@ $(function () {
         <!-- #tab1 -->
         
         <div id="tab2" class="tab_content">
-        
+        <ul>
+        <li>
         <label for="business_name">사업자명</label>
  		<input type="text" id="business_name" name="business_name">
- 
+ 		</li>
+ 		
+ 		<li>
  		<label for="business_division">사업자 구분</label>
  		<input type="radio" name="business_division" value="개인">개인<br>
  		<input type="radio" name="business_division" value="법인">법인<br>
-
+		</li> 
+		
+		<li>
  		<label for="business_addr">소재지</label>
  		<input type="text" id="business_addr" name="business_addr">
- 
+ 		</li>
+ 		
+ 		<li> 		
  		<label for="business_startdate">법인설립연월일</label>
  		<input type="text" id="business_startdate" name="business_startdate">
- 
+ 		</li>
+ 		
+ 		<li>
  		<label for="business_url">홈페이지</label>
  		<input type="text" id="business_url" name="business_url">
-
+ 		</li>
+		</ul>
 		
         
         </div>
         <!-- #tab2 -->
-        
+    
         <div id="tab3" class="tab_content">
-        <label for="">창작자 이름</label>
-		<label for="">창작자 프로필사진</label>
-		<label for="">창작자 소개</label>
+        
+        <ul>
+        
+        <li>
+        <label for="alias">창작자 이름</label>
+        <input type="text" id="alias" name="alias">
+        </li>
+        
+        <li>        
+		<label for="image">창작자 프로필사진</label>
+		<input type="file" id="image" name="image">
+		</li>
+		
+		<li>
+		<label for="introduce">창작자 소개</label>
+		<textarea id="introduce" name="introduce"></textarea>
+		</li>
+		
+		</ul>
+		
         </div>
         
         <!-- #tab3 -->
         
     	<div id="tab4" class="tab_content">
+    	
     	<div id="gide" style="border: 1px solid; width: 100%; height: 200px; margin: auto;">
 		<h1>작성가이드</h1>
 		</div>
-		<textarea id="summernote"></textarea>
+		<textarea id="summernote" name="summernote"></textarea>
     	</div>
     	
     	<!-- #tab4 -->
     	
     	<div id="tab5" class="tab_content">
-    	<h1>옵션설정</h1>
+    	<ul>
     	
+    	<li>
+    	<label for="option_name">옵션명</label>
+    	<input type="text" id="option_name" name="option_name">
+    	</li>
+    	
+    	<li>
+    	<label for="option_price">가격</label>
+    	<input type="text" id="option_price" name="option_price">
+    	</li>
+    	
+    	<li>
+    	<label for="option_contents">내용</label>
+    	<textarea id="option_contents" name="option_contents"></textarea>
+    	</li>
+    	
+    	<li>
+    	<label for="option_quantity">수량</label>
+    	<input type="text" id="option_quantity" name="option_quantity">
+    	</li>
+    	
+    	<li>
+    	<input type="submit" value="등록하기">
+    	</li>
+    	
+    	</ul>
     	</div>
     	
     	<!-- #tab5 -->
