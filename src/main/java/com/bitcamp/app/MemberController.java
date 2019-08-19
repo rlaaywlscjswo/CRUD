@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bitcamp.dto.AddressDTO;
 import com.bitcamp.dto.MemberDTO;
+import com.bitcamp.dto.OptionDTO;
 import com.bitcamp.service.MemberService;
 
 @Controller
@@ -43,8 +47,17 @@ public class MemberController {
 		return result;
 	}
 	
-	@RequestMapping("/pay")
-	public String pay() {
+	@RequestMapping(value = "/pay", method=RequestMethod.POST)
+	public String pay(OptionDTO odto, MemberDTO mdto, @RequestParam String alias, Model model) {
+		AddressDTO adto = memberService.address(mdto.getNo());
+		//System.out.println(adto.getRoadaddr());
+		model.addAttribute("opt", odto);
+		//로그인 완료 후에 변경해야하는곳. (MemberDTO 받아오는 방식 변경 예정.)
+		mdto.setName("이찬영");
+		mdto.setEmail("joy23456@naver.com");
+		model.addAttribute("member", mdto);
+		model.addAttribute("addr", adto);
+		model.addAttribute("alias", alias);
 		return "/payment/pay";
 	}
 	@RequestMapping("/jusoPopup")
@@ -53,7 +66,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/success")
-	public String paymentsuccess() {
+	public String paymentsuccess(@RequestParam String addrs) {
+		System.out.println(addrs);
 		return "/payment/success";
 	}
 	

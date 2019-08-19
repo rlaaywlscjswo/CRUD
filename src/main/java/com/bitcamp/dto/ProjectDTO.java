@@ -8,6 +8,7 @@ public class ProjectDTO {
 	private MultipartFile file; // 프로젝트 대표사진 파일
 	private String project_photo; // 프로젝트 대표사진 파일명
 	private int targetprice; // 달성금액
+	private String alias; // 별칭
 	private String introduce; // 창작자 소개글
 	private String startdate; // 시작일
 	private String enddate; // 종료일
@@ -30,6 +31,12 @@ public class ProjectDTO {
 	}
 	public void setProject_title(String project_title) {
 		this.project_title = project_title;
+	}
+	public String getAlias() {
+		return alias;
+	}
+	public void setAlias(String alias) {
+		this.alias = alias;
 	}
 	public MultipartFile getFile() {
 		return file;

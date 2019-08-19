@@ -3,6 +3,7 @@ package com.bitcamp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bitcamp.dto.AddressDTO;
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.mapper.MemberMapper;
 
@@ -22,6 +23,11 @@ public class MemberServiceImple implements MemberService {
 		System.out.println("서비스에서 생일 : "+dto.getBirth());
 		System.out.println("서비스에서 연락처 : "+dto.getPhone());
 		return mapper.memberAdd(dto);
+	}
+
+	@Override
+	public AddressDTO address(int no) {
+		return mapper.address(no);
 	}
 
 }

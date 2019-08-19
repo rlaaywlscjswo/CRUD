@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,14 +28,14 @@ function goPopup(){
 }
 
 
-//function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,zipNo,jibunAddr, engAddr ,admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
+//function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,zipno,jibunAddr, engAddr ,admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
 		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-function jusoCallBack(roadAddrPart1, addrDetail, roadAddrPart2, jibunAddr, zipNo){		
+function jusoCallBack(roadAddrPart1, addrDetail, roadAddrPart2, jibunAddr, zipno){		
 
 		document.form.roadAddrPart1.value = roadAddrPart1;
 		document.form.roadAddrPart2.value = roadAddrPart2;
 		document.form.addrDetail.value = addrDetail;
-		document.form.zipNo.value = zipNo;
+		document.form.zipno.value = zipno;
 		document.form.jibunAddr.value = jibunAddr;
 		
 		// 전체 주소
@@ -53,20 +54,48 @@ function addr(val){
 </script>
 <script>
 $(document).ready(function(){
-	var paymethod = "card";	
 	
+	window.onload=function addComma() {
+		let num = ${opt.option_price}; //$(".price").text(); 		
+		var regexp = /\B(?=(\d{3})+(?!\d))/g;
+		$(".price").text(num.toString().replace(regexp, ','));
+		//return num.toString().replace(regexp, ',');
+	}
+	
+	//기존 배송지 주소가 있으면, 기본 배송지 선택 없으면 신규 배송지 선택 (라디오 버튼 선택)
+	let addr = "${addr.roadaddr}";
+	if(!addr == null || !addr == "" || !addr == "undefined" ) {
+		$("#basicaddr").prop("checked", true).prop("disabled", false);
+	} else {
+		$("#newaddr").prop("checked", true);
+	}
+	
+	$("input[name='addrs']").change(function addr_change() {
+		//기본 배송지 클릭시 자동 완성, 신규 배송지 클릭시 텍스트창 클리어!
+		if($("input[name='addrs']:checked").val() == "basicaddr" ){
+			$("#address_name").val("${addr.address_name}");
+			$("#address_photo").val("${addr.address_photo }");
+			$("#alias").val("${addr.alias }");
+			$("#zipno").val("${addr.zipno}");
+			$("#addrDetail").val("${addr.addrDetail}");
+			$("#fulladdr").val("${addr.roadaddr }, ${addr.addrDetail}");
+			$("input[name='addr_add']").prop("checked", false);
+		} else {
+			$("#address_name").val("");
+			$("#address_photo").val("");
+			$("#alias").val("");
+			$("#zipno").val("");
+			$("#addrDetail").val("");
+			$("#fulladdr").val("");
+			$("input[name='addr_add']").prop("checked", true);
+		}
+	});
+	
+	//결제 수단 선택
+	var paymethod = "card";	
 	$("#option").on('change', function() {
 		console.log($(this).val());
 		$("#options").val($(this).val());
-	});
-	
-	/* $("#payselect").on('change', function() {
-		paymethod = $(this).val();
-		console.log(paymethod);
-	}); */
-	
-	$("#newaddr").on('change', function() {
-		
 	});
 	
 	// 결제 방법
@@ -77,22 +106,25 @@ $(document).ready(function(){
 		requestPay(paymethod);
 	});
 		
-	
-// 결제
-var IMP = window.IMP; // 생략가능
-IMP.init('iamport'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-function requestPay(paymethod) {
-	let option = parseInt($("#option_price").text()); // 상품 가격
-	let delivery = parseInt($("#delivery_pay").text()); // 배송비
-	console.log(delivery+option);
+	// 결제
+	var IMP = window.IMP; // 생략가능
+	IMP.init('iamport'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+	function requestPay(paymethod) {
+		let option = parseInt($("#option_price").text()); // 상품 가격
+		let del = $("#delivery_pay").text();
+		let delivery = parseInt($("#delivery_pay").text()); // 배송비
+		/* let delivery = function removeComma(del) {
+			n = parseInt(str.replace(/,/g,""));
+			return n;
+		} */ 
 	IMP.request_pay({
 	    pg : 'inicis',  
 	    pay_method : paymethod,  
 	    merchant_uid : 'merchant_' + new Date().getTime(),
-	    name : $("#option_name").val(),			// 상품명
-	    amount : delivery + option, 			// 결제 금액
-	    buyer_email : 'iamport@siot.do', 		// 메일주소
-	    buyer_name : $("#name").val(), 			// 구매자 이름
+	    name : "${opt.option_name}",			// 상품명
+	    amount : ${opt.option_price} + delivery,// 결제 금액
+	    buyer_email : "${member.email}", 		// 메일주소
+	    buyer_name : $("#address_name").val(),	// 구매자 이름
 	    buyer_tel : $("#address_photo").val(),	// 구매자 연락처
 	    buyer_addr : $("#fulladdr").val(),		// 구매자 주소
 	    buyer_postcode : $("#zipno").val(),		// 구매자 우편번호
@@ -146,10 +178,10 @@ function requestPay(paymethod) {
 		</thead>
 		<tbody>
 			<tr>
-				<td>프로젝트 옵션1</td>
-				<td>홍길동</td>
+				<td>${opt.option_name }</td>
+				<td>${alias}</td>
 				<td id="delivery_pay">2500</td>
-				<td id="option_price">10000</td>
+				<td id="option_price" class="price">${opt.option_price }</td>
 			</tr>
 		</tbody>
 	</table>
@@ -157,19 +189,23 @@ function requestPay(paymethod) {
 <div style=" border: 1px solid blue; float: left; width: 64%">
 <span>주문자 정보</span>
 <ul>
-	<li>이름 : <span>홍길동</span></li>
-	<li>이메일 : <span>idon@naver.com</span></li>
+	<li>이름 : <span>${member.name }</span></li>
+	<li>이메일 : <span>${member.email}</span></li>
 </ul>
 
 	<span>배송지 정보</span>
 	<ul>
-		<li>배송지 선택 <input type="radio" name="addrs">기본 배송지<input type="radio" name="addrs" id="newaddr">신규 배송지</li>
-		<li>수령인 : <input type="text" id="name" required="required"> </li>
-		<li>연락처 : <input type="text" required="required"> </li>
-		<li>배송지 주소 : <input type="text"  style="width:70px;" id="zipNo"  name="zipNo" required="required" onClick="goPopup();" /> 
-		<input type="button" onClick="goPopup();" value="우편 번호"/> <input type="checkbox"> 배송지목록에 추가 <br>
-			<input type="text" style="width: 500px;" id="fulladdr" readonly="readonly"> 
-			<input type="text"  style="width:100px;" id="addrDetail"  name="addrDetail"  onkeyup="addr(this.value)"/>
+		<li>
+			배송지 선택 <input type="radio" name="addrs" id="basicaddr" value="basicaddr" disabled="disabled" >기본 배송지
+			<input type="radio" name="addrs" id="newaddr" value="newaddr" >신규 배송지
+		</li>
+		<li>수령인 : <input type="text" id="address_name" name="address_name" required="required" value="${addr.address_name }"> </li>
+		<li>연락처 : <input type="text" id="address_photo" name="address_photo" required="required" value="${addr.address_photo }"> </li>
+		<li>배송지 명 : <input type="text" id="alias" name="alias" required="required" value="${addr.alias }" > </li>
+		<li>배송지 주소 : <input type="text"  style="width:70px;" id="zipno"  name="zipno" required="required" onClick="goPopup();" value="${addr.zipno }"/>
+		<input type="button" onClick="goPopup();" value="우편 번호"/> <input type="checkbox" name="addr_add"> 배송지목록에 추가 <br>
+			<input type="text" style="width: 500px;" id="fulladdr" readonly="readonly" value="${addr.roadaddr }, ${addr.addrDetail}"> 
+			<input type="text"  style="width:100px;" id="addrDetail"  name="addrDetail"  onkeyup="addr(this.value)" value="${addr.addrDetail }"/>
 		</li>
 		<li>요청사항 : <select id="option">
 							<option selected>경비실에 맡겨주세요.</option>
@@ -179,10 +215,10 @@ function requestPay(paymethod) {
 	</div>
 	
 	<div style="border: 1px solid blue; float: right; width: 35%;">
-		<span>결제 금액</span>
-		<span>n + 2,500원</span>
+		<span>결제 금액</span><br>
+		<span class="price">${opt.option_price}</span> <span>+ 2,500원</span>
 		<hr style="width: 96%; margin-top: 30px; margin-bottom: 30px;">
-			<span style="text-align: center;">총 후원 금액 : n 원</span><br>
+			<span style="text-align: center;">총 후원 금액 : <span class="price">${opt.option_price}</span> 원</span><br>
 			<span style="margin: 0 auto;">배송비 : 2,500원</span><br>
 			<span style="margin: 0 auto;">결제수단</span><br>
 			<select id="payselect" name="payselect" size="4" style="margin: 0 auto;">
