@@ -4,66 +4,91 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.mapper.ProjectMapper">
 
-	<!-- detail resultmap -->
-	<resultMap type="hashMap" id="optdto">
-	<result column="option_no" property="option_no"/>
-	<result column="option_name" property="option_name"/>
-	<result column="option_price" property="option_price"/>
-	<result column="option_contents" property="option_contents"/>
-	<result column="option_quantity" property="option_quantity"/>
-	<result column="project_no" property="project_no"/>
+
+	<!-- list resultmap -->
+	<resultMap type="hashMap" id="listdto">
+		<result column="name" property="name" />
+		<result column="project_no" property="project_no" />
+		<result column="project_title" property="project_title" />
+		<result column="category_no" property="category_no" />
 	</resultMap>
 
-   <!-- total -->
-   <select id="totalCount" resultType="int"
-      parameterType="java.util.HashMap">
-      select count(*) from project
-      <where>
-         <if test="searchtxt !=null and searchtxt !='' ">
-            and project_title like CONCAT('%',#{searchtxt},'%')
-         </if>
-      </where>
-      order by project_no
-   </select>
+	<!-- detail resultmap -->
+	<resultMap type="hashMap" id="optdto">
+		<result column="option_no" property="option_no" />
+		<result column="option_name" property="option_name" />
+		<result column="option_price" property="option_price" />
+		<result column="option_contents" property="option_contents" />
+		<result column="option_quantity" property="option_quantity" />
+		<result column="project_no" property="project_no" />
+	</resultMap>
 
-   <select id="projectList" resultType="com.bitcamp.dto.ProjectDTO"
-      parameterType="java.util.HashMap">
-      select no,project_no,project_title,category_no
-      from project
-      <where>
-         <if test="searchtxt !=null and searchtxt !='' ">
-            and project_title like CONCAT('%',#{searchtxt},'%')
-         </if>
-      </where>
-      order by project_no
-      limit #{startRow},9
-   </select>
-	
-	<!-- 카테고리 선택 결과 list  -->
-	<select id="projectcategoryList" parameterType="String" resultType="com.bitcamp.dto.ProjectDTO">
-	select project.no,project.project_no,project.project_title,project.category_no 
-	from project join category
-	on project.category_no = category.category_no 
-	where main_category= #{main_category}
-	order by project.project_no
+	<!-- total -->
+	<select id="totalCount" resultType="int"
+		parameterType="java.util.HashMap">
+		select count(*)
+		from project join member
+		on project.no=member.no
+		<where>
+			<if test="searchtxt !=null and searchtxt !='' ">
+				and project.project_title like CONCAT('%',#{searchtxt},'%') or
+				member.name like CONCAT('%',#{searchtxt},'%')
+			</if>
+		</where>
+	</select>
+
+	<select id="projectList" resultMap="listdto"
+		parameterType="java.util.HashMap">
+		select member.name, project.project_no, project.project_title, project.category_no, project.project_views
+		from project join member
+		on project.no=member.no
+		<where>
+			<if test="searchtxt !=null and searchtxt !='' ">
+				and project.project_title like CONCAT('%',#{searchtxt},'%') or
+				member.name like CONCAT('%',#{searchtxt},'%')
+			</if>
+		</where>
+		order by project_no
+		limit #{startRow},9
+	</select>
+
+	<!-- 카테고리 선택 결과 list -->
+	<select id="projectcategoryList" parameterType="String"
+		resultType="com.bitcamp.dto.ProjectDTO">
+		select
+		project.no,project.project_no,project.project_title,project.category_no
+		from project join category
+		on project.category_no = category.category_no
+		where main_category= #{main_category}
+		order by project.project_no
 	</select>
 
 
-   <insert id="projectInsert"
-      parameterType="com.bitcamp.dto.ProjectDTO">
-      insert into project (project_title, project_photo, targetprice, introduce,
-      startdate, enddate, payment_date, project_contents, no, category_no)
-      values(#{project_title}, #{project_photo}, 10000, '소개글', '2019-08-20',
-      '2019-09-20', '2019-10-01', '테스트.pdf', 2, #{category_no})
-   </insert>
+	<insert id="projectInsert"
+		parameterType="com.bitcamp.dto.ProjectDTO">
+		insert into project (project_title, project_photo, targetprice, introduce,
+		startdate, enddate, payment_date, project_contents, no, category_no)
+		values(#{project_title}, #{project_photo}, 10000, '소개글', '2019-08-20',
+		'2019-09-20', '2019-10-01', '테스트.pdf', 2, #{category_no})
+	</insert>
 
-<!-- 프로젝트 디테일 -->
-<select id="projectDetail" parameterType="int" resultType="com.bitcamp.dto.ProjectDTO">
-select * from project where project_no = #{project_no}
-</select>
+	<!-- 프로젝트 디테일 -->
+	<select id="projectDetail" parameterType="int"
+		resultType="com.bitcamp.dto.ProjectDTO">
+		select * from project where project_no = #{project_no}
+	</select>
 
-<!-- 프로젝트 디테일 창에서 보여주는 옵션 list -->
-<select id="projectoptionList" parameterType="int" resultMap="optdto">
-select * from `option` where project_no= #{project_no}
-</select>
+	<!-- 프로젝트 디테일 창에서 보여주는 옵션 list -->
+	<select id="projectoptionList" parameterType="int"
+		resultMap="optdto">
+		select * from `option` where project_no= #{project_no}
+	</select>
+	
+	
+	
+	<!-- 조회수  -->
+	<update id="viewcnt" parameterType="int">
+	update project set project_views = project_views+1 where project_no= #{project_no}
+	</update>
+	
 </mapper>

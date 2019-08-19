@@ -53,4 +53,9 @@ public class ProjectServiceImple implements ProjectService {
 		return mapper.projectoptionList(project_no);
 	}
 
+	@Override
+	public int viewcnt(int project_no) {		
+		return mapper.viewcnt(project_no);
+	}
+
 }

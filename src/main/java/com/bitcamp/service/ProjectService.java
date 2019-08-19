@@ -13,4 +13,5 @@ public interface ProjectService {
 	public int projectInsert(ProjectDTO dto); // 등록
 	public ProjectDTO projectDetail(int project_no); // 프로젝트 상세 
 	public List<OptionDTO> projectoptionList(int project_no); // 프로젝트 상세 in 옵션 목록
+	public int viewcnt(int project_no); // 프로젝트 조회수
 }
