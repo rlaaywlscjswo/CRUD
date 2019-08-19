@@ -35,19 +35,7 @@ $(document).ready(function(){
         
       
         
-    });
-    
-   /*  function checkFile(){
-    	var fm = document.file;
-    	var fnm = fm.project_photo;
-    	var ext = fnm.value;
-    	
-    	if(!(ext.substr(ext.length-3)=='jpg' || ext.substr(ext.length-3)=='png')){
-    	 alert("jpg, png 파일만 가능합니다.");
-    		return false;
-    	}fm.submit();     
-    	} */   	
-    
+    });    
 });
 </script>
 </head>

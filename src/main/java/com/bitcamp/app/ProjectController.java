@@ -2,6 +2,7 @@ package com.bitcamp.app;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -42,11 +43,11 @@ public class ProjectController {
 	
 	
 	
-	@RequestMapping("projectin")
+/*	@RequestMapping("projectin")
 	public String ininin() {
 		return "project/projectinsert.temp";
 	}
-	
+	*/
 	// 프로젝트 카테고리 선택 결과 목록 페이지 
 	@RequestMapping("projectcategorylist={main_category}")
 	public String categorylist(@PathVariable String main_category , Model model) {		
@@ -82,23 +83,23 @@ public class ProjectController {
 	}
 	
 	// 카테고리선택 json ( 프로젝트 등록페이지에서)
-	@RequestMapping(value="project/category", method=RequestMethod.POST)
+	@RequestMapping(value="project/category", method=RequestMethod.GET)
 	public @ResponseBody List<CategoryDTO> category(	
-			@RequestParam String main_category, Model model){
+		@RequestParam String main_category){
+		//String main_category=ca.get("main_category");
 		 System.out.println(" ajax" + main_category) ;		
 		List<CategoryDTO> subcategorylist = categoryservice.subcategoryList(main_category);
-		model.addAttribute("sublist", subcategorylist);
-		System.out.println(model);       
+		
        	return subcategorylist;
 	}
 	
 	// 프로젝트 등록 페이지
-	@RequestMapping("project_insert")
+	@RequestMapping("insert")
 	public String projectinsert(Model model) {
 		List<CategoryDTO> maincategorylist = categoryservice.maincategoryList();		
 		model.addAttribute("mainlist",maincategorylist);		
 		System.out.println("insert : "+model);
-		return "project/project_insert"; 
+		return "project/insert.temp"; 
 	
 	}
 	// 프로젝트 등록 페이지 2
