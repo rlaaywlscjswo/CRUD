@@ -8,8 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-프로젝트번호 ${list.project_no }<br>
-프로젝트제목${list.project_title }<br>
+
+<div id="title">프로젝트제목${list.project_title }</div>
+<div id="photo"></div>
+<div id="price"></div>
+<div id="introduce"></div>
+<div id="start"></div>
+<div id="end"></div>
+<div id="content"></div>
+<div id="views"></div>
+
+<div id="">별칭</div>
+
 프로젝트사진${list.project_photo }<br>
 달성금액${list.targetprice }<br>
 창작자${list.alias}<br>
@@ -23,6 +33,8 @@
 승인여부${list.project_status }<br>
 회원번호${list.no }<br>
 카테고리번호${list.category_no }<br>
+
+
 <a href="projectoption=${list.project_no }" style="border: 1px solid;">후원하기</a><br>
 
 <c:forEach var="opt" items="${option }">
