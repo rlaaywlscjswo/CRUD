@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bitcamp.dto.AddressDTO;
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.OptionDTO;
+import com.bitcamp.dto.SupportDTO;
 import com.bitcamp.service.MemberService;
 
 @Controller
@@ -65,9 +66,14 @@ public class MemberController {
 		return "/payment/jusoPopup";
 	}
 	
-	@RequestMapping("/success")
-	public String paymentsuccess(@RequestParam String addrs) {
-		System.out.println(addrs);
+	@RequestMapping(value = "/success", method=RequestMethod.POST)
+	public String paymentsuccess(AddressDTO adto, SupportDTO sdto, @RequestParam String addr_add) {
+		//배송 주소록 추가.
+		int result = 0;
+		if("y".equals(addr_add)) {
+			result = memberService.addrssInsert(adto);
+			System.out.println("주소 추가 ? : "+result);
+		} 
 		return "/payment/success";
 	}
 	

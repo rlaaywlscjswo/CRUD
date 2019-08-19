@@ -7,4 +7,5 @@ public interface MemberService {
 	public int emailCheck(String email);
 	public int memberAdd(MemberDTO dto);
 	public AddressDTO address(int no);
+	public int addrssInsert(AddressDTO adto);
 }

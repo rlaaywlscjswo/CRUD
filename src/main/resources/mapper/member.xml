@@ -32,5 +32,10 @@
 	<select id="address" parameterType="int" resultType="com.bitcamp.dto.AddressDTO">
 		select * from address where no = #{no};
 	</select>
+	
+	<insert id="addressInsert" parameterType="com.bitcamp.dto.AddressDTO">
+		insert into address(no, address_name, address_photo, alias, zipno, roadaddr, jibunaddr, addrDetail) 
+		values(#{no}, #{address_name}, #{address_photo}, #{alias}, #{zipno}, #{roadaddr}, #{jibunaddr}, #{addrDetail})
+	</insert>
 
 </mapper>

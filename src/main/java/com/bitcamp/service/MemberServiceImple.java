@@ -30,4 +30,9 @@ public class MemberServiceImple implements MemberService {
 		return mapper.address(no);
 	}
 
+	@Override
+	public int addrssInsert(AddressDTO adto) {
+		return mapper.addressInsert(adto);
+	}
+
 }

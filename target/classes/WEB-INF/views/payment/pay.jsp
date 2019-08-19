@@ -87,7 +87,16 @@ $(document).ready(function(){
 			$("#zipno").val("");
 			$("#addrDetail").val("");
 			$("#fulladdr").val("");
-			$("input[name='addr_add']").prop("checked", true);
+			$("input[name='addr_add']").prop("checked", true).val("y");
+		}
+	});
+	
+	//배송지 목록 추가 여부
+	$("input[name='addr_add']").on('click', function() {
+		if($("input[name='addr_add']").prop("checked")){
+			$("input[name='addr_add']").val("y");
+		} else {
+			$("input[name='addr_add']").val("n");
 		}
 	});
 	
@@ -99,7 +108,7 @@ $(document).ready(function(){
 	});
 	
 	// 결제 방법
-	$( "form" ).submit(function( event ) {
+	$("form").submit(function( event ) {
 		event.preventDefault();
 		let paymethod = $("#payselect").val();	
 		console.log("submit ....");
@@ -202,7 +211,7 @@ $(document).ready(function(){
 		<li>수령인 : <input type="text" id="address_name" name="address_name" required="required" value="${addr.address_name }"> </li>
 		<li>연락처 : <input type="text" id="address_photo" name="address_photo" required="required" value="${addr.address_photo }"> </li>
 		<li>배송지 명 : <input type="text" id="alias" name="alias" required="required" value="${addr.alias }" > </li>
-		<li>배송지 주소 : <input type="text"  style="width:70px;" id="zipno"  name="zipno" required="required" onClick="goPopup();" value="${addr.zipno }"/>
+		<li>배송지 주소 : <input type="text"  style="width:70px;" id="zipno"  name="zipno" required="required" onClick="goPopup();" value="${addr.zipno }" readonly="readonly"/>
 		<input type="button" onClick="goPopup();" value="우편 번호"/> <input type="checkbox" name="addr_add"> 배송지목록에 추가 <br>
 			<input type="text" style="width: 500px;" id="fulladdr" readonly="readonly" value="${addr.roadaddr }, ${addr.addrDetail}"> 
 			<input type="text"  style="width:100px;" id="addrDetail"  name="addrDetail"  onkeyup="addr(this.value)" value="${addr.addrDetail }"/>
@@ -233,6 +242,7 @@ $(document).ready(function(){
 			</select><br>
 			<input type="submit"  id="reqpay" style="width: 90%; margin: 0 auto;" value="결제"> <!-- <a href="#" id="reqpay" style="width: 90%; margin: 0 auto;">결제</a> -->
 	</div>
+	<input type="submit" value="테스트 결제">
 </div>
 	<input type="hidden"  id="roadAddrPart1"  name="roadAddrPart1" />
 	<input type="hidden"  id="roadAddrPart2"  name="roadAddrPart2" />
