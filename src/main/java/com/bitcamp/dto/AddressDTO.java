@@ -6,7 +6,8 @@ public class AddressDTO {
 	private String address_photo; //연락처
 	private String alias; //배송지명
 	private String zipno; //우편번호
-	private String roadaddr; //도로명주소
+	private String roadaddrPart1; //도로명주소
+	private String roadaddrPart2; //도로명주소
 	private String jibunaddr; //지번주소
 	private String addrDetail; //상세주소
 	public int getNo() {
@@ -23,9 +24,6 @@ public class AddressDTO {
 	}
 	public String getZipno() {
 		return zipno;
-	}
-	public String getRoadaddr() {
-		return roadaddr;
 	}
 	public String getJibunaddr() {
 		return jibunaddr;
@@ -48,8 +46,17 @@ public class AddressDTO {
 	public void setZipno(String zipno) {
 		this.zipno = zipno;
 	}
-	public void setRoadaddr(String roadaddr) {
-		this.roadaddr = roadaddr;
+	public String getRoadaddrPart1() {
+		return roadaddrPart1;
+	}
+	public String getRoadaddrPart2() {
+		return roadaddrPart2;
+	}
+	public void setRoadaddrPart1(String roadaddrPart1) {
+		this.roadaddrPart1 = roadaddrPart1;
+	}
+	public void setRoadaddrPart2(String roadaddrPart2) {
+		this.roadaddrPart2 = roadaddrPart2;
 	}
 	public void setJibunaddr(String jibunaddr) {
 		this.jibunaddr = jibunaddr;

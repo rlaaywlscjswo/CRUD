@@ -13,59 +13,71 @@
 .kgPayments{
 	background-color: blue;
 }
+#addrlist {
+	width: 100%;
+	border:1px solid #999; /* 각 메뉴의 왼쪽에 "|" 표시(분류 표시) */ 
+}
+#addrlist ul li{
+	display: inline-block;
+}
+#addrlist ul li:nth-child(1){
+	width: 28px;
+}
+#addrlist ul li:nth-child(2){
+	width: 100px;
+	color: red;
+}
+#addrlist ul li:nth-child(3){
+	width: 500px;
+}
+#options{
+	width: 500px;
+}
+#memos{
+	border:2px solid blue;
+	margin-left:80px;
+	display:none;
+	width: 500px;
+}
+.memo{
+	cursor: pointer;
+	width: 100%;
+	font-size: 12px;
+}
 </style>
 <script>
-// opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
-//document.domain = "abc.go.kr";
-
-function goPopup(){
-	// 주소검색을 수행할 팝업 페이지를 호출합니다.
-	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-	var pop = window.open("jusoPopup","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-	
-	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
-}
-
-
-//function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,zipno,jibunAddr, engAddr ,admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
-		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-function jusoCallBack(roadAddrPart1, addrDetail, roadAddrPart2, jibunAddr, zipno){		
-
-		document.form.roadAddrPart1.value = roadAddrPart1;
-		document.form.roadAddrPart2.value = roadAddrPart2;
-		document.form.addrDetail.value = addrDetail;
-		document.form.zipno.value = zipno;
-		document.form.jibunAddr.value = jibunAddr;
-		
-		// 전체 주소
-		document.getElementById('fulladdr').value=roadAddrPart1 +", "+addrDetail + " " + roadAddrPart2;
-}
-
-// 상세주소 수정 할 때, 전제 주소도 동시에 변경.
-function addr(val){
-	let addr1 = document.getElementById('roadAddrPart1').value;
-	let addr2 = document.getElementById('roadAddrPart2').value;
-	let detail = document.getElementById('addrDetail').value;
-	document.getElementById('fulladdr').value="";
-	document.getElementById('fulladdr').value=addr1 +", "+detail + " " + addr2;
-}
-
-</script>
-<script>
 $(document).ready(function(){
+	let num = ${opt.option_price}; //$(".price").text(); 		
+	var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	$(".price").text(num.toString().replace(regexp, ','));
+	//return num.toString().replace(regexp, ',');
 	
-	window.onload=function addComma() {
-		let num = ${opt.option_price}; //$(".price").text(); 		
-		var regexp = /\B(?=(\d{3})+(?!\d))/g;
-		$(".price").text(num.toString().replace(regexp, ','));
-		//return num.toString().replace(regexp, ',');
-	}
+	
+	$('.goPopup').on('click', function(){
+		// 주소검색을 수행할 팝업 페이지를 호출합니다.
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+		var pop = window.open("jusoPopup","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+	    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+	});
+	
+	// 상세주소 수정 할 때, 전제 주소도 동시에 변경.
+	$('#addrDetail').on('keyup', function(val){
+		let addr1 = document.getElementById('roadaddrPart1').value;
+		let addr2 = document.getElementById('roadaddrPart2').value;
+		let detail = document.getElementById('addrDetail').value;
+		document.getElementById('fulladdr').value="";
+		document.getElementById('fulladdr').value=addr1 +", "+detail + " " + addr2;
+	});
 	
 	//기존 배송지 주소가 있으면, 기본 배송지 선택 없으면 신규 배송지 선택 (라디오 버튼 선택)
-	let addr = "${addr.roadaddr}";
-	if(!addr == null || !addr == "" || !addr == "undefined" ) {
-		$("#basicaddr").prop("checked", true).prop("disabled", false);
+	let defaultaddr = "${addr.roadaddrPart1}";
+	if(!defaultaddr == null || !defaultaddr == "" || !defaultaddr == "undefined" ) {
+		$("#address_name").val("${addr.address_name}");
+		$("#address_photo").val("${addr.address_photo }");
+		$("#alias").val("${addr.alias }");
+		jusoCallBack("${addr.roadaddrPart1}", "${addr.addrDetail}", "${addr.roadaddrPart2}", "${addr.jibunaddr}", "${addr.zipno}");
+		$("#basicaddr").prop("checked", true).prop("disabled", false)
 	} else {
 		$("#newaddr").prop("checked", true);
 	}
@@ -78,9 +90,9 @@ $(document).ready(function(){
 			$("#alias").val("${addr.alias }");
 			$("#zipno").val("${addr.zipno}");
 			$("#addrDetail").val("${addr.addrDetail}");
-			$("#fulladdr").val("${addr.roadaddr }, ${addr.addrDetail}");
+			$("#fulladdr").val("${addr.roadaddrPart1 }, ${addr.addrDetail} ${addr.roadaddrPart2}");
 			$("input[name='addr_add']").prop("checked", false);
-		} else {
+		} else { 
 			$("#address_name").val("");
 			$("#address_photo").val("");
 			$("#alias").val("");
@@ -91,6 +103,20 @@ $(document).ready(function(){
 		}
 	});
 	
+	//배송목록
+	$('#addrslist').on('click', function() {
+		$("#addrlist").toggle();
+	});
+	
+	$("input[name='addrlist']").on('click', function() {
+		console.log($("#myalias").text());
+		console.log($("#myaddr").text());
+		
+		$(this).parent().next().css({"border": "2px solid red"});
+		console.log($(this).next().text());
+		//console.log($(this).parent().text());
+	});
+	
 	//배송지 목록 추가 여부
 	$("input[name='addr_add']").on('click', function() {
 		if($("input[name='addr_add']").prop("checked")){
@@ -99,6 +125,7 @@ $(document).ready(function(){
 			$("input[name='addr_add']").val("n");
 		}
 	});
+	
 	
 	//결제 수단 선택
 	var paymethod = "card";	
@@ -111,7 +138,6 @@ $(document).ready(function(){
 	$("form").submit(function( event ) {
 		event.preventDefault();
 		let paymethod = $("#payselect").val();	
-		console.log("submit ....");
 		requestPay(paymethod);
 	});
 		
@@ -131,7 +157,7 @@ $(document).ready(function(){
 	    pay_method : paymethod,  
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : "${opt.option_name}",			// 상품명
-	    amount : ${opt.option_price} + delivery,// 결제 금액
+	    amount : '${opt.option_price}' + delivery,// 결제 금액
 	    buyer_email : "${member.email}", 		// 메일주소
 	    buyer_name : $("#address_name").val(),	// 구매자 이름
 	    buyer_tel : $("#address_photo").val(),	// 구매자 연락처
@@ -166,9 +192,59 @@ $(document).ready(function(){
 	        msg += '에러내용 : ' + rsp.error_msg;
 	      }
 	    alert(msg);
+		});
+	}
+	
+	// 요청사항
+	$('#options').on('click', function() {
+		$("#memos").toggle();
+		let display_status = $("#memos").val();
+		if(display_status == "off"){
+			$("#memos").val("on");
+		} else {
+			$("#memos").val("off");
+		}
+		//$('#memos').css('display', '');
 	});
-}
+	$(document).on('click', function(e) {
+		/* if($("#memos").val() == "on"){
+			$('#memos').css('display', 'none').val("off");
+		} */
+		console.log(e.target);
+		console.log($("#memos").is(e.target));
+		console.log($("#memos").css('display'));
+		if(!$("#options").is(e.target)){
+		//if($("#memos").css('display') == 'block'){
+			$('#memos').css('display', 'none');
+			//$('#memos').css('display', 'none').val("off");
+		} 
+	});
+	
+	$('.memo').on('mouseover', function() {
+		$(this).css('background-color', '#d3d3d3');
+	});
+	$('.memo').on('mouseout', function() {
+		$(this).css('background-color', '');
+	});
+	
+	$('.memo').on('click', function name() {
+		$('#options').val($(this).text());
+	});
+	
 });
+
+function jusoCallBack(roadaddrPart1, addrDetail, roadaddrPart2, jibunaddr, zipno){		
+	console.log(roadaddrPart1);
+	console.log(roadaddrPart2);
+	document.form.roadaddrPart1.value = roadaddrPart1;
+	document.form.roadaddrPart2.value = roadaddrPart2;
+	document.form.addrDetail.value = addrDetail;
+	document.form.zipno.value = zipno;
+	document.form.jibunaddr.value = jibunaddr;
+	
+	// 전체 주소
+	document.getElementById('fulladdr').value=roadaddrPart1 +", "+addrDetail + " " + roadaddrPart2;
+}
 </script>
 </head>
 <body>
@@ -207,19 +283,43 @@ $(document).ready(function(){
 		<li>
 			배송지 선택 <input type="radio" name="addrs" id="basicaddr" value="basicaddr" disabled="disabled" >기본 배송지
 			<input type="radio" name="addrs" id="newaddr" value="newaddr" >신규 배송지
+			<input type="button" id="addrslist"  value="주소목록" />
+			<div id="addrlist" style="display:none;">
+				<ul>
+					<li>  </li>
+					<li>배송지명</li>
+					<li>배송주소</li>
+				</ul>
+				<ul>
+					<li><input type="radio" name="addrlist"></li>
+					<li>집</li>
+					<li>서울시 종로구 ㅇㅇㅇㅇ</li>
+				</ul>
+					<!-- <td><input type="radio" name="addrlist"></td>
+					<td id="myalias">집</td>
+					<td id="myaddr">서울시 종로구 어쩌구 702호</td> -->
+			</div>
 		</li>
-		<li>수령인 : <input type="text" id="address_name" name="address_name" required="required" value="${addr.address_name }"> </li>
-		<li>연락처 : <input type="text" id="address_photo" name="address_photo" required="required" value="${addr.address_photo }"> </li>
-		<li>배송지 명 : <input type="text" id="alias" name="alias" required="required" value="${addr.alias }" > </li>
-		<li>배송지 주소 : <input type="text"  style="width:70px;" id="zipno"  name="zipno" required="required" onClick="goPopup();" value="${addr.zipno }" readonly="readonly"/>
-		<input type="button" onClick="goPopup();" value="우편 번호"/> <input type="checkbox" name="addr_add"> 배송지목록에 추가 <br>
-			<input type="text" style="width: 500px;" id="fulladdr" readonly="readonly" value="${addr.roadaddr }, ${addr.addrDetail}"> 
-			<input type="text"  style="width:100px;" id="addrDetail"  name="addrDetail"  onkeyup="addr(this.value)" value="${addr.addrDetail }"/>
+		<li>수령인 : <input type="text" id="address_name" name="address_name" required="required" > </li>
+		<li>배송지 명 : <input type="text" id="alias" name="alias" required="required" > </li>
+		<li>연락처 : <input type="text" id="address_photo" name="address_photo" required="required" > </li>
+		<li>배송지 주소 : <input type="text"  style="width:70px;" id="zipno"  class="goPopup" name="zipno" required="required" readonly="readonly"/>
+		<input type="button" class="goPopup" value="우편 번호"/> <input type="checkbox" name="addr_add"> 배송지목록에 추가 <br>
+			<input type="text" style="width: 500px;" id="fulladdr" readonly="readonly" > 
+			<input type="text"  style="width:100px;" id="addrDetail"  name="addrDetail"  />
 		</li>
-		<li>요청사항 : <select id="option">
+		<li>요청사항 : <!-- <select id="option">
 							<option selected>경비실에 맡겨주세요.</option>
 							<option>배송 전 연락주세요.</option>
-						</select> <input type="text" id="options" value="경비실에 맡겨주세요."></li>
+						</select> --> <input type="text" id="options" value="요청사항을 직접 입력하세요.">
+						<div id="memos" value="off">
+							<ul>
+								<li class="memo">배송 전에 미리 연락 바랍니다.</li>
+								<li class="memo">부재시 경비실에 맡겨 주세요.</li>
+								<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
+							</ul>
+						</div>
+						</li>
 	</ul>
 	</div>
 	
@@ -242,11 +342,12 @@ $(document).ready(function(){
 			</select><br>
 			<input type="submit"  id="reqpay" style="width: 90%; margin: 0 auto;" value="결제"> <!-- <a href="#" id="reqpay" style="width: 90%; margin: 0 auto;">결제</a> -->
 	</div>
-	<input type="submit" value="테스트 결제">
+	<input type="submit" value="테스트 결제"><br>
+	
 </div>
-	<input type="hidden"  id="roadAddrPart1"  name="roadAddrPart1" />
-	<input type="hidden"  id="roadAddrPart2"  name="roadAddrPart2" />
-	<input type="hidden"  id="jibunAddr"  name="jibunAddr" />
+	<input type="hidden"  id="roadaddrPart1"  name="roadaddrPart1" />
+	<input type="hidden"  id="roadaddrPart2"  name="roadaddrPart2" />
+	<input type="hidden"  id="jibunaddr"  name="jibunaddr" />
 </form>
 
 </body>
