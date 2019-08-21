@@ -3,6 +3,7 @@ package com.bitcamp.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.dto.AddressDTO;
@@ -11,6 +12,8 @@ import com.bitcamp.mapper.MemberMapper;
 
 @Service("memberService")
 public class MemberServiceImple implements MemberService {
+	
+	private BCryptPasswordEncoder encoder;
 	
 	@Autowired
 	private MemberMapper mapper;
@@ -24,6 +27,11 @@ public class MemberServiceImple implements MemberService {
 	public int memberAdd(MemberDTO dto) {
 		System.out.println("서비스에서 생일 : "+dto.getBirth());
 		System.out.println("서비스에서 연락처 : "+dto.getPhone());
+		
+		// 병훈쓰 spring security password encoding
+		String changePassword = encoder.encode(dto.getPassword());
+		dto.setPassword(changePassword);
+		
 		return mapper.memberAdd(dto);
 	}
 

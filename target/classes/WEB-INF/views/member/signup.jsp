@@ -456,6 +456,10 @@ $(document).ready(function(){
 			<label for="birth">생년월일</label>
 		</div>
 	    <input type="submit" id="signup" value="가입" disabled="disabled">
+	    
+	    <!-- spring security login 하려면 이거 있어야 됨 ㅜㅜ -->
+	    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+	    
 	</form>
 
 </div>
