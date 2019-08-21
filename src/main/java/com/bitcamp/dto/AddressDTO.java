@@ -4,6 +4,7 @@ public class AddressDTO {
 	private int no; //회원 번호
 	private String address_name; //수령인
 	private String address_photo; //연락처
+	private int default_addr; // 기본 배송지
 	private String alias; //배송지명
 	private String zipno; //우편번호
 	private String roadaddrPart1; //도로명주소
@@ -64,5 +65,10 @@ public class AddressDTO {
 	public void setAddrDetail(String addrDetail) {
 		this.addrDetail = addrDetail;
 	}
-	
+	public int getDefault_addr() {
+		return default_addr;
+	}
+	public void setDefault_addr(int default_addr) {
+		this.default_addr = default_addr;
+	}
 }

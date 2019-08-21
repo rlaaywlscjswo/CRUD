@@ -79,6 +79,7 @@ $(document).ready(function(){
 		jusoCallBack("${addr.roadaddrPart1}", "${addr.addrDetail}", "${addr.roadaddrPart2}", "${addr.jibunaddr}", "${addr.zipno}");
 		$("#basicaddr").prop("checked", true).prop("disabled", false)
 	} else {
+		$("input[name='addr_add']").prop("checked", true).val("y");
 		$("#newaddr").prop("checked", true);
 	}
 	
@@ -104,7 +105,7 @@ $(document).ready(function(){
 	});
 	
 	//배송목록
-	$('#addrslist').on('click', function() {
+	/* $('#addrslist').on('click', function() {
 		$("#addrlist").toggle();
 	});
 	
@@ -115,6 +116,16 @@ $(document).ready(function(){
 		$(this).parent().next().css({"border": "2px solid red"});
 		console.log($(this).next().text());
 		//console.log($(this).parent().text());
+	}); */
+	
+	$('#addrslist').on('click', function(){
+		// 주소검색을 수행할 팝업 페이지를 호출합니다.
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+		let pop = window.open("addrPopup","pop","width=570,height=620, scrollbars=yes, resizable=yes"); 
+		pop.document.getElementById("no").value = '$(member.no)';
+		
+		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+	    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 	});
 	
 	//배송지 목록 추가 여부
@@ -283,7 +294,7 @@ function jusoCallBack(roadaddrPart1, addrDetail, roadaddrPart2, jibunaddr, zipno
 		<li>
 			배송지 선택 <input type="radio" name="addrs" id="basicaddr" value="basicaddr" disabled="disabled" >기본 배송지
 			<input type="radio" name="addrs" id="newaddr" value="newaddr" >신규 배송지
-			<input type="button" id="addrslist"  value="주소목록" />
+			<input type="button" id="addrslist"  value="배송지목록" />
 			<div id="addrlist" style="display:none;">
 				<ul>
 					<li>  </li>

@@ -65,6 +65,15 @@ public class MemberController {
 	public String jusoPopup() {
 		return "/payment/jusoPopup";
 	}
+	@RequestMapping("/addrPopup")
+	public String addrPopup() {
+		return "/payment/addrPopup";
+	}
+	@RequestMapping(value = "/addrlist", method=RequestMethod.POST)
+	public @ResponseBody List<AddressDTO> addrlist(@RequestParam int no) {
+		List<AddressDTO> dto = memberService.addrlist(no);
+		return dto;
+	}
 	
 	@RequestMapping(value = "/success", method=RequestMethod.POST)
 	public String paymentsuccess(AddressDTO adto, SupportDTO sdto, @RequestParam String addr_add) {

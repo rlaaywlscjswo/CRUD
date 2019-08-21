@@ -1,5 +1,7 @@
 package com.bitcamp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,11 @@ public class MemberServiceImple implements MemberService {
 	@Override
 	public int addrssInsert(AddressDTO adto) {
 		return mapper.addressInsert(adto);
+	}
+
+	@Override
+	public List<AddressDTO> addrlist(int no) {
+		return mapper.addrlist(no);
 	}
 
 }

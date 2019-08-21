@@ -1,5 +1,7 @@
 package com.bitcamp.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.bitcamp.dto.AddressDTO;
@@ -11,4 +13,5 @@ public interface MemberMapper {
 	public int memberAdd(MemberDTO dto);
 	public AddressDTO address(int no);
 	public int addressInsert(AddressDTO adto);
+	public List<AddressDTO> addrlist(int no);
 }
