@@ -14,4 +14,5 @@ public interface MemberMapper {
 	public AddressDTO address(int no);
 	public int addressInsert(AddressDTO adto);
 	public List<AddressDTO> addrlist(int no);
+	public MemberDTO getUserById(String email); // 병훈쓰  spring security
 }

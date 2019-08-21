@@ -1,5 +1,7 @@
 package com.bitcamp.dto;
 
+import java.util.List;
+
 public class MemberDTO {
 
 	private int no; // 회원 번호
@@ -13,6 +15,16 @@ public class MemberDTO {
 	private boolean enabled; // 접근
 	private int rank_no; // 등급 번호
 	private int auth_no; // 권한 번호
+
+	private List<AuthorityDTO> authList; // 권한 list
+
+	public List<AuthorityDTO> getAuthList() {
+		return authList;
+	}
+
+	public void setAuthList(List<AuthorityDTO> authList) {
+		this.authList = authList;
+	}
 
 	public int getNo() {
 		return no;
