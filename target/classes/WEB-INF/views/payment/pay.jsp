@@ -127,7 +127,7 @@ $(document).ready(function(){
 		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
 	    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 	});
-	
+	 
 	//배송지 목록 추가 여부
 	$("input[name='addr_add']").on('click', function() {
 		if($("input[name='addr_add']").prop("checked")){
