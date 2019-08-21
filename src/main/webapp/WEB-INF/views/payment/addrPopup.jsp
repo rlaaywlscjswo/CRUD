@@ -11,6 +11,7 @@
 $(document).ready(function(){
 	
 	let no = $('#no').val();
+	console.log("회원 번호 : "+no);
 	$.ajax({
 		method:"post",
 		url:"/addrlist",
