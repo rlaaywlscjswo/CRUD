@@ -33,7 +33,11 @@ public class MemberServiceImple implements MemberService {
 		String changePassword = encoder.encode(dto.getPassword());
 		dto.setPassword(changePassword);
 		
-		return mapper.memberAdd(dto);
+		dto.setNo(mapper.maxno());
+		
+		mapper.memberAdd(dto);
+		
+		return mapper.grantedAuth(dto);
 	}
 
 	@Override

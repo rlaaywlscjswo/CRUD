@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class SecurityController {
 
-	@RequestMapping("/sec_admin")
+/*	@RequestMapping("/sec_admin")
 	public String adminPage() {
 
 		return "/security/admin";
 
 	} // end adminPage method
-
+*/
 	@RequestMapping("/sec_manager")
 	public String managerPage() {
 

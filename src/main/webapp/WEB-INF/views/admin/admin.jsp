@@ -15,20 +15,20 @@
 
 	<h2>할 사람은 여기다 해주세요.</h2>
 	
-	<p>principal : <sec:authentication property="principal" /></p>
-	<p>MemberDTO : <sec:authentication property="principal.member" /></p>
+<%--  	<p>principal : <sec:authentication property="principal" /></p>
+ 	<p>MemberDTO : <sec:authentication property="principal.member" /></p>
 	<p>사용자 이메일 : <sec:authentication property="principal.member.email" /></p>
-	<p>사용자 권한 리스트 : <sec:authentication property="principal.member.authList" /></p>
+	<p>사용자 권한 리스트 : <sec:authentication property="principal.member.authList" /></p> --%>
 
-	<sec:authorize access="hasRole([ROLE_ADMIN])">
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		이건 관리자만 보임
 	</sec:authorize>
 
-	<sec:authorize access="hasRole([ROLE_MANAGER])">
+	<sec:authorize access="hasRole('ROLE_MANAGER')">
 		이건 매니저만 보임
 	</sec:authorize>
 
-	<sec:authorize access="hasRole([ROLE_MEMBER])">
+	<sec:authorize access="hasRole('ROLE_MEMBER')">
 		이건 회원이면 다 보임
 	</sec:authorize>
 

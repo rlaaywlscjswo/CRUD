@@ -38,7 +38,9 @@ public class MemberController {
 			dto.setBirth("404");
 			System.out.println("생일 : "+dto.getBirth());
 		}
-		int result = memberService.memberAdd(dto);
+		
+		int result = memberService.memberAdd(dto);		
+		
 		return "redirect:main";
 	}
 	 
