@@ -35,7 +35,7 @@ public class SecurityController {
 	} // end memberPage method
 
 	// 403 Error는 여기로 옴
-	@RequestMapping("/sec_accessError")
+	@RequestMapping("/accessError")
 	public String accessError() {
 
 		return "/security/accessError";
