@@ -7,7 +7,7 @@ public class BusinessDTO {
 	private String business_addr; // 소재지
 	private String business_startdate; // 법인 설입 연월일
 	private String business_url; // 홈페이지
-	private int no; // 회원번호
+	private int no; // 회원번호 
 	public int getBusiness_no() {
 		return business_no;
 	}

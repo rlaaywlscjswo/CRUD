@@ -13,23 +13,6 @@
 .kgPayments{
 	background-color: blue;
 }
-#addrlist {
-	width: 100%;
-	border:1px solid #999; /* 각 메뉴의 왼쪽에 "|" 표시(분류 표시) */ 
-}
-#addrlist ul li{
-	display: inline-block;
-}
-#addrlist ul li:nth-child(1){
-	width: 28px;
-}
-#addrlist ul li:nth-child(2){
-	width: 100px;
-	color: red;
-}
-#addrlist ul li:nth-child(3){
-	width: 500px;
-}
 #options{
 	width: 500px;
 }
@@ -79,12 +62,12 @@ $(document).ready(function(){
 		jusoCallBack("${addr.roadaddrPart1}", "${addr.addrDetail}", "${addr.roadaddrPart2}", "${addr.jibunaddr}", "${addr.zipno}");
 		$("#basicaddr").prop("checked", true).prop("disabled", false)
 	} else {
-		$("input[name='addr_add']").prop("checked", true).val("y");
+		$("input[name='addr_add']").prop("checked", true);
 		$("#newaddr").prop("checked", true);
 	}
 	
+	//기본 배송지 클릭시 자동 완성, 신규 배송지 클릭시 텍스트창 클리어!
 	$("input[name='addrs']").change(function addr_change() {
-		//기본 배송지 클릭시 자동 완성, 신규 배송지 클릭시 텍스트창 클리어!
 		if($("input[name='addrs']:checked").val() == "basicaddr" ){
 			$("#address_name").val("${addr.address_name}");
 			$("#address_photo").val("${addr.address_photo }");
@@ -100,43 +83,27 @@ $(document).ready(function(){
 			$("#zipno").val("");
 			$("#addrDetail").val("");
 			$("#fulladdr").val("");
-			$("input[name='addr_add']").prop("checked", true).val("y");
+			$("input[name='addr_add']").prop("checked", true);
 		}
 	});
 	
-	//배송목록
-	/* $('#addrslist').on('click', function() {
-		$("#addrlist").toggle();
-	});
-	
-	$("input[name='addrlist']").on('click', function() {
-		console.log($("#myalias").text());
-		console.log($("#myaddr").text());
-		
-		$(this).parent().next().css({"border": "2px solid red"});
-		console.log($(this).next().text());
-		//console.log($(this).parent().text());
-	}); */
-	
+	// 주소검색을 수행할 팝업 페이지 호출
 	$('#addrslist').on('click', function(){
-		// 주소검색을 수행할 팝업 페이지를 호출합니다.
-		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-		let pop = window.open("addrPopup","pop","width=570,height=620, scrollbars=yes, resizable=yes"); 
-		pop.document.getElementById("no").value = '$(member.no)';
-		
+		let pop = window.open("addrPopup?no=${member.no}","pop","width=720,height=900, scrollbars=yes, resizable=yes"); 
+		console.log("자식 브라우저 : ${member.no}")
 		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
 	    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 	});
 	 
 	//배송지 목록 추가 여부
-	$("input[name='addr_add']").on('click', function() {
-		if($("input[name='addr_add']").prop("checked")){
-			$("input[name='addr_add']").val("y");
-		} else {
-			$("input[name='addr_add']").val("n");
-		}
+	$('#reqpay').on('click', function() {
+		let addr_check = $("input[name='addr_add']").is(':checked'); // 주소지 추가 true, false
+		$("input[name='addr_add']").val(addr_check);
+		//console.log($("input[name='addr_add']").val());
+		let defaultaddr_check = $("input[name='default_addrs']").is(':checked'); // 기본주소지 설정 true, false
+		$("input[name='default_addrs']").val(defaultaddr_check);
+		//console.log($("input[name='default_addr']").val());
 	});
-	
 	
 	//결제 수단 선택
 	var paymethod = "card";	
@@ -146,29 +113,25 @@ $(document).ready(function(){
 	});
 	
 	// 결제 방법
-	$("form").submit(function( event ) {
+	/* $("#frm").on('submit', function( event ) {
 		event.preventDefault();
 		let paymethod = $("#payselect").val();	
 		requestPay(paymethod);
 	});
-		
+ */
 	// 결제
-	var IMP = window.IMP; // 생략가능
-	IMP.init('iamport'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 	function requestPay(paymethod) {
+		var IMP = window.IMP; // 생략가능
+		IMP.init('iamport'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		let option = parseInt($("#option_price").text()); // 상품 가격
 		let del = $("#delivery_pay").text();
 		let delivery = parseInt($("#delivery_pay").text()); // 배송비
-		/* let delivery = function removeComma(del) {
-			n = parseInt(str.replace(/,/g,""));
-			return n;
-		} */ 
 	IMP.request_pay({
 	    pg : 'inicis',  
 	    pay_method : paymethod,  
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : "${opt.option_name}",			// 상품명
-	    amount : '${opt.option_price}' + delivery,// 결제 금액
+	    amount : 100,//${opt.option_price} + delivery,// 결제 금액
 	    buyer_email : "${member.email}", 		// 메일주소
 	    buyer_name : $("#address_name").val(),	// 구매자 이름
 	    buyer_tel : $("#address_photo").val(),	// 구매자 연락처
@@ -185,7 +148,10 @@ $(document).ready(function(){
 	        msg += '결제 금액 : ' + rsp.paid_amount;
 	        msg += '카드 승인번호 : ' + rsp.apply_num;
 	        
-	        jQuery.ajax({
+	        $("#frm").off('submit');
+	        $('form').trigger('submit');
+	        
+	        /* jQuery.ajax({
 	            url: "https://www.myservice.com/payments/complete", // 가맹점 서버
 	            method: "POST",
 	            headers: { "Content-Type": "application/json" },
@@ -196,8 +162,7 @@ $(document).ready(function(){
 	        }).done(function (data) {
 	          // 가맹점 서버 결제 API 성공시 로직
 	          console.log("결제 성공!! : "+data);
-	          $("#form").submit();
-	        })
+	        }) */
 	      } else {
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;
@@ -221,9 +186,9 @@ $(document).ready(function(){
 		/* if($("#memos").val() == "on"){
 			$('#memos').css('display', 'none').val("off");
 		} */
-		console.log(e.target);
-		console.log($("#memos").is(e.target));
-		console.log($("#memos").css('display'));
+		//console.log(e.target);
+		//console.log($("#memos").is(e.target));
+		//console.log($("#memos").css('display'));
 		if(!$("#options").is(e.target)){
 		//if($("#memos").css('display') == 'block'){
 			$('#memos').css('display', 'none');
@@ -245,15 +210,27 @@ $(document).ready(function(){
 });
 
 function jusoCallBack(roadaddrPart1, addrDetail, roadaddrPart2, jibunaddr, zipno){		
+	document.form.roadaddrPart1.value = roadaddrPart1;
+	document.form.roadaddrPart2.value = roadaddrPart2;
+	document.form.addrDetail.value = addrDetail;
+	document.form.zipno.value = zipno;
+	document.form.jibunaddr.value = jibunaddr;
+	// 전체 주소
+	document.getElementById('fulladdr').value=roadaddrPart1 +", "+addrDetail + " " + roadaddrPart2;
+}
+
+function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, address_name, address_photo) {
 	console.log(roadaddrPart1);
 	console.log(roadaddrPart2);
 	document.form.roadaddrPart1.value = roadaddrPart1;
 	document.form.roadaddrPart2.value = roadaddrPart2;
 	document.form.addrDetail.value = addrDetail;
 	document.form.zipno.value = zipno;
-	document.form.jibunaddr.value = jibunaddr;
-	
-	// 전체 주소
+	document.form.alias.value = alias;
+	document.form.address_name.value = address_name;
+	document.form.address_photo.value = address_photo;
+	$("#basicaddr").prop("checked", true);
+	$("input[name='addr_add']").prop("checked", false);
 	document.getElementById('fulladdr').value=roadaddrPart1 +", "+addrDetail + " " + roadaddrPart2;
 }
 </script>
@@ -261,7 +238,6 @@ function jusoCallBack(roadaddrPart1, addrDetail, roadaddrPart2, jibunaddr, zipno
 <body>
 <div style="width: 80%; margin: 0 auto; ">
 <div style=" border: 1px solid blue; margin-bottom: 10px; float: left; width: 100%">
-<form name="form" id="form" method="post" action="paymentsuccess">
 <span>주문/결제</span>
 	<table>
 		<thead>
@@ -290,39 +266,22 @@ function jusoCallBack(roadaddrPart1, addrDetail, roadaddrPart2, jibunaddr, zipno
 </ul>
 
 	<span>배송지 정보</span>
+<form name="form" id="frm" method="post" action="success">
 	<ul>
 		<li>
 			배송지 선택 <input type="radio" name="addrs" id="basicaddr" value="basicaddr" disabled="disabled" >기본 배송지
 			<input type="radio" name="addrs" id="newaddr" value="newaddr" >신규 배송지
-			<input type="button" id="addrslist"  value="배송지목록" />
-			<div id="addrlist" style="display:none;">
-				<ul>
-					<li>  </li>
-					<li>배송지명</li>
-					<li>배송주소</li>
-				</ul>
-				<ul>
-					<li><input type="radio" name="addrlist"></li>
-					<li>집</li>
-					<li>서울시 종로구 ㅇㅇㅇㅇ</li>
-				</ul>
-					<!-- <td><input type="radio" name="addrlist"></td>
-					<td id="myalias">집</td>
-					<td id="myaddr">서울시 종로구 어쩌구 702호</td> -->
-			</div>
+			<input type="button" id="addrslist" name="addrslist" value="배송지목록" />
 		</li>
 		<li>수령인 : <input type="text" id="address_name" name="address_name" required="required" > </li>
 		<li>배송지 명 : <input type="text" id="alias" name="alias" required="required" > </li>
 		<li>연락처 : <input type="text" id="address_photo" name="address_photo" required="required" > </li>
 		<li>배송지 주소 : <input type="text"  style="width:70px;" id="zipno"  class="goPopup" name="zipno" required="required" readonly="readonly"/>
-		<input type="button" class="goPopup" value="우편 번호"/> <input type="checkbox" name="addr_add"> 배송지목록에 추가 <br>
-			<input type="text" style="width: 500px;" id="fulladdr" readonly="readonly" > 
+		<input type="button" class="goPopup" value="우편 번호"/> <input type="checkbox" name="addr_add" id="addr_add" value="addr_add"> 배송지목록에 추가 <input type="checkbox" id="default_addrs" name="default_addrs" value="default_addr"> 기본 배송지로 설정 <br>
+			<input type="text" style="width: 500px;" id="fulladdr" name="fulladdr" readonly="readonly" > 
 			<input type="text"  style="width:100px;" id="addrDetail"  name="addrDetail"  />
 		</li>
-		<li>요청사항 : <!-- <select id="option">
-							<option selected>경비실에 맡겨주세요.</option>
-							<option>배송 전 연락주세요.</option>
-						</select> --> <input type="text" id="options" value="요청사항을 직접 입력하세요.">
+		<li>요청사항 : <input type="text" id="options" name="options" value="요청사항을 직접 입력하세요.">
 						<div id="memos" value="off">
 							<ul>
 								<li class="memo">배송 전에 미리 연락 바랍니다.</li>
@@ -353,12 +312,13 @@ function jusoCallBack(roadaddrPart1, addrDetail, roadaddrPart2, jibunaddr, zipno
 			</select><br>
 			<input type="submit"  id="reqpay" style="width: 90%; margin: 0 auto;" value="결제"> <!-- <a href="#" id="reqpay" style="width: 90%; margin: 0 auto;">결제</a> -->
 	</div>
-	<input type="submit" value="테스트 결제"><br>
 	
 </div>
 	<input type="hidden"  id="roadaddrPart1"  name="roadaddrPart1" />
 	<input type="hidden"  id="roadaddrPart2"  name="roadaddrPart2" />
 	<input type="hidden"  id="jibunaddr"  name="jibunaddr" />
+	<input type="hidden" name="no" value="${member.no} ">
+	<input type="hidden" name="option_no" value="${opt.option_no}">
 </form>
 
 </body>

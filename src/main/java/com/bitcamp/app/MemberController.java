@@ -66,29 +66,38 @@ public class MemberController {
 		return "/payment/jusoPopup";
 	}
 	@RequestMapping("/addrPopup")
-	public String addrPopup() {
+	public String addrPopup(@RequestParam int no, Model model) {
+		List<AddressDTO> dto = memberService.addrlist(no);
+		model.addAttribute("addrlist", dto);
 		return "/payment/addrPopup";
 	}
-	@RequestMapping(value = "/addrlist", method=RequestMethod.POST)
+/*	@RequestMapping(value = "/addrlist", method=RequestMethod.POST)
 	public @ResponseBody List<AddressDTO> addrlist(@RequestParam int no) {
-		List<AddressDTO> dto = memberService.addrlist(no);
 		return dto;
-	}
+	}*/
 	
 	@RequestMapping(value = "/success", method=RequestMethod.POST)
-	public String paymentsuccess(AddressDTO adto, SupportDTO sdto, @RequestParam String addr_add) {
-		//배송 주소록 추가.
+	public String paymentsuccess(AddressDTO adto, SupportDTO sdto, @RequestParam String payselect, @RequestParam String options, @RequestParam String addrs, @RequestParam String fulladdr,
+			@RequestParam(value="addr_add", required=false) String addr_add, @RequestParam(value="default_addrs", required=false) String default_addrs) {
 		int result = 0;
-		if("y".equals(addr_add)) {
+		if("true".equals(addr_add)) {
+			//배송 주소록 추가.
 			result = memberService.addrssInsert(adto);
-			System.out.println("주소 추가 ? : "+result);
-		} 
+		}
+		//기본 배송지로 지정
+		if("true".equals(default_addrs)) {
+			//기본 배송지 지정 풀기
+			result = memberService.addrssupdate1(adto);
+			//기본 배송지 지정 하기
+			result = memberService.addrssupdate2(adto);
+		}
+		result = memberService.supportinsert(sdto);
 		return "/payment/success";
 	}
 	
 	// 여기서부터 병훈쓰 spring security
 	
-	@RequestMapping("/sec_admin")
+/*	@RequestMapping("/sec_admin")
 	public String adminPage() {
 		
 		return "/security/admin";
@@ -115,7 +124,7 @@ public class MemberController {
 		return "/security/accessError";
 		
 	} // end memberPage method
-	
+*/	
 	@RequestMapping("/sec_login")
 	public String customLogin() {
 		

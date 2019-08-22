@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.bitcamp.dto.AddressDTO;
 import com.bitcamp.dto.MemberDTO;
+import com.bitcamp.dto.SupportDTO;
 
 @Mapper
 public interface MemberMapper {
@@ -15,4 +16,7 @@ public interface MemberMapper {
 	public int addressInsert(AddressDTO adto);
 	public List<AddressDTO> addrlist(int no);
 	public MemberDTO getUserById(String email); // 병훈쓰  spring security
+	public int addrssupdate1(AddressDTO adto);
+	public int addrssupdate2(AddressDTO adto);
+	public int supportinsert(SupportDTO sdto);
 }

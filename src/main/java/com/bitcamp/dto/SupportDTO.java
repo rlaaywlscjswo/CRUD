@@ -5,6 +5,24 @@ public class SupportDTO {
 	private int support_no; // 후원 번호
 	private String support_date; // 후원 일자
 	private int support_status; // 처리 상태
+	private int no;
+	private int option_no;
+	
+	public int getNo() {
+		return no;
+	}
+
+	public int getOption_no() {
+		return option_no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public void setOption_no(int option_no) {
+		this.option_no = option_no;
+	}
 
 	public int getSupport_no() {
 		return support_no;

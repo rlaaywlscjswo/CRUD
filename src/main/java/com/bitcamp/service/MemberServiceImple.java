@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bitcamp.dto.AddressDTO;
 import com.bitcamp.dto.MemberDTO;
+import com.bitcamp.dto.SupportDTO;
 import com.bitcamp.mapper.MemberMapper;
 
 @Service("memberService")
@@ -48,6 +49,21 @@ public class MemberServiceImple implements MemberService {
 	@Override
 	public List<AddressDTO> addrlist(int no) {
 		return mapper.addrlist(no);
+	}
+
+	@Override
+	public int addrssupdate1(AddressDTO adto) {
+		return mapper.addrssupdate1(adto);
+	}
+
+	@Override
+	public int addrssupdate2(AddressDTO adto) {
+		return mapper.addrssupdate2(adto);
+	}
+
+	@Override
+	public int supportinsert(SupportDTO sdto) {
+		return mapper.supportinsert(sdto);
 	}
 
 }
