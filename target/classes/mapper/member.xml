@@ -48,13 +48,15 @@
 		<result property="email" column="email" />
 		<result property="password" column="password" />
 		<result property="enabled" column="enabled" />
-		<collection property="authList" resultMap="authMap" />
-	</resultMap>
-	
-	<resultMap type="com.bitcamp.dto.AuthorityDTO" id="authMap">
 		<result property="auth_no" column="auth_no" />
 		<result property="auth" column="auth" />
+		<!-- <collection property="authList" resultMap="authMap" /> -->
 	</resultMap>
+	
+<!-- 	<resultMap type="com.bitcamp.dto.AuthorityDTO" id="authMap">
+		<result property="auth_no" column="auth_no" />
+		<result property="auth" column="auth" />
+	</resultMap> -->
 	
 	<select id="getUserById" parameterType="String" resultMap="memberMap">
 		select email, password, enabled, member.auth_no, auth

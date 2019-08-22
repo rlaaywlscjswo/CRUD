@@ -13,6 +13,7 @@ import com.bitcamp.mapper.MemberMapper;
 @Service("memberService")
 public class MemberServiceImple implements MemberService {
 	
+	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
 	@Autowired
