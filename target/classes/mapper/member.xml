@@ -62,24 +62,42 @@
 		select * from address where no = #{no}; 
 	</select>
 	
-	<!-- 병훈쓰 spring security -->
 	
-	<resultMap type="com.bitcamp.dto.MemberDTO" id="memberMap">
+	
+	
+		<resultMap type="com.bitcamp.dto.MemberDTO" id="memberMap">
+		<result property="no" column="no" />
 		<result property="email" column="email" />
 		<result property="password" column="password" />
 		<result property="enabled" column="enabled" />
 		<collection property="authList" resultMap="authMap" />
 	</resultMap>
-	
+
 	<resultMap type="com.bitcamp.dto.AuthorityDTO" id="authMap">
-		<result property="auth_no" column="auth_no" />
+		<result property="no" column="no" />
 		<result property="auth" column="auth" />
 	</resultMap>
 	
-	<select id="getUserById" parameterType="String" resultMap="memberMap">
-		select email, password, enabled, member.auth_no, auth
-		from member join authority on member.auth_no = authority.auth_no
-		where email = #{email}
+	<select id="maxno" resultType="int">
+		select max(no)+1 from member
+	</select>
+	
+	<insert id="grantedAuth" parameterType="com.bitcamp.dto.MemberDTO">
+<!-- 		insert into authority (no, auth) values 
+		<foreach collection="authList" item="item" open="(" separator="," close=")">
+			#{item.no}, #{item.auth}
+		</foreach> -->
+		
+		insert into authority values (#{no}, 'ROLE_MEMBER')
+		
+	</insert>
+
+	<select id="getUserById" parameterType="String"
+		resultMap="memberMap">
+		select member.no, email, password, enabled, auth
+		from member join
+		authority on member.no = authority.no
+		where email = (select email from member where email = #{email})
 	</select>
 
 </mapper>

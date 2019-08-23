@@ -283,14 +283,15 @@ $(document).ready(function(){
 	// 이메일 체크
     $("#email").on("keyup", function email(){
     	let email=/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    	let emailcheck = $('#emailcheck');
+    	let emailcheck = $('#emailcheck'); 	
 		if(document.getElementById("email").value.length < 3){
 			emailcheck.text('');
 		} else {
 			if(!email.test($("#email").val())){
-				emailcheck.css('color', 'red').html('이메일 형식이 잘못 되었습니다.');
+				emailcheck.css('color', 'red').text('이메일 형식이 잘못 되었습니다.');
 				status('n');
 			} else {
+				emailcheck.css('color', 'green').text(''); // 쌤이 수정하신 부분
 		        let id=$(this).val();
 		        console.log("jsp 키 액션 : "+emailcheck);
 		        $.ajax({

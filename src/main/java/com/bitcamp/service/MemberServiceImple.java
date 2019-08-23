@@ -14,6 +14,7 @@ import com.bitcamp.mapper.MemberMapper;
 @Service("memberService")
 public class MemberServiceImple implements MemberService {
 	
+	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
 	@Autowired
@@ -33,7 +34,11 @@ public class MemberServiceImple implements MemberService {
 		String changePassword = encoder.encode(dto.getPassword());
 		dto.setPassword(changePassword);
 		
-		return mapper.memberAdd(dto);
+		dto.setNo(mapper.maxno());
+		
+		mapper.memberAdd(dto);
+		
+		return mapper.grantedAuth(dto);
 	}
 
 	@Override

@@ -18,13 +18,15 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		
+		System.out.println("★CustomUserDetails★");
 		List<AuthorityDTO> list = dto.getAuthList();
 		ArrayList<SimpleGrantedAuthority> auth = new ArrayList<>();
 		
 		for (int i = 0; i < list.size(); i++) {
 			auth.add(new SimpleGrantedAuthority(list.get(i).getAuth()));
 		} // end for
+		
+		System.out.println(auth);
 		
 		return auth;
 	}

@@ -38,7 +38,9 @@ public class MemberController {
 			dto.setBirth("404");
 			System.out.println("생일 : "+dto.getBirth());
 		}
-		int result = memberService.memberAdd(dto);
+		
+		int result = memberService.memberAdd(dto);		
+		
 		return "redirect:main";
 	}
 	 
@@ -94,44 +96,5 @@ public class MemberController {
 		result = memberService.supportinsert(sdto);
 		return "/payment/success";
 	}
-	
-	// 여기서부터 병훈쓰 spring security
-	
-/*	@RequestMapping("/sec_admin")
-	public String adminPage() {
-		
-		return "/security/admin";
-		
-	} // end adminPage method
-	
-	@RequestMapping("/sec_manager")
-	public String managerPage() {
-		
-		return "/security/manager";
-		
-	} // end managerPage method
-	
-	@RequestMapping("/sec_member")
-	public String memberPage() {
-		
-		return "/security/member";
-		
-	} // end memberPage method
-	
-	@RequestMapping("/sec_accessError")
-	public String accessError() {
-		
-		return "/security/accessError";
-		
-	} // end memberPage method
-*/	
-	@RequestMapping("/sec_login")
-	public String customLogin() {
-		
-		return "/security/login";
-		
-	} // end memberPage method
-	
-	
 	
 } // end MemberController class
