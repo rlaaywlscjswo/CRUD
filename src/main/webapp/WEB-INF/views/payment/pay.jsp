@@ -87,12 +87,10 @@ $(document).ready(function(){
 		}
 	});
 	
-	// 주소검색을 수행할 팝업 페이지 호출
+	//주소목록 팝업 호출
 	$('#addrslist').on('click', function(){
 		let pop = window.open("addrPopup?no=${member.no}","pop","width=720,height=900, scrollbars=yes, resizable=yes"); 
 		console.log("자식 브라우저 : ${member.no}")
-		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-	    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 	});
 	 
 	//배송지 목록 추가 여부
@@ -113,12 +111,12 @@ $(document).ready(function(){
 	});
 	
 	// 결제 방법
-	/* $("#frm").on('submit', function( event ) {
+	$("#frm").on('submit', function( event ) {
 		event.preventDefault();
 		let paymethod = $("#payselect").val();	
 		requestPay(paymethod);
 	});
- */
+	
 	// 결제
 	function requestPay(paymethod) {
 		var IMP = window.IMP; // 생략가능

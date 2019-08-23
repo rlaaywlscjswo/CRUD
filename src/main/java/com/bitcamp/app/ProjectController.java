@@ -62,7 +62,6 @@ public class ProjectController {
 		return "project/projectcategorylist.temp";
 	}
 	
-	
 	// 프로젝트 검색 결과 목록 페이지
 	@RequestMapping("projectlist")
 	public String list(			

@@ -1,11 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+$(document).ready(function(){
+	//주소목록 팝업 호출
+	$('#talk').on('click', function(){
+		//인코딩 문제 방지
+		let uri = encodeURI("talk?no="+4);
+		console.log(uri);
+		let pop = window.open(uri,"pop","width=780,height=520, scrollbars=yes, resizable=yes"); 
+	});
+});
+</script>
 </head>
 <body>
   <!--**********************************
@@ -77,7 +90,7 @@
                
             </ul>
             <a href="insert"><button type="button" class="btn btn-light">프로젝트 등록하러가기</button></a>
-           <button type="button" class="btn btn-light">쪽지함</button>
+           <button type="button" id="talk" class="btn btn-light">쪽지함</button>
            <button type="button" class="btn btn-light">고객센터</button>
         </div>
     </nav>  

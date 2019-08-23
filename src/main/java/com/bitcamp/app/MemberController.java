@@ -97,4 +97,9 @@ public class MemberController {
 		return "/payment/success";
 	}
 	
+	@RequestMapping("/talk")
+	public String talk(@RequestParam int no) {
+		return "/member/talk";
+	}
+	
 } // end MemberController class
