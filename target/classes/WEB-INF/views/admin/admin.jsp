@@ -11,14 +11,16 @@
 </head>
 <body>
 
+	<h1>이메일을 보여줘 : <c:out value="${needemail}" /></h1>
+
 	<h1>여기 관리자 페이지가 될 예정이야</h1>
 
 	<h2>할 사람은 여기다 해주세요.</h2>
 	
-<%--  	<p>principal : <sec:authentication property="principal" /></p>
- 	<p>MemberDTO : <sec:authentication property="principal.member" /></p>
-	<p>사용자 이메일 : <sec:authentication property="principal.member.email" /></p>
-	<p>사용자 권한 리스트 : <sec:authentication property="principal.member.authList" /></p> --%>
+  	<p>principal : <sec:authentication property="principal" /></p>
+ 	<%-- <p>MemberDTO : <sec:authentication property="principal.dto" /></p> --%>
+	<%-- <p>사용자 이메일 : <sec:authentication property="principal.dto.email" /></p>
+	<p>사용자 권한 리스트 : <sec:authentication property="principal.dto.authList" /></p> --%>
 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		이건 관리자만 보임
