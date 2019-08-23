@@ -38,7 +38,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			response.sendRedirect("/sec_member");
 		}
 		
-		response.sendRedirect("/");
+		// response.sendRedirect("/");
 		
 	} // end onAuthenticationSuccess method
 

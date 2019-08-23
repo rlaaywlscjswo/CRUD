@@ -10,11 +10,11 @@
 
 	<h1>병훈쓰가 만든 임시 로그인 페이지</h1>
 	
-	<form action="/support" method="post">
+	<form action="/login" method="post">
 	
 		<div>
-			<label for="email">이메일</label>
-			<input type="text" name="email" id="email" value="@test.com">
+			<label for="username">이메일</label>
+			<input type="text" name="username" id="username" value="@test.com">
 		</div>
 		
 		<div>

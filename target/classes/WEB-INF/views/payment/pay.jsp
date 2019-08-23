@@ -317,6 +317,10 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 	<input type="hidden"  id="jibunaddr"  name="jibunaddr" />
 	<input type="hidden" name="no" value="${member.no} ">
 	<input type="hidden" name="option_no" value="${opt.option_no}">
+	
+	<!-- spring security -->
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+	
 </form>
 
 </body>

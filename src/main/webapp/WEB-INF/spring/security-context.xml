@@ -16,9 +16,9 @@
  		<security:intercept-url pattern="/sec_manager" access="hasRole('ROLE_MANAGER')" />
 		<security:intercept-url pattern="/sec_member" access="isAuthenticated()" />
 		
-	<!-- 	<security:access-denied-handler ref="customAccessDenied" /> -->
+		<security:access-denied-handler ref="customAccessDenied" />
 		
-		<security:form-login authentication-success-handler-ref="customLoginSuccess" />
+		<security:form-login login-page="/sec_login" authentication-success-handler-ref="customLoginSuccess" />
 		
 		<!-- <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/> -->
 		<security:logout logout-url="/customLogout" invalidate-session="true" />
