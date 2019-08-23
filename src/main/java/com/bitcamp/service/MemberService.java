@@ -15,4 +15,7 @@ public interface MemberService {
 	public int addrssupdate1(AddressDTO adto);
 	public int addrssupdate2(AddressDTO adto);
 	public int supportinsert(SupportDTO sdto);
+	
+	// 관리자 승인 시 회원 권한 update
+	public int changeAuth(String email);
 }

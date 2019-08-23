@@ -99,5 +99,10 @@
 		authority on member.no = authority.no
 		where email = (select email from member where email = #{email})
 	</select>
+	
+	<update id="changeAuth" parameterType="String">
+		update authority join member on authority.no = member.no set auth = 'ROLE_MANAGER'
+		where email = #{email}
+	</update>
 
 </mapper>

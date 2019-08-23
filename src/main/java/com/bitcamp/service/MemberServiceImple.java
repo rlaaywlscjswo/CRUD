@@ -71,4 +71,10 @@ public class MemberServiceImple implements MemberService {
 		return mapper.supportinsert(sdto);
 	}
 
+	// 관리자 승인 시 회원 권한 update
+	@Override
+	public int changeAuth(String email) {
+		return mapper.changeAuth(email);
+	} // end changeAuth method
+
 }
