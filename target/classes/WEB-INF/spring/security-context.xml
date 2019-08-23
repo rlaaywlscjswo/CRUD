@@ -16,7 +16,7 @@
  		<security:intercept-url pattern="/sec_manager" access="hasRole('ROLE_MANAGER')" />
 		<security:intercept-url pattern="/sec_member" access="isAuthenticated()" />
 		
-		<security:access-denied-handler ref="customAccessDenied" />
+	<!-- 	<security:access-denied-handler ref="customAccessDenied" /> -->
 		
 		<security:form-login />
 		
@@ -26,7 +26,7 @@
 		<security:logout />
 		<!--  logout-url="/customLogout" invalidate-session="true"  -->
 		<!--  delete-cookies="remember-me, JSESSION_ID" -->
-		<security:csrf />
+		<security:csrf disabled="true" />
 	</security:http>
 	
 	
