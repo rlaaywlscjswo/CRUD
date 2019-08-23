@@ -108,6 +108,8 @@
 	모두 보기
 	진행 중인 프로젝트
 	결제가 완료 된 프로젝트
+	
+	<a href="/sec_login" style="position: relative; top: 20px; left: 30%;">로그인</a>
 
 	<div id="support_searching">
 		<form method="get" action="support?currPage=${dto.firstPageOfBlock}">
