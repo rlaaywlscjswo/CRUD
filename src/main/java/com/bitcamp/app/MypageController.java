@@ -64,14 +64,14 @@ public class MypageController {
 		
 		List<MemberDTO> myProjectList = service.myProjectList();
 		
-		int achievePercent = service.achievePercent();
+		// int achievePercent = service.achievePercent();
 		
 		model.addAttribute("myProject", myProject);
 		model.addAttribute("theNumberOfMyProject", theNumberOfMyProject);
 		model.addAttribute("propropro", propropro);
 		model.addAttribute("remainingDays", remainingDays);
 		model.addAttribute("myProjectList", myProjectList);
-		model.addAttribute("achievePercent", achievePercent);
+		// model.addAttribute("achievePercent", achievePercent);
 		
 		return "/mypage/mypage_project.temp";
 		

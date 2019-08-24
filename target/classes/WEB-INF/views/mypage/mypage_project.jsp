@@ -70,7 +70,7 @@
 					프로젝트 이름 : ${mp.project_title}<br>
 					썸네일 이미지 : ${mp.project_photo}<br>
 					남은 시간 : ${remainingDays}일<br>
-					모인 금액 : ${achievePercent}원<br>
+					<%-- 모인 금액 : ${achievePercent}원<br> --%>
 
 				
 				<%-- 프로젝트 번호 : ${mplist.pno} <br>

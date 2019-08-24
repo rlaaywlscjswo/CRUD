@@ -124,11 +124,9 @@
 	
 	<!-- 달성 퍼센트 -->
 	<select id="achievePercent" resultType="Integer">
-		<if test="(sum(option_price) / targetprice) * 100 != null">
 		select (sum(option_price) / targetprice) * 100
 		from `option` join project on `option`.project_no = project.project_no
 		where project.project_no = 116
-		</if>
 	</select>
 
 </mapper>
