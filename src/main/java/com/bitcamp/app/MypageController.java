@@ -21,6 +21,13 @@ public class MypageController {
 
 	@Inject
 	private MypageService service;
+	
+	@RequestMapping("/mypage")
+	public String mypage() {
+		
+		return "/mypage/mypage";
+		
+	} // end mypage method
 
 	@RequestMapping("/info")
 	public String mypageInfoList(Model model) {
