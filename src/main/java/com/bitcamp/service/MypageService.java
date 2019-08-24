@@ -20,4 +20,10 @@ public interface MypageService {
 	
 	public List<OptionDTO> propropro();
 	
+	public int remainingDays();
+	
+	public List<MemberDTO> myProjectList();
+	
+	public int achievePercent();
+	
 } // end MypageService interface

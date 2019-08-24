@@ -24,5 +24,11 @@ public interface MypageMapper {
 	public List<ProjectDTO> theNumberOfMyProject();
 	
 	public List<OptionDTO> propropro();
+	
+	public int remainingDays();
+	
+	public List<MemberDTO> myProjectList();
+	
+	public int achievePercent();
 
 } // end MypageMapper interface

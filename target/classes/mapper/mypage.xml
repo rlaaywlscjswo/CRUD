@@ -64,8 +64,8 @@
 	<!-- 마이 페이지 - 내 프로젝트 -->
 	
 	<!-- 남은 날 보기 -->
-	<select id="remainingDays">
-		select to_days(enddate) - todays(startdate) from project where no = 23;
+	<select id="remainingDays" resultType="int">
+		select to_days(enddate) - to_days(now()) from project where project_no = 116
 	</select>
 	
 
@@ -107,6 +107,28 @@
 		from project join `option` on project.project_no = `option`.project_no
 		where project.project_no = 18
 		group by project.project_no
+	</select>
+	
+	
+	
+	<resultMap type="hashMap" id="myProjectHashMap">
+		<result column="project_photo" property="project_photo" />
+		<result column="enddate" property="enddate" />
+		<result column="targetprice" property="targetprice" />
+		<result column="project_title" property="project_title" />
+	</resultMap>
+	
+	<select id="myProjectList" resultType="com.bitcamp.dto.MemberDTO">
+		select project_no from member join project on member.no = project.no where email = 'adadad@test.com'
+	</select>
+	
+	<!-- 달성 퍼센트 -->
+	<select id="achievePercent" resultType="Integer">
+		<if test="(sum(option_price) / targetprice) * 100 != null">
+		select (sum(option_price) / targetprice) * 100
+		from `option` join project on `option`.project_no = project.project_no
+		where project.project_no = 116
+		</if>
 	</select>
 
 </mapper>

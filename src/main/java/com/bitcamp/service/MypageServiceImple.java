@@ -71,4 +71,22 @@ public class MypageServiceImple implements MypageService {
 		
 	} // end allOfSupport method
 
+	@Override
+	public int remainingDays() {
+
+		return mypageMapper.remainingDays();
+	}
+
+	@Override
+	public List<MemberDTO> myProjectList() {
+
+		return mypageMapper.myProjectList();
+	}
+
+	@Override
+	public int achievePercent() {
+
+		return mypageMapper.achievePercent();
+	}	
+
 } // end MypageServiceImple class

@@ -53,7 +53,7 @@
 		</form>
 	</div>
 	
-	<div>남은 시간을 보여줘 : </div>
+	<div>남은 시간을 보여줘 : ${remainingDays}일 남았어!!</div>
 
 	내가 만든 프로젝트 개수 :
 	<div
@@ -62,17 +62,16 @@
 
 	<div
 		style="border: 1px solid silver; width: 1000px; margin-left: 50px;">
-		<c:forEach items="${theNumberOfMyProject}">
+		<c:forEach items="${myProjectList}" var="mp">
 			<div
 				style="border: 1px solid silver; width: 200px; height: 230px; margin: 10px; display: inline-block; ">
 				
-				<c:forEach var="propro" items="${propropro}">
-					프로젝트 번호 : <br>
-					프로젝트 이름 : <br>
-					썸네일 이미지 : <br>
-					남은 시간 : <br>
-					모인 금액 : <br>
-				</c:forEach>
+
+					프로젝트 이름 : ${mp.project_title}<br>
+					썸네일 이미지 : ${mp.project_photo}<br>
+					남은 시간 : ${remainingDays}일<br>
+					모인 금액 : ${achievePercent}원<br>
+
 				
 				<%-- 프로젝트 번호 : ${mplist.pno} <br>
 				썸네일 이미지 : ${mplist.project_photo} <br> 

@@ -59,9 +59,19 @@ public class MypageController {
 		List<OptionDTO> propropro = service.propropro();
 		System.out.println("★★★★★★★★★★ propropro : " + propropro);
 		
+		int remainingDays = service.remainingDays();
+		System.out.println("remainingDays : " + remainingDays);
+		
+		List<MemberDTO> myProjectList = service.myProjectList();
+		
+		int achievePercent = service.achievePercent();
+		
 		model.addAttribute("myProject", myProject);
 		model.addAttribute("theNumberOfMyProject", theNumberOfMyProject);
 		model.addAttribute("propropro", propropro);
+		model.addAttribute("remainingDays", remainingDays);
+		model.addAttribute("myProjectList", myProjectList);
+		model.addAttribute("achievePercent", achievePercent);
 		
 		return "/mypage/mypage_project.temp";
 		
