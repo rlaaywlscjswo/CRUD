@@ -45,6 +45,7 @@ public class MypageServiceImple implements MypageService {
 		hm.put("startRow", startRow);
 		hm.put("pagePerSize", pagePerSize);
 		hm.put("support_search", support_search);
+		System.out.println("서비스 pagePerSize : " + pagePerSize);
 		
 		return mypageMapper.mypageSupportList(hm);
 		

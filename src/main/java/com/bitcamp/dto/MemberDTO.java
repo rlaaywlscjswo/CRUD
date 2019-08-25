@@ -17,6 +17,15 @@ public class MemberDTO {
 	private int auth_no; // 권한 번호
 
 	private List<AuthorityDTO> authList; // 권한 list
+	private List<ProjectDTO> projectList; // 프로젝트 list
+
+	public List<ProjectDTO> getProjectList() {
+		return projectList;
+	}
+
+	public void setProjectList(List<ProjectDTO> projectList) {
+		this.projectList = projectList;
+	}
 
 	public List<AuthorityDTO> getAuthList() {
 		return authList;

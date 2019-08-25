@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitcamp.mapper.AdminMapper">
+
+	<!-- 펀딩 회원 관리 -->
+	
+	<!-- 회원 번호, 이름, 이메일, 펀딩 이름, 달성 금액 / 목표 금액, 성공 여부 / 달성률, 계약서 -->
+
+	<resultMap type="com.bitcamp.dto.MemberDTO" id="mdto">
+		<result property="no" column="no" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="project_title" column="project_title" />
+		<result property="targetprice" column="targetprice" />
+		<result property="project_status" column="project_status" />
+		<result property="project_contract" column="project_contract" />
+	</resultMap>
+	
+	<select id="admin_fmember" resultMap="mdto">
+		select member.no, name, email, project_title, targetprice, project_status, project_contract
+		from member join project on member.no = project.no
+		<!-- limit #{startRow}, #{pagePerSize} -->
+	</select>
+
+</mapper>

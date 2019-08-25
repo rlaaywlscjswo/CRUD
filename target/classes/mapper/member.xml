@@ -65,7 +65,7 @@
 	
 	
 	
-		<resultMap type="com.bitcamp.dto.MemberDTO" id="memberMap">
+	<resultMap type="com.bitcamp.dto.MemberDTO" id="memberMap">
 		<result property="no" column="no" />
 		<result property="email" column="email" />
 		<result property="password" column="password" />
