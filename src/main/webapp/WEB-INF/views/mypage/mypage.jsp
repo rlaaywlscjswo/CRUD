@@ -39,11 +39,12 @@
 
 #content_1, #content_2, #content_3, #content_4 {
 	border: 1px solid crimson;
+	border-radius: 10px;
 	display: inline-block;
-	height: 450px;
+	height: 600px;
 	left: 190px;
 	position: absolute;
-	width: 450px;
+	width: 1000px;
 }
 
 #content_1 {
@@ -67,7 +68,7 @@
 <script>
 	$(document).ready(function() {
 		$('#tab_1').on('click', function() {
-			alert('이게 뭐야 ㅜㅜ');
+			$('#content_1').load("/support");
 		});
 	});
 </script>
@@ -119,12 +120,15 @@
 
 	<div class="wrap">
 
-		<div id="tab_1">1번 탭</div>
-		<div id="content_1">1번 내용</div>
+		<div id="tab_1">내 후원 내역</div>		
+		<div id="content_1"></div>
+		
 		<div id="tab_2">2번 탭</div>
 		<div id="content_2">2번 내용</div>
+		
 		<div id="tab_3">3번 탭</div>
 		<div id="content_3">3번 내용</div>
+		
 		<div id="tab_4">4번 탭</div>
 		<div id="content_4">4번 내용</div>
 
