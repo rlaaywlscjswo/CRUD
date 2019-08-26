@@ -52,16 +52,13 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/pay", method=RequestMethod.POST)
-	public String pay(OptionDTO odto, MemberDTO mdto, @RequestParam String alias, Model model, Principal principal) {
+	public String pay(OptionDTO odto, @RequestParam String alias, Model model, Principal principal) {
+		//MemberDTO dto = loginInfo(principal);
+		MemberDTO mdto = memberService.memberinfo(principal.getName());
 		AddressDTO adto = memberService.address(mdto.getNo());
-		//System.out.println(adto.getRoadaddr());
+		
+		System.out.println(mdto.getNo());
 		model.addAttribute("opt", odto);
-		//로그인 완료 후에 변경해야하는곳. (MemberDTO 받아오는 방식 변경 예정.)
-		MemberDTO dto = loginInfo(principal);
-		System.out.println(dto.getName());
-		System.out.println(dto.getEmail());
-		mdto.setName("이찬영");
-		mdto.setEmail("joy23456@naver.com");
 		model.addAttribute("member", mdto);
 		model.addAttribute("addr", adto);
 		model.addAttribute("alias", alias);
@@ -88,7 +85,17 @@ public class MemberController {
 		int result = 0;
 		if("true".equals(addr_add)) {
 			//배송 주소록 추가.
-			result = memberService.addrssInsert(adto);
+			System.out.println(adto.getNo());
+			System.out.println(adto.getAddress_name());
+			System.out.println(adto.getAddress_photo());
+			System.out.println(adto.getDefault_addr() + "없는 값");
+			System.out.println(adto.getAlias());
+			System.out.println(adto.getZipno());
+			System.out.println(adto.getRoadaddrPart1());
+			System.out.println(adto.getRoadaddrPart2());
+			System.out.println(adto.getJibunaddr());
+			System.out.println(adto.getAddrDetail());
+			result = memberService.addressInsert(adto);
 		}
 		//기본 배송지로 지정
 		if("true".equals(default_addrs)) {
@@ -109,12 +116,7 @@ public class MemberController {
 	// 현재 로그인된 정보
 	@RequestMapping(value = "/loginInfo", method=RequestMethod.POST)
 	public @ResponseBody MemberDTO loginInfo(Principal principal) {
-		String email = principal.getName();
-		MemberDTO dto = memberService.memberinfo(email);
-		System.out.println(dto.getNo());
-		System.out.println(dto.getName());
-		System.out.println(dto.getPhoto());
-		System.out.println(dto.getEmail());
+		MemberDTO dto = memberService.memberinfo(principal.getName());
 		return dto;
 	}
 	

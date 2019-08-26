@@ -10,7 +10,7 @@ public interface MemberService {
 	public int emailCheck(String email);
 	public int memberAdd(MemberDTO dto);
 	public AddressDTO address(int no);
-	public int addrssInsert(AddressDTO adto);
+	public int addressInsert(AddressDTO adto);
 	public List<AddressDTO> addrlist(int no);
 	public int addrssupdate1(AddressDTO adto);
 	public int addrssupdate2(AddressDTO adto);

@@ -47,7 +47,7 @@ public class MemberServiceImple implements MemberService {
 	}
 
 	@Override
-	public int addrssInsert(AddressDTO adto) {
+	public int addressInsert(AddressDTO adto) {
 		return mapper.addressInsert(adto);
 	}
 

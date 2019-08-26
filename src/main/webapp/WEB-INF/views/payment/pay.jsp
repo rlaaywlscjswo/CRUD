@@ -111,11 +111,11 @@ $(document).ready(function(){
 	});
 	
 	// 결제 방법
-	$("#frm").on('submit', function( event ) {
+	/* $("#frm").on('submit', function( event ) {
 		event.preventDefault();
 		let paymethod = $("#payselect").val();	
 		requestPay(paymethod);
-	});
+	}); */
 	
 	// 결제
 	function requestPay(paymethod) {
@@ -129,7 +129,7 @@ $(document).ready(function(){
 	    pay_method : paymethod,  
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : "${opt.option_name}",			// 상품명
-	    amount : 100,//${opt.option_price} + delivery,// 결제 금액
+	    amount : ${opt.option_price} + delivery,// 결제 금액
 	    buyer_email : "${member.email}", 		// 메일주소
 	    buyer_name : $("#address_name").val(),	// 구매자 이름
 	    buyer_tel : $("#address_photo").val(),	// 구매자 연락처
@@ -275,7 +275,7 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 		<li>배송지 주소 : <input type="text"  style="width:70px;" id="zipno"  class="goPopup" name="zipno" required="required" readonly="readonly"/>
 		<input type="button" class="goPopup" value="우편 번호"/> <input type="checkbox" name="addr_add" id="addr_add" value="addr_add"> 배송지목록에 추가 <input type="checkbox" id="default_addrs" name="default_addrs" value="default_addr"> 기본 배송지로 설정 <br>
 			<input type="text" style="width: 500px;" id="fulladdr" name="fulladdr" readonly="readonly" > 
-			<input type="text"  style="width:100px;" id="addrDetail"  name="addrDetail"  />
+			<input type="text"  style="width:100px;" id="addrDetail"  name="addrDetail" required="required" />
 		</li>
 		<li>요청사항 : <input type="text" id="options" name="options" value="요청사항을 직접 입력하세요.">
 						<div id="memos" value="off">
