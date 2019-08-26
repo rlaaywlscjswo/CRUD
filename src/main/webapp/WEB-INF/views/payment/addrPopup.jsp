@@ -68,6 +68,9 @@ body{
 	width: 90%;
 	border-radius:10px;
 }
+.green, .btn{
+	cursor:pointer;
+}
 </style>
 <script>
 $(document).ready(function(){

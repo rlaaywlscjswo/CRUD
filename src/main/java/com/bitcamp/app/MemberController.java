@@ -53,11 +53,8 @@ public class MemberController {
 	
 	@RequestMapping(value = "/pay", method=RequestMethod.POST)
 	public String pay(OptionDTO odto, @RequestParam String alias, Model model, Principal principal) {
-		//MemberDTO dto = loginInfo(principal);
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
 		AddressDTO adto = memberService.address(mdto.getNo());
-		
-		System.out.println(mdto.getNo());
 		model.addAttribute("opt", odto);
 		model.addAttribute("member", mdto);
 		model.addAttribute("addr", adto);
@@ -85,16 +82,6 @@ public class MemberController {
 		int result = 0;
 		if("true".equals(addr_add)) {
 			//배송 주소록 추가.
-			System.out.println(adto.getNo());
-			System.out.println(adto.getAddress_name());
-			System.out.println(adto.getAddress_photo());
-			System.out.println(adto.getDefault_addr() + "없는 값");
-			System.out.println(adto.getAlias());
-			System.out.println(adto.getZipno());
-			System.out.println(adto.getRoadaddrPart1());
-			System.out.println(adto.getRoadaddrPart2());
-			System.out.println(adto.getJibunaddr());
-			System.out.println(adto.getAddrDetail());
 			result = memberService.addressInsert(adto);
 		}
 		//기본 배송지로 지정

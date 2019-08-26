@@ -23,9 +23,11 @@
 	width: 500px;
 }
 .memo{
-	cursor: pointer;
 	width: 100%;
 	font-size: 12px;
+}
+#addrslist, .goPopup, #default_addrs, #addr_add, .memo, #basicaddr, #newaddr{
+	cursor:pointer;
 }
 </style>
 <script>
@@ -225,13 +227,14 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 	document.form.alias.value = alias;
 	document.form.address_name.value = address_name;
 	document.form.address_photo.value = address_photo;
-	$("#basicaddr").prop("checked", true);
+	$("#basicaddr").prop("checked", true).prop("disabled", false);
 	$("input[name='addr_add']").prop("checked", false);
 	document.getElementById('fulladdr').value=roadaddrPart1 +", "+addrDetail + " " + roadaddrPart2;
 }
 </script>
 </head>
 <body>
+<form name="form" id="frm" method="post" action="success">
 <div style="width: 80%; margin: 0 auto; ">
 <div style=" border: 1px solid blue; margin-bottom: 10px; float: left; width: 100%">
 <span>주문/결제</span>
@@ -262,7 +265,6 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 </ul>
 
 	<span>배송지 정보</span>
-<form name="form" id="frm" method="post" action="success">
 	<ul>
 		<li>
 			배송지 선택 <input type="radio" name="addrs" id="basicaddr" value="basicaddr" disabled="disabled" >기본 배송지
