@@ -42,7 +42,7 @@ $(document).ready(function(){
                         	<sec:authorize access="isAuthenticated()">
                         		<form action="/customLogout" method="post">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-								<button>로그아웃</button>
+								<button style="width: ">로그아웃</button>
 								</form>
                         	</sec:authorize>
                         	
