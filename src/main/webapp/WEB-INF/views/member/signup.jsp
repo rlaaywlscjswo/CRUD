@@ -303,10 +303,10 @@ $(document).ready(function(){
 		            	console.log(data);
 		                if(data == 0){ 
 							status('y');
-		                	emailcheck.css('color', '#007bff').html('사용 가능한 아이디입니다.');
+		                	emailcheck.css('color', '#007bff').text('사용 가능한 아이디입니다.');
 		                }else{ 
 		                	status('n');
-		                	emailcheck.css('color', 'red').html('중복된 아이디입니다.');
+		                	emailcheck.css('color', 'red').text('중복된 아이디입니다.');
 		                }
 		            }
 		        });
@@ -333,10 +333,11 @@ $(document).ready(function(){
 		let password = document.getElementById("password");
 		let password2 = document.getElementById("confirmPassword");
 		if(password.value.length < 8 && password.value != ""){
-			check.html("비밀번호는 8자리 이상 적어주세요.").css('color', 'red');
+			red();
+			check.text("비밀번호는 8자리 이상 적어주세요.").css('color', 'red');
 		} else {
 			if(pwd1.val() != pwd2.val() && password2.value.length >= 8){
-				check.text('').html("비밀번호가 서로 다릅니다.");
+				check.text('').text("비밀번호가 서로 다릅니다.");
 				red();
 				status('n');
 			} else {
@@ -361,7 +362,7 @@ $(document).ready(function(){
 	$('#name').keyup(function() {
 		let getName = RegExp(/^[가-힣]+$/);
 		if(name.value != "" && !getName.test(name.value)){
-			$('#namecheck').css('color', 'red').html('이름을 확인 해주세요.');
+			$('#namecheck').css('color', 'red').text('이름을 확인 해주세요.');
 			status('n');
 		} else {
 			$('#namecheck').text('');

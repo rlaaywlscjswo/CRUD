@@ -218,8 +218,6 @@ function jusoCallBack(roadaddrPart1, addrDetail, roadaddrPart2, jibunaddr, zipno
 }
 
 function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, address_name, address_photo) {
-	console.log(roadaddrPart1);
-	console.log(roadaddrPart2);
 	document.form.roadaddrPart1.value = roadaddrPart1;
 	document.form.roadaddrPart2.value = roadaddrPart2;
 	document.form.addrDetail.value = addrDetail;
