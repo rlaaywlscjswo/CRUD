@@ -176,7 +176,7 @@
 		<div id="support_filter">
 		<span id="filter_all">모두 보기</span>
 		<span id="filter_ing">진행 중인 프로젝트</span>
-		<span id="filter_complete">결제가 완료 된 프로젝트</span>
+		<span id="filter_complete">목표 금액을 달성한 프로젝트</span>
 		</div>
 
 		<%-- <div style="position: relative; top: 20px; left: 30%;" id="bhlogin">로그인</div>
