@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +32,20 @@
   <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
       <a class="navbar-brand" href="#">CRUD</a>
-      <a class="btn btn-primary" href="#">프로필</a>
+      <sec:authorize access="isAuthenticated()">
+      <a class="btn btn-primary" href="/mypage" style="left: 630px; position: relative;">마이 페이지</a>
+      </sec:authorize>
+      <!-- 병훈쓰가 추가 함 -->
+      <sec:authorize access="isAnonymous()">
+      	<a class="btn btn-primary" href="/sec_login">로그인</a>
+      </sec:authorize>
+      <sec:authorize access="isAuthenticated()">
+        <form action="/customLogout" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			<button class="btn btn-primary">로그아웃</button>
+		</form>
+      </sec:authorize>
+      
     </div>
   </nav>
 

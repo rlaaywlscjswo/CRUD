@@ -13,12 +13,13 @@
 
 #tab_1, #tab_2, #tab_3, #tab_4 {
 	border: 1px solid silver;
+	border-radius: 10px;
 	display: inline-block;
 	height: 30px;
 	left: 100px;
 	position: absolute;
 	text-align: center;
-	width: 90px;
+	width: 200px;
 }
 
 #tab_1 {
@@ -42,7 +43,7 @@
 	border-radius: 10px;
 	display: inline-block;
 	height: 600px;
-	left: 190px;
+	left: 300px;
 	position: absolute;
 	width: 1000px;
 }
@@ -65,17 +66,51 @@
 
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>
+<!-- <script>
 	$(document).ready(function() {
 		$('#tab_1').on('click', function() {
 			$('#content_1').load("/support");
 		});
 	});
-</script>
+</script> -->
+
 <script>
+	$(document).ready(
+			function() {
+				$.urlParam = function(name) {
+
+					var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+							.exec(window.location.href);
+					if (results == null) {
+						return null;
+					} else {
+						return results[1] || 0;
+					}
+				}
+
+				/* $("#result").load("review.do");
+				console.log('hi'); */
+
+				let id = $.urlParam('id');
+				console.log(id);
+				$.ajax({
+					url : "/support",
+					data : "id=" + id,
+					dataType : "html",
+					success : function(data) {
+						$('#content_1').append(data);
+					},
+					error : function(data) {
+						console.log('error');
+					}
+				});
+			});
+	</script>
+	
+ <script>
 	window.onload = function() {
 		
-		document.getElementById('content_1').style.display = "none";
+		document.getElementById('content_1').style.display = "block";
 		document.getElementById('content_2').style.display = "none";
 		document.getElementById('content_3').style.display = "none";
 		document.getElementById('content_4').style.display = "none";

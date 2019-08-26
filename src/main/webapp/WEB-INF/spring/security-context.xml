@@ -14,14 +14,14 @@
 		
 		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
  		<security:intercept-url pattern="/sec_manager" access="hasRole('ROLE_MANAGER')" />
-		<security:intercept-url pattern="/sec_member" access="isAuthenticated()" /> <!-- 인증 된 회원 모두 -->
+		<security:intercept-url pattern="/sec_member" access="isAuthenticated()" />  <!-- 인증 된 회원 모두 -->
 		
 		<security:access-denied-handler ref="customAccessDenied" />
 		
 		<security:form-login login-page="/sec_login" authentication-success-handler-ref="customLoginSuccess" />
 		
 		<!-- <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/> -->
-		<security:logout logout-url="/customLogout" invalidate-session="true" />
+		<security:logout logout-url="/customLogout" invalidate-session="false" logout-success-url="/main" />
 		<!--  delete-cookies="remember-me, JSESSION_ID" -->
 		<security:csrf disabled="true" />
 	</security:http>

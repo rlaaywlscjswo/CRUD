@@ -23,9 +23,11 @@
 	width: 500px;
 }
 .memo{
-	cursor: pointer;
 	width: 100%;
 	font-size: 12px;
+}
+#addrslist, .goPopup, #default_addrs, #addr_add, .memo, #basicaddr, #newaddr{
+	cursor:pointer;
 }
 </style>
 <script>
@@ -129,7 +131,7 @@ $(document).ready(function(){
 	    pay_method : paymethod,  
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : "${opt.option_name}",			// 상품명
-	    amount : 100,//${opt.option_price} + delivery,// 결제 금액
+	    amount : ${opt.option_price} + delivery,// 결제 금액
 	    buyer_email : "${member.email}", 		// 메일주소
 	    buyer_name : $("#address_name").val(),	// 구매자 이름
 	    buyer_tel : $("#address_photo").val(),	// 구매자 연락처
@@ -218,8 +220,6 @@ function jusoCallBack(roadaddrPart1, addrDetail, roadaddrPart2, jibunaddr, zipno
 }
 
 function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, address_name, address_photo) {
-	console.log(roadaddrPart1);
-	console.log(roadaddrPart2);
 	document.form.roadaddrPart1.value = roadaddrPart1;
 	document.form.roadaddrPart2.value = roadaddrPart2;
 	document.form.addrDetail.value = addrDetail;
@@ -227,13 +227,14 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 	document.form.alias.value = alias;
 	document.form.address_name.value = address_name;
 	document.form.address_photo.value = address_photo;
-	$("#basicaddr").prop("checked", true);
+	$("#basicaddr").prop("checked", true).prop("disabled", false);
 	$("input[name='addr_add']").prop("checked", false);
 	document.getElementById('fulladdr').value=roadaddrPart1 +", "+addrDetail + " " + roadaddrPart2;
 }
 </script>
 </head>
 <body>
+<form name="form" id="frm" method="post" action="success">
 <div style="width: 80%; margin: 0 auto; ">
 <div style=" border: 1px solid blue; margin-bottom: 10px; float: left; width: 100%">
 <span>주문/결제</span>
@@ -264,7 +265,6 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 </ul>
 
 	<span>배송지 정보</span>
-<form name="form" id="frm" method="post" action="success">
 	<ul>
 		<li>
 			배송지 선택 <input type="radio" name="addrs" id="basicaddr" value="basicaddr" disabled="disabled" >기본 배송지
@@ -277,7 +277,7 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 		<li>배송지 주소 : <input type="text"  style="width:70px;" id="zipno"  class="goPopup" name="zipno" required="required" readonly="readonly"/>
 		<input type="button" class="goPopup" value="우편 번호"/> <input type="checkbox" name="addr_add" id="addr_add" value="addr_add"> 배송지목록에 추가 <input type="checkbox" id="default_addrs" name="default_addrs" value="default_addr"> 기본 배송지로 설정 <br>
 			<input type="text" style="width: 500px;" id="fulladdr" name="fulladdr" readonly="readonly" > 
-			<input type="text"  style="width:100px;" id="addrDetail"  name="addrDetail"  />
+			<input type="text"  style="width:100px;" id="addrDetail"  name="addrDetail" required="required" />
 		</li>
 		<li>요청사항 : <input type="text" id="options" name="options" value="요청사항을 직접 입력하세요.">
 						<div id="memos" value="off">

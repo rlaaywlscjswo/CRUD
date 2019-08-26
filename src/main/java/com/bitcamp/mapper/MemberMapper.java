@@ -18,6 +18,7 @@ public interface MemberMapper {
 	public int addrssupdate1(AddressDTO adto);
 	public int addrssupdate2(AddressDTO adto);
 	public int supportinsert(SupportDTO sdto);
+	public MemberDTO memberinfo(String email); // 회원정보
 	
 	public int maxno();
 	

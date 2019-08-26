@@ -47,7 +47,7 @@ public class MemberServiceImple implements MemberService {
 	}
 
 	@Override
-	public int addrssInsert(AddressDTO adto) {
+	public int addressInsert(AddressDTO adto) {
 		return mapper.addressInsert(adto);
 	}
 
@@ -76,5 +76,10 @@ public class MemberServiceImple implements MemberService {
 	public int changeAuth(String email) {
 		return mapper.changeAuth(email);
 	} // end changeAuth method
+
+	@Override
+	public MemberDTO memberinfo(String email) {
+		return mapper.memberinfo(email);
+	}
 
 }

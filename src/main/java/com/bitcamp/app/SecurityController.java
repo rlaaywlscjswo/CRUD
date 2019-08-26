@@ -54,7 +54,7 @@ public class SecurityController {
 		
 		System.out.println("로그아웃!!");
 		
-		return "/security/customlogin";
+		return "/security/customlogout";
 
 	} // end memberPage method
 	

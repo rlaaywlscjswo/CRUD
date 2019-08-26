@@ -179,11 +179,14 @@ el.innerHTML = (myPDF) ? "PDFObject was successful!" : "Uh-oh, the embed didn't 
 		<input type="hidden" name="option_contents" value="${opt.option_contents }">
 		<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
 		<input type="hidden" name="alias" value="${list.alias}">
+<<<<<<< HEAD
 		<!-- 로그인 완성되면 수정해야하는 부분 -->
 		<input type="hidden" name="no" value="4">
 		
 		
 		
+=======
+>>>>>>> branch 'master' of https://github.com/rlaaywlscjswo/CRUD.git
 		<button>구매하기</button>
 		</div>
 	</form>
