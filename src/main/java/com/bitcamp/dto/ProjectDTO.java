@@ -5,20 +5,22 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProjectDTO {
 	private int project_no; // 프로젝트 번호
 	private String project_title; // 프로젝트 제목
-	private MultipartFile file; // 프로젝트 대표사진 파일
+	private MultipartFile project_photo_file; // 프로젝트 대표사진 파일
 	private String project_photo; // 프로젝트 대표사진 파일명
 	private int targetprice; // 달성금액
-	private String alias; // 별칭
+	private String alias; // 창작자 이름 (별칭)
+	private MultipartFile img_file; // 창작자 프로필사진 파일 
+	private String img; // 창작자 프로필 사진 파일명
 	private String introduce; // 창작자 소개글
 	private String startdate; // 시작일
-	private String enddate; // 종료일
-	private String payment_date; // 지불날짜
+	private String enddate; // 종료일	
 	private String project_contents; // 내용pdf
 	private String project_contract; // 계약서
 	private int project_views; // 조회수
 	private int project_status; // 승인여부
 	private int no; // 회원번호
 	private int category_no; // 카테고리 번호
+	
 	
 	public int getProject_no() {
 		return project_no;
@@ -32,17 +34,11 @@ public class ProjectDTO {
 	public void setProject_title(String project_title) {
 		this.project_title = project_title;
 	}
-	public String getAlias() {
-		return alias;
+	public MultipartFile getProject_photo_file() {
+		return project_photo_file;
 	}
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
-	public MultipartFile getFile() {
-		return file;
-	}
-	public void setFile(MultipartFile file) {
-		this.file = file;
+	public void setProject_photo_file(MultipartFile project_photo_file) {
+		this.project_photo_file = project_photo_file;
 	}
 	public String getProject_photo() {
 		return project_photo;
@@ -55,6 +51,24 @@ public class ProjectDTO {
 	}
 	public void setTargetprice(int targetprice) {
 		this.targetprice = targetprice;
+	}
+	public String getAlias() {
+		return alias;
+	}
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+	public MultipartFile getImg_file() {
+		return img_file;
+	}
+	public void setImg_file(MultipartFile img_file) {
+		this.img_file = img_file;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 	public String getIntroduce() {
 		return introduce;
@@ -74,12 +88,7 @@ public class ProjectDTO {
 	public void setEnddate(String enddate) {
 		this.enddate = enddate;
 	}
-	public String getPayment_date() {
-		return payment_date;
-	}
-	public void setPayment_date(String payment_date) {
-		this.payment_date = payment_date;
-	}
+	
 	public String getProject_contents() {
 		return project_contents;
 	}

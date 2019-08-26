@@ -2,6 +2,7 @@ package com.bitcamp.app;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import com.bitcamp.dto.PageDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.service.BusinessService;
 import com.bitcamp.service.CategoryService;
+import com.bitcamp.service.PDFService;
 import com.bitcamp.service.ProjectService;
 
 @Controller
@@ -41,17 +43,18 @@ public class ProjectController {
 	@Resource(name="businessservice")
 	private BusinessService businessservice;
 	
+	@Resource
+	private PDFService pdfservice;
+	
+	
+	
+	
 	@RequestMapping("main")
 	public String main() {
 		return "main";
 	}
-	
-	
-/*	@RequestMapping("projectin")
-	public String ininin() {
-		return "project/projectinsert.temp";
-	}
-	*/
+		
+
 	// 프로젝트 카테고리 선택 결과 목록 페이지 
 	@RequestMapping("projectcategorylist={main_category}")
 	public String categorylist(@PathVariable String main_category , Model model) {		
@@ -104,44 +107,84 @@ public class ProjectController {
 		System.out.println("insert : "+model);
 		return "project/insert.temp"; 
 	
-	}
-	// 프로젝트 등록 페이지 2
-	@RequestMapping("project_insert2")
-	public String projectinsert2() {
-		return "project/project_insert2";
-	}
+	}	
 	
 	// 프로젝트 등록 결과 
-	@RequestMapping("projectresult")
+	// 1) 대표사진 , 프로젝트제목, 카테고리 -> 프로젝트 테이블
+	// 2) 사업자명, 사업자구분, 개인, 법인, 소재지, 법인 설립연월일, 홈페이지 -> 사업자 테이블
+	// 3) 창작자 프로필사진 , 창작자이름, 창작자소개 -> 프로젝트 테이블
+	// 4) 프로젝트 설명글.. 근데 이건 db에 저장하는게 아니라 pdf로 변환 해줘서 pdf파일명으로 db에 저장 -> 프로젝트 테이블
+	// 5) 옵션명, 가격, 내용, 수량 -> 옵션테이블 (아직 완성아님..)
+	// 6) ------ summernote에 작성한 내용 pdf로 변환...... 서버에 업로드...... 파일명 디비에 저장.. ------
 	public String projectinsertresult(
-			HttpServletRequest request, ProjectDTO dto) { 		
-		MultipartFile multi = dto.getFile();
+			HttpServletRequest request,BusinessDTO busdto, OptionDTO optdto, ProjectDTO dto
+			, @RequestParam int btncnt, @RequestParam String summernote) { 				
+		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일 
+		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일				
 		try {
 			String uploadpath = request.getSession().getServletContext().getRealPath(path);			
-			if(!multi.isEmpty()) {
-				File file = new File(uploadpath, multi.getOriginalFilename());
-				multi.transferTo(file);				
-				dto.setProject_photo(dto.getFile().getOriginalFilename());
+			if(!project_photo.isEmpty()&&!img.isEmpty()) { // 대표사진, 프로필사진 둘다있을때 
+				File file = new File(uploadpath, project_photo.getOriginalFilename()); // 프로젝트 대표사진
+				project_photo.transferTo(file);				
+				dto.setProject_photo(dto.getProject_photo_file().getOriginalFilename()); 				
+				File file2 = new File(uploadpath, img.getOriginalFilename());// 창작자 프로필사진
+				img.transferTo(file2);
+				dto.setImg(dto.getImg_file().getOriginalFilename());				
 				System.out.println("프로젝트 제목 : " + dto.getProject_title());
-				System.out.println("사진 파일명 : " + dto.getProject_photo());				
-				System.out.println("카테고리 번호 : " + dto.getCategory_no());
+				System.out.println("대표사진 파일명 : " + dto.getProject_photo());		
+				System.out.println("창작자 프로필 사진"+ dto.getImg());			
 			}
 		}catch(IOException e) {
 			System.out.println(e.getMessage());
 		}
-		int result = service.projectInsert(dto);
-		System.out.println("filename : "+dto.getFile().getOriginalFilename() );	
-		return "redirect:/projectlist.temp";
-	}
+		System.out.println("옵션갯수 (클릭수) : "+btncnt);
+		int projectsearchno=service.projectsearchno(dto.getCategory_no());
+		dto.setProject_no(projectsearchno);		
+		int result = service.projectInsert(dto); // projectdto 
+		
+		System.out.println("1 프로젝트 번호"+dto.getProject_no());
+		System.out.println("프로젝트 등록 ");  
+		
+		
+		int result3= businessservice.businessInsert(busdto); // businesssdto	
+		
+		System.out.println("사업자 등록 ");  	
+		
+		System.out.println("========================");
+		System.out.println(optdto.getProject_no());
+		System.out.println(optdto.getOption_name());
+		System.out.println(optdto.getOption_price());
+		System.out.println(optdto.getOption_contents());
+		System.out.println(optdto.getOption_quantity());
+		System.out.println("========================");
+		
+		
+		
+		optdto.setProject_no(projectsearchno);
+		List<OptionDTO> list = new ArrayList<OptionDTO>();
+		for(int i=0 ; i<btncnt; i++) {
+			optdto.getProject_no();
+			optdto.getOption_name();
+			optdto.getOption_price();
+			optdto.getOption_contents();
+			optdto.getOption_quantity();
+			list.add(optdto);
+		}
+		
+		System.out.println(list);
+		
+		
+		int result2 = service.projectoptionInsert(list);
+		
+		System.out.println("옵션등록");
+		
+		System.out.println("2 프로젝트 번호"+((OptionDTO) optdto).getProject_no());		
+		pdfservice.createPdf(summernote);
+		System.out.println("컨트롤러에서 pdf서비스 실행");
 	
-	// 프로젝트 등록 결과2
-	@RequestMapping("projectresult2")
-	public String projectinsertresult2(BusinessDTO dto) {
-		int result = businessservice.businessInsert(dto);
-		System.out.println(dto.getBusiness_name());
+		
 		return "redirect:/projectlist.temp";
-	}
-	
+	}	
 	// 프로젝트 상세 페이지
 	@RequestMapping("projectdetail={project_no}")
 	public String projectdetail(@PathVariable int project_no, Model model) {		

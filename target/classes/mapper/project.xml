@@ -23,6 +23,9 @@
 		<result column="project_no" property="project_no" />
 	</resultMap>
 
+
+
+
 	<!-- total -->
 	<select id="totalCount" resultType="int"
 		parameterType="java.util.HashMap">
@@ -63,13 +66,18 @@
 		order by project.project_no
 	</select>
 
+	<select id="projectsearchno" parameterType="int" resultType="int">
+	select max(project_no)+1 from project ALIAS_FOR_SUBQUERY where category_no=#{category_no}
+	</select>
 
 	<insert id="projectInsert"
 		parameterType="com.bitcamp.dto.ProjectDTO">
-		insert into project (project_title, project_photo, targetprice, introduce,
-		startdate, enddate, payment_date, project_contents, no, category_no)
-		values(#{project_title}, #{project_photo}, 10000, '소개글', '2019-08-20',
-		'2019-09-20', '2019-10-01', '테스트.pdf', 2, #{category_no})
+		insert into project (project_no, project_title, project_photo, targetprice, alias, img, introduce,
+		startdate, enddate, project_contents, no, category_no)
+		values(
+		#{project_no},
+		#{project_title}, #{project_photo}, #{targetprice}, #{alias}, #{img},
+		#{introduce}, #{startdate}, #{enddate}, '에휴휴휴.pdf', 2, #{category_no})
 	</insert>
 
 	<!-- 프로젝트 디테일 -->
@@ -81,8 +89,24 @@
 	<!-- 프로젝트 디테일 창에서 보여주는 옵션 list -->
 	<select id="projectoptionList" parameterType="int"
 		resultMap="optdto">
-		select * from `option` where project_no= #{project_no}
+		select * from `option` where project_no= #{project_no}		
 	</select>
+	
+	
+	
+	<!-- 프로젝트 등록 form에서 (5)옵션탭 -->
+	<insert id="projectoptionInsert" parameterType="java.util.HashMap">	
+	insert into `option` (project_no,option_name,option_price,option_contents,option_quantity)
+	values	
+	
+	<foreach collection="list" item="item"  separator="," > 
+	(#{item.project_no} ,#{item.option_name}, #{item.option_price} ,#{item.option_contents} ,#{item.option_quantity})
+	</foreach> 
+	
+	</insert>
+	
+	
+	
 	
 	
 	
@@ -90,5 +114,6 @@
 	<update id="viewcnt" parameterType="int">
 	update project set project_views = project_views+1 where project_no= #{project_no}
 	</update>
+	
 	
 </mapper>

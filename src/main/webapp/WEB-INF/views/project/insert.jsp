@@ -19,8 +19,7 @@ ul.tabs {
     list-style: none;
     height: 32px;
     border-bottom: 1px solid #eee;
-    border-left: 1px solid #eee;
-    
+    border-left: 1px solid #eee;    
     font-family:"dotum";
     font-size:12px;
 }
@@ -47,7 +46,7 @@ ul.tabs li.active {
     border-top: none;
     clear: both;
     float: left;
-    width: 1000px;
+    width: 1201px;
     height: 500PX;
     background: #FFFFFF;
 }
@@ -67,10 +66,24 @@ ul.tabs li.active {
 }
 ;
  #container {
-    width: 500px;
-    margin: 0 auto;
+ 	border:1px solid red;
+ 	height:1000px;
+    width: 1300px;
+   	margin: 0 auto; 
    
 
+}
+
+.btn2{
+margin-top:20px;
+border: 1px solid;
+width: 50px;
+height: 25px;
+text-align: center;
+}
+
+#field{
+border: 1px solid;
 }
 </style>
 <script type="text/javascript">
@@ -79,6 +92,7 @@ $(function () {
     $(".tab_content").hide();
     $(".tab_content:first").show();
 
+    
     $("ul.tabs li").click(function () {
         $("ul.tabs li").removeClass("active").css("color", "#333");
         //$(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
@@ -87,9 +101,50 @@ $(function () {
         var activeTab = $(this).attr("rel");
         $("#" + activeTab).fadeIn()
     });
- 
-
-
+    
+    
+    // 다음눌렀을때 다음탭으로 이동!
+    $('#btn2').on('click',function(){
+    	$("ul.tabs li").removeClass("active").css("color", "#333")
+    	$("ul.tabs li:eq(1)").addClass("active").css("color", "darkred")  	
+    	$('.tab_content').hide()
+    	$('.tab_content:eq(1)').show()    
+    	
+    });
+    
+    $('#btn3').on('click',function(){
+    	$("ul.tabs li").removeClass("active").css("color", "#333")
+    	$("ul.tabs li:eq(2)").addClass("active").css("color", "darkred")  	
+    	$('.tab_content').hide()
+    	$('.tab_content:eq(2)').show()    
+    	
+    });
+    
+    $('#btn4').on('click',function(){
+    	$("ul.tabs li").removeClass("active").css("color", "#333")
+    	$("ul.tabs li:eq(3)").addClass("active").css("color", "darkred")  	
+    	$('.tab_content').hide()
+    	$('.tab_content:eq(3)').show()    
+    	
+    });
+    
+    $('#btn5').on('click',function(){
+    	$("ul.tabs li").removeClass("active").css("color", "#333")
+    	$("ul.tabs li:eq(4)").addClass("active").css("color", "darkred")  	
+    	$('.tab_content').hide()
+    	$('.tab_content:eq(4)').show()    
+    	
+    });
+    
+    $('#btn6').on('click',function(){
+    	$("ul.tabs li").removeClass("active").css("color", "#333")
+    	$("ul.tabs li:eq(5)").addClass("active").css("color", "darkred")  	
+    	$('.tab_content').hide()
+    	$('.tab_content:eq(5)').show()    
+    	
+    });
+    
+    // 메인카테고리에 해당하는 서브카테고리불러오기
     $("#main_category").on('change',function(){
     	$("#category_no").empty();
     	/* console.log($(this).val()); */
@@ -113,8 +168,35 @@ $(function () {
             		});
             }
         });          
-    });    
+    });  
+
+  //옵션 추가 버튼을 눌렀을때 옵션form 추가로 나옴
+    var btncount=1; // 추가할때 증가, 삭제할때 감소
+
+    $('#up').on('click',function(){
+    	   var div = document.createElement('div');
+    	    div.innerHTML = document.getElementById('pre_set').innerHTML;
+    	    document.getElementById('field').appendChild(div);    
+    	    btncount++;
+    	    $('#btncnt').val(btncount);	
+    });
+
+    $('#down').on('click',function(){
+    	   document.getElementById('field')
+    	   .removeChild(obj.parentNode);
+    	    btncount--;
+    	    $('#btncnt').val(btncount);	
+    }); 	
+    
+   
+    
 });
+
+
+
+
+
+
 </script>
 
 </head> 
@@ -126,101 +208,108 @@ $(function () {
         <li rel="tab3">(3)창작자 정보</li>
         <li rel="tab4">(4)프로젝트 설명</li>
         <li rel="tab5">(5)옵션 설정</li>
+        <li rel="tab6">(6)약관동의 및 서명</li>
     </ul>
     
 <div class="tab_container">
  
- <form name="file" method="post" action="projectresult" enctype="multipart/form-data">
+ <form method="post" action="projectresult" enctype="multipart/form-data">
     	<div id="tab1" class="tab_content">
-           <ul> 
-           
- 			<li>
+          
  			<label for="project_title">프로젝트 제목</label>
- 			<input type="text" id="project_title" name="project_title">
- 			</li>
- 
- 			<li>
+ 			<div><input type="text" id="project_title" name="project_title" value="고정제목"></div>
+ 			
+ 			
 			<label for="main_category">대분류</label>
+			<div>
 			<select id="main_category" name="main_category" id="default">
 			<c:forEach var="main" items="${mainlist }">
 			<option value="${main.main_category }">${main.main_category }</option>
 			</c:forEach>
 			</select>
- 			</li>  
- 			
- 			<li>
-		    <label for="category_no">소분류</label>
-			<select id="category_no" name="category_no">
-			</select>
-			</li>  
+			</div>
 			
- 			<li>
- 			<label for="file">프로젝트 대표사진</label>
- 			<input type="file" id="file" name="file"> 
- 			</li>
- 
- 			<li>
- 		<a href="#" id="btn2">다음</a>
- 			</li>
  			
- 			</ul> 
+		    <label for="category_no">소분류</label>
+		    <div><select id="category_no" name="category_no"></select></div>
+		
+			
+ 			<label for="project_photo_file">프로젝트 대표사진</label>
+ 			<div><input type="file" id="project_photo_file" name="project_photo_file"> </div>
+ 			
+ 			
+ 			<label for="targetprice">목표 금액</label>
+ 			<div><input type="number" id="targetprice" name="targetprice" value="1111"></div>
+ 			
+ 			
+ 			<label for="startdate">시작 날짜</label>
+ 			<div><input type="date" id="startdate" name="startdate" value="2019-03-21"></div>
+ 			
+ 			
+ 			<label for="enddate">종료 날짜</label>
+ 			<div><input type="date" id="enddate" name="enddate" value="2019-03-21"></div>
+ 			
+ 			<div class="btn2"><a href="#" id="btn2">다음</a></div>			 
  			
  		</div>
+ 		
         <!-- #tab1 -->
         
         <div id="tab2" class="tab_content">
-        <ul>
-        <li>
+        
         <label for="business_name">사업자명</label>
- 		<input type="text" id="business_name" name="business_name">
- 		</li>
+        <div><input type="text" id="business_name" name="business_name" value="고정제목"></div>
  		
- 		<li>
+ 		
  		<label for="business_division">사업자 구분</label>
+ 		<div>
  		<input type="radio" name="business_division" value="개인">개인<br>
  		<input type="radio" name="business_division" value="법인">법인<br>
-		</li> 
+ 		</div>
+ 		
+	
 		
-		<li>
+
  		<label for="business_addr">소재지</label>
- 		<input type="text" id="business_addr" name="business_addr">
- 		</li>
+ 		<div><input type="text" id="business_addr" name="business_addr" value="고정주소"></div>
  		
- 		<li> 		
+ 	
+ 		
+ 		
  		<label for="business_startdate">법인설립연월일</label>
- 		<input type="text" id="business_startdate" name="business_startdate">
- 		</li>
+ 		<div><input type="date" id="business_startdate" name="business_startdate" value="2019-03-21"></div>
  		
- 		<li>
+ 
+ 		
+ 	
  		<label for="business_url">홈페이지</label>
- 		<input type="text" id="business_url" name="business_url">
- 		</li>
-		</ul>
-		
-        
+ 		<div><input type="text" id="business_url" name="business_url" value="고정페이지"></div>
+ 		
+ 		
+ 		
+ 		<div class="btn2"><a href="#" id="btn3">다음</a></div>		
+ 		
+ 			
         </div>
         <!-- #tab2 -->
     
         <div id="tab3" class="tab_content">
         
-        <ul>
         
-        <li>
         <label for="alias">창작자 이름</label>
-        <input type="text" id="alias" name="alias">
-        </li>
+        <div><input type="text" id="alias" name="alias" value="고정이름"></div>
         
-        <li>        
-		<label for="image">창작자 프로필사진</label>
-		<input type="file" id="image" name="image">
-		</li>
-		
-		<li>
+    
+		<label for="img_file">창작자 프로필사진</label>
+		<div><input type="file" id="img_file" name="img_file"></div>
+		 
+		 
 		<label for="introduce">창작자 소개</label>
-		<textarea id="introduce" name="introduce"></textarea>
-		</li>
+		<div><textarea id="introduce" name="introduce">1111</textarea></div>
 		
-		</ul>
+		<div class="btn2"><a href="#" id="btn4">다음</a></div>		
+
+ 		 	
 		
         </div>
         
@@ -232,53 +321,82 @@ $(function () {
 		<h1>작성가이드</h1>
 		</div>
 		<textarea id="summernote" name="summernote"></textarea>
-    	</div>
+		<div class="btn2"><a href="#" id="btn5">다음</a></div>		
+    	</div>   	
     	
     	<!-- #tab4 -->
+   
+    	<div id="tab5" class="tab_content">    	
     	
-    	<div id="tab5" class="tab_content">
-    	<ul>
-    	
-    	<li>
     	<label for="option_name">옵션명</label>
-    	<input type="text" id="option_name" name="option_name">
-    	</li>
+    	<div><input type="text" id="option_name" name="option_name"></div>
     	
-    	<li>
     	<label for="option_price">가격</label>
-    	<input type="text" id="option_price" name="option_price">
-    	</li>
+    	<div><input type="number" id="option_price" name="option_price"></div>
     	
-    	<li>
     	<label for="option_contents">내용</label>
-    	<textarea id="option_contents" name="option_contents"></textarea>
-    	</li>
+    	<div><textarea id="option_contents" name="option_contents"></textarea></div>
     	
-    	<li>
     	<label for="option_quantity">수량</label>
-    	<input type="text" id="option_quantity" name="option_quantity">
-    	</li>
+    	<div><input type="number" id="option_quantity" name="option_quantity"></div>    	
     	
-    	<li>
-    	<input type="submit" value="등록하기">
-    	</li>
+    	<!-- 추가되는 옵션 form들 -->
+    	<div id="pre_set"  style="display:none">
     	
-    	</ul>
+    	<label for="option_name">옵션명</label>
+    	<div><input type="text" id="option_name" name="option_name"></div>
+    	
+    	<label for="option_price">가격</label>
+    	<div><input type="number" id="option_price" name="option_price"></div>
+    	
+    	<label for="option_contents">내용</label>
+    	<div><textarea id="option_contents" name="option_contents"></textarea></div>
+    	
+    	<label for="option_quantity">수량</label>
+    	<div><input type="number" id="option_quantity" name="option_quantity"></div>    	
+   	
+      	<input  type="button"  id="down" value="삭제">
+      
+   		</div>
+   		
+    	<div id="field"></div>   	
+    	
+    	<input type="button" value="옵션 추가 " id="up">
+	    <input type="hidden" id="btncnt" name="btncnt" value="">
+    	<input type="submit" id="save" value="등록하기">  	
+    	
     	</div>
     	
     	<!-- #tab5 -->
+    	
+    	<div id="tab6" class="tab_content">
+    	<input type="checkbox" id="" name="" value="">(1)약관동의1 <br>
+    	<input type="checkbox" id="" name="" value="">(2)약관동의2 <br>
+    	<input type="checkbox" id="" name="" value="">(3)약관동의3 <br>
+    	<input type="checkbox" id="" name="" value="">(4)약관동의4 <br>
+    	
+    	여기 싸인하는 란 ..... 싸인
+    	
+    	
+    		
+    	</div> 
+    	
+    	<!-- #tab6 -->
+    	
+    	
     	
     <!-- .tab_container -->
     </form>
     </div>
     <!-- #container -->
  </div>
+ 
 <script>
       $('#summernote').summernote({
-        placeholder: 'Hello stand alone ui',
+        placeholder: '작성가이드를 참고해서 작성해보세요!',
         tabsize: 2,
         height: 200
       });
-    </script>
+</script>
 </body>
 </html>
