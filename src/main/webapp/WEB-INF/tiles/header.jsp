@@ -32,6 +32,23 @@ $(document).ready(function(){
                         
                         <li class="icons dropdown">
                         	
+                        	<!-- 병훈쓰가 만든 로그인 버튼 -->
+                        	<div style="display: inline-block; left: -30px; position: relative; top: 10px;">
+                        	
+                        	<sec:authorize access="isAnonymous()">
+                        	<a href="/sec_login">로그인</a>
+                        	</sec:authorize>
+                        	
+                        	<sec:authorize access="isAuthenticated()">
+                        		<form action="/customLogout" method="post">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+								<button>로그아웃</button>
+								</form>
+                        	</sec:authorize>
+                        	
+                        	</div>
+                        	
+                        	
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity active"></span>
                                <img src="/resources/img/1.jpg" height="100" width="100" alt="">
