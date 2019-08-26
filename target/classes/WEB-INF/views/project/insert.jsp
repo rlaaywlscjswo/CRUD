@@ -173,12 +173,11 @@ $(function () {
   //옵션 추가 버튼을 눌렀을때 옵션form 추가로 나옴
     var btncount=1; // 추가할때 증가, 삭제할때 감소
 
-    $('#up').on('click',function(){
-    	   var div = document.createElement('div');
-    	    div.innerHTML = document.getElementById('pre_set').innerHTML;
-    	    document.getElementById('field').appendChild(div);    
+    $('#up').on('click',function(){     
+		  $('#field').append('<label for="option_name">옵션명</label> <div><input type="text" id="option_name" name="option_name"></div> <label for="option_price">옵션가격</label> <div><input type="text" id="option_price" name="option_price"></div> <label for="option_contents">옵션내용</label><div><input type="text" id="option_contents" name="option_contents"</div><br> <label for="option_quantity">옵션 수량</label> <div><input type="text" id="option_quantity" name="option_quantity"> </div>');
     	    btncount++;
     	    $('#btncnt').val(btncount);	
+    	    console.log(btncount);
     });
 
     $('#down').on('click',function(){
@@ -326,54 +325,36 @@ $(function () {
     	
     	<!-- #tab4 -->
    
-    	<div id="tab5" class="tab_content">    	
+     	<div id="tab5" class="tab_content">    	
     	
+    	<div id="optform">
     	<label for="option_name">옵션명</label>
     	<div><input type="text" id="option_name" name="option_name"></div>
     	
     	<label for="option_price">가격</label>
-    	<div><input type="number" id="option_price" name="option_price"></div>
+    	<div><input type="text" id="option_price" name="option_price"></div>
     	
     	<label for="option_contents">내용</label>
     	<div><textarea id="option_contents" name="option_contents"></textarea></div>
     	
     	<label for="option_quantity">수량</label>
-    	<div><input type="number" id="option_quantity" name="option_quantity"></div>    	
-    	
-    	<!-- 추가되는 옵션 form들 -->
-    	<div id="pre_set"  style="display:none">
-    	
-    	<label for="option_name">옵션명</label>
-    	<div><input type="text" id="option_name" name="option_name"></div>
-    	
-    	<label for="option_price">가격</label>
-    	<div><input type="number" id="option_price" name="option_price"></div>
-    	
-    	<label for="option_contents">내용</label>
-    	<div><textarea id="option_contents" name="option_contents"></textarea></div>
-    	
-    	<label for="option_quantity">수량</label>
-    	<div><input type="number" id="option_quantity" name="option_quantity"></div>    	
-   	
-      	<input  type="button"  id="down" value="삭제">
-      
+    	<div><input type="text" id="option_quantity" name="option_quantity"></div>      	
    		</div>
    		
-    	<div id="field"></div>   	
+    	<div id="field">
+    	
+    	</div>   	
     	
     	<input type="button" value="옵션 추가 " id="up">
-	    <input type="hidden" id="btncnt" name="btncnt" value="">
+	    <input type="hidden" id="btncnt" name="btncnt" value="1">
+	    
     	<input type="submit" id="save" value="등록하기">  	
     	
-    	</div>
+    	</div> 
     	
     	<!-- #tab5 -->
     	
-    	<div id="tab6" class="tab_content">
-    	<input type="checkbox" id="" name="" value="">(1)약관동의1 <br>
-    	<input type="checkbox" id="" name="" value="">(2)약관동의2 <br>
-    	<input type="checkbox" id="" name="" value="">(3)약관동의3 <br>
-    	<input type="checkbox" id="" name="" value="">(4)약관동의4 <br>
+    	<div id="tab6" class="tab_content">   	
     	
     	여기 싸인하는 란 ..... 싸인
     	

@@ -70,6 +70,12 @@ public class ProjectServiceImple implements ProjectService {
 	public int projectoptionInsert(List<OptionDTO> optionlist) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
+		System.out.println("==========================================");
+		for(int i=0; i<optionlist.size(); i++) {
+			System.out.println(optionlist.get(i).getOption_name());
+		}
+		
+		
 		map.put("list", optionlist);
 
 		return mapper.projectoptionInsert(map);

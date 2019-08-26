@@ -181,6 +181,9 @@ el.innerHTML = (myPDF) ? "PDFObject was successful!" : "Uh-oh, the embed didn't 
 		<input type="hidden" name="alias" value="${list.alias}">
 		<!-- 로그인 완성되면 수정해야하는 부분 -->
 		<input type="hidden" name="no" value="4">
+		
+		
+		
 		<button>구매하기</button>
 		</div>
 	</form>

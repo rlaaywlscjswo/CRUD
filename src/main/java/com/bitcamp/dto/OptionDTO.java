@@ -16,6 +16,7 @@ public class OptionDTO {
 
 	public void setOption_no(int option_no) {
 		this.option_no = option_no;
+		
 	}
 
 	public String getOption_name() {
@@ -31,6 +32,7 @@ public class OptionDTO {
 	}
 
 	public void setOption_price(int option_price) {
+		
 		this.option_price = option_price;
 	}
 
@@ -47,6 +49,7 @@ public class OptionDTO {
 	}
 
 	public void setOption_quantity(int option_quantity) {
+	
 		this.option_quantity = option_quantity;
 	}
 

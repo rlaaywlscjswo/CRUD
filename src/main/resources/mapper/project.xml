@@ -67,7 +67,10 @@
 	</select>
 
 	<select id="projectsearchno" parameterType="int" resultType="int">
-	select max(project_no)+1 from project ALIAS_FOR_SUBQUERY where category_no=#{category_no}
+	select max(project_no)+1
+	from category c join project p 
+	on c.category_no = p.category_no
+	where main_category = (select main_category from category where category_no = #{category_no})
 	</select>
 
 	<insert id="projectInsert"
@@ -77,7 +80,7 @@
 		values(
 		#{project_no},
 		#{project_title}, #{project_photo}, #{targetprice}, #{alias}, #{img},
-		#{introduce}, #{startdate}, #{enddate}, '에휴휴휴.pdf', 2, #{category_no})
+		#{introduce}, #{startdate}, #{enddate}, '테스트.pdf', 2, #{category_no})
 	</insert>
 
 	<!-- 프로젝트 디테일 -->
@@ -97,8 +100,7 @@
 	<!-- 프로젝트 등록 form에서 (5)옵션탭 -->
 	<insert id="projectoptionInsert" parameterType="java.util.HashMap">	
 	insert into `option` (project_no,option_name,option_price,option_contents,option_quantity)
-	values	
-	
+	values		
 	<foreach collection="list" item="item"  separator="," > 
 	(#{item.project_no} ,#{item.option_name}, #{item.option_price} ,#{item.option_contents} ,#{item.option_quantity})
 	</foreach> 

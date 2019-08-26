@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.junit.runners.Parameterized.Parameter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,7 @@ import com.bitcamp.service.BusinessService;
 import com.bitcamp.service.CategoryService;
 import com.bitcamp.service.PDFService;
 import com.bitcamp.service.ProjectService;
+import com.itextpdf.text.log.SysoLogger;
 
 @Controller
 public class ProjectController {
@@ -45,15 +48,11 @@ public class ProjectController {
 	
 	@Resource
 	private PDFService pdfservice;
-	
-	
-	
-	
+		
 	@RequestMapping("main")
 	public String main() {
 		return "main";
-	}
-		
+	}		
 
 	// 프로젝트 카테고리 선택 결과 목록 페이지 
 	@RequestMapping("projectcategorylist={main_category}")
@@ -116,12 +115,20 @@ public class ProjectController {
 	// 4) 프로젝트 설명글.. 근데 이건 db에 저장하는게 아니라 pdf로 변환 해줘서 pdf파일명으로 db에 저장 -> 프로젝트 테이블
 	// 5) 옵션명, 가격, 내용, 수량 -> 옵션테이블 (아직 완성아님..)
 	// 6) ------ summernote에 작성한 내용 pdf로 변환...... 서버에 업로드...... 파일명 디비에 저장.. ------
+	@RequestMapping("projectresult")
 	public String projectinsertresult(
-			HttpServletRequest request,BusinessDTO busdto, OptionDTO optdto, ProjectDTO dto
-			, @RequestParam int btncnt, @RequestParam String summernote) { 				
+			HttpServletRequest request
+			,BusinessDTO busdto
+			,@ModelAttribute ProjectDTO dto			
+			,@RequestParam String[] option_name			
+			,@RequestParam int[] option_price
+			,@RequestParam String[] option_contents
+			,@RequestParam int[] option_quantity		   
+		    ,@RequestParam int btncnt
+			,@RequestParam String summernote) { 		
 		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일 
-		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일				
-		try {
+		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일			
+		try {			
 			String uploadpath = request.getSession().getServletContext().getRealPath(path);			
 			if(!project_photo.isEmpty()&&!img.isEmpty()) { // 대표사진, 프로필사진 둘다있을때 
 				File file = new File(uploadpath, project_photo.getOriginalFilename()); // 프로젝트 대표사진
@@ -132,13 +139,15 @@ public class ProjectController {
 				dto.setImg(dto.getImg_file().getOriginalFilename());				
 				System.out.println("프로젝트 제목 : " + dto.getProject_title());
 				System.out.println("대표사진 파일명 : " + dto.getProject_photo());		
-				System.out.println("창작자 프로필 사진"+ dto.getImg());			
-			}
-		}catch(IOException e) {
-			System.out.println(e.getMessage());
-		}
+				System.out.println("창작자 프로필 사진"+ dto.getImg());				
+			}			
+		}catch(IOException e) {			
+			System.out.println(e.getMessage());			
+		}				
 		System.out.println("옵션갯수 (클릭수) : "+btncnt);
+		
 		int projectsearchno=service.projectsearchno(dto.getCategory_no());
+		
 		dto.setProject_no(projectsearchno);		
 		int result = service.projectInsert(dto); // projectdto 
 		
@@ -146,42 +155,35 @@ public class ProjectController {
 		System.out.println("프로젝트 등록 ");  
 		
 		
-		int result3= businessservice.businessInsert(busdto); // businesssdto	
-		
-		System.out.println("사업자 등록 ");  	
-		
-		System.out.println("========================");
-		System.out.println(optdto.getProject_no());
-		System.out.println(optdto.getOption_name());
-		System.out.println(optdto.getOption_price());
-		System.out.println(optdto.getOption_contents());
-		System.out.println(optdto.getOption_quantity());
-		System.out.println("========================");
+		int result3= businessservice.businessInsert(busdto); // businesssdto			
+		System.out.println("사업자 등록 ");  			
 		
 		
-		
-		optdto.setProject_no(projectsearchno);
 		List<OptionDTO> list = new ArrayList<OptionDTO>();
-		for(int i=0 ; i<btncnt; i++) {
-			optdto.getProject_no();
-			optdto.getOption_name();
-			optdto.getOption_price();
-			optdto.getOption_contents();
-			optdto.getOption_quantity();
-			list.add(optdto);
-		}
 		
-		System.out.println(list);
+		for(int i=0; i<option_price.length; i++) {
+			OptionDTO optdto = new OptionDTO();
+			optdto.setProject_no(projectsearchno);
+			optdto.setOption_name(option_name[i]);
+			optdto.setOption_price(option_price[i]);
+			optdto.setOption_contents(option_contents[i]);
+			optdto.setOption_quantity(option_quantity[i]);
+			list.add(optdto);			
+			System.out.println("이름 : "+option_name[i]);
+			System.out.println("금액 : "+option_price[i]);
+			System.out.println("내용 : "+option_contents[i]);
+		}			
+	
+		System.out.println("리스트 : " +list);
 		
 		
 		int result2 = service.projectoptionInsert(list);
 		
 		System.out.println("옵션등록");
 		
-		System.out.println("2 프로젝트 번호"+((OptionDTO) optdto).getProject_no());		
+		//System.out.println("2 프로젝트 번호"+((OptionDTO) optdto).getProject_no());		
 		pdfservice.createPdf(summernote);
-		System.out.println("컨트롤러에서 pdf서비스 실행");
-	
+		System.out.println("컨트롤러에서 pdf서비스 실행");	
 		
 		return "redirect:/projectlist.temp";
 	}	

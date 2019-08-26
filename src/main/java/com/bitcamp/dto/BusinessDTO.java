@@ -12,7 +12,8 @@ public class BusinessDTO {
 		return business_no;
 	}
 	public void setBusiness_no(int business_no) {
-		this.business_no = business_no;
+		this.business_no=1;
+		//this.business_no = business_no;
 	}
 	public String getBusiness_name() {
 		return business_name;
