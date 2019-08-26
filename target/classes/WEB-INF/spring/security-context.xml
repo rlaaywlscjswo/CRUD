@@ -9,6 +9,7 @@
 	<bean id="customUserDetailsService" class="com.bitcamp.security.CustomUserDetailsService" />
 	<bean id="customLoginSuccess" class="com.bitcamp.security.CustomLoginSuccessHandler" />
 	<bean id="customAccessDenied" class="com.bitcamp.security.CustomAccessDeniedHandler" />
+	<bean id="customlogoutSuccess" class="com.bitcamp.security.CustomLogoutSuccessHandler" />
 	
 	<security:http>
 		
@@ -21,7 +22,7 @@
 		<security:form-login login-page="/sec_login" authentication-success-handler-ref="customLoginSuccess" />
 		
 		<!-- <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/> -->
-		<security:logout logout-url="/customLogout" invalidate-session="true" />
+		<security:logout logout-url="/customLogout" invalidate-session="false" />
 		<!--  delete-cookies="remember-me, JSESSION_ID" -->
 		<security:csrf disabled="true" />
 	</security:http>

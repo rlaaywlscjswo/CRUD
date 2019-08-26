@@ -54,7 +54,7 @@ public class MypageController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("supportList", supportList);
 
-		return "/mypage/mypage_support";
+		return "/mypage/mypage_support.temp";
 
 	} // end mypageSupportList method
 	
