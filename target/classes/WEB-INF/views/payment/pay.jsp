@@ -113,11 +113,11 @@ $(document).ready(function(){
 	});
 	
 	// 결제 방법
-	/* $("#frm").on('submit', function( event ) {
+	$("#frm").on('submit', function( event ) {
 		event.preventDefault();
 		let paymethod = $("#payselect").val();	
 		requestPay(paymethod);
-	}); */
+	});
 	
 	// 결제
 	function requestPay(paymethod) {
