@@ -1,5 +1,6 @@
 package com.bitcamp.app;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,11 +52,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/pay", method=RequestMethod.POST)
-	public String pay(OptionDTO odto, MemberDTO mdto, @RequestParam String alias, Model model) {
+	public String pay(OptionDTO odto, MemberDTO mdto, @RequestParam String alias, Model model, Principal principal) {
 		AddressDTO adto = memberService.address(mdto.getNo());
 		//System.out.println(adto.getRoadaddr());
 		model.addAttribute("opt", odto);
 		//로그인 완료 후에 변경해야하는곳. (MemberDTO 받아오는 방식 변경 예정.)
+		MemberDTO dto = loginInfo(principal);
+		System.out.println(dto.getName());
+		System.out.println(dto.getEmail());
 		mdto.setName("이찬영");
 		mdto.setEmail("joy23456@naver.com");
 		model.addAttribute("member", mdto);
@@ -100,6 +104,18 @@ public class MemberController {
 	@RequestMapping("/talk")
 	public String talk(@RequestParam int no) {
 		return "/member/talk";
+	}
+	
+	// 현재 로그인된 정보
+	@RequestMapping(value = "/loginInfo", method=RequestMethod.POST)
+	public @ResponseBody MemberDTO loginInfo(Principal principal) {
+		String email = principal.getName();
+		MemberDTO dto = memberService.memberinfo(email);
+		System.out.println(dto.getNo());
+		System.out.println(dto.getName());
+		System.out.println(dto.getPhoto());
+		System.out.println(dto.getEmail());
+		return dto;
 	}
 	
 } // end MemberController class

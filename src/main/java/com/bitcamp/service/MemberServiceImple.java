@@ -77,4 +77,9 @@ public class MemberServiceImple implements MemberService {
 		return mapper.changeAuth(email);
 	} // end changeAuth method
 
+	@Override
+	public MemberDTO memberinfo(String email) {
+		return mapper.memberinfo(email);
+	}
+
 }

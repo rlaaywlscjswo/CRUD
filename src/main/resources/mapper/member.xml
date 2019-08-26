@@ -30,7 +30,7 @@
 	</insert>
 	
 	<select id="address" parameterType="int" resultType="com.bitcamp.dto.AddressDTO">
-		select * from address where no = #{no} and default_addr = 1;
+		select * from address where no = #{no} and default_addr = 1
 	</select>
 	
 	<update id="addrssupdate1" parameterType="com.bitcamp.dto.AddressDTO">
@@ -59,7 +59,11 @@
 	</insert>
 	
 	<select id="addrlist" parameterType="int" resultType="com.bitcamp.dto.AddressDTO">
-		select * from address where no = #{no}; 
+		select * from address where no = #{no}
+	</select>
+	
+	<select id="memberinfo" parameterType="String" resultType="com.bitcamp.dto.MemberDTO">
+		select * from member where email = #{email}
 	</select>
 	
 	

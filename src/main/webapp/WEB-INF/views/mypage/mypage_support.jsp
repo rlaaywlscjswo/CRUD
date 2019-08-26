@@ -8,7 +8,7 @@
 <title>마이 페이지 - 내 후원 현황</title>
 <style>
 
-/* .modal {
+ .modal {
 	display: none;
 	position: fixed;
 	z-index: 1;
@@ -27,7 +27,7 @@
 	padding: 20px;
 	border: 1px solid #888;
 	width: 30%;
-} */
+}
 
 * {
 	margin: 0;
@@ -156,7 +156,7 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-	/* 	$(document).ready(function() {
+	 	$(document).ready(function() {
 	
 	 $('#bhlogin').on('click', function() {
 	 $('#myModal').show();
@@ -166,7 +166,7 @@
 	 $('#myModal').hide();
 	 });
 	
-	 }); */
+	 });
 </script>
 </head>
 <body>
@@ -179,7 +179,7 @@
 		<span id="filter_complete">결제가 완료 된 프로젝트</span>
 		</div>
 
-		<%-- <div style="position: relative; top: 20px; left: 30%;" id="bhlogin">로그인</div>
+		 <div style="position: relative; top: 20px; left: 30%;" id="bhlogin">로그인</div>
 	
  	<!-- The Modal -->
 	<div id="myModal" class="modal">
@@ -200,7 +200,7 @@
 			
 		</div>
 		
-	</div> --%>
+	</div>
 
 		<div id="support_searching">
 			<form method="get" action="support?currPage=${dto.firstPageOfBlock}">
