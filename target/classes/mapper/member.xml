@@ -66,6 +66,11 @@
 		select * from member where email = #{email}
 	</select>
 	
+	<select id="projectinfo" parameterType="int" resultType="com.bitcamp.dto.ProjectDTO">
+		select p.*	from `option` o join project p
+		on o.project_no = p.project_no
+		where option_no = #{option_no}
+	</select>
 	
 	
 	

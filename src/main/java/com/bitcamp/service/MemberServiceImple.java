@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bitcamp.dto.AddressDTO;
 import com.bitcamp.dto.MemberDTO;
+import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
 import com.bitcamp.mapper.MemberMapper;
 
@@ -80,6 +81,11 @@ public class MemberServiceImple implements MemberService {
 	@Override
 	public MemberDTO memberinfo(String email) {
 		return mapper.memberinfo(email);
+	}
+
+	@Override
+	public ProjectDTO projectinfo(int option_no) {
+		return mapper.projectinfo(option_no);
 	}
 
 }

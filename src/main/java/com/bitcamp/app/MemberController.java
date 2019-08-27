@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bitcamp.dto.AddressDTO;
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.OptionDTO;
+import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
 import com.bitcamp.service.MemberService;
 
@@ -52,7 +53,11 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/pay", method=RequestMethod.POST)
-	public String pay(OptionDTO odto, @RequestParam String alias, Model model, Principal principal) {
+	public String pay(OptionDTO odto, @RequestParam(defaultValue="null") String alias, Model model, Principal principal) {
+		if("null".equals(alias)) {
+			ProjectDTO dto = memberService.projectinfo(odto.getOption_no());
+			alias = dto.getAlias();
+		}
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
 		AddressDTO adto = memberService.address(mdto.getNo());
 		model.addAttribute("opt", odto);

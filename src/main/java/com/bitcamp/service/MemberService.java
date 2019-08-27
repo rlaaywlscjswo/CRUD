@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bitcamp.dto.AddressDTO;
 import com.bitcamp.dto.MemberDTO;
+import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
 
 public interface MemberService {
@@ -16,6 +17,7 @@ public interface MemberService {
 	public int addrssupdate2(AddressDTO adto);
 	public int supportinsert(SupportDTO sdto);
 	public MemberDTO memberinfo(String email);
+	public ProjectDTO projectinfo(int option_no);
 	
 	// 관리자 승인 시 회원 권한 update
 	public int changeAuth(String email);

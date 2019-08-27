@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.bitcamp.dto.AddressDTO;
 import com.bitcamp.dto.MemberDTO;
+import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
 
 @Mapper
@@ -18,7 +19,8 @@ public interface MemberMapper {
 	public int addrssupdate1(AddressDTO adto);
 	public int addrssupdate2(AddressDTO adto);
 	public int supportinsert(SupportDTO sdto);
-	public MemberDTO memberinfo(String email); // 회원정보
+	public MemberDTO memberinfo(String email); // 회원 정보
+	public ProjectDTO projectinfo(int option_no); // 프로젝트 정보
 	
 	public int maxno();
 	
