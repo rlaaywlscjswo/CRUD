@@ -100,9 +100,11 @@ margin-top: 20px;
 
 
 </style>
-<script src="/resources/js/pdfobject.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- <script src="/resources/js/pdfobject.min.js"></script> -->
 <script type="text/javascript">
-var options = {
+$(function () {
+/* var options = {
     pdfOpenParams: {
         navpanes: 0,
         toolbar: 0,
@@ -112,14 +114,25 @@ var options = {
         page: 2
     },
     forcePDFJS: true,
-  	/*  PDFJS_URL: "/resources/pdfjs/web/viewer.html"  */
-};
+  	/*  PDFJS_URL: "/resources/pdfjs/web/viewer.html"};  */
+
  
-var myPDF = PDFObject.embed("/resources/pdf/summer.pdf", "#pdf", options);
+/* var myPDF = PDFObject.embed("/resources/pdf/summer.pdf", "#pdf", options);
  
 var el = document.querySelector("#results");
 el.setAttribute("class", (myPDF) ? "success" : "fail");
-el.innerHTML = (myPDF) ? "PDFObject was successful!" : "Uh-oh, the embed didn't work.";
+el.innerHTML = (myPDF) ? "PDFObject was successful!" : "Uh-oh, the embed didn't work."; */
+
+var path = "C:/bitcamp/study/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/CRUD/upload/";
+var imgpath = path + '${list.project_photo}';
+$('#project_photo_path').attr("src", imgpath);
+
+console.log(imgpath);
+
+});
+
+
+
 </script>
 
 
@@ -127,12 +140,12 @@ el.innerHTML = (myPDF) ? "PDFObject was successful!" : "Uh-oh, the embed didn't 
 
 </head>
 <body>
+
 <div id="first">
 <div id="title">${list.project_title }</div>
 <div id="views">조회수${list.project_views }</div>
 <div id="category">카테고리번호${list.category_no }</div>
-<div id="photo">${list.project_photo }</div>
-
+<div id="photo"><img id="project_photo_path" alt="프로젝트대표사진" src=""></div>
 <aside id="side">
 <p>모인금액</p>
 <p>종료일:${list.enddate }</p>

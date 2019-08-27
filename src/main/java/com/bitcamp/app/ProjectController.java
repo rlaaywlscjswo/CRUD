@@ -146,7 +146,7 @@ public class ProjectController {
 		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일 
 		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일			
 		try {			
-			String uploadpath = request.getSession().getServletContext().getRealPath(path);			
+			String uploadpath = request.getSession().getServletContext().getRealPath(path);	// 경로
 			if(!project_photo.isEmpty()&&!img.isEmpty()) { // 대표사진, 프로필사진 둘다있을때 
 				File file = new File(uploadpath, project_photo.getOriginalFilename()); // 프로젝트 대표사진
 				project_photo.transferTo(file);				
@@ -156,7 +156,8 @@ public class ProjectController {
 				dto.setImg(dto.getImg_file().getOriginalFilename());				
 				System.out.println("프로젝트 제목 : " + dto.getProject_title());
 				System.out.println("대표사진 파일명 : " + dto.getProject_photo());		
-				System.out.println("창작자 프로필 사진"+ dto.getImg());				
+				System.out.println("창작자 프로필 사진"+ dto.getImg());			
+				System.out.println("경로 : "+uploadpath);
 			}			
 		}catch(IOException e) {			
 			System.out.println(e.getMessage());			
