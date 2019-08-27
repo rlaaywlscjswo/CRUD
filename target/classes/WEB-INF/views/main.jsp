@@ -31,7 +31,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-      <a class="navbar-brand" href="#">CRUD</a>
+      <a class="navbar-brand" href="main">CRUD</a>
       <sec:authorize access="isAuthenticated()">
       <a class="btn btn-primary" href="/mypage" style="left: 630px; position: relative;">마이 페이지</a>
       </sec:authorize>

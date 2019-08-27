@@ -32,7 +32,9 @@ $(document).ready(function(){
         ***********************************-->
         <div class="header">    
             <div class="header-content clearfix">
-                            
+                <div class="header-left">
+                 <a class="navbar-brand" href="main">CRUD</a>
+                </div>
                 <div class="header-right">
                     <ul class="clearfix">
                         
