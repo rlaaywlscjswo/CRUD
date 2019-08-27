@@ -62,11 +62,18 @@ public class ProjectController {
 
 	// 프로젝트 카테고리 선택 결과 목록 페이지 
 	@RequestMapping("projectcategorylist={main_category}")
-	public String categorylist(@PathVariable String main_category , Model model) {		
-		System.out.println(main_category);
-		List<ProjectDTO> projectlist = service.projectcategoryList(main_category);
-		model.addAttribute("list", projectlist);
-		System.out.println("나와라ㅏㅏㅏㅏㅏ");
+	public String categorylist(@PathVariable String main_category, 
+			@RequestParam(required = false, defaultValue = "1") int currPage,
+			Model model) {		
+		System.out.println(main_category);				
+		int totalCount = service.categorytotalCount(main_category);
+		System.out.println("카테고리list total : "+totalCount);
+		int pageSize =9;
+		int blockSize = 5;
+		PageDTO page = new PageDTO(currPage, totalCount, pageSize, blockSize);		
+		List<ProjectDTO> projectlist = service.projectcategoryList(main_category, page.getStartRow(), page.getEndRow());
+		model.addAttribute("list", projectlist);	
+		model.addAttribute("page", page);		
 		return "project/projectcategorylist.temp";
 	}
 	
@@ -81,14 +88,12 @@ public class ProjectController {
 		int pageSize =9;
 		int blockSize = 5;
 		PageDTO page = new PageDTO(currPage, totalCount, pageSize, blockSize);
-		List<ProjectDTO> projectlist = service.projectList(searchtxt.trim(),page.getStartRow(), page.getEndRow());	
+		List<ProjectDTO> projectlist = service.projectList(searchtxt.trim(), page.getStartRow(), page.getEndRow());	
 		model.addAttribute("list",projectlist);
-		model.addAttribute("page", page);
-	
+		model.addAttribute("page", page);	
 		model.addAttribute("searchtxt",searchtxt);
-		model.addAttribute("total", totalCount);
-		System.out.println("page : " +page);
-		
+		model.addAttribute("total", totalCount);		
+		System.out.println("page : " +page);		
 		System.out.println("searchtxt : "+searchtxt);
 		return "project/projectlist.temp";
 	}
@@ -199,6 +204,7 @@ public class ProjectController {
 		
 		return "redirect:/projectlist.temp";
 	}	
+	
 	// 프로젝트 상세 페이지
 	@RequestMapping("projectdetail={project_no}")
 	public String projectdetail(@PathVariable int project_no, Model model) {		

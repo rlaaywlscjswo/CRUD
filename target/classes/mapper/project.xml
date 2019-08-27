@@ -22,11 +22,8 @@
 		<result column="option_quantity" property="option_quantity" />
 		<result column="project_no" property="project_no" />
 	</resultMap>
-
-
-
-
-	<!-- total -->
+	
+	<!--  검색 결과 리스트 total -->
 	<select id="totalCount" resultType="int"
 		parameterType="java.util.HashMap">
 		select count(*)
@@ -38,6 +35,14 @@
 				member.name like CONCAT('%',#{searchtxt},'%')
 			</if>
 		</where>
+	</select>
+
+	<!--  카테고리 선택 결과 리스트 total -->
+	<select id="categorytotalCount" resultType="int" parameterType="String">
+	select count(*)
+	from project join category
+	on project.category_no = category.category_no
+	where main_category = #{main_category}
 	</select>
 
 	<select id="projectList" resultMap="listdto"
@@ -56,14 +61,15 @@
 	</select>
 
 	<!-- 카테고리 선택 결과 list -->
-	<select id="projectcategoryList" parameterType="String"
-		resultType="com.bitcamp.dto.ProjectDTO">
-		select
-		project.no,project.project_no,project.project_title,project.category_no
-		from project join category
-		on project.category_no = category.category_no
-		where main_category= #{main_category}
-		order by project.project_no
+	<select id="projectcategoryList" parameterType="java.util.HashMap"
+		resultMap="listdto">
+	select member.name, project.project_no, project.project_title, project.category_no, project.project_views
+	from project join member
+	on project.no=member.no 
+	join category
+    on project.category_no=category.category_no
+    where category.main_category =#{main_category}	
+	order by project.project_no
 	</select>
 
 	<select id="projectsearchno" parameterType="int" resultType="int">
