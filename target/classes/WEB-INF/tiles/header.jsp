@@ -106,7 +106,7 @@ $(document).ready(function(){
                 </li>	         
                
             </ul>
-            <a href="insert"><button type="button" class="btn btn-light">프로젝트 등록하러가기</button></a>
+            <a href="projectinsert"><button type="button" class="btn btn-light">프로젝트 등록하러가기</button></a>
            <button type="button" id="talk" class="btn btn-light">쪽지함</button>
            <button type="button" class="btn btn-light">고객센터</button>
         </div>

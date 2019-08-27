@@ -43,6 +43,7 @@ public class ProjectController {
 	@Resource(name="service")
 	private ProjectService service;
 	
+	@Resource
 	private MemberService memberservice;
 	
 	@Resource(name="categoryservice")
@@ -105,13 +106,12 @@ public class ProjectController {
 	
 	
 	// 프로젝트 등록 페이지
-	@RequestMapping("insert")
-	public String projectinsert(Principal principal, Model model) {
-		MemberDTO mdto = memberservice.memberinfo(principal.getName());
+	@RequestMapping("projectinsert")
+	public String projectinsert(Model model) {		
 		List<CategoryDTO> maincategorylist = categoryservice.maincategoryList();		
 		model.addAttribute("mainlist",maincategorylist);		
 		System.out.println("insert : "+model);		
-		return "project/insert.temp"; 
+		return "project/projectinsert.temp"; 
 	
 	}	
 	
@@ -135,6 +135,7 @@ public class ProjectController {
 			,@RequestParam String summernote
 			,Principal principal) { 		
 		MemberDTO mdto = memberservice.memberinfo(principal.getName());
+		System.out.println("회원 이름 : "+mdto.getName());
 		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일 
 		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일			
 		try {			
@@ -159,6 +160,7 @@ public class ProjectController {
 		
 		dto.setProject_no(projectsearchno);		
 		dto.setNo(mdto.getNo()); // 로그인한 no값을 insert쿼리문으로
+		System.out.println("회원번호 : "+dto.getNo());
 		int result = service.projectInsert(dto); // projectdto 
 		
 		System.out.println("1 프로젝트 번호"+dto.getProject_no());
