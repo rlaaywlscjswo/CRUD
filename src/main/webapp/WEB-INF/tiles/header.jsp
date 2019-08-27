@@ -85,8 +85,7 @@ $(document).ready(function(){
         </div>
         <!--**********************************
             Header end ti-comment-alt
-        ***********************************-->
-       
+        ***********************************-->       
        
         <nav class="navbar navbar-light bg-light">
             <form  class="form-inline" method="get" action="/projectlist?currPage=${page.startBlock }">                        

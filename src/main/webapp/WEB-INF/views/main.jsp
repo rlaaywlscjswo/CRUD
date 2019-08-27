@@ -46,6 +46,7 @@
 		</form>
       </sec:authorize>
       
+      
     </div>
   </nav>
 
@@ -57,11 +58,14 @@
           <h1 class="mb-5">CRUD<br>
             Connect Reality<br> Unlimited Dream</h1>
         </div>
-        <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-          <form>
+        <div class="col-md-10 col-lg
+        
+        
+        -8 col-xl-7 mx-auto">
+          <form method="get" action="/projectlist?currPage=${page.startBlock }" >
             <div class="form-row">
               <div class="col-12 col-md-9 mb-2 mb-md-0">
-                <input type="text" class="form-control form-control-lg" placeholder="검색하세요!">
+                <input type="text" class="form-control form-control-lg" id="searchtxt" name="searchtxt" class="searchform" placeholder="검색하세요!">
               </div>
               <div class="col-12 col-md-3">
                 <button type="submit" class="btn btn-block btn-lg btn-primary">Search</button>
