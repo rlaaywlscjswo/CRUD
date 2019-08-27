@@ -362,6 +362,10 @@ $(function () {
     		
     	</div> 
     	
+    	<!-- 로그인 했으면 이거 넣어줘야 함 -->
+    	<input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}">
+    	
     	<!-- #tab6 -->
     	
     	

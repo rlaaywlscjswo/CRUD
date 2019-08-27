@@ -44,6 +44,15 @@ form {
 	position: absolute;
 }
 
+input[type=text], [type=password] {
+	border: 2px solid dodgerblue;
+	border-radius: 10px;
+}
+
+input[type=submit] {
+	border: none;
+}
+
 #email {
 	display: inline-block;
 	font-size: 1em;

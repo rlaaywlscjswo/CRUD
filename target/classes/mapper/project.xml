@@ -80,7 +80,7 @@
 		values(
 		#{project_no},
 		#{project_title}, #{project_photo}, #{targetprice}, #{alias}, #{img},
-		#{introduce}, #{startdate}, #{enddate}, '테스트.pdf', 2, #{category_no})
+		#{introduce}, #{startdate}, #{enddate}, '테스트.pdf', 25, #{category_no})
 	</insert>
 
 	<!-- 프로젝트 디테일 -->

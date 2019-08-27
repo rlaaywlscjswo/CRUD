@@ -42,7 +42,7 @@ public class MemberController {
 		
 		int result = memberService.memberAdd(dto);		
 		
-		return "redirect:main";
+		return "/member/signupsuccess";
 	}
 	 
 	@RequestMapping(value = "/emailcheck", method=RequestMethod.POST)

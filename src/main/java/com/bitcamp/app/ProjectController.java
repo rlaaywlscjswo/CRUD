@@ -2,6 +2,7 @@ package com.bitcamp.app;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,11 +25,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bitcamp.dto.BusinessDTO;
 import com.bitcamp.dto.CategoryDTO;
+import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.OptionDTO;
 import com.bitcamp.dto.PageDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.service.BusinessService;
 import com.bitcamp.service.CategoryService;
+import com.bitcamp.service.MemberService;
 import com.bitcamp.service.PDFService;
 import com.bitcamp.service.ProjectService;
 import com.itextpdf.text.log.SysoLogger;
@@ -39,6 +42,8 @@ public class ProjectController {
 	
 	@Resource(name="service")
 	private ProjectService service;
+	
+	private MemberService memberservice;
 	
 	@Resource(name="categoryservice")
 	private CategoryService categoryservice;
@@ -98,12 +103,14 @@ public class ProjectController {
        	return subcategorylist;
 	}
 	
+	
 	// 프로젝트 등록 페이지
 	@RequestMapping("insert")
-	public String projectinsert(Model model) {
+	public String projectinsert(Principal principal, Model model) {
+		MemberDTO mdto = memberservice.memberinfo(principal.getName());
 		List<CategoryDTO> maincategorylist = categoryservice.maincategoryList();		
 		model.addAttribute("mainlist",maincategorylist);		
-		System.out.println("insert : "+model);
+		System.out.println("insert : "+model);		
 		return "project/insert.temp"; 
 	
 	}	
@@ -125,7 +132,9 @@ public class ProjectController {
 			,@RequestParam String[] option_contents
 			,@RequestParam int[] option_quantity		   
 		    ,@RequestParam int btncnt
-			,@RequestParam String summernote) { 		
+			,@RequestParam String summernote
+			,Principal principal) { 		
+		MemberDTO mdto = memberservice.memberinfo(principal.getName());
 		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일 
 		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일			
 		try {			
@@ -149,6 +158,7 @@ public class ProjectController {
 		int projectsearchno=service.projectsearchno(dto.getCategory_no());
 		
 		dto.setProject_no(projectsearchno);		
+		dto.setNo(mdto.getNo()); // 로그인한 no값을 insert쿼리문으로
 		int result = service.projectInsert(dto); // projectdto 
 		
 		System.out.println("1 프로젝트 번호"+dto.getProject_no());

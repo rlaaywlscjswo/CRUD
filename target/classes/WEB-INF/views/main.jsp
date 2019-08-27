@@ -101,7 +101,9 @@
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-            <button type="button" class="btn btn-light">프로젝트 등록하러가기</button>
+            <sec:authorize access="isAuthenticated()">
+            <a href="/insert"><button type="button" class="btn btn-light">프로젝트 등록하러가기</button></a>
+            </sec:authorize>
            <button type="button" class="btn btn-light">쪽지함</button>
            <button type="button" class="btn btn-light">고객센터</button>
         </div>
