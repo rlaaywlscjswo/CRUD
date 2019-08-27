@@ -50,10 +50,9 @@ h1 {
 }
 
 a {
-	background-color: dodgerblue;
-	border: 1px solid dodgerblue;
+	background-color: #007bff;
 	border-radius: 10px;
-	color: white;
+	color: #fff;
 	padding: 15px;
 	text-decoration: none;
 }
