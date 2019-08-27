@@ -23,7 +23,7 @@
 
 #support_filter {
 	display: inline-block;
-	left: 10px;
+ 	left: 20px;
 	position: relative;
 	top: 20px;
 }
@@ -36,25 +36,27 @@
 }
 
 #support_searching {
-	border: 1px solid silver;
 	display: inline-block;
 	height: 50px;
-	left: 500px;
-	position: ralative;
-	top: 100px;
-	width: 500px;
+	left: 220px;
+	position: relative;
 }
 
 #support_search {
 	display: inline-block;
 	width: 220px;
 	height: 20px;
-	position: absolute;
+	position: relative;
+	top: 20px;
 }
 
 #support_find {
 	display: inline-block;
-	position: absolute;
+	left: 10px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	position: relative;
+	top: 22px;
 }
 
 #support_main {
@@ -74,10 +76,10 @@
 #support_paging {
 	position: relative;
 	left: 450px;
-	top: 500px;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	padding: 10px;
+	top: 40px;
 	font-size: 22px;
 }
 
@@ -107,7 +109,7 @@
 	height: 100px;
 	left: 180px;
 	position: absolute;
-	top: 25px;
+	top: 36px;
 	width: 500px;
 }
 
