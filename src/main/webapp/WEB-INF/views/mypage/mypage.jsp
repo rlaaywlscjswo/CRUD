@@ -17,7 +17,7 @@
 	display: inline-block;
 	height: 30px;
 	left: 100px;
-	position: absolute;
+	position: relative;
 	text-align: center;
 	width: 200px;
 }
@@ -44,7 +44,7 @@
 	display: inline-block;
 	height: 600px;
 	left: 300px;
-	position: absolute;
+	position: relative;
 	width: 1000px;
 }
 

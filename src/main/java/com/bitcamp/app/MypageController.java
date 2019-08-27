@@ -1,5 +1,6 @@
 package com.bitcamp.app;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -25,7 +26,7 @@ public class MypageController {
 	@RequestMapping("/mypage")
 	public String mypage() {
 		
-		return "/mypage/mypage";
+		return "/mypage/mypage.temp";
 		
 	} // end mypage method
 
@@ -41,15 +42,17 @@ public class MypageController {
 
 	@RequestMapping("/support")
 	public String mypageSupportList(@RequestParam(required = false, defaultValue = "1") int currPage,
-			@RequestParam(required = false, defaultValue = "") String support_search, Model model) {
+			@RequestParam(required = false, defaultValue = "") String support_search, Model model, Principal principal) {
 
-		int totalCount = service.totalCount(support_search);
+		String email = principal.getName();
+		
+		int totalCount = service.totalCount(support_search, email);
 		int pagePerSize = 2;
 		int blockPerSize = 3;
 
 		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
 
-		List<SupportDTO> supportList = service.mypageSupportList(dto.getStartRow(), pagePerSize, support_search);
+		List<SupportDTO> supportList = service.mypageSupportList(dto.getStartRow(), pagePerSize, support_search, email);
 		model.addAttribute("support_search", support_search);
 		model.addAttribute("dto", dto);
 		model.addAttribute("supportList", supportList);

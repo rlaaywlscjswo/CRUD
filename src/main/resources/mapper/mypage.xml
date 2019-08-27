@@ -38,6 +38,7 @@
 		join support on `option`.option_no =
 		support.option_no
 		<where>
+			support.no = (select no from member where email = #{email})
 			<if test="support_search!=null and support_search!=''">
 				and project_title like CONCAT('%',#{support_search},'%')
 			</if>
@@ -48,12 +49,13 @@
 		parameterMap="hashmap">
 		select date_format(support_date, '%y년 %c월 %e일') as da,
 		project_photo,
-		support_status, project_title, `option`.option_no, option_price
+		support_status, project_title, option_name, option_price
 		from
 		project join `option` on project.project_no = `option`.project_no
 		join
 		support on `option`.option_no = support.option_no
 		<where>
+			support.no = (select no from member where email = #{email})
 			<if test="support_search!=null and support_search!=''">
 				and project_title like CONCAT('%',#{support_search},'%')
 			</if>
