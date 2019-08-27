@@ -11,6 +11,7 @@
 		<result column="project_no" property="project_no" />
 		<result column="project_title" property="project_title" />
 		<result column="category_no" property="category_no" />
+		<result column="project_photo" property="project_photo"/>
 	</resultMap>
 
 	<!-- detail resultmap -->
@@ -47,7 +48,7 @@
 
 	<select id="projectList" resultMap="listdto"
 		parameterType="java.util.HashMap">
-		select member.name, project.project_no, project.project_title, project.category_no, project.project_views
+		select member.name, project.project_no, project.project_title, project.category_no, project.project_views, project.project_photo
 		from project join member
 		on project.no=member.no
 		<where>
@@ -63,7 +64,7 @@
 	<!-- 카테고리 선택 결과 list -->
 	<select id="projectcategoryList" parameterType="java.util.HashMap"
 		resultMap="listdto">
-	select member.name, project.project_no, project.project_title, project.category_no, project.project_views
+	select member.name, project.project_no, project.project_title, project.category_no, project.project_views, project.project_photo
 	from project join member
 	on project.no=member.no 
 	join category
@@ -110,18 +111,18 @@
 	<foreach collection="list" item="item"  separator="," > 
 	(#{item.project_no} ,#{item.option_name}, #{item.option_price} ,#{item.option_contents} ,#{item.option_quantity})
 	</foreach> 
-	
-	</insert>
-	
-	
-	
-	
-	
+	</insert>	
 	
 	<!-- 조회수  -->
 	<update id="viewcnt" parameterType="int">
 	update project set project_views = project_views+1 where project_no= #{project_no}
 	</update>
 	
-	
+	<!-- main 인기순 프로젝트 list -->
+	<select id="mainHitList" resultMap="listdto">
+	select member.name, project.project_no, project.project_title, project.category_no, project.project_views,project.project_photo
+	from project join member
+	on project.no=member.no 
+ 	order by project_views desc
+	</select>
 </mapper>

@@ -56,7 +56,9 @@ public class ProjectController {
 	private PDFService pdfservice;
 		
 	@RequestMapping("main")
-	public String main() {
+	public String main(Model model) {
+		List<ProjectDTO> dto = service.mainHitList();
+		model.addAttribute("list", dto);
 		return "main";
 	}		
 

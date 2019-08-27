@@ -44,13 +44,13 @@ display: inline-block;
           </ol>
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item active">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+              <img class="d-block img-fluid" src="http://localhost:8080/resources/img/puppy-1207816_1920.jpg" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+              <img class="d-block img-fluid" src="http://localhost:8080/resources/img/dog-2785074_1920.jpg" alt="Second slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+              <img class="d-block img-fluid" src="http://localhost:8080/resources/img/cat-3586451_1920.jpg" alt="Third slide">
             </div>
           </div>
           <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -75,6 +75,7 @@ display: inline-block;
 				프로젝트제목:<c:out value="${item.project_title }"></c:out><br>
 				카테고리번호:<c:out value="${item.category_no }"></c:out><br>
 				조회수:<c:out value="${item.project_views }"></c:out><br>		
+				사진:<c:out value="${item.project_photo }"></c:out><br>
               </div>
               <div class="card-footer">
                 <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>

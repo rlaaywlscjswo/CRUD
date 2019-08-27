@@ -88,5 +88,10 @@ public class ProjectServiceImple implements ProjectService {
 		return mapper.projectoptionInsert(map);
 	}
 
+	@Override
+	public List<ProjectDTO> mainHitList() {		
+		return mapper.mainHitList();
+	}
+
 	
 }

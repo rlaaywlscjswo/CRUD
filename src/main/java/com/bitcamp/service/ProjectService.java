@@ -19,4 +19,6 @@ public interface ProjectService {
 	public int projectsearchno(int category_no); // project_no 찾아서 옵션추가에 넣기 
 	public int projectoptionInsert(List<OptionDTO> optionlist); // 프로젝트 옵션 추가
 	public int viewcnt(int project_no); // 프로젝트 조회수
+	// 메인 화면에서 보여주는 프로젝트 list
+	public List<ProjectDTO> mainHitList(); // 인기순으로 보여주는 프로젝트 list
 }
