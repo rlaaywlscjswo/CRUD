@@ -35,7 +35,7 @@ display: inline-block;
 
       </div>
       <!-- /.col-lg-3 -->
-<%-- 검색 결과 총 ${total }개 나왔습니다~ --%>
+
       <div class="col-lg-9">
 
         <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">

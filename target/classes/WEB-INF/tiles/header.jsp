@@ -32,7 +32,9 @@ $(document).ready(function(){
         ***********************************-->
         <div class="header">    
             <div class="header-content clearfix">
-                            
+                <div class="header-left">
+                 <a class="navbar-brand" href="main">CRUD</a>
+                </div>
                 <div class="header-right">
                     <ul class="clearfix">
                         
@@ -85,8 +87,7 @@ $(document).ready(function(){
         </div>
         <!--**********************************
             Header end ti-comment-alt
-        ***********************************-->
-       
+        ***********************************-->       
        
         <nav class="navbar navbar-light bg-light">
             <form  class="form-inline" method="get" action="/projectlist?currPage=${page.startBlock }">                        

@@ -12,7 +12,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 <style type="text/css">
-ul.tabs {
+/* ul.tabs {
     margin: 0;
     padding: 0;
     float: left;
@@ -22,7 +22,10 @@ ul.tabs {
     border-left: 1px solid #eee;    
     font-family:"dotum";
     font-size:12px;
-}
+    position: relative;
+    left: 300px;
+} */
+
 ul.tabs li {
     float: left;
     text-align:center;
@@ -36,6 +39,7 @@ ul.tabs li {
     background: #fafafa;
     overflow: hidden;
     position: relative;
+    left: 300px;
 }
 ul.tabs li.active {
     background: #FFFFFF;
@@ -49,6 +53,8 @@ ul.tabs li.active {
     width: 1201px;
     height: 500PX;
     background: #FFFFFF;
+    position: relative;
+    left: 300px;
 }
 .tab_content {
     padding: 5px;

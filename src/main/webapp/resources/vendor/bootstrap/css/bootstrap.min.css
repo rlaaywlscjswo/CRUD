@@ -8766,6 +8766,10 @@ button.bg-dark:hover {
     margin-right: 3rem !important
 }
 
+h1.mb-5{
+	color: white;
+}
+
 .mb-5,
 .my-5 {
     margin-bottom: 3rem !important

@@ -64,7 +64,7 @@ public class MemberController {
 		model.addAttribute("member", mdto);
 		model.addAttribute("addr", adto);
 		model.addAttribute("alias", alias);
-		return "/payment/pay";
+		return "/payment/pay.temp";
 	}
 	@RequestMapping("/jusoPopup")
 	public String jusoPopup() {
