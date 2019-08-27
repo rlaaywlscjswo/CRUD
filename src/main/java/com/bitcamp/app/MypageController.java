@@ -26,7 +26,7 @@ public class MypageController {
 	@RequestMapping("/mypage")
 	public String mypage() {
 		
-		return "/mypage/mypage.temp";
+		return "/mypage/mypage";
 		
 	} // end mypage method
 
@@ -57,7 +57,7 @@ public class MypageController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("supportList", supportList);
 
-		return "/mypage/mypage_support";
+		return "mypage/mypage_support";
 
 	} // end mypageSupportList method
 	

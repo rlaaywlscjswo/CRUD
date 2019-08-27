@@ -129,7 +129,7 @@ input[type=submit] {
 			</div>
 			
 			<div>
-				<input type="checkbox" name="remember-me"> 로그인 유지하기
+				<input type="checkbox" name="remember-me" checked="checked"> 로그인 유지하기
 			</div>
 
 			<input type="hidden" name="${_csrf.parameterName}"
