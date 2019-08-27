@@ -29,6 +29,26 @@
 #addrslist, .goPopup, #default_addrs, #addr_add, .memo, #basicaddr, #newaddr{
 	cursor:pointer;
 }
+.bg-dark{
+margin-top: 600px;
+}
+.order_payment{
+    float: left;
+    width: 89px;
+    height: 20px;
+}
+h3{
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+body{
+	font-family: '나눔고딕',NanumGothic,'맑은고딕',MalgunGothic,'돋움',Dotum,Helvetica,sans-serif;
+}
 </style>
 <script>
 $(document).ready(function(){
@@ -237,7 +257,7 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 <form name="form" id="frm" method="post" action="success">
 <div style="width: 80%; margin: 0 auto; ">
 <div style=" border: 1px solid blue; margin-bottom: 10px; float: left; width: 100%">
-<span>주문/결제</span>
+<h3 class="order_payment">주문/결제</h3>
 	<table>
 		<thead>
 			<tr>
