@@ -42,7 +42,7 @@ $(document).ready(function(){
                         	<div style="display: inline-block; left: -30px; position: relative; top: 10px;">
                         	
                         	<sec:authorize access="isAnonymous()">
-                        	<a href="/sec_login">로그인</a>
+                        	<a href="/sec_login" style="background-color: #007bff; color: #fff;">로그인</a>
                         	</sec:authorize>
                         	
                         	<sec:authorize access="isAuthenticated()">
