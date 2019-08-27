@@ -7,6 +7,12 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<style>
+button {
+	background-color: #007bff;
+	color: #fff;
+}
+</style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 $(document).ready(function(){
@@ -42,7 +48,7 @@ $(document).ready(function(){
                         	<sec:authorize access="isAuthenticated()">
                         		<form action="/customLogout" method="post">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-								<button style="width: ">로그아웃</button>
+								<button>로그아웃</button>
 								</form>
                         	</sec:authorize>
                         	
@@ -106,8 +112,10 @@ $(document).ready(function(){
                 </li>	         
                
             </ul>
+            <sec:authorize access="isAuthenticated()">
             <a href="projectinsert"><button type="button" class="btn btn-light">프로젝트 등록하러가기</button></a>
            <button type="button" id="talk" class="btn btn-light">쪽지함</button>
+           </sec:authorize>
            <button type="button" class="btn btn-light">고객센터</button>
         </div>
     </nav>  
