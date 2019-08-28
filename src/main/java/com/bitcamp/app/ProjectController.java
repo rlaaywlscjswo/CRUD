@@ -205,7 +205,8 @@ public class ProjectController {
 		pdfservice.createPdf(summernote);
 		System.out.println("컨트롤러에서 pdf서비스 실행");	
 		
-		return "redirect:/projectlist.temp";
+		//return "redirect:/projectlist.temp";
+		return "project/projectinsertresult.temp";
 	}	
 	
 	// 프로젝트 상세 페이지
