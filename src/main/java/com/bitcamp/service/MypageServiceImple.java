@@ -19,6 +19,7 @@ public class MypageServiceImple implements MypageService {
 	@Inject
 	private MypageMapper mypageMapper;
 
+	// for paging
 	@Override
 	public int totalCount(String support_search, String email) {
 
@@ -30,6 +31,7 @@ public class MypageServiceImple implements MypageService {
 
 	} // end totalCount method
 
+	// 마이 페이지 - 내 정보 설정
 	@Override
 	public List<MemberDTO> mypageInfoList() {
 
@@ -37,6 +39,7 @@ public class MypageServiceImple implements MypageService {
 
 	} // end myPageList method
 
+	// 마이 페이지 - 내 후원 내역
 	@Override
 	public List<SupportDTO> mypageSupportList(int startRow, int pagePerSize, String support_search, String email) {
 
@@ -51,7 +54,23 @@ public class MypageServiceImple implements MypageService {
 
 	} // end mypageSupportList method
 
+	// 마이 페이지 - 내가 만든 프로젝트
+	
+	// 프로젝트 번호를 받아오자
 	@Override
+	public List<ProjectDTO> getProject_no(String email) {
+
+		return mypageMapper.getProject_no(email);
+		
+	} // end getProject_no method
+	
+	
+	
+	
+	
+	
+	
+	/*@Override
 	public int theNumbersOfMyProject() {
 
 		return mypageMapper.theNumbersOfMyProject();
@@ -88,6 +107,6 @@ public class MypageServiceImple implements MypageService {
 	public int achievePercent() {
 
 		return mypageMapper.achievePercent();
-	}
+	}*/
 
 } // end MypageServiceImple class

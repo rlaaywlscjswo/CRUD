@@ -23,6 +23,7 @@ public class MypageController {
 	@Inject
 	private MypageService service;
 	
+	// 마이 페이지 - main
 	@RequestMapping("/mypage")
 	public String mypage() {
 		
@@ -30,6 +31,7 @@ public class MypageController {
 		
 	} // end mypage method
 
+	// 마이 페이지 - 내 정보 설정
 	@RequestMapping("/info")
 	public String mypageInfoList(Model model) {
 
@@ -40,6 +42,7 @@ public class MypageController {
 
 	} // end myList method
 
+	// 마이 페이지 - 내 후원 내역
 	@RequestMapping("/support")
 	public String mypageSupportList(@RequestParam(required = false, defaultValue = "1") int currPage,
 			@RequestParam(required = false, defaultValue = "") String support_search, Model model, Principal principal) {
@@ -61,7 +64,22 @@ public class MypageController {
 
 	} // end mypageSupportList method
 	
-	@RequestMapping("/mypro")
+	// 마이 페이지 - 내가 만든 프로젝트
+	@RequestMapping("mypro")
+	public String mypage_MyProjectList(Model model, Principal principal) {
+		
+		String email = principal.getName();
+		List<ProjectDTO> list = service.getProject_no(email);
+		model.addAttribute("mypro", list);
+		
+		return "/mypage/mypage_project";
+		
+	} // end mypage_MyProjectList method
+	
+	
+	
+	
+	/*@RequestMapping("/mypro")
 	public String theNumbersOfMyProject(Model model) {
 		
 		int myProject = service.theNumbersOfMyProject();
@@ -86,5 +104,5 @@ public class MypageController {
 		return "/mypage/mypage_project.temp";
 		
 	} // end theNumbersOfMyProject method
-
+*/
 } // end MyController class

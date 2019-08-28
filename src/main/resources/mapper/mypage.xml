@@ -18,7 +18,7 @@
 		member
 	</select>
 
-	<!-- 마이 페이지 - 내 후원 현황 -->
+	<!-- 마이 페이지 - 내 후원 내역 -->
 
 	<parameterMap type="java.util.HashMap" id="hashmap" />
 
@@ -65,13 +65,37 @@
 
 	<!-- 마이 페이지 - 내 프로젝트 -->
 	
-	<!-- 남은 날 보기 -->
-	<select id="remainingDays" resultType="int">
-		select to_days(enddate) - to_days(now()) from project where project_no = 116
+	
+	
+	<resultMap type="com.bitcamp.dto.ProjectDTO" id="mpdto">
+		<result property="project_no" column="project_no" />
+	</resultMap>
+	
+	<!-- 내가 만든 프로젝트 개수 -->
+	<select id="theNumbersOfMyProject" resultMap="mpdto">
+		select count(project_no) 
+		from project 
+		where no = (select no from member where email = #{email})
 	</select>
 	
+	<!-- 프로젝트 번호를 받아오자 -->
+	<select id="getProject_no" resultMap="mpdto">
+		select project_no 
+		from project 
+		where no = (select no from member where email = #{email})
+	</select>
+	
+	
+	
+	
+	
+	<!-- 남은 날 보기 -->
+<!-- 	<select id="remainingDays" resultType="int">
+		select to_days(enddate) - to_days(now()) from project where project_no = 116
+	</select> -->
+	
 
-	<select id="theNumbersOfMyProject" resultType="int">
+<!-- 	<select id="theNumbersOfMyProject" resultType="int">
 		select count(project_title)
 		from project join member
 		on project.no =
@@ -79,41 +103,41 @@
 		<where>
 			and member.no = 23
 		</where>
-	</select>
+	</select> -->
 
-	<resultMap type="hashMap" id="mpdto">
+<!-- 	<resultMap type="hashMap" id="mpdto">
 		<result column="project_no" property="pno" />
 		<result column="project_photo" property="project_photo" />
 		<result column="enddate" property="liter" />
 		<result column="project_title" property="project_title" />
 		<result column="option_no" property="opp" />
 		<result column="option_price" property="option_price" />
-	</resultMap>
+	</resultMap> -->
 
-	<select id="theNumberOfMyProject" resultMap="mpdto">
+<!-- 	<select id="theNumberOfMyProject" resultMap="mpdto">
 		select project_no from project
 		<where>
 			and no = 2
 		</where>
-	</select>
+	</select> -->
 
 
 	<!-- select project_no, project_title, to_days(enddate) - to_days(startdate) 
 		as 'liter', project_photo from project -->
 
-	<select id="propropro" resultMap="mpdto">
-		select project.project_no, project_title
+<!-- 	<select id="propropro" resultMap="mpdto"> -->
+<!-- 		select project.project_no, project_title
 		, project_photo
 		, concat (to_days(enddate) - to_days(startdate), '일')
 		, sum(option_price)
 		from project join `option` on project.project_no = `option`.project_no
 		where project.project_no = 18
-		group by project.project_no
-	</select>
+		group by project.project_no -->
+<!-- 	</select> -->
 	
 	
 	
-	<resultMap type="hashMap" id="myProjectHashMap">
+<!-- 	<resultMap type="hashMap" id="myProjectHashMap">
 		<result column="project_photo" property="project_photo" />
 		<result column="enddate" property="enddate" />
 		<result column="targetprice" property="targetprice" />
@@ -124,11 +148,11 @@
 		select project_no from member join project on member.no = project.no where email = 'adadad@test.com'
 	</select>
 	
-	<!-- 달성 퍼센트 -->
+	달성 퍼센트
 	<select id="achievePercent" resultType="Integer">
 		select (sum(option_price) / targetprice) * 100
 		from `option` join project on `option`.project_no = project.project_no
 		where project.project_no = 116
-	</select>
+	</select> -->
 
 </mapper>
