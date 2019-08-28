@@ -32,7 +32,9 @@
 	}
 
 	#mypro_main {
+		height: 100px;
 		margin: 10px;
+		width: 400px;
 	}
 	
 	#myProject_paging {
@@ -45,23 +47,46 @@
 	<div class="myProjectWrap">
 		
 		<div id="theNumbersOfMyProject">
-		내가 만든 프로젝트 개수 :
+		내가 만든 프로젝트 개수 : ${theNumbersOfMyProject}개
 		</div>
 		
 		<div id="myProject_searching">
 			여긴 검색
 		</div>
 		
-		<c:forEach var="mypro" items="${mypro}">
 			<div id="mypro_main">
-				썸네일 이미지 : <br>
-				모인 금액 : <br>
-				남은 시간 : <br>
-				달성 퍼센트 : <br>
-				계약서 : <br>
-				프로젝트 이름 : <br>
+			
+					<div>
+						 <c:forEach var="thumbnail" items="${thumbnail}">
+							썸네일 이미지 : ${thumbnail.project_photo}<br>
+						 </c:forEach>
+				 	</div>
+					<%-- <div>
+						<c:forEach var="" items="">
+							모인 금액 : <br>
+						</c:forEach>
+					</div>
+					<div>
+						<c:forEach var="" items="">
+							남은 시간 : <br>
+						</c:forEach>
+					</div>
+					<div>
+						<c:forEach var="" items="">
+							달성 퍼센트 : <br>
+						</c:forEach>
+					</div>
+					<div>
+						<c:forEach var="" items="">
+							계약서 : <br>
+						</c:forEach>
+					</div>
+					<div>
+						<c:forEach var="" items="">
+							프로젝트 이름 : <br>
+						</c:forEach>
+					</div> --%>
 			</div>
-		</c:forEach>
 		
 		<div id="myProject_paging">
 			여긴 페이징

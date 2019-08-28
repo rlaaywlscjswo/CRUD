@@ -69,8 +69,19 @@ public class MypageController {
 	public String mypage_MyProjectList(Model model, Principal principal) {
 		
 		String email = principal.getName();
-		List<ProjectDTO> list = service.getProject_no(email);
-		model.addAttribute("mypro", list);
+		
+		// 내가 만든 프로젝트 개수
+		int theNumbersOfMyProject = service.theNumbersOfMyProject(email);
+		
+		// 프로젝트 번호를 받아오자		
+		List<ProjectDTO> getProject_no = service.getProject_no(email);
+		
+		// 썸네일 이미지
+		List<ProjectDTO> thumbnail = service.thumbnail(email);
+		System.out.println("thumbnail : " + thumbnail);
+		
+		model.addAttribute("theNumbersOfMyProject", theNumbersOfMyProject);
+		model.addAttribute("thumbnail", thumbnail);
 		
 		return "/mypage/mypage_project";
 		

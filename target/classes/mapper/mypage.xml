@@ -62,17 +62,22 @@
 		</where>
 		limit #{startRow}, #{pagePerSize}
 	</select>
+	
 
-	<!-- 마이 페이지 - 내 프로젝트 -->
-	
-	
+	<!-- 마이 페이지 - 내 프로젝트 -->	
 	
 	<resultMap type="com.bitcamp.dto.ProjectDTO" id="mpdto">
 		<result property="project_no" column="project_no" />
+		<result property="project_photo" column="project_photo" />
+		<result property="option_price" column="option_price" />
+		<result property="enddate" column="enddate" />
+		<result property="targetprice" column="targetprice" />
+		<result property="project_contract" column="project_contract" />
+		<result property="project_title" column="project_title" />
 	</resultMap>
 	
 	<!-- 내가 만든 프로젝트 개수 -->
-	<select id="theNumbersOfMyProject" resultMap="mpdto">
+	<select id="theNumbersOfMyProject" resultType="int">
 		select count(project_no) 
 		from project 
 		where no = (select no from member where email = #{email})
@@ -84,6 +89,20 @@
 		from project 
 		where no = (select no from member where email = #{email})
 	</select>
+	
+	<!-- 썸네일 이미지 -->
+	<select id="thumbnail" resultMap="mpdto">
+		select project_photo 
+		from project join member on project.no = member.no
+		where email = #{email}
+	</select>
+	
+	<!-- 모인 금액 -->
+	<!-- 남은 시간 -->
+	<!-- 달성률 -->
+	<!-- 계약서 -->
+	<!-- 프로젝트 이름 -->
+
 	
 	
 	

@@ -25,10 +25,13 @@ public interface MypageMapper {
 	// 마이 페이지 - 내가 만든 프로젝트
 	
 	// 내가 만든 프로젝트 개수
-	public int theNumbersOfMyProject();
+	public int theNumbersOfMyProject(String email);
 	
 	// 프로젝트 번호를 받아오자
 	public List<ProjectDTO> getProject_no(String email);
+	
+	// 썸네일 이미지
+	public List<ProjectDTO> thumbnail(String email);
 	
 	
 	

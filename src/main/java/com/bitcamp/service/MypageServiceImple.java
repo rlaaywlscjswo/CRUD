@@ -56,6 +56,14 @@ public class MypageServiceImple implements MypageService {
 
 	// 마이 페이지 - 내가 만든 프로젝트
 	
+	// 내가 만든 프로젝트 개수
+	@Override
+	public int theNumbersOfMyProject(String email) {
+
+		return mypageMapper.theNumbersOfMyProject(email);
+		
+	} // end theNumbersOfMyProject method
+	
 	// 프로젝트 번호를 받아오자
 	@Override
 	public List<ProjectDTO> getProject_no(String email) {
@@ -63,6 +71,15 @@ public class MypageServiceImple implements MypageService {
 		return mypageMapper.getProject_no(email);
 		
 	} // end getProject_no method
+	
+	// 썸네일 이미지	
+
+	@Override
+	public List<ProjectDTO> thumbnail(String email) {
+
+		return mypageMapper.thumbnail(email);
+		
+	} // end thumbnail method
 	
 	
 	
