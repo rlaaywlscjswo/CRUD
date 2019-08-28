@@ -9,8 +9,7 @@
 <title>Insert title here</title>
 <!-- Custom styles for this template -->    
 <link href="resources\css\style.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="resources\font\font-awesome\css\font-awesome.min.css" rel="stylesheet"><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 *{ 
  font-family: 'NanumSquareRound',sans-serif; 
