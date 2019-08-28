@@ -56,17 +56,26 @@ public class ProjectController {
 	private PDFService pdfservice;
 		
 	@RequestMapping("main")
-	public String main() {
+	public String main(Model model) {
+		List<ProjectDTO> dto = service.mainHitList();
+		model.addAttribute("list", dto);
 		return "main";
 	}		
 
 	// 프로젝트 카테고리 선택 결과 목록 페이지 
 	@RequestMapping("projectcategorylist={main_category}")
-	public String categorylist(@PathVariable String main_category , Model model) {		
-		System.out.println(main_category);
-		List<ProjectDTO> projectlist = service.projectcategoryList(main_category);
-		model.addAttribute("list", projectlist);
-		System.out.println("나와라ㅏㅏㅏㅏㅏ");
+	public String categorylist(@PathVariable String main_category, 
+			@RequestParam(required = false, defaultValue = "1") int currPage,
+			Model model) {		
+		System.out.println(main_category);				
+		int totalCount = service.categorytotalCount(main_category);
+		System.out.println("카테고리list total : "+totalCount);
+		int pageSize =9;
+		int blockSize = 5;
+		PageDTO page = new PageDTO(currPage, totalCount, pageSize, blockSize);		
+		List<ProjectDTO> projectlist = service.projectcategoryList(main_category, page.getStartRow(), page.getEndRow());
+		model.addAttribute("list", projectlist);	
+		model.addAttribute("page", page);		
 		return "project/projectcategorylist.temp";
 	}
 	
@@ -81,14 +90,12 @@ public class ProjectController {
 		int pageSize =9;
 		int blockSize = 5;
 		PageDTO page = new PageDTO(currPage, totalCount, pageSize, blockSize);
-		List<ProjectDTO> projectlist = service.projectList(searchtxt.trim(),page.getStartRow(), page.getEndRow());	
+		List<ProjectDTO> projectlist = service.projectList(searchtxt.trim(), page.getStartRow(), page.getEndRow());	
 		model.addAttribute("list",projectlist);
-		model.addAttribute("page", page);
-	
+		model.addAttribute("page", page);	
 		model.addAttribute("searchtxt",searchtxt);
-		model.addAttribute("total", totalCount);
-		System.out.println("page : " +page);
-		
+		model.addAttribute("total", totalCount);		
+		System.out.println("page : " +page);		
 		System.out.println("searchtxt : "+searchtxt);
 		return "project/projectlist.temp";
 	}
@@ -139,7 +146,7 @@ public class ProjectController {
 		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일 
 		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일			
 		try {			
-			String uploadpath = request.getSession().getServletContext().getRealPath(path);			
+			String uploadpath = request.getSession().getServletContext().getRealPath(path);	// 경로
 			if(!project_photo.isEmpty()&&!img.isEmpty()) { // 대표사진, 프로필사진 둘다있을때 
 				File file = new File(uploadpath, project_photo.getOriginalFilename()); // 프로젝트 대표사진
 				project_photo.transferTo(file);				
@@ -149,7 +156,8 @@ public class ProjectController {
 				dto.setImg(dto.getImg_file().getOriginalFilename());				
 				System.out.println("프로젝트 제목 : " + dto.getProject_title());
 				System.out.println("대표사진 파일명 : " + dto.getProject_photo());		
-				System.out.println("창작자 프로필 사진"+ dto.getImg());				
+				System.out.println("창작자 프로필 사진"+ dto.getImg());			
+				System.out.println("경로 : "+uploadpath);
 			}			
 		}catch(IOException e) {			
 			System.out.println(e.getMessage());			
@@ -199,6 +207,7 @@ public class ProjectController {
 		
 		return "redirect:/projectlist.temp";
 	}	
+	
 	// 프로젝트 상세 페이지
 	@RequestMapping("projectdetail={project_no}")
 	public String projectdetail(@PathVariable int project_no, Model model) {		

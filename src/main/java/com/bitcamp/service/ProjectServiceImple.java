@@ -23,7 +23,12 @@ public class ProjectServiceImple implements ProjectService {
 		dto.put("searchtxt", searchtxt);
 		return mapper.totalCount(dto);
 	}
-
+	
+	@Override
+	public int categorytotalCount(String main_category) {
+		return mapper.categorytotalCount(main_category);
+	}
+	
 	@Override
 	public List<ProjectDTO> projectList(String searchtxt, int startRow, int endRow) {
 		HashMap<String, Object> dto = new HashMap<>();
@@ -40,8 +45,12 @@ public class ProjectServiceImple implements ProjectService {
 	}
 
 	@Override
-	public List<ProjectDTO> projectcategoryList(String main_category) {
-		return mapper.projectcategoryList(main_category);
+	public List<ProjectDTO> projectcategoryList(String main_category,int startRow, int endRow) {
+		HashMap<String, Object> dto = new HashMap<>();
+		dto.put("main_category", main_category);
+		dto.put("startRow", startRow);
+		dto.put("endRow", endRow);
+		return mapper.projectcategoryList(dto);
 	}
 
 	@Override
@@ -64,8 +73,6 @@ public class ProjectServiceImple implements ProjectService {
 		return mapper.projectsearchno(category_no);
 	}
 
-	// 여기서부터 ㅎ해보자 다시
-
 	@Override
 	public int projectoptionInsert(List<OptionDTO> optionlist) {
 		
@@ -80,4 +87,11 @@ public class ProjectServiceImple implements ProjectService {
 
 		return mapper.projectoptionInsert(map);
 	}
+
+	@Override
+	public List<ProjectDTO> mainHitList() {		
+		return mapper.mainHitList();
+	}
+
+	
 }

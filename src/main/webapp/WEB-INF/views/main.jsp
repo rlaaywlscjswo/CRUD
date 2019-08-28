@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,11 +19,19 @@
   <!-- Custom fonts for this template -->
   <link href="resources\vendor\fontawesome-free\css\all.min.css" rel="stylesheet">
   <link href="resources\vendor\simple-line-icons\css\simple-line-icons.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
+<link href="https://fonts.googleapis.com/css?family=Bree+Serif&display=swap" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="resources\css\landing-page.min.css" rel="stylesheet">
 
+	<style type="text/css">
+	#cate1{
+	background-color: yellow;
+	}
+	
+	#cate2{
+	background-color: green;
+	}
+	</style>
 
 </head>
 
@@ -31,7 +40,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
-      <a class="navbar-brand" href="#">CRUD</a>
+      <a class="navbar-brand" href="main">CRUD</a>
       <sec:authorize access="isAuthenticated()">
       <a class="btn btn-primary" href="/mypage" style="left: 630px; position: relative;">마이 페이지</a>
       </sec:authorize>
@@ -46,6 +55,7 @@
 		</form>
       </sec:authorize>
       
+      
     </div>
   </nav>
 
@@ -58,10 +68,10 @@
             Connect Reality<br> Unlimited Dream</h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-          <form>
+          <form method="get" action="/projectlist?currPage=${page.startBlock }" >
             <div class="form-row">
               <div class="col-12 col-md-9 mb-2 mb-md-0">
-                <input type="text" class="form-control form-control-lg" placeholder="검색하세요!">
+                <input type="text" class="form-control form-control-lg" id="searchtxt" name="searchtxt" class="searchform" placeholder="검색하세요!">
               </div>
               <div class="col-12 col-md-3">
                 <button type="submit" class="btn btn-block btn-lg btn-primary">Search</button>
@@ -109,64 +119,58 @@
         </div>
     </nav>
 
-  <!-- Image Showcases -->
-  <section class="showcase">
-    <div class="container-fluid p-0">
-      <div class="row no-gutters">
-
-        <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('img/bg-showcase-1.jpg');"></div>
-        <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-          <h2>Fully Responsive Design</h2>
-          <p class="lead mb-0">When you use a theme created by Start Bootstrap, you know that the theme will look great on any device, whether it's a phone, tablet, or desktop the page will behave responsively!</p>
-        </div>
-      </div>
-      <div class="row no-gutters">
-        <div class="col-lg-6 text-white showcase-img" style="background-image: url('img/bg-showcase-2.jpg');"></div>
-        <div class="col-lg-6 my-auto showcase-text">
-          <h2>Updated For Bootstrap 4</h2>
-          <p class="lead mb-0">Newly improved, and full of great utility classes, Bootstrap 4 is leading the way in mobile responsive web development! All of the themes on Start Bootstrap are now using Bootstrap 4!</p>
-        </div>
-      </div>
-      <div class="row no-gutters">
-        <div class="col-lg-6 order-lg-2 text-white showcase-img" style="background-image: url('img/bg-showcase-3.jpg');"></div>
-        <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-          <h2>Easy to Use &amp; Customize</h2>
-          <p class="lead mb-0">Landing Page is just HTML and CSS with a splash of SCSS for users who demand some deeper customization options. Out of the box, just add your content and images, and your new landing page will be ready to go!</p>
-        </div>
-      </div>
+<div class="container-fluid"> 
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner row w-100 mx-auto">       
+            <c:forEach var="item" items="${list }">                   
+           	 <div class="col-lg-4 col-md-6 mb-4">
+            	<div class="card h-100">
+              <a href="projectdetail=${item.project_no }"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <div class="card-body">       				
+              	이름:<c:out value="${item.name}"></c:out><br>
+				프로젝트번호:<c:out value="${item.project_no }"></c:out><br>
+				프로젝트제목:<c:out value="${item.project_title }"></c:out><br>
+				카테고리번호:<c:out value="${item.category_no }"></c:out><br>
+				조회수:<c:out value="${item.project_views }"></c:out><br>		
+				사진:<c:out value="${item.project_photo }"></c:out><br>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+              </div>
+            </div>
+          	</div>            	 
+       	  </c:forEach>   
     </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section class="testimonials text-center bg-light">
-    <div class="container">
-      <h2 class="mb-5">What people are saying...</h2>
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-            <img class="img-fluid rounded-circle mb-3" src="resources\img\bg-showcase-1.jpg" alt="">
-            <h5>Margaret E.</h5>
-            <p class="font-weight-light mb-0">"This is fantastic! Thanks so much guys!"</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-            <img class="img-fluid rounded-circle mb-3" src="resources\img\bg-showcase-1.jpg" alt="">
-            <h5>Fred S.</h5>
-            <p class="font-weight-light mb-0">"Bootstrap is amazing. I've been using it to create lots of super nice landing pages."</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-            <img class="img-fluid rounded-circle mb-3" src="resources\img\bg-showcase-1.jpg" alt="">
-            <h5>Sarah W.</h5>
-            <p class="font-weight-light mb-0">"Thanks so much for making these free resources available to us!"</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
+  </div>
   
+
+
+
+
+
+
+
+
+
+  		
+       	  
+  		
+  		
+  		
+  		
+  		
+  		
+  			
+  
+  		
+  				 
+         
+        
+		
+          
+           
+       
 
   <!-- Footer -->
   <footer class="footer bg-light">

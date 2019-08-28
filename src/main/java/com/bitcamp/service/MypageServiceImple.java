@@ -3,11 +3,9 @@ package com.bitcamp.service;
 import java.util.HashMap;
 import java.util.List;
 
-
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
-
 
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.OptionDTO;
@@ -20,15 +18,16 @@ public class MypageServiceImple implements MypageService {
 
 	@Inject
 	private MypageMapper mypageMapper;
-	
+
 	@Override
-	public int totalCount(String support_search) {
-		
+	public int totalCount(String support_search, String email) {
+
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("support_search", support_search);
-		
+		hm.put("email", email);
+
 		return mypageMapper.totalCount(hm);
-		
+
 	} // end totalCount method
 
 	@Override
@@ -39,37 +38,38 @@ public class MypageServiceImple implements MypageService {
 	} // end myPageList method
 
 	@Override
-	public List<SupportDTO> mypageSupportList(int startRow, int pagePerSize, String support_search) {
-		
+	public List<SupportDTO> mypageSupportList(int startRow, int pagePerSize, String support_search, String email) {
+
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("startRow", startRow);
 		hm.put("pagePerSize", pagePerSize);
 		hm.put("support_search", support_search);
+		hm.put("email", email);
 		System.out.println("서비스 pagePerSize : " + pagePerSize);
-		
+
 		return mypageMapper.mypageSupportList(hm);
-		
+
 	} // end mypageSupportList method
-	
+
 	@Override
 	public int theNumbersOfMyProject() {
-		
+
 		return mypageMapper.theNumbersOfMyProject();
-		
+
 	} // end theNumbersOfMyProject method
 
 	@Override
 	public List<ProjectDTO> theNumberOfMyProject() {
 
 		return mypageMapper.theNumberOfMyProject();
-		
+
 	} // end myProjectList method
 
 	@Override
 	public List<OptionDTO> propropro() {
 
 		return mypageMapper.propropro();
-		
+
 	} // end allOfSupport method
 
 	@Override
@@ -88,6 +88,6 @@ public class MypageServiceImple implements MypageService {
 	public int achievePercent() {
 
 		return mypageMapper.achievePercent();
-	}	
+	}
 
 } // end MypageServiceImple class

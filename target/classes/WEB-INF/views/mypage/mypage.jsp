@@ -19,6 +19,7 @@
 	left: 100px;
 	position: absolute;
 	text-align: center;
+	top: 500px;
 	width: 200px;
 }
 

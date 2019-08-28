@@ -105,6 +105,22 @@
 					value="다음" /></a>
 		</c:if>
 	</div>
+	
+	<!-- -- 프로젝트 번호가 1022인 프로젝트의 모든 옵션의 가격을 출력해주세요.
+select option_no, option_price
+from `option` join project on `option`.project_no = project.project_no
+where `option`.project_no = 1022;
+
+-- 123 두 사람 => 39400원 125 한 사람 => 37800 // 현재 77200원, 목표 금액 150만원 => 현재 19.43%
+select sum(option_price)
+from support join `option` on support.option_no = `option`.option_no
+where project_no = 1022;
+
+select project_no,
+concat((select sum(option_price)
+from support join `option` on support.option_no = `option`.option_no
+where project_no = 1022) / targetprice * 100, '%') as '달성률' from project
+where project_no = 1022; -->
 
 </body>
 </html>

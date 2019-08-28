@@ -127,13 +127,17 @@ input[type=submit] {
 			<div>
 				<input type="submit" value="로그인" id="login_button">
 			</div>
+			
+			<div>
+				<input type="checkbox" name="remember-me" checked="checked"> 로그인 유지하기
+			</div>
 
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}">
 
 		</form>
 		
-			<a href="/signup"><div id="signup">회원 가입</div></a>
+			<div id="signup"><a href="/signup">회원 가입</a></div>
 
 	</div>
 

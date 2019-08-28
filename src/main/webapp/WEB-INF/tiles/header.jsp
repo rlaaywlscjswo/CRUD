@@ -32,7 +32,9 @@ $(document).ready(function(){
         ***********************************-->
         <div class="header">    
             <div class="header-content clearfix">
-                            
+                <div class="header-left">
+                 <a class="navbar-brand" href="main">CRUD</a>
+                </div>
                 <div class="header-right">
                     <ul class="clearfix">
                         
@@ -42,7 +44,7 @@ $(document).ready(function(){
                         	<div style="display: inline-block; left: -30px; position: relative; top: 10px;">
                         	
                         	<sec:authorize access="isAnonymous()">
-                        	<a href="/sec_login">로그인</a>
+                        	<a href="/sec_login" style="background-color: #007bff; color: #fff;">로그인</a>
                         	</sec:authorize>
                         	
                         	<sec:authorize access="isAuthenticated()">
@@ -85,8 +87,7 @@ $(document).ready(function(){
         </div>
         <!--**********************************
             Header end ti-comment-alt
-        ***********************************-->
-       
+        ***********************************-->       
        
         <nav class="navbar navbar-light bg-light">
             <form  class="form-inline" method="get" action="/projectlist?currPage=${page.startBlock }">                        
