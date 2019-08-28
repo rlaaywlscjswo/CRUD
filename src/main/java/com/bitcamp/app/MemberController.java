@@ -97,7 +97,7 @@ public class MemberController {
 			result = memberService.addrssupdate2(adto);
 		}
 		result = memberService.supportinsert(sdto);
-		return "/payment/success";
+		return "/payment/success.temp";
 	}
 	
 	@RequestMapping("/talk")

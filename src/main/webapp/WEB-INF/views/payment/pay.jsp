@@ -81,16 +81,16 @@ input[type="button"] {
     padding: 0;
     letter-spacing: -1px;
 }
-ul{
-	margin-left: -40px;
+#top ul{
+	margin-left: 40px;
 }
-ul li{
+#top ul li{
 	display: inline-block;
 	margin-bottom: 20px;
 	font-size: 14px;
 	width: 100%;
 }
-ul li label{
+#top ul li label{
 	display: inline-block;		
 	width: 90px;
 }	
@@ -223,8 +223,8 @@ $(document).ready(function(){
 		var IMP = window.IMP; // 생략가능
 		IMP.init('iamport'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		let option = parseInt($("#option_price").text()); // 상품 가격
-		let del = $("#delivery_pay").text();
-		let delivery = parseInt($("#delivery_pay").text()); // 배송비
+		//let del = $("#delivery_pay").text();
+		let delivery = 0;//parseInt($("#delivery_pay").text()); // 배송비
 	IMP.request_pay({
 	    pg : 'inicis',  
 	    pay_method : paymethod,  
@@ -349,7 +349,7 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 	</ul>
 </div>
 
-<li id="delivery_pay">2500</li> <!-- 가려야함. -->
+<!-- <li id="delivery_pay">0</li> 가려야함. -->
 <div id="jumun">
 <h4>주문자 정보</h4>
 <ul>
