@@ -10,17 +10,25 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <style type="text/css">
+#footer{
+	margin-top: 30px;
+}
 .kgPayments{
 	background-color: blue;
 }
 #options{
-	width: 500px;
+	width: 70%;
+	min-width:300px;
+	max-width:500px;
 }
 #memos{
+	min-width:300px;
+	max-width:500px;
 	border:2px solid blue;
-	margin-left:80px;
+	margin-left:95px;
 	display:none;
-	width: 500px;
+	width: 70%;
+	margin-top: -6px;
 }
 .memo{
 	width: 100%;
@@ -30,14 +38,15 @@
 	cursor:pointer;
 }
 #goPopup{
-	height: 21px;
+	height: 25px;
 	position: relative;
-	top: 1px;
+	font-size:12px;
+	width: 60px;
 }
 
-.bg-dark{
+/* .bg-dark{
 margin-top: 600px;
-}
+} */
 #top{
 	border: 1px solid blue;
 	margin-bottom: 10px;
@@ -66,7 +75,7 @@ h4{
     height: 17px;
 	font-family: '나눔고딕';
 }
-body{
+body, #addrslist, #goPopup, #sub{
 	font-family: '나눔고딕',NanumGothic,'맑은고딕',MalgunGothic,'돋움',Dotum,Helvetica,sans-serif;
 }
 input[type="button"] {
@@ -81,25 +90,31 @@ input[type="button"] {
     padding: 0;
     letter-spacing: -1px;
 }
-#top ul{
-	margin-left: 40px;
+#fdaddr{
+	position: relative;
+	top: -10px;
 }
 #top ul li{
 	display: inline-block;
 	margin-bottom: 20px;
 	font-size: 14px;
 	width: 100%;
+	margin-bottom: 15px;
 }
-#top ul li label{
+#jumun ul li label{
 	display: inline-block;		
 	width: 90px;
-}	
+}
+#jumun ul li{
+	margin-bottom: 15px;
+}
 #jumun{
 	border: 1px solid blue; 
 	float: left; 
 	width: 64%;
 	padding: 0px 0px 0px 25px;
 	width: 60%;
+	font-size: 14px;
 }
 #fulladdr{
 	width: 60%;
@@ -113,7 +128,29 @@ input[type="button"] {
 #top ul li{
 	display: inline;
 	padding: 25px;
+	margin-bottom: 15px;
 }
+#sky{
+	margin-top:10px;
+	width: 80%; 
+	margin: 0 auto;
+	height: 650px;
+}
+#sub{
+	border: 1px solid blue; 
+	float: right; 
+	width: 35%;
+}
+#header{
+	margin-bottom: 50px;
+}
+.jumuninfo{
+	width: 300px;
+}
+#jumun h4{
+	margin-bottom: 10px;
+}
+
 /*#top li:nth-child(1){
 	width: 200px;
 	margin-right: 130px;
@@ -334,16 +371,16 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 </head>
 <body>
 <form name="form" id="frm" method="post" action="success">
-<div style="width: 80%; margin: 0 auto; ">
+<div id="sky">
 <div id="top">
 <h3 class="order_payment">주문/결제</h3>
-	<ul class="jumuninfo">
-		<li>상품명</li>
+	<ul>
+		<li class="jumuninfo">상품명</li>
 		<li>창작자</li>
 		<li>후원금액</li>
 	</ul>
-	<ul class="jumuninfo">
-		<li>${opt.option_name }</li>
+	<ul>
+		<li class="jumuninfo">${opt.option_name }</li>
 		<li>${alias}</li>
 		<li id="option_price" class="price">${opt.option_price }</li>
 	</ul>
@@ -353,7 +390,7 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 <div id="jumun">
 <h4>주문자 정보</h4>
 <ul>
-	<li><span>${member.name }</span></li><br>
+	<li><span>${member.name }</span></li>
 	<li><span>${member.email}</span></li>
 </ul>
 
@@ -364,19 +401,19 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 			<input type="radio" name="addrs" id="basicaddr" value="basicaddr" disabled="disabled" >기본 배송지
 			<input type="radio" name="addrs" id="newaddr" value="newaddr" >신규 배송지
 			<input type="button" id="addrslist" name="addrslist" value="배송지목록" />
-		</li><br>
+		</li>
 		<li>
 			<label for="address_name">수령인 </label>
 			<input type="text" id="address_name" name="address_name" required="required" > 
-		</li><br>
+		</li>
 		<li>
 			<label for="alias">배송지 명</label>
 			<input type="text" id="alias" name="alias" required="required" >
-		</li><br>
+		</li>
 		<li>
 			<label for="address_photo">연락처</label>
 			<input type="text" id="address_photo" name="address_photo" required="required" >
-		</li><br>
+		</li>
 		<li>
 			<label for="fulladdr">배송지 주소</label>
 			<input type="text"  style="width:70px;" id="zipno"  class="goPopup" name="zipno" required="required" readonly="readonly"/>
@@ -384,16 +421,16 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 		
 			<input type="checkbox" name="addr_add" id="addr_add" value="addr_add"> 배송지목록에 추가 
 			<input type="checkbox" id="default_addrs" name="default_addrs" value="default_addr"> 기본 배송지로 설정 <br>
-		</li><br>
-		<li>
+		</li>
+		<li id="fdaddr">
 			<label for="fulladdr"></label>
 			<input type="text" id="fulladdr" name="fulladdr" readonly="readonly" > 
 			<input type="text" id="addrDetail"  name="addrDetail" required="required" />
-		</li><br>
+		</li>
 		<li>
 			<label for="options">요청 사항</label>
 			<input type="text" id="options" name="options" value="요청사항을 직접 입력하세요.">
-				<div id="memos" value="off">
+				<div id="memos">
 					<ul>
 						<li class="memo">배송 전에 미리 연락 바랍니다.</li>
 						<li class="memo">부재시 경비실에 맡겨 주세요.</li>
@@ -404,7 +441,7 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 	</ul>
 	</div>
 	
-	<div style="border: 1px solid blue; float: right; width: 35%;">
+	<div id="sub">
 		<span>결제 금액</span><br>
 		<span class="price">${opt.option_price}</span> <span>+ 2,500원</span>
 		<hr style="width: 96%; margin-top: 30px; margin-bottom: 30px;">
