@@ -102,7 +102,7 @@ margin-top: 20px;
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!-- <script src="/resources/js/pdfobject.min.js"></script> -->
-<script type="text/javascript">
+<script type="text/javascript">	
 $(function () {
 /* var options = {
     pdfOpenParams: {

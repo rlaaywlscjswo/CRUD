@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,15 @@
 <title>Insert title here</title>
 <!-- Custom styles for this template -->    
 <link href="resources\css\style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/innks/NanumSquareRound/master/nanumsquareround.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style type="text/css">
+*{ 
+ font-family: 'NanumSquareRound',sans-serif; 
+ }
+</style>
+
+
 </head>
 <body>
  <div style="width:100%; height:100%;">

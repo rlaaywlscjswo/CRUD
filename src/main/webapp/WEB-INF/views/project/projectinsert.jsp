@@ -25,7 +25,6 @@
     position: relative;
     left: 300px;
 } */
-
 ul.tabs li {
     float: left;
     text-align:center;
@@ -51,7 +50,7 @@ ul.tabs li.active {
     clear: both;
     float: left;
     width: 1201px;
-    height: 500PX;
+    height: auto;
     background: #FFFFFF;
     position: relative;
     left: 300px;
@@ -184,7 +183,7 @@ $(function () {
     var btncount=1; // 추가할때 증가, 삭제할때 감소
 
     $('#up').on('click',function(){     
-		  $('#field').append('<label for="option_name">옵션명</label> <div><input type="text" id="option_name" name="option_name"></div> <label for="option_price">옵션가격</label> <div><input type="text" id="option_price" name="option_price"></div> <label for="option_contents">옵션내용</label><div><input type="text" id="option_contents" name="option_contents"</div><br> <label for="option_quantity">옵션 수량</label> <div><input type="text" id="option_quantity" name="option_quantity"> </div>');
+		  $('#field').append('<label for="option_name">옵션명</label> <div><input type="text" id="option_name" name="option_name"></div> <label for="option_price">옵션가격</label> <div><input type="text" id="option_price" name="option_price"></div> <label for="option_contents">옵션내용</label><div><input type="text" id="option_contents" name="option_contents"</div><br> <label for="option_quantity">옵션 수량</label> <div><input type="text" id="option_quantity" name="option_quantity"></div>');
     	    btncount++;
     	    $('#btncnt').val(btncount);	
     	    console.log(btncount);
@@ -226,12 +225,12 @@ $(function () {
     	<div id="tab1" class="tab_content">
           
  			<label for="project_title">프로젝트 제목</label>
- 			<div><input type="text" id="project_title" name="project_title" value="고정제목"></div>
+ 			<div><input type="text" class="form-control input-default" id="project_title" name="project_title" value="고정제목"></div>
  			
  			
 			<label for="main_category">대분류</label>
 			<div>
-			<select id="main_category" name="main_category" id="default">
+			<select class="form-control input-default" id="main_category" name="main_category" id="default">
 			<c:forEach var="main" items="${mainlist }">
 			<option value="${main.main_category }">${main.main_category }</option>
 			</c:forEach>
@@ -240,23 +239,23 @@ $(function () {
 			
  			
 		    <label for="category_no">소분류</label>
-		    <div><select id="category_no" name="category_no"></select></div>
+		    <div><select class="form-control input-default" id="category_no" name="category_no"></select></div>
 		
 			
  			<label for="project_photo_file">프로젝트 대표사진</label>
- 			<div><input type="file" id="project_photo_file" name="project_photo_file"> </div>
+ 			<div><input type="file" class="form-control input-default" id="project_photo_file" name="project_photo_file"> </div>
  			
  			
  			<label for="targetprice">목표 금액</label>
- 			<div><input type="number" id="targetprice" name="targetprice" value="1111"></div>
+ 			<div><input type="number" class="form-control input-default" id="targetprice" name="targetprice" value="1111"></div>
  			
  			
  			<label for="startdate">시작 날짜</label>
- 			<div><input type="date" id="startdate" name="startdate" value="2019-03-21"></div>
+ 			<div><input type="date" class="form-control input-default" id="startdate" name="startdate" value="2019-03-21"></div>
  			
  			
  			<label for="enddate">종료 날짜</label>
- 			<div><input type="date" id="enddate" name="enddate" value="2019-03-21"></div>
+ 			<div><input type="date" class="form-control input-default" id="enddate" name="enddate" value="2019-03-21"></div>
  			
  			<div class="btn2"><a href="#" id="btn2">다음</a></div>			 
  			
@@ -267,7 +266,7 @@ $(function () {
         <div id="tab2" class="tab_content">
         
         <label for="business_name">사업자명</label>
-        <div><input type="text" id="business_name" name="business_name" value="고정제목"></div>
+        <div><input type="text" class="form-control input-default" id="business_name" name="business_name" value="고정제목"></div>
  		
  		
  		<label for="business_division">사업자 구분</label>
@@ -280,19 +279,19 @@ $(function () {
 		
 
  		<label for="business_addr">소재지</label>
- 		<div><input type="text" id="business_addr" name="business_addr" value="고정주소"></div>
+ 		<div><input type="text" class="form-control input-default" id="business_addr" name="business_addr" value="고정주소"></div>
  		
  	
  		
  		
  		<label for="business_startdate">법인설립연월일</label>
- 		<div><input type="date" id="business_startdate" name="business_startdate" value="2019-03-21"></div>
+ 		<div><input type="date" class="form-control input-default" id="business_startdate" name="business_startdate" value="2019-03-21"></div>
  		
  
  		
  	
  		<label for="business_url">홈페이지</label>
- 		<div><input type="text" id="business_url" name="business_url" value="고정페이지"></div>
+ 		<div><input type="text" class="form-control input-default" id="business_url" name="business_url" value="고정페이지"></div>
  		
  		
  		
@@ -306,15 +305,15 @@ $(function () {
         
         
         <label for="alias">창작자 이름</label>
-        <div><input type="text" id="alias" name="alias" value="고정이름"></div>
+        <div><input type="text" class="form-control input-default" id="alias" name="alias" value="고정이름"></div>
         
     
 		<label for="img_file">창작자 프로필사진</label>
-		<div><input type="file" id="img_file" name="img_file"></div>
+		<div><input type="file" class="form-control input-default" id="img_file" name="img_file"></div>
 		 
 		 
 		<label for="introduce">창작자 소개</label>
-		<div><textarea id="introduce" name="introduce">1111</textarea></div>
+		<div><textarea class="form-control input-default" id="introduce" name="introduce">1111</textarea></div>
 		
 		<div class="btn2"><a href="#" id="btn4">다음</a></div>		
 
@@ -339,16 +338,16 @@ $(function () {
     	
     	<div id="optform">
     	<label for="option_name">옵션명</label>
-    	<div><input type="text" id="option_name" name="option_name"></div>
+    	<div><input type="text" class="form-control input-default" id="option_name" name="option_name"></div>
     	
     	<label for="option_price">가격</label>
-    	<div><input type="text" id="option_price" name="option_price"></div>
+    	<div><input type="text" class="form-control input-default" id="option_price" name="option_price"></div>
     	
     	<label for="option_contents">내용</label>
-    	<div><textarea id="option_contents" name="option_contents"></textarea></div>
+    	<div><textarea class="form-control input-default" id="option_contents" name="option_contents"></textarea></div>
     	
     	<label for="option_quantity">수량</label>
-    	<div><input type="text" id="option_quantity" name="option_quantity"></div>      	
+    	<div><input type="text" class="form-control input-default" id="option_quantity" name="option_quantity"></div>      	
    		</div>
    		
     	<div id="field">
