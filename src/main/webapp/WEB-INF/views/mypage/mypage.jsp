@@ -96,8 +96,10 @@
 					error : function(data) {
 						console.log('error');
 					}
-				});
-			});
+					
+				}); /* end ajax */
+				
+			}); /* end ready */
 	</script>
 	
  <script>

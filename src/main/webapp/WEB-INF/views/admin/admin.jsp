@@ -26,7 +26,7 @@
 	
 	</div>
 
-	<h1>이메일을 보여줘 : <c:out value="${needemail}" /></h1>
+	<h1>현재 로그인 한 회원의 이메일을 보여줘 : <c:out value="${needemail}" /></h1>
 
 	<h1>여기 관리자 페이지가 될 예정이야</h1>
 
@@ -38,19 +38,19 @@
 	<p>사용자 권한 리스트 : <sec:authentication property="principal.dto.authList" /></p> --%>
 
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
-		이건 관리자만 보임
+		이건 관리자만 보임 <br>
 	</sec:authorize>
 
 	<sec:authorize access="hasRole('ROLE_MANAGER')">
-		이건 매니저만 보임
+		이건 매니저만 보임 <br>
 	</sec:authorize>
 
 	<sec:authorize access="hasRole('ROLE_MEMBER')">
-		이건 회원이면 다 보임
+		이건 회원이면 다 보임 <br>
 	</sec:authorize>
 
 	<sec:authorize access="permitAll">
-		이건 다 보임
+		이건 다 보임 <br>
 	</sec:authorize>
 
 </body>

@@ -41,7 +41,8 @@ public class MemberController {
 			System.out.println("생일 : "+dto.getBirth());
 		}
 		
-		int result = memberService.memberAdd(dto);		
+		int result = memberService.memberAdd(dto);	
+		System.out.println("비밀 번호 : " + dto.getPassword());
 		
 		return "/member/signupsuccess";
 	}
