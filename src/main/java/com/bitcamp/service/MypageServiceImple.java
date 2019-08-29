@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.bitcamp.dto.MemberDTO;
-import com.bitcamp.dto.OptionDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
 import com.bitcamp.mapper.MypageMapper;
