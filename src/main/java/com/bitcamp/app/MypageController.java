@@ -44,21 +44,21 @@ public class MypageController {
 
 	// 마이 페이지 - 내 후원 내역
 	@RequestMapping("/support")
-	public String mypageSupportList(@RequestParam(required = false, defaultValue = "1") int currPage,
+	public String mySupport_list(@RequestParam(required = false, defaultValue = "1") int currPage,
 			@RequestParam(required = false, defaultValue = "") String support_search, Model model, Principal principal) {
 
 		String email = principal.getName();
 		
-		int totalCount = service.totalCount(support_search, email);
+		int totalCount = service.mySupport_totalCount(support_search, email);
 		int pagePerSize = 2;
 		int blockPerSize = 3;
 
 		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
 
-		List<SupportDTO> supportList = service.mypageSupportList(dto.getStartRow(), pagePerSize, support_search, email);
+		List<SupportDTO> mySupport_list = service.mySupport_list(dto.getStartRow(), pagePerSize, support_search, email);
 		model.addAttribute("support_search", support_search);
 		model.addAttribute("dto", dto);
-		model.addAttribute("supportList", supportList);
+		model.addAttribute("mySupport_list", mySupport_list);
 
 		return "mypage/mypage_support";
 
@@ -66,22 +66,30 @@ public class MypageController {
 	
 	// 마이 페이지 - 내가 만든 프로젝트
 	@RequestMapping("mypro")
-	public String mypage_MyProjectList(Model model, Principal principal) {
+	public String mypage_MyProjectList(
+			@RequestParam(required = false, defaultValue = "1") int currPage, 
+			@RequestParam(required = false, defaultValue = "") String project_search,
+			Model model, Principal principal) {
 		
 		String email = principal.getName();
+		
+		int totalCount = service.myProject_totalCount(project_search, email);
+		int pagePerSize = 2;
+		int blockPerSize = 3;
+		
+		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
 		
 		// 내가 만든 프로젝트 개수
 		int theNumbersOfMyProject = service.theNumbersOfMyProject(email);
 		
-		// 프로젝트 번호를 받아오자		
-		List<ProjectDTO> getProject_no = service.getProject_no(email);
+		// 다..
+		List<ProjectDTO> mypage_myProject = service.mypage_myProject(dto.getStartRow(), pagePerSize, project_search, email);
 		
-		// 썸네일 이미지
-		List<ProjectDTO> thumbnail = service.thumbnail(email);
-		System.out.println("thumbnail : " + thumbnail);
+	
 		
 		model.addAttribute("theNumbersOfMyProject", theNumbersOfMyProject);
-		model.addAttribute("thumbnail", thumbnail);
+		model.addAttribute("dto", dto);
+		model.addAttribute("mypage_myProject", mypage_myProject);
 		
 		return "/mypage/mypage_project";
 		

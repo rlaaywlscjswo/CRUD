@@ -92,7 +92,7 @@ border: 1px solid;
 }
 
 .bg-dark{
-margin-top: 600px;  
+margin-top: 800px;  
 }
 </style>
 <script type="text/javascript">
@@ -244,6 +244,7 @@ $(function () {
 			
  			<label for="project_photo_file">프로젝트 대표사진</label>
  			<div><input type="file" class="form-control input-default" id="project_photo_file" name="project_photo_file"> </div>
+ 			<p>사진규격은 width: 650px, height: 487.5px 추천</p>
  			
  			
  			<label for="targetprice">목표 금액</label>

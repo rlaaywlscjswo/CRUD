@@ -125,12 +125,11 @@
     </nav>
 
 <div class="container-fluid"> 
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <div class="carousel-inner row w-100 mx-auto">       
+    
             <c:forEach var="item" items="${list }">                   
            	 <div class="col-lg-4 col-md-6 mb-4">
             	<div class="card h-100">
-              <a href="projectdetail=${item.project_no }"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+              <a href="projectdetail=${item.project_no }"><img class="card-img-top" src="${item.project_photo }" alt=""></a>
               <div class="card-body">       				
               	이름:<c:out value="${item.name}"></c:out><br>
 				프로젝트번호:<c:out value="${item.project_no }"></c:out><br>
@@ -146,8 +145,7 @@
           	</div>            	 
        	  </c:forEach>   
     </div>
-  </div>
-  </div>
+
   
 
 

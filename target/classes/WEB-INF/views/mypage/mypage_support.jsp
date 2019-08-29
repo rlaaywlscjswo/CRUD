@@ -156,19 +156,19 @@
 			</form>
 		</div>
 
-		<c:forEach var="slist" items="${supportList}">
+		<c:forEach var="mySupport_list" items="${mySupport_list}">
 
 			<div id="support_main">
 
-				<div id="da">후원 일자 : <c:out value="${slist.da}" /></div>
-				<div id="project_photo">썸네일 이미지 : <c:out value="${slist.project_photo}" /></div>
+				<div id="da">후원 일자 : <c:out value="${mySupport_list.da}" /></div>
+				<div id="project_photo">썸네일 이미지 : <c:out value="${mySupport_list.project_photo}" /></div>
 				
 				<div id="support_sub">
 				
-					<div id="support_status">후원 진행 사항 : <c:out value="${slist.support_status}" /></div>
-					<div id="project_title">프로젝트 이름 : <c:out value="${slist.project_title}" /></div>
-					<div id="option_no">선택한 옵션 : <c:out value="${slist.option_name}" /></div>
-					<div id="option_price">후원 금액 : <c:out value="${slist.option_price}" /></div>
+					<div id="support_status">후원 진행 사항 : <c:out value="${mySupport_list.support_status}" /></div>
+					<div id="project_title">프로젝트 이름 : <c:out value="${mySupport_list.project_title}" /></div>
+					<div id="option_no">선택한 옵션 : <c:out value="${mySupport_list.option_name}" /></div>
+					<div id="option_price">후원 금액 : <c:out value="${mySupport_list.option_price}" /></div>
 
 				</div> <!-- end #support_sub -->
 
