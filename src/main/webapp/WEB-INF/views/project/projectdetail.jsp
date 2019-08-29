@@ -25,6 +25,12 @@ width: 650px;
 height: 487.5px;
 overflow: hidden;
 }
+
+#project_photo_path{
+width: 650px;
+height: 487.5px;
+}
+
 #side{
 border:1px solid;
 width: 360px;
