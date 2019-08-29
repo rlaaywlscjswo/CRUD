@@ -7,27 +7,18 @@
 <meta charset="UTF-8">
 <title>마이 페이지 - 내 정보</title>
 </head>
-<body style="width: 1000px; height: 700px;">
+<body>
 
-	<table>
-		<thead>
-			<tr>
-				<th>이름</th>
-				<th>이메일</th>
-			</tr>
-		</thead>
-		<tbody>
-
-			<c:forEach var="list" items="${infoList}">
-				<tr>
-					<td><c:out value="${list.name}" /></td>
-					<td><c:out value="${list.email}" /></td>
-				</tr>
-			</c:forEach>
-
-		</tbody>
-	</table>
-
+	<c:forEach var="myProfile" items="${myProfile}">
+		이름 : ${myProfile.email} <br>
+		비밀번호 : ${myProfile.password} <br>
+		사진 : ${myProfile.photo} <br>
+		전화번호 : ${myProfile.phone} <br>
+		생년월일 : ${myProfile.birth} <br>
+	</c:forEach>
+	
+	<a href="" rel="dpdp"><span>회원 탈퇴</span></a> <br>
+	<span>수정하기?</span>
 
 </body>
 </html>

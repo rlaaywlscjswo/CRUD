@@ -64,14 +64,14 @@
 		</div>
 		
 			<div id="mypro_main">
-				<c:forEach var="mypage_myProject" items="${mypage_myProject}">
+				<c:forEach var="myProject_list" items="${myProject_list}">
 					<div id="mypro_each">	 	
-						썸네일 이미지 : ${mypage_myProject.project_photo}<br>
-						모인 금액 : ${mypage_myProject.sumop}원<br>
-						남은 날 : ${mypage_myProject.remainingDay}일<br>
-						달성 퍼센트 : ${mypage_myProject.reachper}%<br>
-						계약서 : ${mypage_myProject.project_contract}<br>
-						프로젝트 이름 : ${mypage_myProject.project_title}<br>
+						썸네일 이미지 : ${myProject_list.project_photo}<br>
+						모인 금액 : ${myProject_list.sumop}원<br>
+						남은 날 : ${myProject_list.remainingDay}일<br>
+						달성 퍼센트 : ${myProject_list.reachper}%<br>
+						계약서 : ${myProject_list.project_contract}<br>
+						프로젝트 이름 : ${myProject_list.project_title}<br>
 					</div>
 				 </c:forEach>					
 			</div>

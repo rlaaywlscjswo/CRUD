@@ -5,22 +5,92 @@
 
 <mapper namespace="com.bitcamp.mapper.MypageMapper">
 
-	<!-- 마이 페이지 - 내 정보 설정 -->
+	<parameterMap type="java.util.HashMap" id="hashmap" />
+
+	<!-- 마이 페이지 - 내 프로필 -->
 
 	<resultMap type="com.bitcamp.dto.MemberDTO" id="mdto">
-		<result column="no" property="no" />
 		<result column="name" property="name" />
 		<result column="email" property="email" />
+		<result column="password" property="password" />
+		<result column="photo" property="photo" />
+		<result column="phone" property="phone" />
+		<result column="birth" property="birth" />
 	</resultMap>
 
-	<select id="mypageInfoList" resultMap="mdto">
-		select name, email from
-		member
+	<select id="myProfile" resultMap="mdto">
+		select name, email, password, photo, phone, birth
+		from member
+		where email = #{email}
 	</select>
 
-	<!-- 마이 페이지 - 내 후원 내역 -->
 
-	<parameterMap type="java.util.HashMap" id="hashmap" />
+
+	<!-- 마이 페이지 - 내 프로젝트 -->
+
+	<resultMap type="hashmap" id="mpdto">
+		<result property="project_no" column="project_no" />
+		<result property="project_photo" column="project_photo" />
+		<result property="sumop" column="option_price" />
+		<result property="remainingDay" column="enddate" />
+		<result property="reachper" column="targetprice" />
+		<result property="project_contract" column="project_contract" />
+		<result property="project_title" column="project_title" />
+	</resultMap>
+
+	<!-- 내가 만든 프로젝트 개수 -->
+	<select id="theNumbersOfMyProject" resultType="int">
+		select
+		count(project_no)
+		from project
+		where no = (select no from member where
+		email = #{email})
+	</select>
+
+	<!-- 내가 만든 프로젝트 개수 - 검색용 -->
+	<select id="myProject_totalCount" resultType="int"
+		parameterMap="hashmap">
+		select count(*)
+		from project
+		<where>
+			and no = (select no from member where email = #{email})
+			<if test="support_search!=null and support_search!=''">
+				and project_title like CONCAT('%',#{project_search},'%')
+			</if>
+		</where>
+	</select>
+
+
+	<!-- 내가 만든 프로젝트 목록 -->
+	<select id="myProject_list" resultMap="mpdto"
+		parameterMap="hashmap">
+		select project_title, project_photo, project_contract,
+		sum(option_price) as sumop,
+		(to_days(p.enddate) - to_days(now()) + 1)
+		as remainingDay,
+		round(sum(option_price) / targetprice * 100, 2) as
+		reachper
+		from support s left join `option`
+		o
+		on s.option_no = o.option_no
+		right join project p
+		on o.project_no =
+		p.project_no
+		<where>
+			p.project_no
+			in((select project_no from member m join project p on
+			m.no = p.no where email = #{email}))
+			<if test="project_search!=null and project_search!=''">
+				and project_title like CONCAT('%',#{project_search},'%')
+			</if>
+		</where>
+		group by p.project_no
+		limit #{startRow}, #{pagePerSize}
+	</select>
+
+
+
+	<!-- 마이 페이지 - 내 후원 내역 -->
 
 	<resultMap type="hashMap" id="sdto">
 		<result column="support_date" property="da" />
@@ -31,7 +101,9 @@
 		<result column="option_price" property="option_price" />
 	</resultMap>
 
-	<select id="mySupport_totalCount" resultType="int" parameterMap="hashmap">
+	<!-- 내가 후원 한 프로젝트 개수 - 검색용 -->
+	<select id="mySupport_totalCount" resultType="int"
+		parameterMap="hashmap">
 		select count(*)
 		from project join `option` on project.project_no =
 		`option`.project_no
@@ -45,15 +117,18 @@
 		</where>
 	</select>
 
+	<!-- 내가 후원한 프로젝트 목록 -->
 	<select id="mySupport_list" resultMap="sdto"
 		parameterMap="hashmap">
 		select date_format(support_date, '%y년 %c월 %e일') as da,
 		project_photo,
 		support_status, project_title, option_name, option_price
 		from
-		project join `option` on project.project_no = `option`.project_no
+		project
+		join `option` on project.project_no = `option`.project_no
 		join
-		support on `option`.option_no = support.option_no
+		support
+		on `option`.option_no = support.option_no
 		<where>
 			support.no = (select no from member where email = #{email})
 			<if test="support_search!=null and support_search!=''">
@@ -62,135 +137,5 @@
 		</where>
 		limit #{startRow}, #{pagePerSize}
 	</select>
-	
-
-	<!-- 마이 페이지 - 내 프로젝트 -->	
-	
-	<resultMap type="hashmap" id="mpdto">
-		<result property="project_no" column="project_no" />
-		<result property="project_photo" column="project_photo" />
-		<result property="sumop" column="option_price" />
-		<result property="remainingDay" column="enddate" />
-		<result property="reachper" column="targetprice" />
-		<result property="project_contract" column="project_contract" />
-		<result property="project_title" column="project_title" />
-	</resultMap>
-	
-	<!-- 내가 만든 프로젝트 개수 -->
-	<select id="theNumbersOfMyProject" resultType="int">
-		select count(project_no) 
-		from project 
-		where no = (select no from member where email = #{email})
-	</select>
-	
-	<!-- 검색 -->
-	<select id="myProject_totalCount" resultType="int" parameterMap="hashmap">
-		select count(*) 
-		from project 	
-		<where>
-		and no = (select no from member where email = #{email})
-			<if test="support_search!=null and support_search!=''">
-				and project_title like CONCAT('%',#{project_search},'%')
-			</if>
-		</where>
-	</select>
-
-	
-	<!-- 다.. -->
-	<select id="mypage_myProject" resultMap="mpdto" parameterMap="hashmap">
-		select project_title, project_photo, project_contract, sum(option_price) as sumop, 
-		(to_days(p.enddate) - to_days(now())+1) as remainingDay, 
-		round(sum(option_price) / targetprice * 100, 2) as reachper
-		from support s left join `option` o
-		on s.option_no = o.option_no
-		right join project p
-		on o.project_no = p.project_no
-		<where>
-			p.project_no
-		in((select project_no from member m join project p on m.no = p.no where email = #{email}))
-			<if test="project_search!=null and project_search!=''">
-				and project_title like CONCAT('%',#{project_search},'%')
-			</if>
-		</where>
-		group by p.project_no
-		limit #{startRow}, #{pagePerSize}
-	</select>
-	
-	<!-- 모인 금액 -->
-	<!-- 남은 시간 -->
-	<!-- 달성률 -->
-	<!-- 계약서 -->
-	<!-- 프로젝트 이름 -->
-
-	
-	
-	
-	
-	
-	<!-- 남은 날 보기 -->
-<!-- 	<select id="remainingDays" resultType="int">
-		select to_days(enddate) - to_days(now()) from project where project_no = 116
-	</select> -->
-	
-
-<!-- 	<select id="theNumbersOfMyProject" resultType="int">
-		select count(project_title)
-		from project join member
-		on project.no =
-		member.no
-		<where>
-			and member.no = 23
-		</where>
-	</select> -->
-
-<!-- 	<resultMap type="hashMap" id="mpdto">
-		<result column="project_no" property="pno" />
-		<result column="project_photo" property="project_photo" />
-		<result column="enddate" property="liter" />
-		<result column="project_title" property="project_title" />
-		<result column="option_no" property="opp" />
-		<result column="option_price" property="option_price" />
-	</resultMap> -->
-
-<!-- 	<select id="theNumberOfMyProject" resultMap="mpdto">
-		select project_no from project
-		<where>
-			and no = 2
-		</where>
-	</select> -->
-
-
-	<!-- select project_no, project_title, to_days(enddate) - to_days(startdate) 
-		as 'liter', project_photo from project -->
-
-<!-- 	<select id="propropro" resultMap="mpdto"> -->
-<!-- 		select project.project_no, project_title
-		, project_photo
-		, concat (to_days(enddate) - to_days(startdate), '일')
-		, sum(option_price)
-		from project join `option` on project.project_no = `option`.project_no
-		where project.project_no = 18
-		group by project.project_no -->
-<!-- 	</select> -->
-	
-	
-	
-<!-- 	<resultMap type="hashMap" id="myProjectHashMap">
-		<result column="project_photo" property="project_photo" />
-		<result column="enddate" property="enddate" />
-		<result column="targetprice" property="targetprice" />
-		<result column="project_title" property="project_title" />
-	</resultMap>
-	
-	<select id="myProjectList" resultType="com.bitcamp.dto.MemberDTO">
-		select project_no from member join project on member.no = project.no where email = 'adadad@test.com'
-	</select>
-	
-	달성 퍼센트
-	<select id="achievePercent" resultType="Integer">
-		select (sum(option_price) / targetprice) * 100
-		from `option` join project on `option`.project_no = project.project_no
-		where project.project_no = 116
-	</select> -->
 
 </mapper>
