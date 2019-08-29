@@ -8,8 +8,8 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 <!-- Custom styles for this template -->    
-<link href="resources\css\style.css" rel="stylesheet">
-<link href="resources\font\font-awesome\css\font-awesome.min.css" rel="stylesheet"><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="/resources\css\style.css" rel="stylesheet">
+<link href="/resources\font\font-awesome\css\font-awesome.min.css" rel="stylesheet"><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 *{ 
  font-family: 'NanumSquareRound',sans-serif; 
@@ -32,14 +32,14 @@
     </script>  
       
      <!-- Bootstrap core JavaScript -->
-  	<script src="resources/vendor/jquery/jquery.min.js"></script>
-  	<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="resources/plugins/common/common.min.js"></script>
-    <script src="resources/js/custom.min.js"></script>
-    <script src="resources/js/settings.js"></script>
-    <script src="resources/js/gleek.js"></script>
-    <script src="resources/js/styleSwitcher.js"></script>    
-    <script src="resources/plugins/highlightjs/highlight.pack.min.js"></script>
+  	<script src="/resources/vendor/jquery/jquery.min.js"></script>
+  	<script src="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/resources/plugins/common/common.min.js"></script>
+    <script src="/resources/js/custom.min.js"></script>
+    <script src="/resources/js/settings.js"></script>
+    <script src="/resources/js/gleek.js"></script>
+    <script src="/resources/js/styleSwitcher.js"></script>    
+    <script src="/resources/plugins/highlightjs/highlight.pack.min.js"></script>
 
 </body>
 </html>

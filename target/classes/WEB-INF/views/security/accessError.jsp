@@ -14,7 +14,7 @@
 		<h1>ㅋㅋㅋㅋㅋㅋㅋㅋ 권한 없어서 못 봄 ㅋㅋㅋㅋ</h1> <br>
 		<h1>admin 계정으로 다시 로그인 하셈 ㅋㅋㅋㅋ</h1>
 		
-		<h1><a href="/customLogout">다시 로그인 하기</a></h1>
+		<h1><a href="/customLogout">로그아웃 하기</a></h1>
 		
 	</sec:authorize>
 	

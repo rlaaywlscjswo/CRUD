@@ -41,7 +41,8 @@ public class MemberController {
 			System.out.println("생일 : "+dto.getBirth());
 		}
 		
-		int result = memberService.memberAdd(dto);		
+		int result = memberService.memberAdd(dto);	
+		System.out.println("비밀 번호 : " + dto.getPassword());
 		
 		return "/member/signupsuccess";
 	}
@@ -52,7 +53,7 @@ public class MemberController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/pay", method=RequestMethod.POST)
+	@RequestMapping(value = "projectdetail/pay", method=RequestMethod.POST)
 	public String pay(OptionDTO odto, @RequestParam(defaultValue="null") String alias, Model model, Principal principal) {
 		if("null".equals(alias)) {
 			ProjectDTO dto = memberService.projectinfo(odto.getOption_no());

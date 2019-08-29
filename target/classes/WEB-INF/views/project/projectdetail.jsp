@@ -23,6 +23,7 @@ text-align: center;
 border: 1px solid;
 width: 650px;
 height: 487.5px;
+overflow: hidden;
 }
 #side{
 border:1px solid;
@@ -123,12 +124,7 @@ var el = document.querySelector("#results");
 el.setAttribute("class", (myPDF) ? "success" : "fail");
 el.innerHTML = (myPDF) ? "PDFObject was successful!" : "Uh-oh, the embed didn't work."; */
 
-var path = "C:/bitcamp/study/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/CRUD/upload/";
-var imgpath = path + '${list.project_photo}';
-$('#project_photo_path').attr("src", imgpath);
-
-console.log(imgpath);
-
+/* var path = "C:/bitcamp/study/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/CRUD/upload/"; */
 });
 
 
@@ -136,23 +132,20 @@ console.log(imgpath);
 </script>
 
 
-
-
 </head>
 <body>
-
 <div id="first">
 <div id="title">${list.project_title }</div>
 <div id="views">조회수${list.project_views }</div>
 <div id="category">카테고리번호${list.category_no }</div>
-<div id="photo"><img id="project_photo_path" alt="프로젝트대표사진" src=""></div>
+<div id="photo"><img id="project_photo_path" alt="프로젝트대표사진" src="${list.project_photo }"></div>
 <aside id="side">
 <p>모인금액</p>
 <p>종료일:${list.enddate }</p>
 <p>후원자</p>
 <div id="taget">펀딩진행중<br>목표금액인${list.targetprice }이 모여야만 결제됩니다.</div>
 <div id="paybtn">
-<a href="projectoption=${list.project_no }">후원하기</a>
+<a href="projectoption/${list.project_no }">후원하기</a>
 </div>
 </aside>
 </div>

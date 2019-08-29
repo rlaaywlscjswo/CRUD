@@ -42,7 +42,12 @@
     <div class="container">
       <a class="navbar-brand" href="main">CRUD</a>
       <sec:authorize access="isAuthenticated()">
-      <a class="btn btn-primary" href="/mypage" style="left: 630px; position: relative;">마이 페이지</a>
+       <sec:authorize access="!hasRole('ROLE_ADMIN')">
+      <a class="btn btn-primary" href="/mypage" style="left: 640px; position: relative;">마이 페이지</a> 
+       </sec:authorize>     
+      </sec:authorize>
+      <sec:authorize access="hasRole('ROLE_ADMIN')">
+      <a class="btn btn-primary" href="/admin" style="left: 640px; position: relative;">관리자 페이지</a>
       </sec:authorize>
       <!-- 병훈쓰가 추가 함 -->
       <sec:authorize access="isAnonymous()">

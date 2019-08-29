@@ -11,7 +11,7 @@
 	padding: 0;
 }
 
-#tab_1, #tab_2, #tab_3, #tab_4 {
+#tab_1, #tab_2, #tab_3 {
 	border: 1px solid silver;
 	border-radius: 10px;
 	display: inline-block;
@@ -35,11 +35,7 @@
 	top: 96px;
 }
 
-#tab_4 {
-	top: 128px;
-}
-
-#content_1, #content_2, #content_3, #content_4 {
+#content_1, #content_2, #content_3 {
 	border: 1px solid crimson;
 	border-radius: 10px;
 	display: inline-block;
@@ -59,10 +55,6 @@
 
 #content_3 {
 	top: 96px;
-}
-
-#content_4 {
-	top: 128px;
 }
 
 </style>
@@ -104,8 +96,10 @@
 					error : function(data) {
 						console.log('error');
 					}
-				});
-			});
+					
+				}); /* end ajax */
+				
+			}); /* end ready */
 	</script>
 	
  <script>
@@ -114,40 +108,28 @@
 		document.getElementById('content_1').style.display = "block";
 		document.getElementById('content_2').style.display = "none";
 		document.getElementById('content_3').style.display = "none";
-		document.getElementById('content_4').style.display = "none";
 		
 		function showContent_1() {
 			document.getElementById('content_1').style.display = 'block';
 			document.getElementById('content_2').style.display = "none";
 			document.getElementById('content_3').style.display = "none";
-			document.getElementById('content_4').style.display = "none";
 		}
 		
 		function showContent_2() {
 			document.getElementById('content_1').style.display = 'none';
 			document.getElementById('content_2').style.display = "block";
 			document.getElementById('content_3').style.display = "none";
-			document.getElementById('content_4').style.display = "none";
 		}
 		
 		function showContent_3() {
 			document.getElementById('content_1').style.display = 'none';
 			document.getElementById('content_2').style.display = "none";
 			document.getElementById('content_3').style.display = "block";
-			document.getElementById('content_4').style.display = "none";
-		}
-		
-		function showContent_4() {
-			document.getElementById('content_1').style.display = 'none';
-			document.getElementById('content_2').style.display = "none";
-			document.getElementById('content_3').style.display = "none";
-			document.getElementById('content_4').style.display = "block";
 		}
 		
 		document.getElementById('tab_1').addEventListener('click', showContent_1);
 		document.getElementById('tab_2').addEventListener('click', showContent_2);
 		document.getElementById('tab_3').addEventListener('click', showContent_3);
-		document.getElementById('tab_4').addEventListener('click', showContent_4);
 		
 	}
 </script>
@@ -159,14 +141,11 @@
 		<div id="tab_1">내 후원 내역</div>		
 		<div id="content_1"></div>
 		
-		<div id="tab_2">2번 탭</div>
+		<div id="tab_2">내가 만든 프로젝트</div>
 		<div id="content_2">2번 내용</div>
 		
-		<div id="tab_3">3번 탭</div>
+		<div id="tab_3">내 프로필</div>
 		<div id="content_3">3번 내용</div>
-		
-		<div id="tab_4">4번 탭</div>
-		<div id="content_4">4번 내용</div>
 
 	</div>
 
