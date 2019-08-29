@@ -1,12 +1,23 @@
 package com.bitcamp.service;
 
 import java.io.FileOutputStream;
+import java.io.StringReader;
+
 import org.springframework.stereotype.Service;
 import com.itextpdf.text.Document;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.tool.xml.XMLWorker;
+import com.itextpdf.tool.xml.XMLWorkerFontProvider;
+import com.itextpdf.tool.xml.css.StyleAttrCSSResolver;
+import com.itextpdf.tool.xml.html.CssAppliers;
+import com.itextpdf.tool.xml.html.CssAppliersImpl;
+import com.itextpdf.tool.xml.html.Tags;
+import com.itextpdf.tool.xml.parser.XMLParser;
+import com.itextpdf.tool.xml.pipeline.css.CSSResolver;
+import com.itextpdf.tool.xml.pipeline.css.CssResolverPipeline;
+import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
+import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
+import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 
 @Service
 public class PDFServiceImple implements PDFService {
@@ -22,19 +33,39 @@ public class PDFServiceImple implements PDFService {
 		try {
 			Document document = new Document(); // pdf문서를 처리하는 객체
 
-			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("d:/summer.pdf"));
+			PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("d:/55myojinlove.pdf"));
 			// pdf파일의 저장경로를 d드라이브의 sample.pdf로 한다는 뜻
 
-			document.open(); // 웹페이지에 접근하는 객체를 연다
+			document.open(); // 웹페이지에 접근하는 객체를 연다	
 
-			BaseFont baseFont = BaseFont.createFont("c:/windows/fonts/malgun.ttf", BaseFont.IDENTITY_H,
-					BaseFont.EMBEDDED);
-			// pdf가 기본적으로 한글처리가 안되기 때문에 한글폰트 처리를 따로 해주어야 한다.
-			// createFont메소드에 사용할 폰트의 경로 (malgun.ttf)파일의 경로를 지정해준다.
-
-			Font font = new Font(baseFont, 12); // 폰트의 사이즈를 12픽셀로 한다.
+			//css
+			CSSResolver cssresolver = new StyleAttrCSSResolver();	
 			
-			document.add(new Paragraph(summernote, font));
+			//html, font
+			XMLWorkerFontProvider fontprovider = new XMLWorkerFontProvider(XMLWorkerFontProvider.DONTLOOKFORFONTS);
+			fontprovider.register("c:/windows/fonts/malgun.ttf","malgun");
+			CssAppliers cssappliers = new CssAppliersImpl(fontprovider);
+			
+			HtmlPipelineContext htmlcontext = new HtmlPipelineContext(cssappliers);
+			htmlcontext.setTagFactory(Tags.getHtmlTagProcessorFactory());
+			
+			//pipelines
+			PdfWriterPipeline pdf = new PdfWriterPipeline(document, writer);
+			HtmlPipeline html = new HtmlPipeline(htmlcontext, pdf);		
+			CssResolverPipeline css= new CssResolverPipeline(cssresolver, html);		
+			
+				
+			System.out.println("summernote:"+summernote);
+			
+			XMLWorker worker = new XMLWorker(css, true);
+			XMLParser xmlparser = new XMLParser(worker);
+			
+			String str = "<html><head></head><body style='font-family: malgun;'>"+
+			summernote		
+			+"</body></html>";
+			
+			StringReader strreader = new StringReader(str);
+			xmlparser.parse(strreader);
 			document.close();
 			result = "pdf생성되었습니다.";
 

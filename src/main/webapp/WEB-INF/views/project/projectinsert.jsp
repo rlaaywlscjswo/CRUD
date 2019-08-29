@@ -6,11 +6,15 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> 
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+<link href="http://localhost:8080/resources/css/css.css" rel="stylesheet">
+<script src="http://localhost:8080/resources/js/signature_pad.min.js"></script>
 <style type="text/css">
 /* ul.tabs {
     margin: 0;
@@ -183,20 +187,76 @@ $(function () {
     var btncount=1; // 추가할때 증가, 삭제할때 감소
 
     $('#up').on('click',function(){     
-		  $('#field').append('<label for="option_name">옵션명</label> <div><input type="text" id="option_name" name="option_name"></div> <label for="option_price">옵션가격</label> <div><input type="text" id="option_price" name="option_price"></div> <label for="option_contents">옵션내용</label><div><input type="text" id="option_contents" name="option_contents"</div><br> <label for="option_quantity">옵션 수량</label> <div><input type="text" id="option_quantity" name="option_quantity"></div>');
+    	var div = document.createElement('div');
+        div.innerHTML = document.getElementById('optform').innerHTML;
+        document.getElementById('field').appendChild(div);    	
+		/*   $('#field').append('<label for="option_name">옵션명</label> <div><input type="text" id="option_name" name="option_name"></div> <label for="option_price">옵션가격</label> <div><input type="text" id="option_price" name="option_price"></div> <label for="option_contents">옵션내용</label><div><input type="text" id="option_contents" name="option_contents"</div><br> <label for="option_quantity">옵션 수량</label> <div><input type="text" id="option_quantity" name="option_quantity"></div> <a href="#" class="down">삭제</a>');
+    	    */    
+    	$('#field').append('<a href="#" class="down">삭제</a>');
     	    btncount++;
     	    $('#btncnt').val(btncount);	
-    	    console.log(btncount);
+    	    console.log(btncount); 
     });
 
-    $('#down').on('click',function(){
-    	   document.getElementById('field')
-    	   .removeChild(obj.parentNode);
+    $('.down').on('click', function(){
+    		document.getElementById('field').removeChild(obj.parentNode);    
     	    btncount--;
     	    $('#btncnt').val(btncount);	
-    }); 	
-    
+    }); 	    
    
+    
+ // sign pad
+    
+    var canvas = $("#signature-pad canvas")[0];
+		var sign = new SignaturePad(canvas, {
+			minWidth: 2,
+			maxWidth: 4,
+			penColor: "rgb(0, 0, 0)"
+		});
+		
+		$("[data-action]").on("click", function(){
+			if ( $(this).data("action")=="clear" ){
+				sign.clear();
+			}
+			else if ( $(this).data("action")=="save" ){
+				if (sign.isEmpty()) {
+					alert("사인해 주세요!!");
+				} else {
+					$.ajax({
+						url : "save.jsp",
+						method : "post",
+						dataType : "json",
+						data : {
+							sign : sign.toDataURL()
+						},
+						success : function(r){
+							alert("저장완료 : " + r.filename);
+							sign.clear();
+						},
+						error : function(res){
+							console.log(res);
+						}
+					});
+				}
+			}
+		});
+		
+		
+		function resizeCanvas(){
+			var canvas = $("#signature-pad canvas")[0];	
+			var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+			canvas.width = canvas.offsetWidth * ratio;
+			canvas.height = canvas.offsetHeight * ratio;
+			canvas.getContext("2d").scale(ratio, ratio);
+		}
+	    
+	    $(window).on("resize", function(){
+			resizeCanvas();
+		});
+
+		resizeCanvas();     
+    
+    
     
 });
 
@@ -364,10 +424,23 @@ $(function () {
     	
     	<!-- #tab5 -->
     	
-    	<div id="tab6" class="tab_content">   	
+    	<div id="tab6" class="tab_content">  
     	
-    	여기 싸인하는 란 ..... 싸인   	
-    		
+    	
+    	 	
+    	<div id="signature-pad" class="m-signature-pad">
+    	
+        	<div class="m-signature-pad--body">
+            	<canvas ></canvas>
+       		</div>
+        	<div class="m-signature-pad--footer">           
+            	<button type="button" class="button clear" data-action="clear">지우기</button>
+            	<button type="button" class="button save" data-action="save">저장</button>            
+        </div>
+        
+   		</div>
+   		
+   		
     	</div> 
     	<!-- #tab6 -->
     	
@@ -387,6 +460,10 @@ $(function () {
         tabsize: 2,
         height: 200
       });
+      
+      
+       
 </script>
+
 </body>
 </html>
