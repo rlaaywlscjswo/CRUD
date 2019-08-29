@@ -53,7 +53,7 @@ public class MemberController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/pay", method=RequestMethod.POST)
+	@RequestMapping(value = "projectdetail/pay", method=RequestMethod.POST)
 	public String pay(OptionDTO odto, @RequestParam(defaultValue="null") String alias, Model model, Principal principal) {
 		if("null".equals(alias)) {
 			ProjectDTO dto = memberService.projectinfo(odto.getOption_no());

@@ -8,6 +8,7 @@
 </head>
 <body>
  <h1>프로젝트 등록 결과 페이지</h1>
+ 
  <a href="mypage"><h2>내가 등록한 프로젝트 보러가기</h2></a>
 </body>
 </html>

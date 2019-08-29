@@ -38,7 +38,7 @@ import com.itextpdf.text.log.SysoLogger;
 
 @Controller
 public class ProjectController {
-	private String path = "upload"; // 파일저장 폴더명 : upload
+	private String path = "/resources/upload"; // 파일저장 폴더명 : upload
 	
 	@Resource(name="service")
 	private ProjectService service;
@@ -145,19 +145,22 @@ public class ProjectController {
 		System.out.println("회원 이름 : "+mdto.getName());
 		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일 
 		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일			
-		try {			
+		
+		try {				
 			String uploadpath = request.getSession().getServletContext().getRealPath(path);	// 경로
+			
 			if(!project_photo.isEmpty()&&!img.isEmpty()) { // 대표사진, 프로필사진 둘다있을때 
 				File file = new File(uploadpath, project_photo.getOriginalFilename()); // 프로젝트 대표사진
 				project_photo.transferTo(file);				
-				dto.setProject_photo(dto.getProject_photo_file().getOriginalFilename()); 				
+				dto.setProject_photo(path+"/"+dto.getProject_photo_file().getOriginalFilename()); 				
 				File file2 = new File(uploadpath, img.getOriginalFilename());// 창작자 프로필사진
 				img.transferTo(file2);
-				dto.setImg(dto.getImg_file().getOriginalFilename());				
+				dto.setImg(path+"/"+dto.getImg_file().getOriginalFilename());				
 				System.out.println("프로젝트 제목 : " + dto.getProject_title());
 				System.out.println("대표사진 파일명 : " + dto.getProject_photo());		
 				System.out.println("창작자 프로필 사진"+ dto.getImg());			
-				System.out.println("경로 : "+uploadpath);
+				System.out.println("경로 : "+dto.getProject_photo());				
+				
 			}			
 		}catch(IOException e) {			
 			System.out.println(e.getMessage());			
@@ -210,7 +213,7 @@ public class ProjectController {
 	}	
 	
 	// 프로젝트 상세 페이지
-	@RequestMapping("projectdetail={project_no}")
+	@RequestMapping("projectdetail/{project_no}")
 	public String projectdetail(@PathVariable int project_no, Model model) {		
 		ProjectDTO detail = service.projectDetail(project_no);
 		List<OptionDTO> option= service.projectoptionList(project_no);
@@ -220,7 +223,7 @@ public class ProjectController {
 		return "project/projectdetail.temp";
 	}
 	
-	@RequestMapping("projectoption={project_no}")
+	@RequestMapping("projectoption/{project_no}")
 	public String projectoption(@PathVariable int project_no, Model model) {
 		List<OptionDTO> option = service.projectoptionList(project_no);
 		model.addAttribute("option", option);
