@@ -68,70 +68,51 @@
 </script> -->
 
 <script>
-	$(document).ready(
-			function() {
-				$.urlParam = function(name) {
-
-					var results = new RegExp('[\?&]' + name + '=([^&#]*)')
-							.exec(window.location.href);
-					if (results == null) {
-						return null;
-					} else {
-						return results[1] || 0;
-					}
-				}
-
-				/* $("#result").load("review.do");
-				console.log('hi'); */
-
-				let id = $.urlParam('id');
-				console.log(id);
-				$.ajax({
-					url : "/support",
-					data : "id=" + id,
-					dataType : "html",
-					success : function(data) {
-						$('#content_1').append(data);
-					},
-					error : function(data) {
-						console.log('error');
-					}
-					
-				}); /* end ajax */
-				
-			}); /* end ready */
-	</script>
-	
- <script>
-	window.onload = function() {
+	$(document).ready(function() {
 		
 		document.getElementById('content_1').style.display = "block";
 		document.getElementById('content_2').style.display = "none";
 		document.getElementById('content_3').style.display = "none";
 		
+		document.getElementById('tab_1').addEventListener('click', showContent_1);
+		document.getElementById('tab_2').addEventListener('click', showContent_2);
+		document.getElementById('tab_3').addEventListener('click', showContent_3);
+		
 		function showContent_1() {
 			document.getElementById('content_1').style.display = 'block';
 			document.getElementById('content_2').style.display = "none";
 			document.getElementById('content_3').style.display = "none";
+			list("support", "content_1");
 		}
 		
 		function showContent_2() {
 			document.getElementById('content_1').style.display = 'none';
 			document.getElementById('content_2').style.display = "block";
 			document.getElementById('content_3').style.display = "none";
+			list("mypro", "content_2");
 		}
 		
 		function showContent_3() {
 			document.getElementById('content_1').style.display = 'none';
 			document.getElementById('content_2').style.display = "none";
 			document.getElementById('content_3').style.display = "block";
+			list("info", "content_3");
 		}
 		
-		document.getElementById('tab_1').addEventListener('click', showContent_1);
-		document.getElementById('tab_2').addEventListener('click', showContent_2);
-		document.getElementById('tab_3').addEventListener('click', showContent_3);
-		
-	}
+		function list(url, content) {
+			$.ajax({
+				url : url,
+				dataType : "html",
+				success : function(data) {
+					$('#'+content).append(data);
+				},
+				error : function(data) {
+					console.log('error');
+				}
+			}); /* end ajax */
+		}
+}); /* end ready */
+			
 </script>
 </head>
 <body>
