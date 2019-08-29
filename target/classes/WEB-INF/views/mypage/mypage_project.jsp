@@ -19,7 +19,7 @@
 		width: 1000px;
 	}
 	
-	#theNumbersOfMyProject, #myProject_searching, #mypro_main, #myProject_paging {
+	#theNumbersOfMyProject, #myProject_searching, #mypro_main, #mypro_each, #myProject_paging {
 		border: 1px solid dodgerblue;
 		display: inline-block;
 		position: relative;
@@ -32,9 +32,14 @@
 	}
 
 	#mypro_main {
-		height: 100px;
+		height: 400px;
+		width: 700px;
+	}
+	
+	#mypro_each {
+		height: 150px;
 		margin: 10px;
-		width: 400px;
+		width: 300px;
 	}
 	
 	#myProject_paging {
@@ -51,45 +56,41 @@
 		</div>
 		
 		<div id="myProject_searching">
-			여긴 검색
+				<form method="get" action="mypro?currPage=${dto.firstPageOfBlock}">
+				<label for="project_search" id="project_label"></label>
+				<input type="text" id="project_search" name="project_search" placeholder="  프로젝트 이름으로 검색해주세요 :)">
+				<input type="submit" value="찾아줘!!" id="project_find">
+			</form>
 		</div>
 		
 			<div id="mypro_main">
-			
-					<div>
-						 <c:forEach var="thumbnail" items="${thumbnail}">
-							썸네일 이미지 : ${thumbnail.project_photo}<br>
-						 </c:forEach>
-				 	</div>
-					<%-- <div>
-						<c:forEach var="" items="">
-							모인 금액 : <br>
-						</c:forEach>
+				<c:forEach var="mypage_myProject" items="${mypage_myProject}">
+					<div id="mypro_each">	 	
+						썸네일 이미지 : ${mypage_myProject.project_photo}<br>
+						모인 금액 : ${mypage_myProject.sumop}원<br>
+						남은 날 : ${mypage_myProject.remainingDay}일<br>
+						달성 퍼센트 : ${mypage_myProject.reachper}%<br>
+						계약서 : ${mypage_myProject.project_contract}<br>
+						프로젝트 이름 : ${mypage_myProject.project_title}<br>
 					</div>
-					<div>
-						<c:forEach var="" items="">
-							남은 시간 : <br>
-						</c:forEach>
-					</div>
-					<div>
-						<c:forEach var="" items="">
-							달성 퍼센트 : <br>
-						</c:forEach>
-					</div>
-					<div>
-						<c:forEach var="" items="">
-							계약서 : <br>
-						</c:forEach>
-					</div>
-					<div>
-						<c:forEach var="" items="">
-							프로젝트 이름 : <br>
-						</c:forEach>
-					</div> --%>
+				 </c:forEach>					
 			</div>
 		
 		<div id="myProject_paging">
-			여긴 페이징
+			<c:if test="${dto.prev}">
+				<a href="mypro?currPage=${dto.firstPageOfBlock-1}&project_search=${project_search}">
+				<c:out value="이전" /></a>
+			</c:if>
+
+			<c:forEach var="index" begin="${dto.firstPageOfBlock}" end="${dto.lastPageOfBlock}">
+				<a href="mypro?currPage=${index}&project_search=${project_search}">
+				<c:out value="${index}" /></a>
+			</c:forEach>
+
+			<c:if test="${dto.next}">
+				<a href="mypro?currPage=${dto.lastPageOfBlock+1}&project_search=${project_search}">
+				<c:out value="다음" /></a>
+			</c:if>
 		</div>
 		
 		

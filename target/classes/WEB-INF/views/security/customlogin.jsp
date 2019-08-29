@@ -116,7 +116,7 @@ input[type=submit] {
 
 			<div>
 				<label for="username" id="email"><strong>Email
-						address</strong></label> <input type="text" name="username" id="username" value="adadad@test.com">
+						address</strong></label> <input type="text" name="username" id="username">
 			</div>
 
 			<div>

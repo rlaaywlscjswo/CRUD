@@ -21,13 +21,13 @@ public class MypageServiceImple implements MypageService {
 
 	// for paging
 	@Override
-	public int totalCount(String support_search, String email) {
+	public int mySupport_totalCount(String support_search, String email) {
 
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("support_search", support_search);
 		hm.put("email", email);
 
-		return mypageMapper.totalCount(hm);
+		return mypageMapper.mySupport_totalCount(hm);
 
 	} // end totalCount method
 
@@ -41,7 +41,7 @@ public class MypageServiceImple implements MypageService {
 
 	// 마이 페이지 - 내 후원 내역
 	@Override
-	public List<SupportDTO> mypageSupportList(int startRow, int pagePerSize, String support_search, String email) {
+	public List<SupportDTO> mySupport_list(int startRow, int pagePerSize, String support_search, String email) {
 
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("startRow", startRow);
@@ -50,7 +50,7 @@ public class MypageServiceImple implements MypageService {
 		hm.put("email", email);
 		System.out.println("서비스 pagePerSize : " + pagePerSize);
 
-		return mypageMapper.mypageSupportList(hm);
+		return mypageMapper.mySupport_list(hm);
 
 	} // end mypageSupportList method
 
@@ -64,22 +64,31 @@ public class MypageServiceImple implements MypageService {
 		
 	} // end theNumbersOfMyProject method
 	
-	// 프로젝트 번호를 받아오자
 	@Override
-	public List<ProjectDTO> getProject_no(String email) {
+	public int myProject_totalCount(String project_search, String email) {
 
-		return mypageMapper.getProject_no(email);
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("project_search", project_search);
+		hm.put("email", email);
 		
-	} // end getProject_no method
+		return mypageMapper.myProject_totalCount(hm);
+		
+	} // end myProject_totalCount method
 	
-	// 썸네일 이미지	
-
+	// 다..
 	@Override
-	public List<ProjectDTO> thumbnail(String email) {
-
-		return mypageMapper.thumbnail(email);
+	public List<ProjectDTO> mypage_myProject(int startRow, int pagePerSize, String project_search, String email) {
 		
-	} // end thumbnail method
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("startRow", startRow);
+		hm.put("pagePerSize", pagePerSize);
+		hm.put("project_search", project_search);
+		hm.put("email", email);
+		
+		return mypageMapper.mypage_myProject(hm);
+		
+	} // end mypage_myProject method
+	
 	
 	
 	
