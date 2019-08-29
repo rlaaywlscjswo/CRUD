@@ -26,7 +26,7 @@ public class MypageController {
 	@RequestMapping("/mypage")
 	public String mypage() {
 
-		return "/mypage/mypage";
+		return "/mypage/mypage.temp";
 
 	} // end mypage method
 
@@ -37,7 +37,7 @@ public class MypageController {
 		List<MemberDTO> infoList = service.mypageInfoList();
 		model.addAttribute("infoList", infoList);
 
-		return "/mypage/mypage_info.temp";
+		return "/mypage/mypage_info";
 
 	} // end myList method
 

@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>마이 페이지 - 내 정보</title>
 </head>
-<body>
+<body style="width: 1000px; height: 700px;">
 
 	<table>
 		<thead>
