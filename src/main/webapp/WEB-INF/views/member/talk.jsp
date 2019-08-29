@@ -16,7 +16,8 @@ div{
 </head>
 <body>
 <div>
-	<div id="talk">쪽지</div>
+	<div id="talk">왼쪽</div>
+	<div id="">오른쪽</div>
 	<a href=""><button>쪽지쓰기</button></a>
 </div>
 </body>
