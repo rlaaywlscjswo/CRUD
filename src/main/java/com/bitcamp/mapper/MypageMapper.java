@@ -29,6 +29,10 @@ public interface MypageMapper {
 
 	// 마이 페이지 - 내 후원 내역
 
+	// 필터링
+	// 진행 중인 프로젝트
+	public List<ProjectDTO> filter_ing(String email);
+	
 	// for paging
 	public int mySupport_totalCount(HashMap<String, Object> hm);
 

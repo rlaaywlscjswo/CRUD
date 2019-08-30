@@ -63,6 +63,14 @@ public class MypageServiceImple implements MypageService {
 	} // end mypage_myProject method
 
 	// 마이 페이지 - 내 후원 내역
+	
+	// 필터링
+	// 진행 중인 프로젝트
+	public List<ProjectDTO> filter_ing(String email) {
+		
+		return mypageMapper.filter_ing(email);
+		
+	} // end filter_ing method
 
 	// for paging
 	@Override

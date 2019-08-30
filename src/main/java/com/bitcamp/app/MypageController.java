@@ -78,6 +78,8 @@ public class MypageController {
 			Principal principal) {
 
 		String email = principal.getName();
+		
+		List<ProjectDTO> filter_ing = service.filter_ing(email);
 
 		int totalCount = service.mySupport_totalCount(support_search, email);
 		int pagePerSize = 2;
@@ -86,6 +88,7 @@ public class MypageController {
 		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
 
 		List<SupportDTO> mySupport_list = service.mySupport_list(dto.getStartRow(), pagePerSize, support_search, email);
+		model.addAttribute("filter_ing", filter_ing);
 		model.addAttribute("support_search", support_search);
 		model.addAttribute("dto", dto);
 		model.addAttribute("mySupport_list", mySupport_list);

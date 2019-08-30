@@ -136,6 +136,18 @@
 	top: 75px;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+	$(document).ready(function() {
+		document.getElementById('sector_ing').style.display = 'none';
+		document.getElementById('filter_ing').addEventListener('click', show_ing);
+		
+		function show_ing() {
+			document.getElementById('sector_all').style.display = "none";
+			document.getElementById('sector_ing').style.display = 'block';
+		}
+	});
+</script>
 </head>
 <body>
 
@@ -147,7 +159,8 @@
 			<span id="filter_ing">진행 중인 프로젝트</span>
 			<span id="filter_complete">목표 금액을 달성한 프로젝트</span>
 		</div>
-
+	<div id="sector_all">
+	
 		<div id="support_searching">
 			<form method="get" action="support?currPage=${dto.firstPageOfBlock}">
 				<label for="support_search" id="search_label"></label>
@@ -175,7 +188,7 @@
 			</div> <!-- end #support_main -->
 
 		</c:forEach>
-
+	
 		<div id="support_paging">
 		
 			<c:if test="${dto.prev}">
@@ -194,6 +207,52 @@
 			</c:if>
 			
 		</div> <!-- #support_paging -->
+		
+		</div> <!-- end #sector_all -->
+		
+		<div id="sector_ing">
+		
+				<div id="support_searching">
+			<form method="get" action="support?currPage=${dto.firstPageOfBlock}">
+				<label for="support_search" id="search_label"></label>
+				<input type="text" id="support_search" name="support_search" placeholder="  프로젝트 이름으로 검색해주세요 :)">
+				<input type="submit" value="찾아줘!!" id="support_find">
+			</form>
+		</div>
+		
+		<c:forEach var="filter_ing" items="${filter_ing}">
+			<div id="da">후원 일자 : <c:out value="${filter_ing.da}" /></div>
+				<div id="project_photo">썸네일 이미지 : <c:out value="${filter_ing.project_photo}" /></div>
+				
+				<div id="support_sub">
+				
+					<div id="support_status">후원 진행 사항 : <c:out value="${filter_ing.support_status}" /></div>
+					<div id="project_title">프로젝트 이름 : <c:out value="${filter_ing.project_title}" /></div>
+					<div id="option_no">선택한 옵션 : <c:out value="${filter_ing.option_name}" /></div>
+					<div id="option_price">후원 금액 : <c:out value="${filter_ing.option_price}" /></div>
+					
+				</div>
+		</c:forEach>
+		
+				<div id="support_paging">
+		
+			<c:if test="${dto.prev}">
+				<a href="support?currPage=${dto.firstPageOfBlock-1}&support_search=${support_search}">
+				<c:out value="이전" /></a>
+			</c:if>
+
+			<c:forEach var="index" begin="${dto.firstPageOfBlock}" end="${dto.lastPageOfBlock}">
+				<a href="support?currPage=${index}&support_search=${support_search}">
+				<c:out value="${index}" /></a>
+			</c:forEach>
+
+			<c:if test="${dto.next}">
+				<a href="support?currPage=${dto.lastPageOfBlock+1}&support_search=${support_search}">
+				<c:out value="다음" /></a>
+			</c:if>
+			
+		</div> <!-- #support_paging -->
+		</div> <!-- #sector_ing -->
 
 	</div> <!-- .mypage_support_wrap -->
 

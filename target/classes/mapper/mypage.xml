@@ -100,6 +100,24 @@
 		<result column="option_name" property="option_name" />
 		<result column="option_price" property="option_price" />
 	</resultMap>
+	
+	<!-- 필터링 -->
+	<!-- 진행 중인 프로젝트 -->
+	<select id="filter_ing" resultMap="sdto">
+		select date_format(support_date, '%y년 %c월 %e일') as da,
+		project_photo,
+		support_status, project_title, option_name, option_price
+		from
+		project
+		join `option` on project.project_no = `option`.project_no
+		join
+		support
+		on `option`.option_no = support.option_no
+		where support.no = (select no from member where email = #{email})
+		and (to_days(project.enddate) - to_days(now()) + 1) > 0
+	</select>
+		
+	<!-- 목표 금액을 달성한 프로젝트 -->
 
 	<!-- 내가 후원 한 프로젝트 개수 - 검색용 -->
 	<select id="mySupport_totalCount" resultType="int"
