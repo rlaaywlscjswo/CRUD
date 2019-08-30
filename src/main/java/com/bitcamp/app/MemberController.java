@@ -1,6 +1,7 @@
 package com.bitcamp.app;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.OptionDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
+import com.bitcamp.dto.TalkDTO;
 import com.bitcamp.service.MemberService;
 
 @Controller
@@ -102,8 +104,28 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/talk")
-	public String talk(@RequestParam int no) {
+	public String talk(Principal principal, Model model) {
+		MemberDTO mdto = memberService.memberinfo(principal.getName());
+		List<TalkDTO> tdto = memberService.recipientlist(mdto.getNo());
+		int unread = memberService.unread(mdto.getNo());
+		
+		model.addAttribute("member", mdto);
+		model.addAttribute("talklist", tdto);
+		model.addAttribute("unread", unread);
 		return "/member/talk";
+	}
+	
+	@RequestMapping(value = "/keep", method=RequestMethod.POST)
+	public @ResponseBody String talk(@RequestBody List<Integer> talk_no) {
+		List<TalkDTO> list = new ArrayList<TalkDTO>(); 
+		for(int i=0; i<talk_no.size(); i++) {
+			TalkDTO dto = new TalkDTO();
+			dto.setTalk_no(talk_no.get(i));
+			System.out.println("보관함으로 가는 : "+talk_no.get(i));
+			list.add(dto);
+		}
+		int result = memberService.keep(list);
+		return "1";
 	}
 	
 	// 현재 로그인된 정보

@@ -1,5 +1,6 @@
 package com.bitcamp.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import com.bitcamp.dto.AddressDTO;
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
+import com.bitcamp.dto.TalkDTO;
 import com.bitcamp.mapper.MemberMapper;
 
 @Service("memberService")
@@ -86,6 +88,26 @@ public class MemberServiceImple implements MemberService {
 	@Override
 	public ProjectDTO projectinfo(int option_no) {
 		return mapper.projectinfo(option_no);
+	}
+
+	@Override
+	public List<TalkDTO> recipientlist(int no) {
+		return mapper.recipientlist(no);
+	}
+
+	@Override
+	public int unread(int no) {
+		return mapper.unread(no);
+	}
+
+	@Override
+	public int keep(List<TalkDTO> list) {
+		HashMap<String, Object> map = new HashMap<>();
+		for(int i=0; i<list.size(); i++) {
+			System.out.println("보관함으로 "+list.get(i).getTalk_no());
+		}
+		map.put("list", list);
+		return mapper.keep(map);
 	}
 
 }

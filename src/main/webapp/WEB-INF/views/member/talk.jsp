@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>쪽지함 - CRUD</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style>body {
 		margin: 0px;
 		padding: 0px;
@@ -566,6 +568,10 @@
 		margin-right: 21px;
 		float: right;
 	}
+
+.unread{
+	color: #0459c1;
+}
 </style>
 </head>
 <body>
@@ -581,8 +587,6 @@
 			<li class=""><span class="orange size3"><a href="?folder=store" onfocus="this.blur();">쪽지 보관함</a></span></li>
 						<li class=" oldstart"><span class="orange"><a href="?folder=old" onfocus="this.blur();">받은 쪽지함 (이전)</a></span></li>
 			<li class=""><span class="orange"><a href="?folder=oldsent" onfocus="this.blur();">보낸 쪽지함 (이전)</a></span></li>
-						<li class=" oldstart"><span class="orange size2"><a href="?folder=block" onfocus="this.blur();">쪽지 차단 설정</a></span></li>
-						<li class=""><span class="orange"><a href="javascript:;" onclick="lastAttack()" onfocus="this.blur();">마격보기</a></span></li>
 					</ul>
 	</dd>
 </dl>
@@ -590,68 +594,94 @@
 <div id="noteMain">
 
 <script>
-function checkAll(fm, prefix, chk) {
-	var fmObj = document.getElementById(fm);
-	var chs = fmObj.getElementsByTagName('INPUT');
-	var n = chs.length;
-	var prefixn = prefix.length;
-	for (var i = 0; i < n; i++) {
-		var item = chs.item(i);
-		if (item.getAttribute('name').substring(0, prefixn) == prefix) {
-			item.checked = chk;
+$(document).ready(function(){
+	
+	// 모든 체크박스 체크 or 풀기.
+	$("#allcheckbox").on('click', function() {
+		if($("#allcheckbox").prop("checked")){
+			$("input[type=checkbox]").prop("checked", true);
+		} else {
+			$("input[type=checkbox]").prop("checked", false);
 		}
+	});
+	
+	// 체크된 체크박스 값
+	$(".talk_no").on('click', function() {
+		let check_leng = $(".talk_no:checked").length;
+		console.log("체크된 수 : "+check_leng);
+		let talk_no = new Array(check_leng);
+		$(".talk_no").each(function(i) {
+			console.log(i);
+			if($(this).is(":checked") == true && $(this).val() != 'on') {
+				talk_no[i] = $(this).val();
+			}
+		});
+		console.log("-----");
+		$.ajax({
+            method:"post",
+            url:"/keep",
+            data:{'talk_no':talk_no},
+            dataType:'text',
+            //contentType:"application/json;charset=UTF-8",
+            success:function(data){
+            	console.log(data);
+            }
+        }); 
+	});
+	function viewNote(n) {
+		var url = "?act=view&n="+n+"&folder=inbox";
+			location.href = url;
 	}
-}
-
-function toggleCheck(fm, prefix, obj) {
-	checkAll(fm, prefix, obj.checked);
-}
-
-function viewNote(n) {
-	var url = "?act=view&n="+n+"&folder=inbox";
+	
+	function deleteNotes() {
+		var fmObj = document.getElementById("fmNoteData");
+		if (!anyChecked(fmObj, "idx_")) { alert("삭제할 쪽지를 선택해 주세요"); return; }
+	
+		var ans = confirm("선택된 쪽지를 삭제하시겠습니까?");
+		if (!ans) return;
+	
+		fmObj.action = 'http://www.inven.co.kr/member/note/note_status.php';
+		fmObj.set.value = 'delete';
+		fmObj.submit();
+	}
+	
+	
+	function storeNotes() {
+		var fmObj = document.getElementById("fmNoteData");
+		if (!anyChecked(fmObj, "talk_no")) { alert("보관할 쪽지를 선택해 주세요"); return; }
+		
+		console.log($("input:checkbox[name='talk_no']:checked").val());
+		console.log("---");
+		console.log($("input:checkbox[name='talk_no']").is("checked").val());
+	
+	
+		console.log(fmObj.set.value);
+		var ans = confirm("선택된 쪽지를 보관하시겠습니까?");
+		if (!ans) return;
+	
+		fmObj.action = "keep";
+		//fmObj.set.value = 'store';
+		fmObj.submit();
+	}
+	function anyChecked(fmObj, prefix) {
+		var temp = false;
+	
+		var chs = fmObj.getElementsByTagName('INPUT');
+		var n = chs.length;
+		var prefixn = prefix.length;
+		for (var i = 0; i < n; i++) {
+			var item = chs.item(i);
+			if ((item.getAttribute('name').substring(0, prefixn) == prefix) && (item.checked)) temp = true;
+		}
+		return temp;
+	}
+	function setAllread() {
+		var url = "http://www.inven.co.kr/member/note/note_allread.php?n=0&rurl=Qi80RXlXSVdHcnE3NTVSSVVkdXJUdkVkTVFXQ210MHlaOWNrTUZXVE5BT1FaQmU0bjJjSFkrSUZHMUQrd2srNA";
 		location.href = url;
-}
-
-function deleteNotes() {
-	var fmObj = document.getElementById("fmNoteData");
-	if (!anyChecked(fmObj, "idx_")) { alert("삭제할 쪽지를 선택해 주세요"); return; }
-
-	var ans = confirm("선택된 쪽지를 삭제하시겠습니까?");
-	if (!ans) return;
-
-	fmObj.action = 'http://www.inven.co.kr/member/note/note_status.php';
-	fmObj.set.value = 'delete';
-	fmObj.submit();
-}
-function storeNotes() {
-	var fmObj = document.getElementById("fmNoteData");
-	if (!anyChecked(fmObj, "idx_")) { alert("보관할 쪽지를 선택해 주세요"); return; }
-
-	var ans = confirm("선택된 쪽지를 보관하시겠습니까?");
-	if (!ans) return;
-
-	fmObj.action = 'http://www.inven.co.kr/member/note/note_status.php';
-	fmObj.set.value = 'store';
-	fmObj.submit();
-}
-function anyChecked(fmObj, prefix) {
-	var temp = false;
-
-	var chs = fmObj.getElementsByTagName('INPUT');
-	var n = chs.length;
-	var prefixn = prefix.length;
-	for (var i = 0; i < n; i++) {
-		var item = chs.item(i);
-		if ((item.getAttribute('name').substring(0, prefixn) == prefix) && (item.checked)) temp = true;
 	}
-	return temp;
-}
-function setAllread() {
-	var url = "http://www.inven.co.kr/member/note/note_allread.php?n=0&rurl=Qi80RXlXSVdHcnE3NTVSSVVkdXJUdkVkTVFXQ210MHlaOWNrTUZXVE5BT1FaQmU0bjJjSFkrSUZHMUQrd2srNA";
-	location.href = url;
-}
+});
 </script>
-<h1 class="note"><strong class="nick">murmurIng</strong>님의 <strong class="page">받은 편지함</strong>입니다.(읽지 않은 쪽지: 0통) <a href="javascript:setAllread();" class="allread" onfocus="this.blur();">모두읽음</a></h1>
+<h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">받은 편지함</strong>입니다.(읽지 않은 쪽지: ${unread}통) <a href="javascript:setAllread();" class="allread" onfocus="this.blur();">모두읽음</a></h1>
 <div class="selectWrap">
 	<select style="float:right;" onchange = "if (this.value) { var url = this.value.split('|'); if (!url[1]) { url[1] = ''; } INVEN.Location.openWin(url[0], url[1]); }">
 	<option value="/member/note/index.php?folder=inbox&scale=10" selected>10</option>
@@ -667,50 +697,54 @@ function setAllread() {
 <div id="noteList">
 	<div class="cmdWrap">
 		<a id="cmdDelete" class="bttn46" href="javascript:deleteNotes();" onfocus="this.blur();">삭제</a>
-				<a id="cmdStore" class="bttn46" href="javascript:storeNotes();" onfocus="this.blur();">보관</a>
+				<a id="cmdStore" class="bttn46" href="storeNotes()">보관</a>
 				<a id="cmdWrite" class="bttn92w" href="javascript:writeNewNote();" onfocus="this.blur();">쪽지보내기</a>
 	</div>
 
 	<div class="list">
 	<form id="fmNoteData" name="fmNoteData" action="" method="POST">
-		<input type="hidden" name="rurl" value="Qi80RXlXSVdHcnE3NTVSSVVkdXJUdkVkTVFXQ210MHlaOWNrTUZXVE5BT1FaQmU0bjJjSFkrSUZHMUQrd2srNA"/>
-		<input type="hidden" name="set" value=""/>
-		<input type="hidden" name="folder" value="inbox"/>
 		<table border="0" cellpadding="0" cellspacing="0">
 			<thead>
 			<tr>
-				<th class="chk"><input type="checkbox" id="idx_" name="idx_" onclick="toggleCheck('fmNoteData','idx_',this);" onfocus="this.blur();"/></th>
+				<th class="chk"><input type="checkbox" id="allcheckbox" name="talk_no" /></th>
+				<th class="check"></th>
 				<th class="title">제목</th>
 				<th class="nickname">보낸사람</th>
 				<th class="date">날짜</th>
 			</tr>
 			</thead>
 			<tbody>
+			<c:forEach var="list" items="${talklist}">
+				<c:choose>
+					<c:when test="${empty list.talk_status}">
+						<tr class="unread">
+							<td class="chk"><input type="checkbox" class="talk_no" name="talk_no" value="${list.talk_no}" onfocus="this.blur();"/></td>
+							<td class="check">
+								<img class="unread" alt="안읽음" src="resources/img/envelope_close.png">
+							</td>
+							<td class="title" style="cursor:pointer;" onClick="viewNote(99838166);">
+								<a href="javascript:viewNote(99838166);" onfocus="this.blur();">${list.talk_title} &nbsp;</a>
+							</td>
+							<td class="nickname">${list.name}</td>
+							<td class="date">${list.talk_date}</td>
+						</tr>
+					</c:when>
+					<c:otherwise>
 						<tr class="read">
-				<td class="chk"><input type="checkbox" id="idx_99838166" name="idx_99838166" value="1" onfocus="this.blur();"/></td>
-				<td class="title" style="cursor:pointer;" onClick="viewNote(99838166);"><a href="javascript:viewNote(99838166);" onfocus="this.blur();">[인벤] 천애명월도 '결전! 조천궁' 업데이트 및 이벤..&nbsp;</a></td>
-				<td class="nickname"><img style="vertical-align: -3px;" src="http://upload2.inven.co.kr/upload/2015/12/18/icon/i11151695501.jpg"> 관리자</td>
-				<td class="date">04-25 15:34:35</td>
-			</tr>
-						<tr class="read">
-				<td class="chk"><input type="checkbox" id="idx_99080160" name="idx_99080160" value="1" onfocus="this.blur();"/></td>
-				<td class="title" style="cursor:pointer;" onClick="viewNote(99080160);"><a href="javascript:viewNote(99080160);" onfocus="this.blur();">FIFA ONLINE4 인벤 커뮤니티 챌린지 시청 및 직관 안..&nbsp;</a></td>
-				<td class="nickname"><img style="vertical-align: -3px;" src="http://upload2.inven.co.kr/upload/2015/12/18/icon/i11151695501.jpg"> 관리자</td>
-				<td class="date">03-22 17:45:47</td>
-			</tr>
-						<tr class="read">
-				<td class="chk"><input type="checkbox" id="idx_98885680" name="idx_98885680" value="1" onfocus="this.blur();"/></td>
-				<td class="title" style="cursor:pointer;" onClick="viewNote(98885680);"><a href="javascript:viewNote(98885680);" onfocus="this.blur();">[인벤] 월드 오브 탱크 특별 이벤트 안내&nbsp;</a></td>
-				<td class="nickname"><img style="vertical-align: -3px;" src="http://upload2.inven.co.kr/upload/2015/12/18/icon/i11151695501.jpg"> 관리자</td>
-				<td class="date">03-15 16:59:33</td>
-			</tr>
-						<tr class="read">
-				<td class="chk"><input type="checkbox" id="idx_95320957" name="idx_95320957" value="1" onfocus="this.blur();"/></td>
-				<td class="title" style="cursor:pointer;" onClick="viewNote(95320957);"><a href="javascript:viewNote(95320957);" onfocus="this.blur();">[인벤] 로스트아크 이벤트 안내&nbsp;</a></td>
-				<td class="nickname"><img style="vertical-align: -3px;" src="http://upload2.inven.co.kr/upload/2015/12/18/icon/i11151695501.jpg"> 관리자</td>
-				<td class="date">11-07 16:25:18</td>
-			</tr>
-						</tbody>
+							<td class="chk"><input type="checkbox" class="talk_no" name="talk_no" value="${list.talk_no}" onfocus="this.blur();"/></td>
+							<td class="check">
+								<img alt="읽음" src="resources/img/envelope_open.png">
+							</td>
+							<td class="title" style="cursor:pointer;" onClick="viewNote(99838166);">
+								<a href="javascript:viewNote(99838166);" onfocus="this.blur();">${list.talk_title} &nbsp;</a>
+							</td>
+							<td class="nickname">${list.name}</td>
+							<td class="date">${list.talk_date}</td>
+						</tr>
+					</c:otherwise>			
+				</c:choose>
+			</c:forEach>
+			</tbody>
 		</table>
 		<div class="IEFix">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 	</form>
@@ -723,7 +757,7 @@ function setAllread() {
 				<option value="title" > 제 목</option>
 				<option value="content" > 내 용</option>
 				<option value="titlecontent" > 제목+내용</option>
-				<option value="nick" > 닉네임</option>
+				<option value="nick" >이름</option>
 			</select>
 			<input class="word" type="text" id="searchWord" name="s_word" value=""/>
 			<input class="submit" type="image" src="http://static.inven.co.kr/image/member/note/bttn_search.gif"/>
@@ -734,9 +768,9 @@ function setAllread() {
 </div>
 
 <script type="text/javascript">
-	if (navigator.userAgent.indexOf("Chrome") > -1) {
+	/* if (navigator.userAgent.indexOf("Chrome") > -1) {
 		opener.INVEN.Links.myNotesConfirm(window, false);
-	}
+	} */
 </script>
 </body>
 </html>

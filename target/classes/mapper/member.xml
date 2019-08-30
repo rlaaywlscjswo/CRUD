@@ -72,6 +72,39 @@
 		where option_no = #{option_no}
 	</select>
 	
+	<resultMap type="hashMap" id="talk">
+		<result column="talk_title" property="talk_title" />
+		<result column="name" property="name" />
+		<result column="email" property="email" />
+		<result column="talk_date" property="talk_date" />
+		<result column="talk_status" property="talk_status" />
+	</resultMap>
+	
+	<!-- 받은 쪽지 리스트 -->
+	<select id="recipientlist" parameterType="int" resultMap="talk">
+		select talk_no, talk_title, name, email, date_format(talk_date, "%m-%d") talk_date , talk_status, talk_keep
+		from member m join 
+			(select talk_title, talk_date, t.no, talk_status, talk_no, talk_keep
+			from talk t join member m
+			on t.no = m.no
+			where recipient = #{no} and talk_keep = 0) t
+		where m.no = t.no
+		order by talk_date desc
+	</select>
+	
+	<!-- 읽지 않은 쪽지 갯수 -->
+	<select id="unread" parameterType="int" resultType="int">
+		select count(*) from talk t join member m
+		on t.no = m.no
+		where recipient = #{no}
+		and talk_status is null
+	</select>
+	
+	<!-- 쪽지 보관하기 -->
+	<update id="keep" parameterType="java.util.HashMap">
+		update talk set talk_keep = 1
+		where talk_no in(#{talk_no})
+	</update>
 	
 	
 	<resultMap type="com.bitcamp.dto.MemberDTO" id="memberMap">
