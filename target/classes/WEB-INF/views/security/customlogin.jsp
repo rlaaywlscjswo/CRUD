@@ -86,7 +86,7 @@ input[type=submit] {
 	width: 400px;
 }
 
-#login_button {
+#login_button{
 	display: inline-block;
 	font-size: 1em;
 	position: relative;
@@ -105,18 +105,21 @@ input[type=submit] {
 	top: 477px;
 	width: 150px;
 }
+#naver_id_login{
+	display: inline-block;
+}
 </style>
 </head>
 <body>
 	<div class="wrap">
-
+		<div>
 		<h1>병훈쓰가 만든 임시 로그인 페이지</h1>
 
 		<span>Enter your email address and your password to sign in.</span>
 
 		<form action="/login" method="post">
-
 			<div>
+
 				<label for="username" id="email"><strong>Email
 						address</strong></label> <input type="text" name="username" id="username">
 			</div>
@@ -136,12 +139,22 @@ input[type=submit] {
 
 			<input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}">
-
 		</form>
-			<div id="naver_id_login"></div>
+			</div>
 			<div id="signup"><a href="/signup">회원 가입</a></div>
+			<div id="naver_id_login"></div>
 
 	</div>
 
+<script type="text/javascript">
+  	var naver_id_login = new naver_id_login("6rXHgI2ZoOW_8CoLjVmW", "http://localhost:8080/MiniPro2/naverlogin.do&svctype=0");
+  	var state = naver_id_login.getUniqState();
+  	naver_id_login.setButton("white", 2,40);
+  	naver_id_login.setDomain("http://localhost:8080/MiniPro2/teatime.do");
+  	naver_id_login.setState(state);
+  	/* naver_id_login.setPopup(false); */
+  	naver_id_login.init_naver_id_login();
+  	//window.close();
+  </script>
 </body>
 </html>
