@@ -9,19 +9,33 @@
 	
 	<!-- 회원 번호, 이름, 이메일, 펀딩 이름, 달성 금액 / 목표 금액, 성공 여부 / 달성률, 계약서 -->
 
-	<resultMap type="com.bitcamp.dto.MemberDTO" id="mdto">
+	<resultMap type="hashmap" id="mdto">
 		<result property="no" column="no" />
 		<result property="name" column="name" />
 		<result property="email" column="email" />
 		<result property="project_title" column="project_title" />
-		<result property="targetprice" column="targetprice" />
-		<result property="project_status" column="project_status" />
+		<result property="sumop" column="option_price" />
+		<result property="ntargetprice" column="targetprice" />
+		<result property="reachper" column="targetprice" />
 		<result property="project_contract" column="project_contract" />
 	</resultMap>
 	
 	<select id="admin_fmember" resultMap="mdto">
-		select member.no, name, email, project_title, targetprice, project_status, project_contract
-		from member join project on member.no = project.no
+		select member.no, name, email, project_title, 
+		sum(option_price) as sumop, targetprice as ntargetprice, 
+		round(sum(option_price) / targetprice * 100, 2) as
+		reachper, 
+		project_contract
+		
+		from support join `option` on support.option_no = `option`.option_no
+		right join project on `option`.project_no = project.project_no
+		right join member on member.no = project.no
+		join authority on member.no = authority.no		
+		
+		<where>
+		and auth = 'ROLE_MANAGER'
+		</where>
+		group by project.project_no
 		<!-- limit #{startRow}, #{pagePerSize} -->
 	</select>
 

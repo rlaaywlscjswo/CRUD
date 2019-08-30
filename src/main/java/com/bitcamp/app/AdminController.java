@@ -22,8 +22,13 @@ public class AdminController {
 	private AdminService adminService;
 	
 	// 펀딩 회원 관리
-	@RequestMapping("/admin_fmember")
+	@RequestMapping("/fmember")
 	public String admin_fmember(Model model) {
+		
+		int a = 5;
+		int b = a;
+		a = 10;
+		
 		
 		List<MemberDTO> fmemberList = adminService.admin_fmember();
 		model.addAttribute("fmemberList", fmemberList);
