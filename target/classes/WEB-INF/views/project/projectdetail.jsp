@@ -77,6 +77,11 @@ position: relative;
 bottom: 22120px;
 left: 60px;
 }
+#img{
+width: 150px;
+height: 150px;
+border-radius: 100px;
+}
 #writer{
 border:1px solid;
 width: 360px;
@@ -172,6 +177,7 @@ el.innerHTML = (myPDF) ? "PDFObject was successful!" : "Uh-oh, the embed didn't 
 <div id="right">
 <div id="writer">
 <div id="alias">창작자 : ${list.alias}</div>
+<div><img id="img" alt="창작자 프로필 사진" src="${list.img}"></div>
 <div id="introduce">소개글 : ${list.introduce }</div>
 </div>
 

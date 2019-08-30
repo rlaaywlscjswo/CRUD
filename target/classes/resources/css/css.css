@@ -1,15 +1,18 @@
 .m-signature-pad {		
-	width: 500px;
-	height: 500px;	
-
+	width: 300px;
+	height: 300px;		
+    
 }
+
+ 
  .m-signature-pad--body
   canvas {
-	width: 100%;
-	height: 100%;	
+	width:300px;
+	height:300px;	
+	border: 1px solid;		
 } 
 
-@media screen and (max-width: 1024px) {
+/* @media screen and (max-width: 1024px) {
 	.m-signature-pad {
 		top: 0;
 		left: 0;
@@ -37,5 +40,5 @@
 		top: 0;
 		bottom: 32px;
 	}
-
+ */
 }

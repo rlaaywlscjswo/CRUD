@@ -21,4 +21,6 @@ public interface ProjectService {
 	public int viewcnt(int project_no); // 프로젝트 조회수
 	// 메인 화면에서 보여주는 프로젝트 list
 	public List<ProjectDTO> mainHitList(); // 인기순으로 보여주는 프로젝트 list
+	// 서명 업댓!!!!!!!!!!!!!!!!!!!!!!!
+	public int sign(String sign, int no); // 사인 파일명 , 회원 번호 
 }

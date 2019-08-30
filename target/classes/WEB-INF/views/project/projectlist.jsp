@@ -64,7 +64,7 @@ display: inline-block;
             <span class="sr-only">Next</span>
           </a>
         </div>
-		<p>검색 결과 총 ${total }개 나왔습니다~ </p>
+		<p>${searchtxt}을  검색한 결과 총 ${total }개 나왔습니다~ </p>
         <div class="row">
 			
 			

@@ -57,7 +57,7 @@
 				member.name like CONCAT('%',#{searchtxt},'%')
 			</if>
 		</where>
-		order by project_no
+		order by startdate desc
 		limit #{startRow},9
 	</select>
 
@@ -70,7 +70,8 @@
 	join category
     on project.category_no=category.category_no
     where category.main_category =#{main_category}	
-	order by project.project_no
+	order by startdate desc
+	limit #{startRow},9
 	</select>
 
 	<select id="projectsearchno" parameterType="int" resultType="int">
@@ -102,8 +103,6 @@
 		select * from `option` where project_no= #{project_no}		
 	</select>
 	
-	
-	
 	<!-- 프로젝트 등록 form에서 (5)옵션탭 -->
 	<insert id="projectoptionInsert" parameterType="java.util.HashMap">	
 	insert into `option` (project_no,option_name,option_price,option_contents,option_quantity)
@@ -112,6 +111,13 @@
 	(#{item.project_no} ,#{item.option_name}, #{item.option_price} ,#{item.option_contents} ,#{item.option_quantity})
 	</foreach> 
 	</insert>	
+	
+	
+	<!-- 서명 -->
+	<update id="sign" parameterType="java.util.HashMap">
+		update member set sign =#{sign} where no = #{no}
+	</update>
+	
 	
 	<!-- 조회수  -->
 	<update id="viewcnt" parameterType="int">

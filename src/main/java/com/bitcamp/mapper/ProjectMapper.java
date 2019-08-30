@@ -24,4 +24,8 @@ public interface ProjectMapper {
 	///////////////////////////////////////////////////////////////
 	// 메인 화면에서 보여주는 프로젝트 list
 	public List<ProjectDTO> mainHitList(); // 인기순으로 보여주는 프로젝트 list
+	///////////////////////////////////////////////////////////
+	// 서명 update !!!!!!!!
+	public int sign(HashMap<String, Object> dto);
+	
 }
