@@ -7,6 +7,10 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 <style type="text/css">
+#main{
+background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+}
+
 #first{
 width:1231px;
 height: 750.33px;
@@ -39,6 +43,7 @@ float: right;
 position: relative;
 bottom: 500px;
 right: 10px;
+background-color: white;
 }
 #paybtn{
  border: 1px solid; 
@@ -67,6 +72,7 @@ margin: 0 auto;
 border: 1px solid;
 width: 690px;
 height: 22121px;
+background-color: white;
 }
 
 #right{
@@ -87,6 +93,7 @@ border:1px solid;
 width: 360px;
 height: 390px;
 margin: 0 auto;
+background-color: white;
 }
 
 #option{
@@ -95,6 +102,7 @@ width: 360px;
 height: 312px;
 margin: 0 auto;
 margin-top: 20px;
+background-color: white;
 }
 
 .pdfobject-container {
@@ -113,35 +121,12 @@ margin-top: 20px;
 
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<!-- <script src="/resources/js/pdfobject.min.js"></script> -->
 <script type="text/javascript">	
-$(function () {
-/* var options = {
-    pdfOpenParams: {
-        navpanes: 0,
-        toolbar: 0,
-        statusbar: 0,
-        view: "FitV",
-        pagemode: "thumbs",
-        page: 2
-    },
-    forcePDFJS: true,
-  	/*  PDFJS_URL: "/resources/pdfjs/web/viewer.html"};  */
-
- 
-/* var myPDF = PDFObject.embed("/resources/pdf/summer.pdf", "#pdf", options);
- 
-var el = document.querySelector("#results");
-el.setAttribute("class", (myPDF) ? "success" : "fail");
-el.innerHTML = (myPDF) ? "PDFObject was successful!" : "Uh-oh, the embed didn't work."; */
-
-/* var path = "C:/bitcamp/study/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/CRUD/upload/"; */
-});
-
-
+	$(function () {
+	
+	});
 
 </script>
-
 
 </head>
 <body>
@@ -161,16 +146,19 @@ el.innerHTML = (myPDF) ? "PDFObject was successful!" : "Uh-oh, the embed didn't 
 </aside>
 </div>
 
-
-
-
-
-
 <div id="second">
 <div id="content">
 <div id="results" class="hidden"></div>
-<div id="pdf"></div>
-<%-- ${list.project_contents } --%>
+<div id="pdf">
+<div id="my-pdf" class=" pdfobject-container">
+<embed class="pdfobject" src="https://pipwerks.com/pdfobject/file.php?item=sample-3pp#view=FitV&amp;pagemode=thumbs&amp;search=lorem%20ipsum&amp;page=2" type="application/pdf" style="overflow: auto; width: 100%; height: 100%;" internalinstanceid="79">
+</div>
+
+
+
+
+</div>
+
 </div>
 
 

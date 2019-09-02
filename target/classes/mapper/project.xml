@@ -84,11 +84,11 @@
 	<insert id="projectInsert"
 		parameterType="com.bitcamp.dto.ProjectDTO">
 		insert into project (project_no, project_title, project_photo, targetprice, alias, img, introduce,
-		startdate, enddate, project_contents, no, category_no)
+		startdate, enddate, project_contents, project_contract, no, category_no)
 		values(
 		#{project_no},
 		#{project_title}, #{project_photo}, #{targetprice}, #{alias}, #{img},
-		#{introduce}, #{startdate}, #{enddate}, '테스트.pdf',#{no}, #{category_no})
+		#{introduce}, #{startdate}, #{enddate},'내용.pdf', #{project_contract}, #{no}, #{category_no})
 	</insert>
 
 	<!-- 프로젝트 디테일 -->

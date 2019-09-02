@@ -71,7 +71,7 @@ display: inline-block;
 		<c:forEach var="item" items="${list }">
           <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-              <a href="projectdetail/${item.project_no }"><img class="card-img-top" src="${item.project_photo }" alt=""></a>
+              <a href="projectdetail/${item.project_no }"><img class="card-img-top" src="${item.project_photo }" alt="프로젝트대표사진"></a>
               <div class="card-body">           
 
 				이름:<c:out value="${item.name}"></c:out><br>

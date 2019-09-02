@@ -6,18 +6,26 @@ public class ProjectDTO {
 	private int project_no; // 프로젝트 번호
 	private String project_title; // 프로젝트 제목
 	private MultipartFile project_photo_file; // 프로젝트 대표사진 파일
-	private String project_photo; // 프로젝트 대표사진 파일명
+	private String project_photo; // 프로젝트 대표사진 경로
 	private int targetprice; // 달성금액
 	private String alias; // 창작자 이름 (별칭)
 	private MultipartFile img_file; // 창작자 프로필사진 파일 
-	private String img; // 창작자 프로필 사진 파일명
+	private String img; // 창작자 프로필 사진 경로
 	private String introduce; // 창작자 소개글
 	private String startdate; // 시작일
 	private String enddate; // 종료일	
+	// 내용 pdf 파일 multipartfile dto 추가해야함
 	private String project_contents; // 내용pdf
-	private String project_contract; // 계약서
+	private MultipartFile project_contract_file; // 계약서pdf 파일
+	private String project_contract; // 계약서pdf 경로
 	private int project_views; // 조회수
 	private int project_status; // 승인여부
+	public MultipartFile getProject_contract_file() {
+		return project_contract_file;
+	}
+	public void setProject_contract_file(MultipartFile project_contract_file) {
+		this.project_contract_file = project_contract_file;
+	}
 	private int no; // 회원번호
 	private int category_no; // 카테고리 번호
 	

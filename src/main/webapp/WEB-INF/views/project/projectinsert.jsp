@@ -418,7 +418,7 @@ $(function () {
     	<input type="button" value="옵션 추가 " id="up">
 	    <input type="hidden" id="btncnt" name="btncnt" value="1">
 	    
-    	<input type="submit" id="save" value="등록하기">  	
+    	<!-- <input type="submit" id="save" value="등록하기">   -->	
     	
     	</div> 
     	
@@ -426,7 +426,8 @@ $(function () {
     	
     	<div id="tab6" class="tab_content">  
     	
-    	
+    	<!-- <input type="checkbox" name="terms" value="1">약관1<br>
+    	<input type="checkbox" name="terms" value="2">약관2<br> -->    	
     	 	
     	<div id="signature-pad" class="m-signature-pad">
         <div class="m-signature-pad--body">
@@ -438,7 +439,7 @@ $(function () {
         </div>
     	</div>
    		
-   		
+   		<input type="submit" id="save" value="등록하기">
     	</div> 
     	<!-- #tab6 -->
     	
