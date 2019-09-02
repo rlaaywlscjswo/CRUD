@@ -30,6 +30,7 @@ public class AdminController {
 		model.addAttribute("fmemberList1", fmemberList1);
 		model.addAttribute("fmemberList2", fmemberList2);
 
+		
 		return "/admin/admin_fmember";
 
 	} // end admin_fmember method
