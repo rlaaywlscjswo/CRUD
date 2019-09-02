@@ -2,11 +2,14 @@ package com.bitcamp.app;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -103,18 +106,58 @@ public class MemberController {
 		return "/payment/success.temp";
 	}
 	
+	// 받은 쪽지함 리스트.
 	@RequestMapping("/talk")
 	public String talk(Principal principal, Model model) {
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
 		List<TalkDTO> tdto = memberService.recipientlist(mdto.getNo());
 		int unread = memberService.unread(mdto.getNo());
+		int talknew = memberService.unread(mdto.getNo());
 		
 		model.addAttribute("member", mdto);
 		model.addAttribute("talklist", tdto);
 		model.addAttribute("unread", unread);
+		model.addAttribute("talknew", talknew);
 		return "/member/talk";
 	}
 	
+	// 쪽지 상세페이지
+	@RequestMapping("/talkdetail/{talk_no}")
+	public String talkDetail(@PathVariable int talk_no, Principal principal, Model model) {
+		MemberDTO mdto = memberService.memberinfo(principal.getName());
+		HashMap<TalkDTO, Object> dto = memberService.talkdetail(talk_no);
+		int result = memberService.talkstatus(talk_no); 
+		int talknew = memberService.unread(mdto.getNo());
+		
+		model.addAttribute("member", mdto);
+		model.addAttribute("detail", dto);
+		model.addAttribute("talknew", talknew);
+		return "/member/talkdetail";
+	}
+	
+	// 쪽지 쓰기/답장
+	@RequestMapping("/talkreply/{no}")
+	public String talkreply(@PathVariable int no, Principal principal, Model model) {
+		MemberDTO mdto = memberService.memberinfo(principal.getName());
+		int talknew = memberService.unread(mdto.getNo());
+		// no -> 0 일때 쪽지 쓰기   /   no -> 0 이 아닐때 답장
+		if(no != 0) {
+			System.out.println("답장 하자!");
+		}
+		
+		model.addAttribute("member", mdto);
+		model.addAttribute("talknew", talknew);
+		return "/member/talkreply";
+	}
+	
+	// 쪽지 보내기
+	@RequestMapping(value = "/send", method=RequestMethod.POST)
+	public String send(TalkDTO dto) {
+		int result = memberService.talksend(dto);
+		return "redirect:talk";
+	}
+	
+	// 보관함으로 이동  수정 해야함.
 	@RequestMapping(value = "/keep", method=RequestMethod.POST)
 	public @ResponseBody String talk(@RequestBody List<Integer> talk_no) {
 		List<TalkDTO> list = new ArrayList<TalkDTO>(); 

@@ -82,15 +82,46 @@
 	
 	<!-- 받은 쪽지 리스트 -->
 	<select id="recipientlist" parameterType="int" resultMap="talk">
-		select talk_no, talk_title, name, email, date_format(talk_date, "%m-%d") talk_date , talk_status, talk_keep
+		select talk_no, talk_title, name, email, talk_status, talk_keep, talk_date
 		from member m join 
-			(select talk_title, talk_date, t.no, talk_status, talk_no, talk_keep
+			(select talk_title, t.no, talk_status, talk_no, talk_keep, 
+				case date_format(talk_date, "%m-%d")
+					when date_format(now(), "%m-%d") then date_format(talk_date, "%T")
+				else date_format(talk_date, "%m-%d")
+				end talk_date
 			from talk t join member m
 			on t.no = m.no
 			where recipient = #{no} and talk_keep = 0) t
 		where m.no = t.no
-		order by talk_date desc
+		order by talk_no desc
 	</select>
+	
+	<insert id="talksend" parameterType="com.bitcamp.dto.TalkDTO">
+		insert into talk(talk_title, talk, recipient, no) 
+		values(#{talk_title}, #{talk}, #{recipient}, #{no})
+	</insert>
+	
+	<resultMap type="hashMap" id="taildetails">
+		<result column="talk_no" property="talk_no" />
+		<result column="talk_title" property="talk_title" />
+		<result column="talk" property="talk" />
+		<result column="talk_date" property="talk_date" />
+		<result column="name" property="name" />
+	</resultMap>
+	
+	<!-- 쪽지 상세 내용 -->
+	<select id="talkdetail" parameterType="int" resultMap="taildetails">
+		select talk_no, talk_title, talk, talk_img, date_format(talk_date, "%Y-%m-%d %T") talk_date, name, t.no as no
+		from talk t join member m
+		on t.no = m.no
+		where talk_no = #{talk_no}
+	</select>
+	
+	<!-- 쪽지 읽음 처리 -->
+	<update id="talkstatus" parameterType="int">
+		update talk set talk_status = now()
+		where talk_no = #{talk_no}
+	</update>
 	
 	<!-- 읽지 않은 쪽지 갯수 -->
 	<select id="unread" parameterType="int" resultType="int">
@@ -105,7 +136,6 @@
 		update talk set talk_keep = 1
 		where talk_no in(#{talk_no})
 	</update>
-	
 	
 	<resultMap type="com.bitcamp.dto.MemberDTO" id="memberMap">
 		<result property="no" column="no" />

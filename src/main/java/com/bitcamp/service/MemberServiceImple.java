@@ -110,4 +110,19 @@ public class MemberServiceImple implements MemberService {
 		return mapper.keep(map);
 	}
 
+	@Override
+	public HashMap<TalkDTO, Object> talkdetail(int talk_no) {
+		return mapper.talkdetail(talk_no);
+	}
+
+	@Override
+	public int talkstatus(int talk_no) {
+		return mapper.talkstatus(talk_no);
+	}
+
+	@Override
+	public int talksend(TalkDTO dto) {
+		return mapper.talksend(dto);
+	}
+
 }
