@@ -18,25 +18,36 @@
 		<result property="ntargetprice" column="targetprice" />
 		<result property="reachper" column="targetprice" />
 		<result property="project_contract" column="project_contract" />
+		<result property="arating" column="rating" />
 	</resultMap>
 	
-	<select id="admin_fmember" resultMap="mdto">
-		select member.no, name, email, project_title, 
-		sum(option_price) as sumop, targetprice as ntargetprice, 
-		round(sum(option_price) / targetprice * 100, 2) as
-		reachper, 
-		project_contract
-		
-		from support join `option` on support.option_no = `option`.option_no
-		right join project on `option`.project_no = project.project_no
-		right join member on member.no = project.no
-		join authority on member.no = authority.no		
-		
+	<select id="admin_fmember1" resultMap="mdto">
+		select member.no, name, email, project_title, avg(rating) as arating, project.project_no
+		from project join member on project.no = member.no
+		join authority on authority.no = member.no
+		left join reply on reply.project_no = project.project_no
+		join `option` on `option`.project_no = project.project_no
+		left join support on `option`.option_no = support.option_no		
 		<where>
 		and auth = 'ROLE_MANAGER'
 		</where>
 		group by project.project_no
+		order by name
 		<!-- limit #{startRow}, #{pagePerSize} -->
 	</select>
-
+	
+	<select id="admin_fmember2" resultMap="mdto">
+		select project.project_no, sum(option_price) as sumop, targetprice as ntargetprice, 
+		round(sum(option_price) / targetprice * 100, 2) as reachper, 
+		project_contract
+		from support join `option` on support.option_no = `option`.option_no
+		right join project on project.project_no = `option`.project_no
+		join member on member.no = project.no
+		join authority on authority.no = member.no
+		<where>
+		and auth = 'ROLE_MANAGER'
+		</where>
+		group by project.project_no
+		order by name
+	</select>
 </mapper>

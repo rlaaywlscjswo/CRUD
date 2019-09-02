@@ -9,7 +9,10 @@ import com.bitcamp.dto.MemberDTO;
 @Mapper
 public interface AdminMapper {
 
-	// 펀딩 회원 관리
-	public List<MemberDTO> admin_fmember();
+	// 펀딩 회원 관리 1
+	public List<MemberDTO> admin_fmember1();
+	
+	// 펀딩 회원 관리 2
+	public List<MemberDTO> admin_fmember2();
 	
 } // end AdminMapper interface
