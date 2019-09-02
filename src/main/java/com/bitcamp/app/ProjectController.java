@@ -4,19 +4,19 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.StringTokenizer;
+
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.junit.runners.Parameterized.Parameter;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,11 +34,13 @@ import com.bitcamp.service.CategoryService;
 import com.bitcamp.service.MemberService;
 import com.bitcamp.service.PDFService;
 import com.bitcamp.service.ProjectService;
-import com.itextpdf.text.log.SysoLogger;
+
 
 @Controller
 public class ProjectController {
 	private String path = "/resources/upload"; // 파일저장 폴더명 : upload
+	private String signpath ="/resources/sign"; // 파일저장 폴더명 : sign
+	private String pdfpath = "/resources/contractpdf"; // 파일저장 폴더명 : pdfpath(계약서pdf)
 	
 	@Resource(name="service")
 	private ProjectService service;
@@ -122,16 +124,41 @@ public class ProjectController {
 	
 	}	
 	
+	// 서명 ajax 
+	@RequestMapping(value="sign", method= {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody String sign(@RequestParam String sign									
+									,HttpServletRequest request // 업로드
+									,Principal principal
+									){	
+		System.out.println("들어는갔냐?");
+		String s = StringUtils.split(sign,",")[1];
+		System.out.println("싸인    "+s);
+		String fileName = "sign"+System.currentTimeMillis()+".jpg";	
+		System.out.println("파일 내임"+fileName);		
+		MemberDTO mdto = memberservice.memberinfo(principal.getName());
+		int no = mdto.getNo();	
+		System.out.println("회원번호"+no);				
+		try {					
+			String uploadpath = request.getSession().getServletContext().getRealPath(signpath);	// 경로	
+			System.out.println(uploadpath);						
+				FileUtils.writeByteArrayToFile(new File(uploadpath,fileName), Base64.decodeBase64(s));
+				mdto.setSign(uploadpath+"\\"+fileName);	
+			
+		}catch(IOException e) {			
+			System.out.println(e.getMessage());			
+		}		
+		String signsignpath =  mdto.getSign();
+		
+		System.out.println("서명이미지 경로: "+ mdto.getSign());		
+		service.sign(signsignpath, no); // update sign service	
+		//pdfservice.createContractPdf(mdto.getSign());
+		return signsignpath;
+	}
+	
 	// 프로젝트 등록 결과 
-	// 1) 대표사진 , 프로젝트제목, 카테고리 -> 프로젝트 테이블
-	// 2) 사업자명, 사업자구분, 개인, 법인, 소재지, 법인 설립연월일, 홈페이지 -> 사업자 테이블
-	// 3) 창작자 프로필사진 , 창작자이름, 창작자소개 -> 프로젝트 테이블
-	// 4) 프로젝트 설명글.. 근데 이건 db에 저장하는게 아니라 pdf로 변환 해줘서 pdf파일명으로 db에 저장 -> 프로젝트 테이블
-	// 5) 옵션명, 가격, 내용, 수량 -> 옵션테이블 (아직 완성아님..)
-	// 6) ------ summernote에 작성한 내용 pdf로 변환...... 서버에 업로드...... 파일명 디비에 저장.. ------
 	@RequestMapping("projectresult")
 	public String projectinsertresult(
-			HttpServletRequest request
+			HttpServletRequest request //업로드
 			,BusinessDTO busdto
 			,@ModelAttribute ProjectDTO dto			
 			,@RequestParam String[] option_name			
@@ -143,28 +170,44 @@ public class ProjectController {
 			,Principal principal) { 		
 		MemberDTO mdto = memberservice.memberinfo(principal.getName());
 		System.out.println("회원 이름 : "+mdto.getName());
+		System.out.println("회원 싸인 --------"+mdto.getSign());
 		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일 
 		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일			
-		
+		MultipartFile project_contract = dto.getProject_contract_file(); // 계약서pdf 파일		
+		String contract_filename = "pdf"+System.currentTimeMillis()+".pdf";	//계약서pdf 파일 이름	
 		try {				
 			String uploadpath = request.getSession().getServletContext().getRealPath(path);	// 경로
+			String contract_pdfpath = request.getSession().getServletContext().getRealPath(pdfpath); // 계약서pdf 경로	
+			
+			String realpath = contract_pdfpath+"\\"+contract_filename;	
+			System.out.println("realpath?"+realpath);
+			
+			pdfservice.createContractPdf(mdto.getSign(),realpath); // 계약서pdf 생성 service
+			
+			//File file3 = new File(contract_pdfpath,contract_filename); // 계약서pdf
+			//project_contract.transferTo(file3);			
+			dto.setProject_contract(pdfpath+"/"+contract_filename); 
+			System.out.println("리소스거시기냐?"+dto.getProject_contract());
 			
 			if(!project_photo.isEmpty()&&!img.isEmpty()) { // 대표사진, 프로필사진 둘다있을때 
 				File file = new File(uploadpath, project_photo.getOriginalFilename()); // 프로젝트 대표사진
-				project_photo.transferTo(file);				
-				dto.setProject_photo(path+"/"+dto.getProject_photo_file().getOriginalFilename()); 				
+				project_photo.transferTo(file);								
+				dto.setProject_photo(path+"/"+dto.getProject_photo_file().getOriginalFilename()); 	
+				
 				File file2 = new File(uploadpath, img.getOriginalFilename());// 창작자 프로필사진
 				img.transferTo(file2);
-				dto.setImg(path+"/"+dto.getImg_file().getOriginalFilename());				
+				dto.setImg(path+"/"+dto.getImg_file().getOriginalFilename());					
+				
 				System.out.println("프로젝트 제목 : " + dto.getProject_title());
 				System.out.println("대표사진 파일명 : " + dto.getProject_photo());		
 				System.out.println("창작자 프로필 사진"+ dto.getImg());			
-				System.out.println("경로 : "+dto.getProject_photo());				
-				
-			}			
+				System.out.println("경로 : "+dto.getProject_photo());	
+				System.out.println("pdf경로 맞냐? : "+dto.getProject_contract());
+			}						
 		}catch(IOException e) {			
 			System.out.println(e.getMessage());			
 		}				
+		
 		System.out.println("옵션갯수 (클릭수) : "+btncnt);
 		
 		int projectsearchno=service.projectsearchno(dto.getCategory_no());
@@ -172,7 +215,18 @@ public class ProjectController {
 		dto.setProject_no(projectsearchno);		
 		dto.setNo(mdto.getNo()); // 로그인한 no값을 insert쿼리문으로
 		System.out.println("회원번호 : "+dto.getNo());
+		
+		//계약서 pdf		
+		System.out.println("사인 경로 :"+mdto.getSign());
+		
+		
 		int result = service.projectInsert(dto); // projectdto 
+		
+		
+		//계약서 pdf		
+		System.out.println("사인 경로 :"+mdto.getSign());
+		pdfservice.createContractPdf(mdto.getSign(),dto.getProject_contract()); // 계약서pdf 생성 service
+		
 		
 		System.out.println("1 프로젝트 번호"+dto.getProject_no());
 		System.out.println("프로젝트 등록 ");  
@@ -196,17 +250,16 @@ public class ProjectController {
 			System.out.println("금액 : "+option_price[i]);
 			System.out.println("내용 : "+option_contents[i]);
 		}			
-	
-		System.out.println("리스트 : " +list);
-		
+		System.out.println("리스트 : " +list);		
 		
 		int result2 = service.projectoptionInsert(list);
 		
-		System.out.println("옵션등록");
+		System.out.println("옵션등록");		
 		
-		//System.out.println("2 프로젝트 번호"+((OptionDTO) optdto).getProject_no());		
-		pdfservice.createPdf(summernote);
+		pdfservice.createSummernotePdf(summernote);
 		System.out.println("컨트롤러에서 pdf서비스 실행");	
+		
+		
 		
 		//return "redirect:/projectlist.temp";
 		return "project/projectinsertresult.temp";

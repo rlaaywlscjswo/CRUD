@@ -93,5 +93,13 @@ public class ProjectServiceImple implements ProjectService {
 		return mapper.mainHitList();
 	}
 
+	@Override
+	public int sign(String sign, int no) {
+		HashMap<String, Object> dto = new HashMap<>();
+		dto.put("sign", sign);
+		dto.put("no", no);
+		return mapper.sign(dto);
+	}
+
 	
 }

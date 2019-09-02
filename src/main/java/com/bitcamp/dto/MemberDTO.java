@@ -2,6 +2,8 @@ package com.bitcamp.dto;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MemberDTO {
 
 	private int no; // 회원 번호
@@ -14,7 +16,8 @@ public class MemberDTO {
 	private String joindate; // 가입일
 	private boolean enabled; // 접근
 	private int rank_no; // 등급 번호
-	private int auth_no; // 권한 번호
+	private int auth_no; // 권한 번호	
+	private String sign; // 서명이미지 경로
 
 	private List<AuthorityDTO> authList; // 권한 list
 	private List<ProjectDTO> projectList; // 프로젝트 list
@@ -121,6 +124,16 @@ public class MemberDTO {
 
 	public void setAuth_no(int auth_no) {
 		this.auth_no = auth_no;
+	}	
+
+	public String getSign() {
+		return sign;
 	}
 
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
+
+	
+	
 } // end MemberDTO class

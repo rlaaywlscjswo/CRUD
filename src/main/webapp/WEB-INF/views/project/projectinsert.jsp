@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> 
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
@@ -73,16 +72,15 @@ ul.tabs li.active {
     padding:5px;
     list-style:none;
 }
-;
- #container {
- 	border:1px solid red;
+
+#container {
+ 	
  	height:1000px;
     width: 1300px;
    	margin: 0 auto; 
    
 
 }
-
 .btn2{
 margin-top:20px;
 border: 1px solid;
@@ -207,7 +205,7 @@ $(function () {
     
  // sign pad
     
-    var canvas = $("#signature-pad canvas")[0];
+ var canvas = $("#signature-pad canvas")[0];
 		var sign = new SignaturePad(canvas, {
 			minWidth: 2,
 			maxWidth: 4,
@@ -221,44 +219,46 @@ $(function () {
 			else if ( $(this).data("action")=="save" ){
 				if (sign.isEmpty()) {
 					alert("사인해 주세요!!");
-				} else {
+				}else {
+					var ss = sign.toDataURL(); 
 					$.ajax({
-						url : "save.jsp",
-						method : "post",
-						dataType : "json",
-						data : {
-							sign : sign.toDataURL()
+						url : "http://localhost:8080/sign",
+						method : "POST",
+						dataType : "text",
+						data : {						
+							sign : ss							
 						},
 						success : function(r){
-							alert("저장완료 : " + r.filename);
+							console.log(r);
+							alert("저장완료 : " + r);
 							sign.clear();
 						},
-						error : function(res){
-							console.log(res);
+						error : function(res, errcode,xh){						
+							console.log(res+","+errcode+", "+xh+"실패다");
 						}
 					});
 				}
 			}
 		});
 		
-		
-		function resizeCanvas(){
+});			
+	/* 	function resizeCanvas(){
 			var canvas = $("#signature-pad canvas")[0];	
 			var ratio =  Math.max(window.devicePixelRatio || 1, 1);
 			canvas.width = canvas.offsetWidth * ratio;
 			canvas.height = canvas.offsetHeight * ratio;
 			canvas.getContext("2d").scale(ratio, ratio);
 		}
-	    
+    
 	    $(window).on("resize", function(){
 			resizeCanvas();
 		});
 
-		resizeCanvas();     
+		resizeCanvas();
+     */
     
     
-    
-});
+
 
 
 
@@ -418,7 +418,7 @@ $(function () {
     	<input type="button" value="옵션 추가 " id="up">
 	    <input type="hidden" id="btncnt" name="btncnt" value="1">
 	    
-    	<input type="submit" id="save" value="등록하기">  	
+    	<!-- <input type="submit" id="save" value="등록하기">   -->	
     	
     	</div> 
     	
@@ -426,27 +426,25 @@ $(function () {
     	
     	<div id="tab6" class="tab_content">  
     	
-    	
+    	<!-- <input type="checkbox" name="terms" value="1">약관1<br>
+    	<input type="checkbox" name="terms" value="2">약관2<br> -->    	
     	 	
     	<div id="signature-pad" class="m-signature-pad">
-    	
-        	<div class="m-signature-pad--body">
-            	<canvas ></canvas>
-       		</div>
-        	<div class="m-signature-pad--footer">           
-            	<button type="button" class="button clear" data-action="clear">지우기</button>
-            	<button type="button" class="button save" data-action="save">저장</button>            
+        <div class="m-signature-pad--body">
+            <canvas width="300" height="300"></canvas>
         </div>
-        
-   		</div>
+        <div class="m-signature-pad--footer">           
+            <button type="button" class="button clear" data-action="clear">지우기</button>
+            <button type="button" class="button save" data-action="save">저장</button>            
+        </div>
+    	</div>
    		
-   		
+   		<input type="submit" id="save" value="등록하기">
     	</div> 
     	<!-- #tab6 -->
     	
     	<!-- 로그인 했으면 이거 넣어줘야 함 -->
-    	<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}">    	
+    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">    	
     	
     <!-- .tab_container -->
     </form>

@@ -17,38 +17,40 @@ public class AdminController {
 
 	@Autowired
 	private MemberService service;
-	
+
 	@Autowired
 	private AdminService adminService;
-	
+
 	// 펀딩 회원 관리
-	@RequestMapping("/admin_fmember")
+	@RequestMapping("/fmember")
 	public String admin_fmember(Model model) {
-		
-		List<MemberDTO> fmemberList = adminService.admin_fmember();
-		model.addAttribute("fmemberList", fmemberList);
-		
+
+		List<MemberDTO> fmemberList1 = adminService.admin_fmember1();
+		List<MemberDTO> fmemberList2 = adminService.admin_fmember2();
+		model.addAttribute("fmemberList1", fmemberList1);
+		model.addAttribute("fmemberList2", fmemberList2);
+
 		return "/admin/admin_fmember";
-		
+
 	} // end admin_fmember method
-	
+
 	@RequestMapping("/admin")
 	public String adminPage(Principal principal, Model model) {
-		
+
 		model.addAttribute("needemail", principal.getName());
-		
+
 		return "/admin/admin";
-		
+
 	} // end adminPage method
-	
+
 	@RequestMapping("/changeAuth")
-	public String changeAuth(Principal principal, Model model) {		
-		
+	public String changeAuth(Principal principal, Model model) {
+
 		int result = service.changeAuth(principal.getName());
-		model.addAttribute("changeAuth", result);		
-		
+		model.addAttribute("changeAuth", result);
+
 		return "redirect:/admin";
-		
+
 	} // end changeAuth method
-	
+
 } // end AdminController class
