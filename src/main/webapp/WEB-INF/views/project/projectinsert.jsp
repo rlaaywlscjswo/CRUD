@@ -431,7 +431,7 @@ $(function () {
     	 	
     	<div id="signature-pad" class="m-signature-pad">
         <div class="m-signature-pad--body">
-            <canvas width="300" height="300"></canvas>
+            <canvas width="300" height="100"></canvas>
         </div>
         <div class="m-signature-pad--footer">           
             <button type="button" class="button clear" data-action="clear">지우기</button>

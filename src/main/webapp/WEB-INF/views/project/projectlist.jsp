@@ -7,6 +7,10 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 <style type="text/css">
+#main{
+
+
+}
 #page{
 position: relative;
 
@@ -26,7 +30,7 @@ display: inline-block;
 
       <div class="col-lg-3">
 
-        <h1 class="my-4">Shop Name</h1>
+        <h1 class="my-4">CRUD</h1>
         <div class="list-group">
           <a href="#" class="list-group-item">Category 1</a>
           <a href="#" class="list-group-item">Category 2</a>
