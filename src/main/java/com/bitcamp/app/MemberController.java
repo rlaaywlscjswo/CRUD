@@ -144,7 +144,7 @@ public class MemberController {
 		if(no != 0) {
 			System.out.println("답장 하자!");
 		}
-		
+		 
 		model.addAttribute("member", mdto);
 		model.addAttribute("talknew", talknew);
 		return "/member/talkreply";
