@@ -7,8 +7,17 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 <style type="text/css">
+body{
+/* background-image: url("/resources/img/cloud.jpg"); */
+ background-image: linear-gradient(to top, #ffe6e6,#e5ccff, #cce6ff,#ccdcff);
+}
+
 #main{
-background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+width: 80%;
+margin: 0 auto;
+/* background-image: linear-gradient(to top, #ffe6e6,#e5ccff, #cce6ff); */
+background-color: rgba(255,255,255,0.5);
+
 }
 
 #first{
@@ -24,44 +33,32 @@ margin: 0 auto;
 text-align: center;
 }
 #photo{
-border: 1px solid;
 width: 650px;
 height: 487.5px;
 overflow: hidden;
+background-color: #fff;
+background-clip: border-box;
+border: 1px solid rgba(0, 0, 0, 0.125);
+border-radius: 10px;
+box-shadow: 6px 11px 41px -28px #a99de7;
 }
 
 #project_photo_path{
-width: 650px;
-height: 487.5px;
+width: 100%;
+height: 100%;
 }
 
 #side{
-border:1px solid;
 width: 360px;
 height: 495.33px;
 float: right;
 position: relative;
 bottom: 500px;
 right: 10px;
-background-color: white;
 }
-#paybtn{
- border: 1px solid; 
- width: 100%; 
- height: 50px;
- text-align: center;
+#paybtn{ 
  position: relative;
- top:290px;
-}
-#paybtn a{
-text-decoration: none;
-font-size: 37px;
- width: 100%; 
- height: 50px;
- text-align: center;
-}
-#paybtn:hover{
-background-color: blue;
+ top:150px;
 }
 #second{
 width: 1231px;
@@ -89,20 +86,16 @@ height: 150px;
 border-radius: 100px;
 }
 #writer{
-border:1px solid;
 width: 360px;
 height: 390px;
 margin: 0 auto;
-background-color: white;
 }
 
 #option{
-border:1px solid;
 width: 360px;
 height: 312px;
 margin: 0 auto;
 margin-top: 20px;
-background-color: white;
 }
 
 .pdfobject-container {
@@ -134,19 +127,79 @@ background-color: white;
 <div id="title">${list.project_title }</div>
 <div id="views">조회수${list.project_views }</div>
 <div id="category">카테고리번호${list.category_no }</div>
-<div id="photo"><img id="project_photo_path" alt="프로젝트대표사진" src="${list.project_photo }"></div>
+<div id="photo">
+<img id="project_photo_path" alt="프로젝트대표사진" src="${list.project_photo }">
+</div>
 <aside id="side">
-<p>모인금액</p>
+<div class="card" style="width: 360px; height: 495.33px;">
+  <div class="card-body">   
+    <p class="card-text">
+    <p>모인금액</p>
 <p>종료일:${list.enddate }</p>
 <p>후원자</p>
 <div id="taget">펀딩진행중<br>목표금액인${list.targetprice }이 모여야만 결제됩니다.</div>
 <div id="paybtn">
-<a href="projectoption/${list.project_no }">후원하기</a>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  후원하기
+</button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    <c:forEach var="opt" items="${option }">
+	<form action="pay" method="post">
+		<div id="option">
+		<div class="card" style="width: 360px;height: 312px;">
+ 	    <div class="card-body">
+    	<h5 class="card-title">후원 옵션</h5>
+    	<h6 class="card-subtitle mb-2 text-muted">서브없음</h6>
+    	<p class="card-text">
+    	<c:out value="${opt.option_no }"/><br>
+		<c:out value="${opt.option_name}"/><br>
+		<c:out value="${opt.option_price }"/><br>
+		<c:out value="${opt.option_contents }"/><br>
+		<c:out value="${opt.option_quantity }"/><br>
+		<c:out value="${opt.project_no }"/><br>
+		
+		<input type="hidden" name="option_no" value="${opt.option_no }">
+		<input type="hidden" name="option_name" value="${opt.option_name }">
+		<input type="hidden" name="option_price" value="${opt.option_price }">
+		<input type="hidden" name="option_contents" value="${opt.option_contents }">
+		<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
+		<input type="hidden" name="alias" value="${list.alias}">   	    
+    	                                   
+    	</p>
+   		<button class="btn btn-sm btn-outline-secondary">후원하기</button>
+  		</div>
+		</div>		
+		</div>
+	</form>
+</c:forEach>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</p>    
+</div>
 </div>
 </aside>
 </div>
 
+
 <div id="second">
+
 <div id="content">
 <div id="results" class="hidden"></div>
 <div id="pdf">
@@ -164,15 +217,26 @@ background-color: white;
 
 <div id="right">
 <div id="writer">
-<div id="alias">창작자 : ${list.alias}</div>
-<div><img id="img" alt="창작자 프로필 사진" src="${list.img}"></div>
-<div id="introduce">소개글 : ${list.introduce }</div>
+<div class="card" style="width: 360px; height: 390px;">
+  <div class="card-body">
+    <h5 class="card-title">창작자 소개</h5>
+    <h6 class="card-subtitle mb-2 text-muted"> <div id="alias">창작자 : ${list.alias}</div> </h6>
+    <p class="card-text"><div><img id="img" alt="창작자 프로필 사진" src="${list.img}"></div>
+    <div id="introduce">소개글 : ${list.introduce }</div></p>
+   <button class="btn btn-sm btn-outline-secondary">쪽지로 문의하기</button> 
+  </div>
+</div>
 </div>
 
 <c:forEach var="opt" items="${option }">
 	<form action="pay" method="post">
 		<div id="option">
-		<c:out value="${opt.option_no }"/><br>
+		<div class="card" style="width: 360px;height: 312px;">
+ 	    <div class="card-body">
+    	<h5 class="card-title">후원 옵션</h5>
+    	<h6 class="card-subtitle mb-2 text-muted">서브없음</h6>
+    	<p class="card-text">
+    	<c:out value="${opt.option_no }"/><br>
 		<c:out value="${opt.option_name}"/><br>
 		<c:out value="${opt.option_price }"/><br>
 		<c:out value="${opt.option_contents }"/><br>
@@ -184,8 +248,12 @@ background-color: white;
 		<input type="hidden" name="option_price" value="${opt.option_price }">
 		<input type="hidden" name="option_contents" value="${opt.option_contents }">
 		<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
-		<input type="hidden" name="alias" value="${list.alias}">
-		<button>구매하기</button>
+		<input type="hidden" name="alias" value="${list.alias}">   	    
+    	                                   
+    	</p>
+   		<button class="btn btn-sm btn-outline-secondary">구매하기</button>
+  		</div>
+		</div>		
 		</div>
 	</form>
 </c:forEach>

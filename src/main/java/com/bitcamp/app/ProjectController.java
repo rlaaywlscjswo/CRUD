@@ -42,22 +42,23 @@ public class ProjectController {
 	private String signpath ="/resources/sign"; // 파일저장 폴더명 : sign
 	private String pdfpath = "/resources/contractpdf"; // 파일저장 폴더명 : pdfpath(계약서pdf)
 	
-	@Resource(name="service")
+	@Resource(name="service") // 프로젝트 서비스
 	private ProjectService service;
 	
-	@Resource
+	@Resource // 회원 서비스
 	private MemberService memberservice;
 	
-	@Resource(name="categoryservice")
+	@Resource(name="categoryservice") // 카테고리 서비스
 	private CategoryService categoryservice;
 	
-	@Resource(name="businessservice")
+	@Resource(name="businessservice") // 사업자 서비스
 	private BusinessService businessservice;
 	
-	@Resource
+	@Resource // pdf 서비스
 	private PDFService pdfservice;
-		
-	@RequestMapping("main")
+	
+	// 메인 페이지
+	@RequestMapping("main") 
 	public String main(Model model) {
 		List<ProjectDTO> dto = service.mainHitList();
 		model.addAttribute("list", dto);
@@ -150,15 +151,14 @@ public class ProjectController {
 		String signsignpath =  mdto.getSign();
 		
 		System.out.println("서명이미지 경로: "+ mdto.getSign());		
-		service.sign(signsignpath, no); // update sign service	
-		//pdfservice.createContractPdf(mdto.getSign());
+		service.sign(signsignpath, no); // update sign service			
 		return signsignpath;
 	}
 	
 	// 프로젝트 등록 결과 
 	@RequestMapping("projectresult")
 	public String projectinsertresult(
-			HttpServletRequest request //업로드
+			HttpServletRequest request 
 			,BusinessDTO busdto
 			,@ModelAttribute ProjectDTO dto			
 			,@RequestParam String[] option_name			
@@ -183,9 +183,7 @@ public class ProjectController {
 			System.out.println("realpath?"+realpath);
 			
 			pdfservice.createContractPdf(mdto.getSign(),realpath); // 계약서pdf 생성 service
-			
-			//File file3 = new File(contract_pdfpath,contract_filename); // 계약서pdf
-			//project_contract.transferTo(file3);			
+			//pdfservice.pdfpdf(mdto.getSign(), realpath);
 			dto.setProject_contract(pdfpath+"/"+contract_filename); 
 			System.out.println("리소스거시기냐?"+dto.getProject_contract());
 			
@@ -217,24 +215,19 @@ public class ProjectController {
 		System.out.println("회원번호 : "+dto.getNo());
 		
 		//계약서 pdf		
-		System.out.println("사인 경로 :"+mdto.getSign());
+		System.out.println("사인 경로 :"+mdto.getSign());		
 		
-		
-		int result = service.projectInsert(dto); // projectdto 
-		
+		int result = service.projectInsert(dto); // projectdto 		
 		
 		//계약서 pdf		
 		System.out.println("사인 경로 :"+mdto.getSign());
-		pdfservice.createContractPdf(mdto.getSign(),dto.getProject_contract()); // 계약서pdf 생성 service
-		
+		pdfservice.createContractPdf(mdto.getSign(),dto.getProject_contract()); // 계약서pdf 생성 service		
 		
 		System.out.println("1 프로젝트 번호"+dto.getProject_no());
-		System.out.println("프로젝트 등록 ");  
-		
+		System.out.println("프로젝트 등록 ");  		
 		
 		int result3= businessservice.businessInsert(busdto); // businesssdto			
-		System.out.println("사업자 등록 ");  			
-		
+		System.out.println("사업자 등록 ");  					
 		
 		List<OptionDTO> list = new ArrayList<OptionDTO>();
 		
@@ -257,13 +250,10 @@ public class ProjectController {
 		System.out.println("옵션등록");		
 		
 		pdfservice.createSummernotePdf(summernote);
-		System.out.println("컨트롤러에서 pdf서비스 실행");	
-		
-		
-		
-		//return "redirect:/projectlist.temp";
+		System.out.println("컨트롤러에서 pdf서비스 실행");			
+
 		return "project/projectinsertresult.temp";
-	}	
+	}		
 	
 	// 프로젝트 상세 페이지
 	@RequestMapping("projectdetail/{project_no}")
@@ -276,10 +266,11 @@ public class ProjectController {
 		return "project/projectdetail.temp";
 	}
 	
-	@RequestMapping("projectoption/{project_no}")
+	// 프로젝트 옵션 
+	/*@RequestMapping("projectdetail/projectoption/{project_no}")
 	public String projectoption(@PathVariable int project_no, Model model) {
 		List<OptionDTO> option = service.projectoptionList(project_no);
 		model.addAttribute("option", option);
 		return "project/projectoption.temp";
-	}
+	}*/
 }

@@ -5371,7 +5371,8 @@ button.bg-dark:focus {
   .sticky-top {
     position: sticky;
     top: 0;
-    z-index: 1020; } }
+    z-index: 1020; 
+    width: 100%;} }
 
 .sr-only {
   position: absolute;
