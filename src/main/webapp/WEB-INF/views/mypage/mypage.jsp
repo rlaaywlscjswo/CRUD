@@ -91,6 +91,7 @@ h4 {
 						}
 
 						function list(url, content) {
+							console.log(url);
 							$.ajax({
 								url : url,
 								dataType : "html",

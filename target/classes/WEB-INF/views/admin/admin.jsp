@@ -8,8 +8,105 @@
 <head>
 <meta charset="UTF-8">
 <title>어드어드 어드민</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+	jQuery.noConflict();
+	jQuery(document).ready(function($) {
+		
+		$('#btn').on('click', function() {
+			
+/* 			$.ajax({
+				
+				type : "get",
+				url : "/fmember",
+				data : "${flist1.name}",
+				dataType: "script",
+				success : function(data) {
+					alert("success!!");
+					alert("data : " + data);
+					$('p').append(data);
+				},
+				error : function(data) {
+					alert("error!!");
+					alert("babo : " + data);
+				}
+				
+			}); // end ajax test */
+			
+			var board = {};
+			var lstCnt = 10;
+			board.boardList = {
+					init : function(cmpnNo, lstCnt) {
+						var page = 1;
+						board.boardList.param.pageNumber = Number(page);
+						board.boardList.param.cmpnNo = cmpnNo;
+						board.boardList.param.pageSize = lstCnt;
+						board.boardList.data();
+					},
+					data : function() {
+						$.ajax({
+							url : '/fmember',
+							data : board.boardList.param,
+							success : function(result) {
+								var boardList = result.boardList;
+								if(boardList.length != 0) {
+									board.boardList.totalCount = boardList[0].totalCount;
+								};
+								drawPagination(lstCnt);
+								var markup = "";
+								$('#result').html(markup);
+							},
+							error : function() {
+								alert('오류래.. ㄸㅂ');
+							}
+						});
+					}, 
+					param : {
+						pageNumber : 1,
+						pageSize : lstCnt
+					},
+					totalCount : 0
+			};
+			
+			function drawPagination(lstCnt) {
+				$('#boardPagingDiv').pagination({
+					items : board.boardList.totalCount,
+					currentPage : board.boardList.param.pageNumber,
+					itemsOnPage : lstCnt,
+					displayPages : lstCnt,
+					selectOnClick : function(currentPage) {
+						searchBoardListPaging(currentPage);
+					}
+				});
+			}
+			
+			function searchBoardListPaging (page) {
+				board.boardList.param.pageNumber = Number(page);
+				board.boardList.data();
+				drawPagination(lstCnt);
+			}
+			
+		}); // end on
+	});	// end ready	
+</script>
 </head>
 <body>
+
+
+<h1>ajax Test</h1>
+
+<p></p>
+
+<input type="button" id="btn" value="눌러봥">
+<div id="result"></div>
+
+<br>
+<hr>
+<br>
+
+
+
+
 
 	<div style="border: 1px solid crimson; width: 1000px; height: 500px;">
 	
