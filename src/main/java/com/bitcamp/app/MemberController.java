@@ -181,7 +181,7 @@ public class MemberController {
 		int result = memberService.keep(talk_no);
 		return "redirect:talk";
 	}
-	
+	 
 	// 받은 쪽지함으로 이동 (단일, 복수)
 	@RequestMapping(value = "/move", method=RequestMethod.POST)
 	public String move(@RequestParam(value="talk_no") List<String> talk_no, Principal principal) {
