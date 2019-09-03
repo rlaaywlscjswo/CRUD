@@ -24,10 +24,13 @@ public interface MemberService {
 	public int supportinsert(SupportDTO sdto);
 	public MemberDTO memberinfo(String email);
 	public ProjectDTO projectinfo(int option_no);
-	public int unread(int no);
-	public int keep(List<TalkDTO> list);
+	public int unread(TalkDTO dto);
 	public HashMap<TalkDTO, Object> talkdetail(int talk_no);
 	public int talkstatus(int talk_no);
 	public int talksend(TalkDTO dto);
+	public int keep(List<String> talk_no);
+	public List<TalkDTO> recipientkeeplist(int no);
+	public int talkdelete(List<String> talk_no);
+	public int move(List<String> talk_no);
 	
 }

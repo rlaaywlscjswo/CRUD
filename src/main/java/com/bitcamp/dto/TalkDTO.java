@@ -5,14 +5,19 @@ public class TalkDTO {
 	private String talk_title;	// 제목
 	private String talk;		// 내용
 	private String talk_img;	// 이미지
+	private int talk_keep;		// 보관여부 (0 일반 / 1 보관)
 	private String talk_date;	// 보낸 날짜
 	private String talk_status;	// 읽은 날짜
 	private int recipient;		// 받는이
 	private int no;				// 보내는이
 	
 	public TalkDTO() {}
+	public TalkDTO(int no, int talk_keep) {
+		this.no = no;
+		this.talk_keep = talk_keep;
+	}
 	public TalkDTO(int talk_no, String talk_title, String talk, String talk_img, String talk_date, String talk_status,
-			int recipient, int no) {
+			int recipient, int no, int talk_keep) {
 		this.talk_no = talk_no;
 		this.talk_title = talk_title;
 		this.talk = talk;
@@ -21,6 +26,14 @@ public class TalkDTO {
 		this.talk_status = talk_status;
 		this.recipient = recipient;
 		this.no = no;
+		this.talk_keep = talk_keep;
+	}
+	
+	public int getTalk_keep() {
+		return talk_keep;
+	}
+	public void setTalk_keep(int talk_keep) {
+		this.talk_keep = talk_keep;
 	}
 	public int getTalk_no() {
 		return talk_no;

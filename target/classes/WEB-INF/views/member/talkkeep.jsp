@@ -17,13 +17,13 @@
 	<dd>
 		<ul>
 			<li class=""><span class="orange"><a href="/talkreply/0" >쪽지 보내기</a></span></li>
-			<li class="selected oldstart"><span class="orange"><a href="/talk" >받은 쪽지함
+			<li class=""><span class="orange"><a href="/talk" >받은 쪽지함
 				<c:if test="${unread gt 0}">
 					<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
 				</c:if>
 			</a></span></li>
 			<li class=""><span class="orange"><a href="?folder=sent" >보낸 쪽지함</a></span></li>
-			<li class=""><span class="orange size3"><a href="/talkkeep" >쪽지 보관함
+			<li class="selected oldstart"><span class="orange size3"><a href="/talkkeep" >쪽지 보관함
 				<c:if test="${keepunread gt 0}">
 					<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
 				</c:if>
@@ -36,9 +36,9 @@
 
 <script>
 // 쪽지 보관함으로 이동시키는 함수
-function keep() {
+function move() {
 	let fmObj = document.getElementById("fmNoteData");
-	fmObj.action = "keep";
+	fmObj.action = "move";
 	fmObj.submit();
 }
 // 쪽지 삭제 함수
@@ -59,15 +59,11 @@ $(document).ready(function(){
 	});
 });
 </script>
-<h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">받은 편지함</strong>입니다.
-<c:if test="${0 gt unread}">
-	(읽지 않은 쪽지: ${unread}통)
-</c:if>
-<a href="javascript:setAllread();" class="allread" >모두읽음</a></h1>
+<h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">보관 편지함</strong>입니다.</h1>
 <div id="noteList">
 	<div class="cmdWrap">
 		<a id="cmdDelete" class="bttn46" href="javascript:deletes();" >삭제</a>
-		<a id="cmdStore" class="bttn46" href="javascript:keep();">보관</a>
+		<a id="cmdStore" class="bttn65" href="javascript:move();">받은 쪽지함으로</a>
 		<a id="cmdWrite" class="bttn92w" href="/talkreply/0" >쪽지보내기</a>
 	</div>
 

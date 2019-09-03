@@ -84,7 +84,7 @@ body, a, td {
 #noteLeft dl.menu li {
 	padding: 10px 0 5px 0;
 	background:
-		url(http://static.inven.co.kr/image/member/note/dot_2x1_B8B8B8.gif)
+		url(/resources/img/dot_2x1_B8B8B8.gif)
 		left top repeat-x;
 }
 
@@ -95,7 +95,7 @@ body, a, td {
 
 #noteLeft dl.menu li span.orange {
 	background:
-		url(http://static.inven.co.kr/image/member/note/bul_circle_orange.gif)
+		url(/resources/img/bul_circle_orange.gif)
 		left 3px no-repeat;
 	margin-left: 6px;
 	float: left;
@@ -117,7 +117,7 @@ body, a, td {
 
 #noteLeft dl.menu li a:hover {
 	background:
-		url(http://static.inven.co.kr/image/member/note/bul_dblarrow_black.gif)
+		url(/resources/img/bul_dblarrow_black.gif)
 		right 3px no-repeat;
 }
 
@@ -140,7 +140,7 @@ body, a, td {
 #noteMain h1.note {
 	height: auto;
 	background:
-		url(http://static.inven.co.kr/image/member/note/icon_note.gif) 6px top
+		url(/resources/img/icon_note.gif) 6px top
 		no-repeat;
 	padding: 2px 0 0 34px;
 	margin: 0;
@@ -176,7 +176,7 @@ body, a, td {
 	text-align: center;
 	display: inline;
 	background:
-		url(http://static.inven.co.kr/image/member/note/bttn_note46.gif) left
+		url(/resources/img/bttn_note46.gif) left
 		top no-repeat;
 }
 
@@ -192,7 +192,7 @@ body, a, td {
 	text-align: center;
 	display: inline;
 	background:
-		url(http://static.inven.co.kr/image/member/note/bttn_note92_write.gif)
+		url(/resources/img/bttn_note92_write.gif)
 		left top no-repeat;
 }
 
@@ -207,7 +207,7 @@ body, a, td {
 	text-align: center;
 	display: inline;
 	background:
-		url(http://static.inven.co.kr/image/member/note/bttn_note65.gif) left
+		url(/resources/img/bttn_note65.gif) left
 		top no-repeat;
 }
 
@@ -223,7 +223,7 @@ body, a, td {
 	text-indent: 18px;
 	display: inline;
 	background:
-		url(http://static.inven.co.kr/image_2011/member/note/bttn_note75_sendDel.gif)
+		url(/resources/img/bttn_note75_sendDel.gif)
 		left top no-repeat;
 }
 
@@ -239,7 +239,7 @@ body, a, td {
 	text-align: center;
 	display: inline;
 	background:
-		url(http://static.inven.co.kr/image/member/note/bttn_note76_list.gif)
+		url(/resources/img/bttn_note76_list.gif)
 		left top no-repeat;
 }
 
@@ -294,7 +294,7 @@ body, a, td {
 
 #noteWrite table.content td {
 	background:
-		url(http://static.inven.co.kr/image/member/note/dot_2x3_9C9C9C_td.gif)
+		url(/resources/img/dot_2x3_9C9C9C_td.gif)
 		left top repeat-x;
 	vertical-align: top;
 	line-height: 150%;
@@ -339,7 +339,7 @@ body, a, td {
 	height: auto;
 	padding: 9px 0 8px 0;
 	background:
-		url(http://static.inven.co.kr/image/member/note/dot_2x1_9C9C9C.gif)
+		url(/resources/img/dot_2x1_9C9C9C.gif)
 		left top repeat-x;
 	border-bottom: solid 1px #B5B6B5;
 }
@@ -367,7 +367,7 @@ body, a, td {
 	overflow: hidden;
 	display: inline-block;
 	background:
-		url(http://static.inven.co.kr/image/member/note/bttn_allread.gif) left
+		url(/resources/img/bttn_allread.gif) left
 		top no-repeat;
 }
 
@@ -398,7 +398,7 @@ body, a, td {
 	clear: both;
 	padding-top: 8px;
 	background:
-		url(http://static.inven.co.kr/image/member/note/dot_3x1_CCCCCC.gif)
+		url(/resources/img/dot_3x1_CCCCCC.gif)
 		left top repeat-x;
 }
 
@@ -438,7 +438,7 @@ body, a, td {
 	font-family: gulim, 援대┝;
 	font-size: 9pt;
 	background:
-		url(http://static.inven.co.kr/image/member/note/dot_1x5_CCCCCC_td.gif)
+		url(/resources/img/dot_1x5_CCCCCC_td.gif)
 		left top repeat-x;
 }
 
@@ -628,7 +628,7 @@ body, a, td {
 
 #noteView table.content td {
 	background:
-		url(http://static.inven.co.kr/image/member/note/dot_2x3_9C9C9C_td.gif)
+		url(/resources/img/dot_2x3_9C9C9C_td.gif)
 		left top repeat-x;
 	padding: 9px 0 3px 0;
 	vertical-align: top;
@@ -676,7 +676,7 @@ body, a, td {
 	height: auto;
 	padding: 9px 0 8px 0;
 	background:
-		url(http://static.inven.co.kr/image/member/note/dot_2x1_9C9C9C.gif)
+		url(/resources/img/dot_2x1_9C9C9C.gif)
 		left top repeat-x;
 	border-bottom: solid 1px #B5B6B5;
 }
@@ -700,4 +700,12 @@ body, a, td {
 
 .unread {
 	color: #0459c1;
+}
+.title{
+	cursor:pointer;
+}
+.content{
+	border:0;
+	cellpadding:0;
+	cellspacing:0;
 }

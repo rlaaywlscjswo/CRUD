@@ -35,11 +35,16 @@ public interface MemberMapper {
 	public MemberDTO memberinfo(String email); // 회원 정보
 	public ProjectDTO projectinfo(int option_no); // 프로젝트 정보
 	public List<TalkDTO> recipientlist(int no); // 받은 쪽지 리스트
-	public int unread(int no); // 읽지 않은 쪽지 갯수
-	public int keep(HashMap<String, Object> talk_no); // 쪽지 보관함으로 이동.
+	public int unread(TalkDTO dto); // 읽지 않은 쪽지 갯수
 	public HashMap<TalkDTO, Object> talkdetail(int talk_no); // 쪽지 상세
 	public int talkstatus(int talk_no); // 쪽지 읽음 처리.
 	public int talksend(TalkDTO dto); // 쪽지 보내기
+	public int keep(List<String> list); // 쪽지 보관함으로 이동. (쪽지 보관 -> 보관)
+	public int move(List<String> talk_no); // 쪽지 보관함으로 이동 (보관 -> 쪽지 보관)
+	public List<TalkDTO> recipientkeeplist(int no); // 보관함 쪽지 리스트
+	public int talkdelete(List<String> talk_no); // 쪽지 삭제
+
+
 
 	
 	

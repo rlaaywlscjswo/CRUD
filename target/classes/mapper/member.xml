@@ -4,6 +4,9 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.bitcamp.mapper.MemberMapper">
+	<parameterMap id="map" type="java.util.HashMap"/>
+	<parameterMap id="list" type="java.util.ArrayList"/>
+	
 	<select id="emailcheck" parameterType="String" resultType="int">
 		select count(*) 
 		from member 
@@ -96,6 +99,22 @@
 		order by talk_no desc
 	</select>
 	
+	<!-- 받은 쪽지 리스트 -->
+	<select id="recipientkeeplist" parameterType="int" resultMap="talk">
+		select talk_no, talk_title, name, email, talk_status, talk_keep, talk_date
+		from member m join 
+			(select talk_title, t.no, talk_status, talk_no, talk_keep, 
+				case date_format(talk_date, "%m-%d")
+					when date_format(now(), "%m-%d") then date_format(talk_date, "%T")
+				else date_format(talk_date, "%m-%d")
+				end talk_date
+			from talk t join member m
+			on t.no = m.no
+			where recipient = #{no} and talk_keep = 1) t
+		where m.no = t.no
+		order by talk_no desc
+	</select>
+	
 	<insert id="talksend" parameterType="com.bitcamp.dto.TalkDTO">
 		insert into talk(talk_title, talk, recipient, no) 
 		values(#{talk_title}, #{talk}, #{recipient}, #{no})
@@ -124,17 +143,45 @@
 	</update>
 	
 	<!-- 읽지 않은 쪽지 갯수 -->
-	<select id="unread" parameterType="int" resultType="int">
+	<select id="unread" parameterType="com.bitcamp.dto.TalkDTO" resultType="int">
 		select count(*) from talk t join member m
 		on t.no = m.no
 		where recipient = #{no}
+		and talk_keep = #{talk_keep}
 		and talk_status is null
 	</select>
 	
 	<!-- 쪽지 보관하기 -->
-	<update id="keep" parameterType="java.util.HashMap">
+	<update id="keep" parameterMap="list">
 		update talk set talk_keep = 1
-		where talk_no in(#{talk_no})
+		where talk_no in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	<update id="move" parameterMap="list">
+		update talk set talk_keep = 0
+		where talk_no in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
+	<!-- 쪽지 삭제 -->
+	<delete id="talkdelete">
+		delete from talk
+		where talk_no in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="updateList" parameterMap="list">
+		<foreach separator=";" close="; end ; " open="declare begin" collection="list" item="item"> 
+			update pitem set price = price-#{item.value, jdbcType=NUMERIC} 
+			where item = #{item.key, jdbcType=NUMERIC} 
+		</foreach>
 	</update>
 	
 	<resultMap type="com.bitcamp.dto.MemberDTO" id="memberMap">

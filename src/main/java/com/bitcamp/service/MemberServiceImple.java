@@ -96,18 +96,8 @@ public class MemberServiceImple implements MemberService {
 	}
 
 	@Override
-	public int unread(int no) {
-		return mapper.unread(no);
-	}
-
-	@Override
-	public int keep(List<TalkDTO> list) {
-		HashMap<String, Object> map = new HashMap<>();
-		for(int i=0; i<list.size(); i++) {
-			System.out.println("보관함으로 "+list.get(i).getTalk_no());
-		}
-		map.put("list", list);
-		return mapper.keep(map);
+	public int unread(TalkDTO dto) {
+		return mapper.unread(dto);
 	}
 
 	@Override
@@ -124,5 +114,29 @@ public class MemberServiceImple implements MemberService {
 	public int talksend(TalkDTO dto) {
 		return mapper.talksend(dto);
 	}
+
+	@Override
+	public int keep(List<String> talk_no) {
+		System.out.println("Service Imple");
+		System.out.println(talk_no.get(0));
+		System.out.println(talk_no);
+		return mapper.keep(talk_no);
+	}
+
+	@Override
+	public List<TalkDTO> recipientkeeplist(int no) {
+		return mapper.recipientkeeplist(no);
+	}
+
+	@Override
+	public int talkdelete(List<String> talk_no) {
+		return mapper.talkdelete(talk_no);
+	}
+
+	@Override
+	public int move(List<String> talk_no) {
+		return mapper.move(talk_no);
+	}
+
 
 }

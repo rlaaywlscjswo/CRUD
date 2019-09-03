@@ -1,10 +1,10 @@
 package com.bitcamp.app;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -111,14 +111,29 @@ public class MemberController {
 	public String talk(Principal principal, Model model) {
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
 		List<TalkDTO> tdto = memberService.recipientlist(mdto.getNo());
-		int unread = memberService.unread(mdto.getNo());
-		int talknew = memberService.unread(mdto.getNo());
+		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
+		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
 		
 		model.addAttribute("member", mdto);
 		model.addAttribute("talklist", tdto);
 		model.addAttribute("unread", unread);
-		model.addAttribute("talknew", talknew);
+		model.addAttribute("keepunread", keepunread);
 		return "/member/talk";
+	}
+	
+	// 보관함 쪽지 리스트.
+	@RequestMapping("/talkkeep")
+	public String talkkeep(Principal principal, Model model) {
+		MemberDTO mdto = memberService.memberinfo(principal.getName());
+		List<TalkDTO> tdto = memberService.recipientkeeplist(mdto.getNo());
+		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
+		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
+		
+		model.addAttribute("member", mdto);
+		model.addAttribute("talklist", tdto);
+		model.addAttribute("unread", unread);
+		model.addAttribute("keepunread", keepunread);
+		return "/member/talkkeep";
 	}
 	
 	// 쪽지 상세페이지
@@ -127,11 +142,13 @@ public class MemberController {
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
 		HashMap<TalkDTO, Object> dto = memberService.talkdetail(talk_no);
 		int result = memberService.talkstatus(talk_no); 
-		int talknew = memberService.unread(mdto.getNo());
+		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
+		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
 		
 		model.addAttribute("member", mdto);
 		model.addAttribute("detail", dto);
-		model.addAttribute("talknew", talknew);
+		model.addAttribute("unread", unread);
+		model.addAttribute("keepunread", keepunread);
 		return "/member/talkdetail";
 	}
 	
@@ -139,14 +156,15 @@ public class MemberController {
 	@RequestMapping("/talkreply/{no}")
 	public String talkreply(@PathVariable int no, Principal principal, Model model) {
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
-		int talknew = memberService.unread(mdto.getNo());
+		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
+		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
 		// no -> 0 일때 쪽지 쓰기   /   no -> 0 이 아닐때 답장
 		if(no != 0) {
 			System.out.println("답장 하자!");
 		}
-		 
 		model.addAttribute("member", mdto);
-		model.addAttribute("talknew", talknew);
+		model.addAttribute("unread", unread);
+		model.addAttribute("keepunread", keepunread);
 		return "/member/talkreply";
 	}
 	
@@ -157,18 +175,46 @@ public class MemberController {
 		return "redirect:talk";
 	}
 	
-	// 보관함으로 이동  수정 해야함.
+	// 보관함으로 이동 (단일, 복수)
 	@RequestMapping(value = "/keep", method=RequestMethod.POST)
-	public @ResponseBody String talk(@RequestBody List<Integer> talk_no) {
-		List<TalkDTO> list = new ArrayList<TalkDTO>(); 
-		for(int i=0; i<talk_no.size(); i++) {
-			TalkDTO dto = new TalkDTO();
-			dto.setTalk_no(talk_no.get(i));
-			System.out.println("보관함으로 가는 : "+talk_no.get(i));
-			list.add(dto);
+	public String keep(@RequestParam(value="talk_no") List<String> talk_no, Principal principal) {
+		int result = memberService.keep(talk_no);
+		return "redirect:talk";
+	}
+	
+	// 받은 쪽지함으로 이동 (단일, 복수)
+	@RequestMapping(value = "/move", method=RequestMethod.POST)
+	public String move(@RequestParam(value="talk_no") List<String> talk_no, Principal principal) {
+		int result = memberService.move(talk_no);
+		return "redirect:talkkeep";
+	}
+	
+	// 쪽지 삭제 (단일, 복수)
+	@RequestMapping(value = "/talkdelete", method=RequestMethod.POST)
+	public String talkdelete(@RequestParam(value="talk_no") List<String> talk_no, HttpServletRequest request, Principal principal) {
+		int result = memberService.talkdelete(talk_no);
+		String str = (String)request.getHeader("REFERER");
+		System.out.println(str);
+		
+		String urlarr[] = str.split("/");
+		/*for(int i=0; i<urlarr.length; i++) {System.out.println("url["+i+"] : "+urlarr[i]);}*/
+		String url = urlarr[3];
+		if("talkdetail".equals(urlarr[3])) {
+			url = "talk";
+		} else {
+			url = str.substring(str.lastIndexOf("8080/")+1);
 		}
-		int result = memberService.keep(list);
-		return "1";
+		
+		return "redirect:"+url;
+	}
+	
+	// 이전 페이지로 돌아가기.
+	@RequestMapping("/back")
+	public String back(HttpServletRequest request) {
+		String str = (String)request.getHeader("REFERER");
+		System.out.println(str);
+		String url = str.substring(str.lastIndexOf("8080/")+1);
+		return "redirect:"+url;
 	}
 	
 	// 현재 로그인된 정보
