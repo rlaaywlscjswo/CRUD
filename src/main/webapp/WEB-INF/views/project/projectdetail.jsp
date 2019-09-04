@@ -73,12 +73,12 @@ background-color: white;
 }
 
 #right{
-width: 500px;
-height: 500px;
-float: right;
-position: relative;
-bottom: 22120px;
-left: 60px;
+	width: 500px;
+    height: 500px;
+    float: right;
+    position: relative;
+    bottom: 22480px;
+    right: 85px;
 }
 #img{
     width: 100px;
@@ -119,6 +119,50 @@ margin-top: 20px;
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">	
 	$(function () {
+		$('[name=replyinsertbtn]').click(function(){ //댓글 등록 버튼 클릭시 
+		    var insertData = $('[name=replyinsertform]').serialize(); //replyinsertform의 내용을 가져옴
+		    replyInsert(insertData); //Insert 함수호출(아래)
+		});
+		
+		//댓글 목록 
+		function commentList(){
+		    $.ajax({
+		        url : '/comment/list',
+		        type : 'get',
+		        data : {'bno':bno},
+		        success : function(data){
+		            var a =''; 
+		            $.each(data, function(key, value){ 
+		                a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+		                a += '<div class="commentInfo'+value.cno+'">'+'댓글번호 : '+value.cno+' / 작성자 : '+value.writer;
+		                a += '<a onclick="commentUpdate('+value.cno+',\''+value.content+'\');"> 수정 </a>';
+		                a += '<a onclick="commentDelete('+value.cno+');"> 삭제 </a> </div>';
+		                a += '<div class="commentContent'+value.cno+'"> <p> 내용 : '+value.content +'</p>';
+		                a += '</div></div>';
+		            });
+		            
+		            $(".commentList").html(a);
+		        }
+		    });
+		}		
+		
+		//댓글 등록
+		function replyInsert(insertData){
+		    $.ajax({
+		        url : '/comment/insert',
+		        type : 'post',
+		        data : insertData,
+		        success : function(data){
+		            if(data == 1) {
+		                commentList(); //댓글 작성 후 댓글 목록 reload
+		                $('[name=content]').val('');
+		            }
+		        }
+		    });
+		}
+
+		
+		
 	
 	});
 
@@ -201,21 +245,49 @@ margin-top: 20px;
 </div>
 
 
-<div id="second">
 
-<div id="content">
-<div id="results" class="hidden"></div>
+
+<div id="second">
+<!-- tab!!!  -->
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#qwe">프로젝트 상세 설명</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#asd">평점 및 댓글</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#zxc">환불</a>
+  </li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="qwe">
+  <div id="content">
 <div id="pdf">
 <div id="my-pdf" class=" pdfobject-container">
 <embed class="pdfobject" src="https://pipwerks.com/pdfobject/file.php?item=sample-3pp#view=FitV&amp;pagemode=thumbs&amp;search=lorem%20ipsum&amp;page=2" type="application/pdf" style="overflow: auto; width: 100%; height: 100%;" internalinstanceid="79">
 </div>
-
-
-
-
+</div>
+</div>
+  
+  </div>
+  <div class="tab-pane fade" id="asd">
+ 	<form method="post" name="replyinsertform">
+ 	<input type="text" id="reply_contents" name="reply_contents">
+ 
+ 	
+ 	</form>
+ 		
+ 		
+ 		
+  </div>
+  <div class="tab-pane fade" id="zxc">
+    <p>${mdtogetno.no }</p>
+    </div>
+</div>
 </div>
 
-</div>
+
 
 
 <div id="right">
@@ -261,6 +333,6 @@ margin-top: 20px;
 	</form>
 </c:forEach>
 </div>
-</div>
+
 </body>
 </html>

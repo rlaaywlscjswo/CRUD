@@ -59,7 +59,7 @@ button {
 								<form action="/customLogout" method="post">
 									<input type="hidden" name="${_csrf.parameterName}"
 										value="${_csrf.token}">
-									<button>로그아웃</button>
+									<button  class="btn btn-sm btn-outline-secondary">로그아웃</button>
 								</form>
 							</sec:authorize>
 
@@ -70,7 +70,7 @@ button {
 							<span class="activity active"></span> <img
 								src="/resources/img/1.jpg" height="100" width="100" alt="">
 						</div>
-s
+
 						
 					</li>
 				</ul>
