@@ -115,6 +115,14 @@ margin-top: 20px;
 .success { color: #4F8A10; background-color: #DFF2BF; }
 .fail { color: #D8000C; background-color: #FFBABA; }
 
+#replyimg{
+width: 50px;
+height: 50px;
+border: 1px solid;
+border-radius: 50px;
+}
+
+
 
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -141,10 +149,14 @@ margin-top: 20px;
 		        	if(result.length < 1){		        		 
 		        		 htmls += '<p>' +"등록된댓글 ㄴㄴ" + '</p>';				  
 					} else {
-			                    $(result).each(function(){
-			                     htmls += '<p>' + this.name + '</p>';				                     
+			                    $(result).each(function(){	    						
+ 	    						 htmls += '<div class="card" style="width: 360px;height: 312px;">';
+ 	    						  htmls += '<p>' + this.reply_no + '</p>';		
+ 	    						 htmls += '<p>' + this.name + '</p>';		
+			                     htmls += '<img id="replyimg" src="'+this.photo+'"alt="프로필사진"/>';	
 								 htmls += '<p>' + this.reply_contents + '</p>';
 								 htmls += '<p>' + this.rating + '</p>';
+								 htmls += '</div>';
 								 });	//each end
 					}
 					$(".replylist").html(htmls);			        		        	

@@ -30,6 +30,7 @@
 	<result column="rating" property="rating"/>
 	<result column="reply_no" property="reply_no"/>
 	<result column="name" property="name"/>
+	<result column="photo" property="photo"/>
 	</resultMap>
 	
 
@@ -175,12 +176,11 @@
 
 	<!-- 댓글 목록 -->
 	<select id="replyList" parameterType="int" resultMap="replydto">
-	select reply_no, member.name, reply_contents, rating
+	select reply_no, member.name, member.photo, reply_contents, rating
 	from reply join member
 	on reply.no = member.no
 	where project_no=#{proejct_no} order by reply_no desc
-	</select>
-	
+	</select>	
 	
 	<!-- 댓글 등록 -->
 	<insert id="replyInsert"
