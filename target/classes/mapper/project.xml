@@ -11,20 +11,29 @@
 		<result column="project_no" property="project_no" />
 		<result column="project_title" property="project_title" />
 		<result column="category_no" property="category_no" />
-		<result column="project_photo" property="project_photo"/>
+		<result column="project_photo" property="project_photo" />
 	</resultMap>
 
-	<!-- detail resultmap -->
+	<!-- detail option resultmap -->
 	<resultMap type="hashMap" id="optdto">
 		<result column="option_no" property="option_no" />
 		<result column="option_name" property="option_name" />
-		<result column="option_price" property="option_price" />
+		<result column="option_price" property="option_prDDice" />
 		<result column="option_contents" property="option_contents" />
 		<result column="option_quantity" property="option_quantity" />
 		<result column="project_no" property="project_no" />
 	</resultMap>
 	
-	<!--  검색 결과 리스트 total -->
+	<!-- reply resultmap -->
+	<resultMap type="hashMap" id="replydto">
+	<result column="reply_contents" property="reply_contents"/>
+	<result column="rating" property="rating"/>
+	<result column="reply_no" property="reply_no"/>
+	<result column="name" property="name"/>
+	</resultMap>
+	
+
+	<!-- 검색 결과 리스트 total -->
 	<select id="totalCount" resultType="int"
 		parameterType="java.util.HashMap">
 		select count(*)
@@ -32,29 +41,38 @@
 		on project.no=member.no
 		<where>
 			<if test="searchtxt !=null and searchtxt !='' ">
-				and project.project_title like CONCAT('%',#{searchtxt},'%') or
-				member.name like CONCAT('%',#{searchtxt},'%')
+				and project.project_title like
+				CONCAT('%',#{searchtxt},'%') or
+				member.name like
+				CONCAT('%',#{searchtxt},'%')
 			</if>
 		</where>
 	</select>
 
-	<!--  카테고리 선택 결과 리스트 total -->
-	<select id="categorytotalCount" resultType="int" parameterType="String">
-	select count(*)
-	from project join category
-	on project.category_no = category.category_no
-	where main_category = #{main_category}
+	<!-- 카테고리 선택 결과 리스트 total -->
+	<select id="categorytotalCount" resultType="int"
+		parameterType="String">
+		select count(*)
+		from project join category
+		on
+		project.category_no = category.category_no
+		where main_category =
+		#{main_category}
 	</select>
 
 	<select id="projectList" resultMap="listdto"
 		parameterType="java.util.HashMap">
-		select member.name, project.project_no, project.project_title, project.category_no, project.project_views, project.project_photo
-		from project join member
+		select member.name, project.project_no, project.project_title,
+		project.category_no, project.project_views, project.project_photo
+		from
+		project join member
 		on project.no=member.no
 		<where>
 			<if test="searchtxt !=null and searchtxt !='' ">
-				and project.project_title like CONCAT('%',#{searchtxt},'%') or
-				member.name like CONCAT('%',#{searchtxt},'%')
+				and project.project_title like
+				CONCAT('%',#{searchtxt},'%') or
+				member.name like
+				CONCAT('%',#{searchtxt},'%')
 			</if>
 		</where>
 		order by startdate desc
@@ -62,73 +80,113 @@
 	</select>
 
 	<!-- 카테고리 선택 결과 list -->
-	<select id="projectcategoryList" parameterType="java.util.HashMap"
-		resultMap="listdto">
-	select member.name, project.project_no, project.project_title, project.category_no, project.project_views, project.project_photo
-	from project join member
-	on project.no=member.no 
-	join category
-    on project.category_no=category.category_no
-    where category.main_category =#{main_category}	
-	order by startdate desc
-	limit #{startRow},9
+	<select id="projectcategoryList"
+		parameterType="java.util.HashMap" resultMap="listdto">
+		select member.name,
+		project.project_no, project.project_title,
+		project.category_no,
+		project.project_views, project.project_photo
+		from project join member
+		on project.no=member.no
+		join category
+		on
+		project.category_no=category.category_no
+		where category.main_category
+		=#{main_category}
+		order by startdate desc
+		limit #{startRow},9
 	</select>
 
-	<select id="projectsearchno" parameterType="int" resultType="int">
-	select max(project_no)+1
-	from category c join project p 
-	on c.category_no = p.category_no
-	where main_category = (select main_category from category where category_no = #{category_no})
+	<select id="projectsearchno" parameterType="int"
+		resultType="int">
+		select max(project_no)+1
+		from category c join project p
+		on
+		c.category_no = p.category_no
+		where main_category = (select
+		main_category from category where category_no
+		= #{category_no})
 	</select>
 
 	<insert id="projectInsert"
 		parameterType="com.bitcamp.dto.ProjectDTO">
-		insert into project (project_no, project_title, project_photo, targetprice, alias, img, introduce,
-		startdate, enddate, project_contents, project_contract, no, category_no)
+		insert into project (project_no, project_title,
+		project_photo, targetprice, alias, img, introduce,
+		startdate, enddate,
+		project_contents, project_contract, no, category_no)
 		values(
 		#{project_no},
-		#{project_title}, #{project_photo}, #{targetprice}, #{alias}, #{img},
-		#{introduce}, #{startdate}, #{enddate},'내용.pdf', #{project_contract}, #{no}, #{category_no})
+		#{project_title}, #{project_photo}, #{targetprice},
+		#{alias}, #{img},
+		#{introduce}, #{startdate}, #{enddate},'내용.pdf',
+		#{project_contract}, #{no}, #{category_no})
 	</insert>
 
 	<!-- 프로젝트 디테일 -->
 	<select id="projectDetail" parameterType="int"
 		resultType="com.bitcamp.dto.ProjectDTO">
-		select * from project where project_no = #{project_no}
+		select * from project where project_no = #{project_no}		
 	</select>
 
 	<!-- 프로젝트 디테일 창에서 보여주는 옵션 list -->
 	<select id="projectoptionList" parameterType="int"
 		resultMap="optdto">
-		select * from `option` where project_no= #{project_no}		
+		select * from `option` where project_no= #{project_no}
 	</select>
-	
+
 	<!-- 프로젝트 등록 form에서 (5)옵션탭 -->
-	<insert id="projectoptionInsert" parameterType="java.util.HashMap">	
-	insert into `option` (project_no,option_name,option_price,option_contents,option_quantity)
-	values		
-	<foreach collection="list" item="item"  separator="," > 
-	(#{item.project_no} ,#{item.option_name}, #{item.option_price} ,#{item.option_contents} ,#{item.option_quantity})
-	</foreach> 
-	</insert>	
-	
-	
+	<insert id="projectoptionInsert"
+		parameterType="java.util.HashMap">
+		insert into `option`
+		(project_no,option_name,option_price,option_contents,option_quantity)
+		values
+		<foreach collection="list" item="item" separator=",">
+			(#{item.project_no} ,#{item.option_name}, #{item.option_price}
+			,#{item.option_contents} ,#{item.option_quantity})
+		</foreach>
+	</insert>
+
+
 	<!-- 서명 -->
 	<update id="sign" parameterType="java.util.HashMap">
-		update member set sign =#{sign} where no = #{no}
+		update member set sign =#{sign}
+		where no = #{no}
 	</update>
-	
-	
-	<!-- 조회수  -->
+
+
+	<!-- 조회수 -->
 	<update id="viewcnt" parameterType="int">
-	update project set project_views = project_views+1 where project_no= #{project_no}
+		update project set
+		project_views = project_views+1 where project_no=
+		#{project_no}
 	</update>
-	
+
 	<!-- main 인기순 프로젝트 list -->
 	<select id="mainHitList" resultMap="listdto">
-	select member.name, project.project_no, project.project_title, project.category_no, project.project_views,project.project_photo
-	from project join member
-	on project.no=member.no 
- 	order by project_views desc
+		select member.name,
+		project.project_no, project.project_title,
+		project.category_no,
+		project.project_views,project.project_photo
+		from project join member
+		on
+		project.no=member.no
+		order by project_views desc
 	</select>
+
+	<!-- 댓글 목록 -->
+	<select id="replyList" parameterType="int" resultMap="replydto">
+	select reply_no, member.name, reply_contents, rating
+	from reply join member
+	on reply.no = member.no
+	where project_no=#{proejct_no} order by reply_no desc
+	</select>
+	
+	
+	<!-- 댓글 등록 -->
+	<insert id="replyInsert"
+		parameterType="com.bitcamp.dto.ReplyDTO">
+		insert into reply (reply_contents,rating,no,project_no)
+		values
+		(#{reply_contents},5,#{no},#{project_no})
+	</insert>
 </mapper>

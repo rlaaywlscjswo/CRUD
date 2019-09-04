@@ -20,16 +20,15 @@ public class ProjectDTO {
 	private String project_contract; // 계약서pdf 경로
 	private int project_views; // 조회수
 	private int project_status; // 승인여부
+	private int no; // 회원번호
+	private int category_no; // 카테고리 번호
+	
 	public MultipartFile getProject_contract_file() {
 		return project_contract_file;
 	}
 	public void setProject_contract_file(MultipartFile project_contract_file) {
 		this.project_contract_file = project_contract_file;
-	}
-	private int no; // 회원번호
-	private int category_no; // 카테고리 번호
-	
-	
+	}	
 	public int getProject_no() {
 		return project_no;
 	}

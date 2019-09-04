@@ -28,10 +28,20 @@ h4 {
 	border: 1px solid chartreuse;
 	display: inline-block;
 	height: 700px;
-	margin-left: 40px; margin-top : 40px;
+	margin-left: 40px;
+	margin-top: 40px;
 	position: relative;
 	width: 1300px;
 	margin-top: 40px;
+}
+
+#my_first {
+	background-color: red;
+}
+
+#my_second {
+	background-color: blue;
+	bottom: 500px;
 }
 
 #tab_1, #tab_2, #tab_3 {
@@ -42,10 +52,24 @@ h4 {
 #content_1, #content_2, #content_3 {
 	display: inline-block;
 	height: 600px;
-	left: 18%; position : relative;
+	left: 18%;
+	position: relative;
 	width: 1000px;
 	position: relative;
 }
+
+span {
+	border: 1px solid silver;
+	display: inline-block;
+	margin: 5px;
+}
+
+#support_main {
+	border: 1px solid dodgerblue;
+	display: inline-block;
+	margin: 10px;
+}
+
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
@@ -79,7 +103,7 @@ h4 {
 							document.getElementById('content_2').style.display = "block";
 							document.getElementById('content_3').style.display = "none";
 							$('#content_2').empty();
-							list("mypro", "content_2");
+							list("mypro", "content_2", 1, "");
 						}
 
 						function showContent_3() {
@@ -87,23 +111,55 @@ h4 {
 							document.getElementById('content_2').style.display = "none";
 							document.getElementById('content_3').style.display = "block";
 							$('#content_3').empty();
-							list("support", "content_3");
+							list("support", "content_3", 1, "");
 						}
 
-						function list(url, content) {
-							console.log(url);
+						function list(url, content, currPage, support_search) {
+							$('#content_3').empty();
 							$.ajax({
 								url : url,
-								dataType : "html",
+								data : "currPage=" + currPage
+										+ "&support_search=" + support_search,
+								type : "GET",
+								dataType : "json",
 								success : function(data) {
-									$('#' + content).append(data);
+									var result = "";
+									var item = data.mySupport_list;
+									var dto = data.dto;
+									var f = dto.firstPageOfBlock;
+									var l = dto.lastPageOfBlock;
+									
+									$(item).each(
+											function(index, d) {
+												result += "<div id='support_main'>" +
+														  "<span>후원 일자 : " + d.da + "</span>" +
+														  "<span>썸네일 이미지 : " + d.project_photo + "</span>" +
+														  "<span>후원 진행 사항 : " + d.support_status + "</span>" +
+														  "<span>프로젝트 이름 : " + d.project_title + "</span>" + 
+														  "<span>선택한 옵션 : " + d.option_name + "</span>" +
+														  "<span>후원 금액 : " + d.option_price + "</span>" + 
+														  "</div>"
+														  ;
+											}); // end each
+
+									$('#content_3').append(result).append(
+											"<div class='t' style='border:1px solid silver'>"
+													+ f + "</div>").append(
+											"<div class='t' style='border:1px solid silver'>"
+													+ l + "<div>");
+
 								},
 								error : function(data) {
-									console.log('error');
+									alert('error');
 								}
-							}); /* end ajax */
-						} /* end function list */
-					}); /* end ready */
+							}); // end ajax
+						} // end function list
+
+						$('div#content_3').on('click', 'div.t', function() {
+							list("support", '#content_3', $(this).text(), '');
+						});
+
+					}); // end ready
 </script>
 </head>
 <body>
@@ -122,7 +178,7 @@ h4 {
 
 		<div id="my_third">
 			<h4 id="tab_3">내 후원 내역</h4>
-			<div id="content_3"></div>
+			<div id="content_3"></div>			
 		</div>
 
 	</div>

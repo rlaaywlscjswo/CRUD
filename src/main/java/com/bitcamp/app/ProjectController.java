@@ -66,7 +66,7 @@ public class ProjectController {
 	}		
 
 	// 프로젝트 카테고리 선택 결과 목록 페이지 
-	@RequestMapping("projectcategorylist={main_category}")
+	@RequestMapping("/projectcategorylist={main_category}")
 	public String categorylist(@PathVariable String main_category, 
 			@RequestParam(required = false, defaultValue = "1") int currPage,
 			Model model) {		
@@ -83,7 +83,7 @@ public class ProjectController {
 	}
 	
 	// 프로젝트 검색 결과 목록 페이지
-	@RequestMapping("projectlist")
+	@RequestMapping("/projectlist")
 	public String list(			
 			@RequestParam(required=false, defaultValue="") String searchtxt,
 			@RequestParam(required = false, defaultValue = "1") int currPage,
@@ -116,7 +116,7 @@ public class ProjectController {
 	
 	
 	// 프로젝트 등록 페이지
-	@RequestMapping("projectinsert")
+	@RequestMapping("/projectinsert")
 	public String projectinsert(Model model) {		
 		List<CategoryDTO> maincategorylist = categoryservice.maincategoryList();		
 		model.addAttribute("mainlist",maincategorylist);		
@@ -257,20 +257,13 @@ public class ProjectController {
 	
 	// 프로젝트 상세 페이지
 	@RequestMapping("projectdetail/{project_no}")
-	public String projectdetail(@PathVariable int project_no, Model model) {		
+	public String projectdetail(@PathVariable int project_no, Model model) {	
 		ProjectDTO detail = service.projectDetail(project_no);
 		List<OptionDTO> option= service.projectoptionList(project_no);
 		int viewcnt = service.viewcnt(project_no);
 		model.addAttribute("list", detail);
-		model.addAttribute("option", option);
+		model.addAttribute("option", option);		
 		return "project/projectdetail.temp";
 	}
-	
-	// 프로젝트 옵션 
-	/*@RequestMapping("projectdetail/projectoption/{project_no}")
-	public String projectoption(@PathVariable int project_no, Model model) {
-		List<OptionDTO> option = service.projectoptionList(project_no);
-		model.addAttribute("option", option);
-		return "project/projectoption.temp";
-	}*/
+
 }
