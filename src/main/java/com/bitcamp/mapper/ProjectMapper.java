@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.bitcamp.dto.OptionDTO;
 import com.bitcamp.dto.ProjectDTO;
+import com.bitcamp.dto.ReplyDTO;
 
 @Mapper
 public interface ProjectMapper {
@@ -27,5 +28,7 @@ public interface ProjectMapper {
 	///////////////////////////////////////////////////////////
 	// 서명 update !!!!!!!!
 	public int sign(HashMap<String, Object> dto);
+	public List<ReplyDTO> replyList(int project_no); // 댓글 목록
+	public int replyInsert(ReplyDTO dto); // 댓글 등록
 	
 }

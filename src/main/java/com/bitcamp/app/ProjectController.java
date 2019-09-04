@@ -257,20 +257,13 @@ public class ProjectController {
 	
 	// 프로젝트 상세 페이지
 	@RequestMapping("projectdetail/{project_no}")
-	public String projectdetail(@PathVariable int project_no, Model model) {		
+	public String projectdetail(@PathVariable int project_no, Model model) {	
 		ProjectDTO detail = service.projectDetail(project_no);
 		List<OptionDTO> option= service.projectoptionList(project_no);
 		int viewcnt = service.viewcnt(project_no);
 		model.addAttribute("list", detail);
-		model.addAttribute("option", option);
+		model.addAttribute("option", option);		
 		return "project/projectdetail.temp";
 	}
-	
-	// 프로젝트 옵션 
-	/*@RequestMapping("projectdetail/projectoption/{project_no}")
-	public String projectoption(@PathVariable int project_no, Model model) {
-		List<OptionDTO> option = service.projectoptionList(project_no);
-		model.addAttribute("option", option);
-		return "project/projectoption.temp";
-	}*/
+
 }
