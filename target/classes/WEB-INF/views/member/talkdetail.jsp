@@ -12,6 +12,9 @@
 <script>
 // 쪽지 삭제 및 보관 함수
 function talk(no, method) {
+	if($(".talk_no:checked").length <= 0){
+		return;
+	}
 	let fmObj = document.getElementById("talk");
 	let talk = document.getElementById("talkvalue").value = no;
 	console.log(no+", "+method);
@@ -32,7 +35,7 @@ function talk(no, method) {
 						<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
 					</c:if>
 				</a></span></li>
-				<li><span class="orange"><a href="?folder=sent" >보낸 쪽지함</a></span></li>
+				<li><span class="orange"><a href="/talksend" >보낸 쪽지함</a></span></li>
 				<li><span class="orange size3"><a href="/talkkeep" >쪽지 보관함
 					<c:if test="${keepunread gt 0}">
 						<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
@@ -69,7 +72,9 @@ function talk(no, method) {
 				<a id="aNoteList" href="/talk" class="bttn76l">리스트</a>
 				<a id="aNoteReply" href="/talkreply/${detail.no}" class="bttn65">답장쓰기</a>
 				<a id="aNoteDelete" href="javascript:talk(${detail.talk_no}, 'talkdelete');" class="bttn46">삭제</a>
+				
 				<a id="aNoteStore" href="javascript:talk(${detail.talk_no}, 'keep');" class="bttn46">보관</a>
+				
 			</div>
 			<form id="talk" action="" method="POST">
 				<input id="talkvalue" type="hidden" name="talk_no">

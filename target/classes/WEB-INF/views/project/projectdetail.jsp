@@ -334,7 +334,7 @@ border-radius: 50px;
 </div>
 
 <c:forEach var="opt" items="${option }">
-	<form action="pay" method="post">
+		<form action="/pay" method="post">	
 		<div id="option">
 		<div class="card" style="width: 360px;height: 312px;">
  	    <div class="card-body">
@@ -347,7 +347,7 @@ border-radius: 50px;
 		<c:out value="${opt.option_contents }"/><br>
 		<c:out value="${opt.option_quantity }"/><br>
 		<c:out value="${opt.project_no }"/><br>
-		
+     
 		<input type="hidden" name="option_no" value="${opt.option_no }">
 		<input type="hidden" name="option_name" value="${opt.option_name }">
 		<input type="hidden" name="option_price" value="${opt.option_price }">

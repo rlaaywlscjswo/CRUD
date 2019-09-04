@@ -43,6 +43,15 @@ public interface MemberMapper {
 	public int move(List<String> talk_no); // 쪽지 보관함으로 이동 (보관 -> 쪽지 보관)
 	public List<TalkDTO> recipientkeeplist(int no); // 보관함 쪽지 리스트
 	public int talkdelete(List<String> talk_no); // 쪽지 삭제
+	public int allread(TalkDTO talkDTO); // 모두 읽음
+	public List<TalkDTO> sentlist(int no); // 보낸 쪽지함 리스트
+	public int deletesent(List<String> talk_no); // 보낸 쪽지 삭제
+	public List<MemberDTO> idsearch(String search); // 회원 검색
+
+
+
+
+
 
 
 

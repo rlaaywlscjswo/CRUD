@@ -115,6 +115,38 @@
 		order by talk_no desc
 	</select>
 	
+	<resultMap type="hashMap" id="sendtalk">
+		<result column="talk_no" property="talk_no" />
+		<result column="talk_title" property="talk_title" />
+		<result column="talk_date" property="talk_date" />
+		<result column="talk_status" property="talk_status" />
+		<result column="recipient" property="recipient" />
+		<result column="name" property="name" />
+	</resultMap>
+	
+	<!-- 보낸 쪽지 리스트 -->
+	<select id="sentlist" parameterType="int" resultMap="sendtalk">
+		select talk_no, talk_title, talk, talk_img, talk_date, recipient, name,
+			case date_format(talk_status, "%m-%d")
+				when date_format(now(), "%m-%d") then date_format(talk_status, "%T")
+			else date_format(talk_status, "%m-%d")
+			end talk_status
+		from member m join talk t
+		on m.no = t.recipient
+		where t.no = #{no}
+		and talk_deletesenttalk = 0
+		order by talk_no desc
+	</select>
+	
+	<!-- 보낸 쪽지 삭제 -->
+	<update id="deletesent">
+		update talk set talk_deletesenttalk = 1
+		where talk_no in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</update>
+	
 	<insert id="talksend" parameterType="com.bitcamp.dto.TalkDTO">
 		insert into talk(talk_title, talk, recipient, no) 
 		values(#{talk_title}, #{talk}, #{recipient}, #{no})
@@ -130,7 +162,7 @@
 	
 	<!-- 쪽지 상세 내용 -->
 	<select id="talkdetail" parameterType="int" resultMap="taildetails">
-		select talk_no, talk_title, talk, talk_img, date_format(talk_date, "%Y-%m-%d %T") talk_date, name, t.no as no
+		select talk_no, talk_title, talk, talk_img, date_format(talk_date, "%Y-%m-%d %T") talk_date, name, talk_keep, t.no as no
 		from talk t join member m
 		on t.no = m.no
 		where talk_no = #{talk_no}
@@ -160,12 +192,29 @@
 		</foreach>
 	</update>
 	
+	<!-- 쪽지 일반(보관함에서 꺼내기)으로 보내기 -->
 	<update id="move" parameterMap="list">
 		update talk set talk_keep = 0
 		where talk_no in
 		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
 			#{item}
 		</foreach>
+	</update>
+	
+	<!-- 쪽지 보낼 때 이메일, 이름 검색 -->
+	<select id="idsearch" parameterType="String" resultType="com.bitcamp.dto.MemberDTO">
+		select * 
+		from member 
+		where name like CONCAT('%',#{search},'%')  
+		or email like CONCAT('%',#{search},'%')
+	</select>
+	
+	<!-- 모두 읽기 -->
+	<update id="allread" parameterType="com.bitcamp.dto.TalkDTO">
+		update talk set talk_status = now()
+		where recipient = #{no}
+		and talk_keep = #{talk_keep}
+		and talk_status is null
 	</update>
 	
 	<!-- 쪽지 삭제 -->

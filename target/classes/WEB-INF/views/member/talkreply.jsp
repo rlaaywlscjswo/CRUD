@@ -29,7 +29,7 @@ textarea.content{
 					<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
 				</c:if>
 			</a></span></li>
-			<li class=""><span class="orange"><a href="?folder=sent" >보낸 쪽지함</a></span></li>
+			<li class=""><span class="orange"><a href="/talksend" >보낸 쪽지함</a></span></li>
 			<li class=""><span class="orange size3"><a href="/talkkeep" >쪽지 보관함
 				<c:if test="${keepunread gt 0}">
 					<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
@@ -44,6 +44,11 @@ textarea.content{
 function submitbtn() {
 	$("form").submit();
 };
+$(document).ready(function(){
+	$('#nick').on('click', function(){
+		let pop = window.open("/idPopup","pops","width=450,height=500, scrollbars=yes, resizable=yes"); 
+	});
+});
 </script>
 <form id="fmNoteWrite" name="fmNoteWrite" action="/send" method="POST">
 <h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">새쪽지쓰기</strong>입니다.</h1>
@@ -51,10 +56,11 @@ function submitbtn() {
 		<table class="content" border="0" cellpadding="0" cellspacing="0">
 			<colgroup><col class="th"/><col class="td"/></colgroup>
 				<tr>
-					<td class="label"><label for="nick">닉네임</label></td>
+					<td class="label"><label for="nick">이메일</label></td>
 					<td class="value">
-						<input class="nick" type="text" id="nick" name="recipient" value="" required="required">
-						<input type="hidden" name="no" value="${member.no}">
+						<input class="nick" type="text" id="nick" name="email" value="" required="required" readonly="readonly">
+						<input type="hidden" name="no" value="${member.no}"><!-- 보낸사람 번호 -->
+						<input type="hidden" name="recipient" value=""><!-- 받는사람 번호 -->
 					</td>
 				</tr>
 				<tr>

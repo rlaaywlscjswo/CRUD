@@ -22,7 +22,7 @@
 					<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
 				</c:if>
 			</a></span></li>
-			<li class=""><span class="orange"><a href="?folder=sent" >보낸 쪽지함</a></span></li>
+			<li class=""><span class="orange"><a href="/talksend" >보낸 쪽지함</a></span></li>
 			<li class=""><span class="orange size3"><a href="/talkkeep" >쪽지 보관함
 				<c:if test="${keepunread gt 0}">
 					<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
@@ -35,16 +35,13 @@
 <div id="noteMain">
 
 <script>
-// 쪽지 보관함으로 이동시키는 함수
-function keep() {
+//쪽지 보관함으로 이동 및 쪽지 삭제 함수
+function talk(method) {
+	if($(".talk_no:checked").length <= 0){
+		return;
+	}
 	let fmObj = document.getElementById("fmNoteData");
-	fmObj.action = "keep";
-	fmObj.submit();
-}
-// 쪽지 삭제 함수
-function deletes() {
-	let fmObj = document.getElementById("fmNoteData");
-	fmObj.action = 'talkdelete';
+	fmObj.action = '/'+method;
 	fmObj.submit();
 }
 
@@ -59,15 +56,16 @@ $(document).ready(function(){
 	});
 });
 </script>
-<h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">받은 편지함</strong>입니다.
-<c:if test="${0 gt unread}">
+<h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">받은 쪽지함</strong>입니다.
+<c:if test="${unread > 0}">
 	(읽지 않은 쪽지: ${unread}통)
+<a href="/allread" class="allread" >모두읽음</a>
 </c:if>
-<a href="javascript:setAllread();" class="allread" >모두읽음</a></h1>
+</h1>
 <div id="noteList">
 	<div class="cmdWrap">
-		<a id="cmdDelete" class="bttn46" href="javascript:deletes();" >삭제</a>
-		<a id="cmdStore" class="bttn46" href="javascript:keep();">보관</a>
+		<a id="cmdDelete" class="bttn46" href="javascript:talk('delete');" >삭제</a>
+		<a id="cmdStore" class="bttn46" href="javascript:talk('keep');">보관</a>
 		<a id="cmdWrite" class="bttn92w" href="/talkreply/0" >쪽지보내기</a>
 	</div>
 

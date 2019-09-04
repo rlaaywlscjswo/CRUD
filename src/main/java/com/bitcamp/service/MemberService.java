@@ -32,5 +32,9 @@ public interface MemberService {
 	public List<TalkDTO> recipientkeeplist(int no);
 	public int talkdelete(List<String> talk_no);
 	public int move(List<String> talk_no);
+	public int allread(TalkDTO talkDTO);
+	public List<TalkDTO> sentlist(int no);
+	public int deletesent(List<String> talk_no);
+	public List<MemberDTO> idsearch(String search);
 	
 }
