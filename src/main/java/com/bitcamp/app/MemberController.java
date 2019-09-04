@@ -58,8 +58,9 @@ public class MemberController {
 		return result;
 	}
 	
-	@RequestMapping(value = "projectdetail/pay", method=RequestMethod.POST)
+	@RequestMapping(value = "/pay", method=RequestMethod.POST)
 	public String pay(OptionDTO odto, @RequestParam(defaultValue="null") String alias, Model model, Principal principal) {
+		System.out.println("페이페이페이페이페이페이");
 		if("null".equals(alias)) {
 			ProjectDTO dto = memberService.projectinfo(odto.getOption_no());
 			alias = dto.getAlias();
@@ -152,6 +153,31 @@ public class MemberController {
 		return "/member/talkdetail";
 	}
 	
+	// 보낸 쪽지함 리스트
+	@RequestMapping("/talksend")
+	public String talksend(Principal principal, Model model) {
+		MemberDTO mdto = memberService.memberinfo(principal.getName());
+		List<TalkDTO> tdto = memberService.sentlist(mdto.getNo());
+		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
+		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
+	
+		model.addAttribute("member", mdto);
+		model.addAttribute("list", tdto);
+		model.addAttribute("unread", unread);
+		model.addAttribute("keepunread", keepunread);
+		return "/member/talksend";
+	}
+	
+	// 보낸 쪽지 삭제
+	@RequestMapping(value = "/deletesent", method=RequestMethod.POST)
+	public String deletesent(@RequestParam(value="talk_no") List<String> talk_no, Principal principal) {
+		for(int i=0; i<talk_no.size(); i++) {
+			System.out.println(talk_no);
+		}
+		int result = memberService.deletesent(talk_no);
+		return "redirect:talksend";
+	}
+	
 	// 쪽지 쓰기/답장
 	@RequestMapping("/talkreply/{no}")
 	public String talkreply(@PathVariable int no, Principal principal, Model model) {
@@ -160,12 +186,27 @@ public class MemberController {
 		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
 		// no -> 0 일때 쪽지 쓰기   /   no -> 0 이 아닐때 답장
 		if(no != 0) {
+			//reply
+			//memberService.reply();
 			System.out.println("답장 하자!");
 		}
 		model.addAttribute("member", mdto);
 		model.addAttribute("unread", unread);
 		model.addAttribute("keepunread", keepunread);
 		return "/member/talkreply";
+	}
+	
+	// 회원 찾기 새창
+	@RequestMapping("/idPopup")
+	public String idPopup() {
+		return "/member/idPopup";
+	}
+	
+	//회원 찾기
+	@RequestMapping(value = "/idsearch", method=RequestMethod.POST)
+	public @ResponseBody List<MemberDTO> idsearch(@RequestParam(required=false) String search, Principal principal) {
+		List<MemberDTO> dto = memberService.idsearch(search); 
+		return dto;
 	}
 	
 	// 쪽지 보내기
@@ -189,6 +230,24 @@ public class MemberController {
 		return "redirect:talkkeep";
 	}
 	
+	// 모두읽음 버튼
+	@RequestMapping("/allread")
+	public String allread(HttpServletRequest request, Principal principal) {
+		MemberDTO mdto = memberService.memberinfo(principal.getName());
+		int keep = 0;
+		String str = (String)request.getHeader("REFERER");
+		String urlarr[] = str.split("/");
+		String url = urlarr[3];
+		if("talkkeep".equals(url)) {
+			keep = 1;
+		} else {
+			keep = 0;
+		} 
+		url = str.substring(str.lastIndexOf("8080/")+5);
+		int result = memberService.allread(new TalkDTO (mdto.getNo(), keep));
+		return "redirect:"+url;
+	}
+	
 	// 쪽지 삭제 (단일, 복수)
 	@RequestMapping(value = "/talkdelete", method=RequestMethod.POST)
 	public String talkdelete(@RequestParam(value="talk_no") List<String> talk_no, HttpServletRequest request, Principal principal) {
@@ -197,14 +256,13 @@ public class MemberController {
 		System.out.println(str);
 		
 		String urlarr[] = str.split("/");
-		/*for(int i=0; i<urlarr.length; i++) {System.out.println("url["+i+"] : "+urlarr[i]);}*/
 		String url = urlarr[3];
 		if("talkdetail".equals(urlarr[3])) {
 			url = "talk";
 		} else {
-			url = str.substring(str.lastIndexOf("8080/")+1);
+			url = str.substring(str.lastIndexOf("8080/")+5);
 		}
-		
+		System.out.println("이동 경로 : "+url);
 		return "redirect:"+url;
 	}
 	
@@ -213,7 +271,7 @@ public class MemberController {
 	public String back(HttpServletRequest request) {
 		String str = (String)request.getHeader("REFERER");
 		System.out.println(str);
-		String url = str.substring(str.lastIndexOf("8080/")+1);
+		String url = str.substring(str.lastIndexOf("8080/")+5);
 		return "redirect:"+url;
 	}
 	

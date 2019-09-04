@@ -17,12 +17,12 @@
 	<dd>
 		<ul>
 			<li class=""><span class="orange"><a href="/talkreply/0" >쪽지 보내기</a></span></li>
-			<li class="selected oldstart"><span class="orange"><a href="/talk" >받은 쪽지함
+			<li class=""><span class="orange"><a href="/talk" >받은 쪽지함
 				<c:if test="${unread gt 0}">
 					<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
 				</c:if>
 			</a></span></li>
-			<li class=""><span class="orange"><a href="/talksend" >보낸 쪽지함</a></span></li>
+			<li class="selected oldstart"><span class="orange"><a href="/talksend" >보낸 쪽지함</a></span></li>
 			<li class=""><span class="orange size3"><a href="/talkkeep" >쪽지 보관함
 				<c:if test="${keepunread gt 0}">
 					<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
@@ -56,19 +56,12 @@ $(document).ready(function(){
 	});
 });
 </script>
-<h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">받은 쪽지함</strong>입니다.
-<c:if test="${unread > 0}">
-	(읽지 않은 쪽지: ${unread}통)
-<a href="/allread" class="allread" >모두읽음</a>
-</c:if>
-</h1>
+<h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">보낸 쪽지함</strong>입니다.</h1>
 <div id="noteList">
 	<div class="cmdWrap">
-		<a id="cmdDelete" class="bttn46" href="javascript:talk('delete');" >삭제</a>
-		<a id="cmdStore" class="bttn46" href="javascript:talk('keep');">보관</a>
+		<a id="cmdDelete" class="bttn46" href="javascript:talk('deletesent');" >삭제</a>
 		<a id="cmdWrite" class="bttn92w" href="/talkreply/0" >쪽지보내기</a>
 	</div>
-
 	<div class="list">
 	<form id="fmNoteData" name="fmNoteData" action="" method="POST">
 		<table border="0" cellpadding="0" cellspacing="0">
@@ -77,44 +70,41 @@ $(document).ready(function(){
 				<th class="chk"><input type="checkbox" id="allcheckbox" name="talk_no" value="0"/></th>
 				<th class="check"></th>
 				<th class="title">제목</th>
-				<th class="nickname">보낸사람</th>
-				<th class="date">날짜</th>
+				<th class="nickname">받는사람</th>
+				<th class="date">읽은날짜</th>
 			</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="list" items="${talklist}">
-				<c:choose>
-					<c:when test="${empty list.talk_status}">
-						<tr class="unread">
-							<td class="chk">
-								<input type="checkbox" class="talk_no" name="talk_no" value="${list.talk_no}" />
-							</td>
-							<td class="check">
+			<c:forEach var="list" items="${list}">
+				<tr>
+					<td class="chk">
+						<input type="checkbox" class="talk_no" name="talk_no" value="${list.talk_no}" />
+					</td>
+					<td class="check">
+						<c:choose>
+							<c:when test="${empty list.talk_status}">
 								<img class="unread" alt="안읽음" src="/resources/img/envelope_close.png">
-							</td>
-							<td class="title">
-								<a href="talkdetail/${list.talk_no }">${list.talk_title} &nbsp;</a>
-							</td>
-							<td class="nickname">${list.name}</td>
-							<td class="date">${list.talk_date}</td>
-						</tr>
-					</c:when>
-					<c:otherwise>
-						<tr class="read">
-							<td class="chk">
-								<input type="checkbox" class="talk_no" name="talk_no" value="${list.talk_no}" />
-							</td>
-							<td class="check">
+							</c:when>
+							<c:otherwise>
 								<img alt="읽음" src="/resources/img/envelope_open.png">
-							</td>
-							<td class="title">
-								<a href="talkdetail/${list.talk_no }">${list.talk_title} &nbsp;</a>
-							</td>
-							<td class="nickname">${list.name}</td>
-							<td class="date">${list.talk_date}</td>
-						</tr>
-					</c:otherwise>			
-				</c:choose>
+							</c:otherwise>
+						</c:choose>
+					</td>
+					<td class="title">
+						<a href="talkdetail/${list.talk_no }">${list.talk_title} &nbsp;</a>
+					</td>
+					<td class="nickname">${list.name}</td>
+					<td class="date">
+						<c:choose>
+							<c:when test="${empty list.talk_status}">
+								읽지않음
+							</c:when>
+							<c:otherwise>
+								${list.talk_status }
+							</c:otherwise>
+						</c:choose>
+					</td>
+				</tr>
 			</c:forEach>
 			</tbody>
 		</table>

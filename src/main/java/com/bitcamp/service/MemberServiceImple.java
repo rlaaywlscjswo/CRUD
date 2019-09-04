@@ -138,5 +138,25 @@ public class MemberServiceImple implements MemberService {
 		return mapper.move(talk_no);
 	}
 
+	@Override
+	public int allread(TalkDTO talkDTO) {
+		return mapper.allread(talkDTO);
+	}
+
+	@Override
+	public List<TalkDTO> sentlist(int no) {
+		return mapper.sentlist(no);
+	}
+
+	@Override
+	public int deletesent(List<String> talk_no) {
+		return mapper.deletesent(talk_no);
+	}
+
+	@Override
+	public List<MemberDTO> idsearch(String search) {
+		return mapper.idsearch(search);
+	}
+
 
 }
