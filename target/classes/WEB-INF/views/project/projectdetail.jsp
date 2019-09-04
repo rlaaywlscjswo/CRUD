@@ -81,9 +81,12 @@ bottom: 22120px;
 left: 60px;
 }
 #img{
-width: 150px;
-height: 150px;
-border-radius: 100px;
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    position: relative;
+    left: 200px;
+    bottom: 75px;
 }
 #writer{
 width: 360px;

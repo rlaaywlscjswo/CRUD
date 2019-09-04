@@ -66,7 +66,7 @@ public class ProjectController {
 	}		
 
 	// 프로젝트 카테고리 선택 결과 목록 페이지 
-	@RequestMapping("projectcategorylist={main_category}")
+	@RequestMapping("/projectcategorylist={main_category}")
 	public String categorylist(@PathVariable String main_category, 
 			@RequestParam(required = false, defaultValue = "1") int currPage,
 			Model model) {		
@@ -83,7 +83,7 @@ public class ProjectController {
 	}
 	
 	// 프로젝트 검색 결과 목록 페이지
-	@RequestMapping("projectlist")
+	@RequestMapping("/projectlist")
 	public String list(			
 			@RequestParam(required=false, defaultValue="") String searchtxt,
 			@RequestParam(required = false, defaultValue = "1") int currPage,
@@ -116,7 +116,7 @@ public class ProjectController {
 	
 	
 	// 프로젝트 등록 페이지
-	@RequestMapping("projectinsert")
+	@RequestMapping("/projectinsert")
 	public String projectinsert(Model model) {		
 		List<CategoryDTO> maincategorylist = categoryservice.maincategoryList();		
 		model.addAttribute("mainlist",maincategorylist);		

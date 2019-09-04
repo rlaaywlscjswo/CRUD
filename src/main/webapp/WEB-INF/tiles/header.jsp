@@ -25,7 +25,7 @@ button {
 										'click',
 										function() {
 											//인코딩 문제 방지
-											let uri = encodeURI("talk");
+											let uri = encodeURI("/talk");
 											console.log(uri);
 											let pop = window
 													.open(uri, "pop",
@@ -41,7 +41,7 @@ button {
 	<div class="header">
 		<div class="header-content clearfix">
 			<div class="header-left">
-				<a class="navbar-brand" href="main">CRUD</a>
+				<a class="navbar-brand" href="/main">CRUD</a>
 			</div>
 			<div class="header-right">
 				<ul class="clearfix">
@@ -79,6 +79,7 @@ s
 	</div>
 	<!--**********************************
             Header end ti-comment-alt
+            
         ***********************************-->
 
 	<nav class="navbar navbar-light bg-light">
@@ -99,14 +100,14 @@ s
 
 
 				<li class="nav-item"><a class="nav-link"
-					href="projectcategorylist=게임">게임</a></li>
+					href="/projectcategorylist=게임">게임</a></li>
 
 				<li class="nav-item"><a class="nav-link"
-					href="projectcategorylist=패션">패션</a></li>
+					href="/projectcategorylist=패션">패션</a></li>
 
 			</ul>
 			<sec:authorize access="isAuthenticated()">
-				<a href="projectinsert"><button type="button"
+				<a href="/projectinsert"><button type="button"
 						class="btn btn-light">프로젝트 등록하러가기</button></a>
 				<button type="button" id="talk" class="btn btn-light">쪽지함</button>
 			</sec:authorize>
