@@ -187,6 +187,6 @@
 		parameterType="com.bitcamp.dto.ReplyDTO">
 		insert into reply (reply_contents,rating,no,project_no)
 		values
-		(#{reply_contents},5,#{no},#{project_no})
+		(#{reply_contents},#{rating},#{no},#{project_no})
 	</insert>
 </mapper>
