@@ -56,8 +56,8 @@ public class AdminController {
 		
 		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
 		
-		List<HashMap<String, Object>> fmemberList1 = adminService.admin_fmember1(dto.getStartRow(), pagePerSize, fmember_search);
-		List<HashMap<String, Object>> fmemberList2 = adminService.admin_fmember2(dto.getStartRow(), pagePerSize, fmember_search);
+		List<HashMap<String, Object>> fmemberList = adminService.admin_fmember(dto.getStartRow(), pagePerSize, fmember_search);
+		// List<HashMap<String, Object>> fmemberList2 = adminService.admin_fmember2(dto.getStartRow(), pagePerSize, fmember_search);
 
 		// 통계
 		// 성공 횟수
@@ -69,8 +69,8 @@ public class AdminController {
 		// 평균 평점
 		float avgRating = adminService.avgRating();
 		
-		model.addAttribute("fmemberList1", fmemberList1);
-		model.addAttribute("fmemberList2", fmemberList2);
+		model.addAttribute("fmemberList", fmemberList);
+		// model.addAttribute("fmemberList2", fmemberList2);
 		model.addAttribute("dto", dto);
 		model.addAttribute("successCount", successCount);
 		model.addAttribute("regipro", regipro);

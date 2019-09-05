@@ -14,10 +14,10 @@ public interface AdminService {
 	public int fmember_totalCount(String fmember_search);
 
 	// 펀딩 회원 관리 1
-	public List<HashMap<String, Object>> admin_fmember1(int starRow, int pagePerSize, String fmember_search);
+	public List<HashMap<String, Object>> admin_fmember(int starRow, int pagePerSize, String fmember_search);
 
-	// 펀딩 회원 관리 2
-	public List<HashMap<String, Object>> admin_fmember2(int starRow, int pagePerSize, String fmember_search);
+/*	// 펀딩 회원 관리 2
+	public List<HashMap<String, Object>> admin_fmember2(int starRow, int pagePerSize, String fmember_search);*/
 	
 	// 통계
 	// 성공 횟수

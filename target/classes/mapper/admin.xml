@@ -37,40 +37,37 @@
 		</where>
 	</select>
 	
-	<select id="admin_fmember1" resultMap="mdto" parameterMap="hashmap">
-		select member.no, name, email, project_title, round(avg(rating), 1) as arating, project.project_no
-		from project join member on project.no = member.no
-		join authority on authority.no = member.no
-		left join reply on reply.project_no = project.project_no
-		join `option` on `option`.project_no = project.project_no
-		left join support on `option`.option_no = support.option_no		
+	<!-- 펀딩 회원 리스트 -->
+	<select id="admin_fmember" resultMap="mdto" parameterMap="hashmap">
+	select m.no, name, email, project_title, targetprice as ntargetprice, 
+      project_contract, 
+      round(avg(rating), 1) as arating, sumop, reachper
+		from support s join `option` o
+  		 on s.option_no = o.option_no
+		right join project p
+ 		  on p.project_no = o.project_no
+		join member m
+  		 on m.no = p.no
+		join authority a
+  		 on a.no = m.no
+		left join reply r
+  		 on r.project_no = p.project_no
+		join (select  sum(option_price) as sumop, project.project_no, round(sum(option_price) / targetprice * 100, 2) as reachper
+     		 from support join `option` on support.option_no = `option`.option_no
+     		 right join project on project.project_no = `option`.project_no
+     		 join member on member.no = project.no
+     		 join authority on authority.no = member.no
+ 		  where auth = 'ROLE_MANAGER'
+    		  group by project.project_no
+     		 order by project.project_no) a
+     		 on a.project_no = p.project_no
 		<where>
-			and auth = 'ROLE_MANAGER'
+		auth = 'ROLE_MANAGER'
 			<if test="fmember_search!=null and fmember_search!=''">
 				and project_title like CONCAT('%',#{fmember_search},'%')
 			</if>
 		</where>
-		group by project.project_no
-		order by project.project_no
-		limit #{startRow}, #{pagePerSize}
-	</select>
-	
-	<select id="admin_fmember2" resultMap="mdto" parameterMap="hashmap">
-		select project.project_no, sum(option_price) as sumop, targetprice as ntargetprice, 
-		round(sum(option_price) / targetprice * 100, 2) as reachper, 
-		project_contract
-		from support join `option` on support.option_no = `option`.option_no
-		right join project on project.project_no = `option`.project_no
-		join member on member.no = project.no
-		join authority on authority.no = member.no
-		<where>
-			and auth = 'ROLE_MANAGER'
-			<if test="fmember_search!=null and fmember_search!=''">
-				and project_title like CONCAT('%',#{fmember_search},'%')
-			</if>
-		</where>
-		group by project.project_no
-		order by project.project_no
+		group by p.project_no
 		limit #{startRow}, #{pagePerSize}
 	</select>
 	

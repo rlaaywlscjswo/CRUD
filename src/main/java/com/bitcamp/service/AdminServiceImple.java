@@ -35,8 +35,8 @@ public class AdminServiceImple implements AdminService {
 		hm.put("pagePerSize", pagePerSize);
 		hm.put("fmember_search", fmember_search);
 
-		List<HashMap<String, Object>> list1 = mapper.admin_fmember1(hm);
-		List<HashMap<String, Object>> list2 = mapper.admin_fmember2(hm);
+		List<HashMap<String, Object>> list = mapper.admin_fmember(hm);
+		// List<HashMap<String, Object>> list2 = mapper.admin_fmember2(hm);
 
 		try {
 
@@ -127,50 +127,50 @@ public class AdminServiceImple implements AdminService {
 			cell.setCellValue("달성률 (%)");
 
 			// 데이터 부분 생성
-			for (int i = 0; i < list1.size(); i++) {
+			for (int i = 0; i < list.size(); i++) {
 
 				row = sheet.createRow(rowNo++);
 
 				cell = row.createCell(0);
 				cell.setCellStyle(bodyStyle);
-				cell.setCellValue("" + list1.get(i).get("no"));
+				cell.setCellValue("" + list.get(i).get("no"));
 
 				cell = row.createCell(1);
 				cell.setCellStyle(bodyStyle);
-				cell.setCellValue("" + list1.get(i).get("name"));
+				cell.setCellValue("" + list.get(i).get("name"));
 
 				cell = row.createCell(2);
 				cell.setCellStyle(bodyStyle);
 
-				cell.setCellValue("" + list1.get(i).get("email"));
+				cell.setCellValue("" + list.get(i).get("email"));
 
 				cell = row.createCell(3);
 				cell.setCellStyle(bodyStyle);
-				cell.setCellValue("" + list1.get(i).get("project_title"));
+				cell.setCellValue("" + list.get(i).get("project_title"));
 
 				cell = row.createCell(4);
 				cell.setCellStyle(bodyStyle);
-				if (list1.get(i).get("arating") == null) {
+				if (list.get(i).get("arating") == null) {
 					cell.setCellValue("0점");
 				} else {
-					cell.setCellValue("" + list1.get(i).get("arating") + "점");
+					cell.setCellValue("" + list.get(i).get("arating") + "점");
 				}
 
 				cell = row.createCell(5);
 				cell.setCellStyle(bodyStyle);
-				if (list2.get(i).get("sumop") == null) {
-					cell.setCellValue("" + "0원" + " / " + list2.get(i).get("ntargetprice") + "원");
+				if (list.get(i).get("sumop") == null) {
+					cell.setCellValue("" + "0원" + " / " + list.get(i).get("ntargetprice") + "원");
 				} else {
 					cell.setCellValue(
-							"" + list2.get(i).get("sumop") + "원" + " / " + list2.get(i).get("ntargetprice") + "원");
+							"" + list.get(i).get("sumop") + "원" + " / " + list.get(i).get("ntargetprice") + "원");
 				}
 
 				cell = row.createCell(6);
 				cell.setCellStyle(bodyStyle);
-				if (list2.get(i).get("reachper") == null) {
+				if (list.get(i).get("reachper") == null) {
 					cell.setCellValue("0%");
 				} else {
-					cell.setCellValue("" + list2.get(i).get("reachper") + "%");
+					cell.setCellValue("" + list.get(i).get("reachper") + "%");
 				}
 			}
 
@@ -198,32 +198,20 @@ public class AdminServiceImple implements AdminService {
 
 	} // end fmember_totalCount method
 
-	// 펀딩 회원 관리 1
+	// 펀딩 회원 관리
 	@Override
-	public List<HashMap<String, Object>> admin_fmember1(int startRow, int pagePerSize, String fmember_search) {
+	public List<HashMap<String, Object>> admin_fmember(int startRow, int pagePerSize, String fmember_search) {
 
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("startRow", startRow);
 		hm.put("pagePerSize", pagePerSize);
 		hm.put("fmember_search", fmember_search);
 
-		return mapper.admin_fmember1(hm);
+		return mapper.admin_fmember(hm);
 
 	} // end admin_fmember method
 
-	// 펀딩 회원 관리 2
-	@Override
-	public List<HashMap<String, Object>> admin_fmember2(int startRow, int pagePerSize, String fmember_search) {
-
-		HashMap<String, Object> hm = new HashMap<>();
-		hm.put("startRow", startRow);
-		hm.put("pagePerSize", pagePerSize);
-		hm.put("fmember_search", fmember_search);
-
-		return mapper.admin_fmember2(hm);
-
-	} // end admin_fmember2 method
-
+	
 	// 통계
 
 	// 성공 횟수
