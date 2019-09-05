@@ -7,9 +7,18 @@
 <meta charset="UTF-8">
 <title>관리자 페이지 - 펀딩 회원 관리</title>
 <style>
+
+	*{
+		margin: 0;
+		padding: 0;
+	}
 	table, th, td {
 		border: 1px solid silver;
 		border-collapse: collapse;
+	}
+	
+	th, td {
+		height: 60px;
 	}
 	
 	table {
@@ -92,13 +101,18 @@
 			<table>
 				<thead>
 					<tr>
-						<th>성공 횟수 / 총 펀딩 횟수
+						<th>성공 횟수 / 총 펀딩 횟수</th>
 						<th>평균 달성률</th>
 						<th>평균 평가점수</th>
 					</tr>
 				</thead>
+				
 			</table>
 		</div>
+		
+		<form name="excelForm" id="excelForm" method="post" action="./excelDown.do">
+			<input type="submit" id="excelDown" value="Excel 다운">
+		</form>
 
 </body>
 </html>

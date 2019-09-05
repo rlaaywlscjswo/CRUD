@@ -1,14 +1,17 @@
 package com.bitcamp.app;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.service.AdminService;
 import com.bitcamp.service.MemberService;
 
@@ -20,16 +23,28 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	
+	// Excel Download
+	@RequestMapping(value = "/excelDown.do", method = RequestMethod.POST)
+	public void ExcelDown(HttpServletResponse response) {
+		
+		System.out.println("★★★★★ Excel Down Start ★★★★★");
+		
+		adminService.getExcelDown(response);
+		
+		System.out.println("★★★★★ Excel Down End ★★★★★");
+		
+	} // end ExcelDown method
 
 	// 펀딩 회원 관리
 	@RequestMapping("/fmember")
 	public String admin_fmember(Model model) {
 
-		List<MemberDTO> fmemberList1 = adminService.admin_fmember1();
-		List<MemberDTO> fmemberList2 = adminService.admin_fmember2();
+		List<HashMap<String, Object>> fmemberList1 = adminService.admin_fmember1();
+		List<HashMap<String, Object>> fmemberList2 = adminService.admin_fmember2();
+		
 		model.addAttribute("fmemberList1", fmemberList1);
 		model.addAttribute("fmemberList2", fmemberList2);
-
 		
 		return "/admin/admin_fmember";
 

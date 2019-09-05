@@ -22,7 +22,7 @@
 	</resultMap>
 	
 	<select id="admin_fmember1" resultMap="mdto">
-		select member.no, name, email, project_title, avg(rating) as arating, project.project_no
+		select member.no, name, email, project_title, round(avg(rating), 1) as arating, project.project_no
 		from project join member on project.no = member.no
 		join authority on authority.no = member.no
 		left join reply on reply.project_no = project.project_no
@@ -32,7 +32,7 @@
 		and auth = 'ROLE_MANAGER'
 		</where>
 		group by project.project_no
-		order by name
+		order by project.project_no
 		<!-- limit #{startRow}, #{pagePerSize} -->
 	</select>
 	
@@ -48,6 +48,6 @@
 		and auth = 'ROLE_MANAGER'
 		</where>
 		group by project.project_no
-		order by name
+		order by project.project_no
 	</select>
 </mapper>
