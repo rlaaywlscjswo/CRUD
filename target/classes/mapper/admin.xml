@@ -118,5 +118,60 @@
 		group by project.project_no ) as t
 	</select>
 	
+	<!-- Excel용 Full List -->
+	<select id="admin_Allfmember" resultMap="mdto">
+	select m.no, name, email, project_title, targetprice as ntargetprice, 
+      project_contract, 
+      round(avg(rating), 1) as arating, sumop, reachper
+		from support s join `option` o
+  		 on s.option_no = o.option_no
+		right join project p
+ 		  on p.project_no = o.project_no
+		join member m
+  		 on m.no = p.no
+		join authority a
+  		 on a.no = m.no
+		left join reply r
+  		 on r.project_no = p.project_no
+		join (select  sum(option_price) as sumop, project.project_no, round(sum(option_price) / targetprice * 100, 2) as reachper
+     		 from support join `option` on support.option_no = `option`.option_no
+     		 right join project on project.project_no = `option`.project_no
+     		 join member on member.no = project.no
+     		 join authority on authority.no = member.no
+ 		  where auth = 'ROLE_MANAGER'
+    		  group by project.project_no
+     		 order by project.project_no) a
+     		 on a.project_no = p.project_no
+		where auth = 'ROLE_MANAGER'
+		group by p.project_no
+	</select>	
+	
+	
+	<!-- 총 프로젝트 개수 - 검색용 -->
+	<select id="sproject_totalCount" resultType="int"
+		parameterMap="hashmap">
+		select count(project_no) from project
+		<where>
+			<if test="sproject_search!=null and sproject_search!=''">
+				and project_title like CONCAT('%',#{sproject_search},'%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 펀딩 현황 목록 -->
+	<select id="admin_sproject" resultType="com.bitcamp.dto.ProjectDTO"  parameterMap="hashmap">
+		select project_no, project_title, project_status from project 
+		<where>
+			<if test="sproject_search!=null and sproject_search!=''">
+				and project_title like CONCAT('%',#{sproject_search},'%')
+			</if>
+		</where>
+		limit #{startRow}, #{pagePerSize}
+	</select>
+	
+	<!-- Excel용 Full List -->
+	<select id="admin_Allsproject" resultType="com.bitcamp.dto.ProjectDTO">
+		select project_no, project_title, project_status from project
+	</select>
 	
 </mapper>

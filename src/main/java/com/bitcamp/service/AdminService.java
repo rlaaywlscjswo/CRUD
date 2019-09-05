@@ -5,19 +5,19 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.bitcamp.dto.MemberDTO;
+import com.bitcamp.dto.ProjectDTO;
+
 public interface AdminService {
 
 	// Excel Download
-	public void getExcelDown(HttpServletResponse response, int starRow, int pagePerSize, String fmember_search);
+	public void getExcelDown(HttpServletResponse response);
 	
 	// for paging
 	public int fmember_totalCount(String fmember_search);
 
 	// 펀딩 회원 관리 1
-	public List<HashMap<String, Object>> admin_fmember(int starRow, int pagePerSize, String fmember_search);
-
-/*	// 펀딩 회원 관리 2
-	public List<HashMap<String, Object>> admin_fmember2(int starRow, int pagePerSize, String fmember_search);*/
+	public List<MemberDTO> admin_fmember(int starRow, int pagePerSize, String fmember_search);
 	
 	// 통계
 	// 성공 횟수
@@ -28,5 +28,14 @@ public interface AdminService {
 	public float avgdal();
 	// 평균 평점
 	public float avgRating();
+	
+	// for paging
+	public int sproject_totalCount(String sproject_search);
+	
+	// 펀딩 현황 목록
+	public List<ProjectDTO> admin_sproject(int starRow, int pagePerSize, String sproject_search);
+	
+	// Excel Download
+	public void sproject_getExcelDown(HttpServletResponse response);
 
 } // end AdminService interface

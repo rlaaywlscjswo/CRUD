@@ -1,7 +1,6 @@
 package com.bitcamp.app;
 
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.PagingDTO;
+import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.service.AdminService;
 import com.bitcamp.service.MemberService;
 
@@ -27,19 +28,12 @@ public class AdminController {
 	private AdminService adminService;
 
 	// Excel Download
-	@RequestMapping(value = "/excelDown.do", method = RequestMethod.POST)
-	public void ExcelDown(HttpServletResponse response, @RequestParam(required = false, defaultValue = "1") int currPage,
-			@RequestParam(required = false, defaultValue = "") String fmember_search) {
-		
-		int totalCount = adminService.fmember_totalCount(fmember_search);
-		int pagePerSize = 5;
-		int blockPerSize = 5;
-		
-		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
+	@RequestMapping(value = "/fmemberExcelDown.do", method = RequestMethod.POST)
+	public void fmemberExcelDown(HttpServletResponse response) {
 
 		System.out.println("★★★★★ Excel Down Start ★★★★★");
 
-		adminService.getExcelDown(response, dto.getStartRow(), pagePerSize, fmember_search);
+		adminService.getExcelDown(response);
 
 		System.out.println("★★★★★ Excel Down End ★★★★★");
 
@@ -56,7 +50,7 @@ public class AdminController {
 		
 		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
 		
-		List<HashMap<String, Object>> fmemberList = adminService.admin_fmember(dto.getStartRow(), pagePerSize, fmember_search);
+		List<MemberDTO> fmemberList = adminService.admin_fmember(dto.getStartRow(), pagePerSize, fmember_search);
 		// List<HashMap<String, Object>> fmemberList2 = adminService.admin_fmember2(dto.getStartRow(), pagePerSize, fmember_search);
 
 		// 통계
@@ -107,5 +101,37 @@ public class AdminController {
 		return "redirect:/admin";
 
 	} // end changeAuth method
+	
+	// 펀딩 현황 목록
+	@RequestMapping("/spro")
+	public String admin_sproject(@RequestParam(required = false, defaultValue = "1") int currPage,
+			@RequestParam(required = false, defaultValue = "") String sproject_search, Model model) {
+		
+		int totalCount = adminService.sproject_totalCount(sproject_search);
+		int pagePerSize = 10;
+		int blockPerSize = 5;
+		
+		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
+		
+		List<ProjectDTO> admin_sproject = adminService.admin_sproject(dto.getStartRow(), pagePerSize, sproject_search);
+		
+		model.addAttribute("admin_sproject", admin_sproject);
+		model.addAttribute("dto", dto);
+		
+		return "/admin/admin_sproject";
+		
+	} // end admin_sproject method
+	
+	// Excel Download
+	@RequestMapping(value = "/sprojectExcelDown.do", method = RequestMethod.POST)
+	public void sprojectExcelDown(HttpServletResponse response) {
+
+		System.out.println("★★★★★ Excel Down Start ★★★★★");
+
+		adminService.sproject_getExcelDown(response);
+
+		System.out.println("★★★★★ Excel Down End ★★★★★");
+
+	} // end ExcelDown method
 
 } // end AdminController class

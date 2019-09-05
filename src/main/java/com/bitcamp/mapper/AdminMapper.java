@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.bitcamp.dto.MemberDTO;
+import com.bitcamp.dto.ProjectDTO;
+
 @Mapper
 public interface AdminMapper {
 
@@ -12,7 +15,7 @@ public interface AdminMapper {
 	public int fmember_totalCount(HashMap<String, Object> hm);
 
 	// 펀딩 회원 관리
-	public List<HashMap<String, Object>> admin_fmember(HashMap<String, Object> hm);
+	public List<MemberDTO> admin_fmember(HashMap<String, Object> hm);
 
 	// 통계
 	// 성공 횟수
@@ -26,5 +29,17 @@ public interface AdminMapper {
 
 	// 평균 평점
 	public float avgRating();
+
+	// Excel용 Full List
+	public List<HashMap<String, Object>> admin_Allfmember();
+
+	// for paging
+	public int sproject_totalCount(HashMap<String, Object> hm);
+
+	// 펀딩 현황 목록
+	public List<ProjectDTO> admin_sproject(HashMap<String, Object> hm);
+
+	// Excel용 Full List
+	public List<ProjectDTO> admin_Allsproject();
 
 } // end AdminMapper interface

@@ -18,10 +18,78 @@
 	}
 	
 	th, td {
-		height: 60px;
+		height: 30px;
 	}
 	
+	/* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+    
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%; /* Could be more or less, depending on screen size */                          
+        }
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+	
 </style>
+<script>
+window.onload = function() {
+	
+
+	// Get the modal
+	var modal = document.getElementById('myModal');
+
+	// Get the button that opens the modal
+	var btn = document.getElementById("myBtn");
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];                                          
+
+	// When the user clicks on the button, open the modal 
+	btn.onclick = function() {
+	    modal.style.display = "block";
+	}
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+
+	}
+</script>
 </head>
 <body>
 
@@ -53,7 +121,13 @@
 						<td>${fmlist.name}</td>
 						<td>${fmlist.email}</td>
 						<td>${fmlist.project_title}
-						<td>${fmlist.arating}</td>
+						<td>
+						<c:set var="ara" value="${fmlist.arating}" />
+						<c:choose>
+							<c:when test="${ara == null}">아직 등록 된 평점이 없..</c:when>
+							<c:otherwise>${fmlist.arating}점</c:otherwise>
+						</c:choose>
+						</td>
 						<td>
 						<c:set var="sop" value="${fmlist.sumop}" />
 						<c:set var="ntp" value="${fmlist.ntargetprice}" />
@@ -80,8 +154,39 @@
 				
 			</tbody>
 		</table>
+		
+			<div id="fmember_paging">
+		
+			<c:if test="${dto.prev}">
+				<a href="fmember?currPage=${dto.firstPageOfBlock-1}&fmember_search=${fmember_search}">
+				<c:out value="이전" /></a>
+			</c:if>
 
-	
+			<c:forEach var="index" begin="${dto.firstPageOfBlock}" end="${dto.lastPageOfBlock}">
+				<a href="fmember?currPage=${index}&fmember_search=${fmember_search}">
+				<c:out value="${index}" /></a>
+			</c:forEach>
+
+			<c:if test="${dto.next}">
+				<a href="fmember?currPage=${dto.lastPageOfBlock+1}&fmember_search=${fmember_search}">
+				<c:out value="다음" /></a>
+			</c:if>
+			
+		</div> <!-- end #fmember_paging -->
+		
+		<form name="excelForm" id="excelForm" method="post" action="./fmemberExcelDown.do">
+			<input type="submit" id="excelDown" value="Excel 다운">
+		</form>
+		
+		 <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
+ 
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+ 
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span class="close">&times;</span>                                                               
 		<div>
 			<h3>펀딩 회원 명</h3>
 			<table>
@@ -101,29 +206,9 @@
 				</tbody>
 			</table>
 		</div>
-		
-			<div id="fmember_paging">
-		
-			<c:if test="${dto.prev}">
-				<a href="fmember?currPage=${dto.firstPageOfBlock-1}&fmember_search=${fmember_search}">
-				<c:out value="이전" /></a>
-			</c:if>
-
-			<c:forEach var="index" begin="${dto.firstPageOfBlock}" end="${dto.lastPageOfBlock}">
-				<a href="fmember?currPage=${index}&fmember_search=${support_search}">
-				<c:out value="${index}" /></a>
-			</c:forEach>
-
-			<c:if test="${dto.next}">
-				<a href="fmember?currPage=${dto.lastPageOfBlock+1}&fmember_search=${fmember_search}">
-				<c:out value="다음" /></a>
-			</c:if>
-			
-		</div> <!-- #support_paging -->
-		
-		<form name="excelForm" id="excelForm" method="post" action="./excelDown.do">
-			<input type="submit" id="excelDown" value="Excel 다운">
-		</form>
+      </div>
+ 
+    </div>
 
 </body>
 </html>
