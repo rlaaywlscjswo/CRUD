@@ -7,7 +7,46 @@
 <meta charset="UTF-8">
 <title>쪽지함 - CRUD</title>
 <link rel="stylesheet" href="/resources/css/talk.css">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<style>
+
+</style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+//쪽지 보관함으로 이동 및 쪽지 삭제 함수
+function talk(method) {
+	if($(".talk_no:checked").length <= 0){
+		return;
+	}
+	let fmObj = document.getElementById("fmNoteData");
+	fmObj.action = '/'+method;
+	fmObj.submit();
+}
+
+$(document).ready(function(){
+	// 모든 체크박스 체크 or 풀기.
+	$("#allcheckbox").on('click', function() {
+		if($("#allcheckbox").prop("checked")){
+			$("input[type=checkbox]").prop("checked", true);
+		} else {
+			$("input[type=checkbox]").prop("checked", false);
+		}
+	});
+	
+	$('tr').on('mouseover', function() {
+		$(this).css('background-color', '#d3d3d3');
+	});
+	$('tr').on('mouseout', function() {
+		$(this).css('background-color', '');
+	});
+	$('.unread td').on('mouseover', function() {
+		$('.unread td').css('background-color', '#8bd3fc');
+	});
+	$('.unread td').on('mouseout', function() {
+		$('.unread td').css('background-color', '#F4FFFF');
+	});
+});
+</script>
 </head>
 <body>
 <div id="noteWrap">
@@ -33,29 +72,6 @@
 </dl>
 </div>
 <div id="noteMain">
-
-<script>
-//쪽지 보관함으로 이동 및 쪽지 삭제 함수
-function talk(method) {
-	if($(".talk_no:checked").length <= 0){
-		return;
-	}
-	let fmObj = document.getElementById("fmNoteData");
-	fmObj.action = '/'+method;
-	fmObj.submit();
-}
-
-$(document).ready(function(){
-	// 모든 체크박스 체크 or 풀기.
-	$("#allcheckbox").on('click', function() {
-		if($("#allcheckbox").prop("checked")){
-			$("input[type=checkbox]").prop("checked", true);
-		} else {
-			$("input[type=checkbox]").prop("checked", false);
-		}
-	});
-});
-</script>
 <h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">받은 쪽지함</strong>입니다.
 <c:if test="${unread > 0}">
 	(읽지 않은 쪽지: ${unread}통)
@@ -64,7 +80,7 @@ $(document).ready(function(){
 </h1>
 <div id="noteList">
 	<div class="cmdWrap">
-		<a id="cmdDelete" class="bttn46" href="javascript:talk('delete');" >삭제</a>
+		<a id="cmdDelete" class="bttn46" href="javascript:talk('talkdelete');" >삭제</a>
 		<a id="cmdStore" class="bttn46" href="javascript:talk('keep');">보관</a>
 		<a id="cmdWrite" class="bttn92w" href="/talkreply/0" >쪽지보내기</a>
 	</div>
@@ -123,10 +139,10 @@ $(document).ready(function(){
 
 	<div class="tools">
 		<div id="notePaging"><span class="basetext"><img class="leftarrow" src="http://static.inven.co.kr/image/member/note/icon_arrow_left.gif"><span class="prevtext">이전</span> <span class="currentpg">1</span> <span class="nexttext">다음</span> <img class="rightarrow" src="http://static.inven.co.kr/image/member/note/icon_arrow_right.gif"></span></div>
-		<form id="noteSearch" name="noteSearch" method="GET" action="">
+		<form id="noteSearch" name="talksearch" method="post" action="">
 			<select id="searchWhere" name="s_where">
-				<option value="title" > 제 목</option>
-				<option value="content" > 내 용</option>
+				<option value="title" >제 목</option>
+				<option value="content" >내 용</option>
 				<option value="titlecontent" > 제목+내용</option>
 				<option value="nick" >이름</option>
 			</select>

@@ -36,5 +36,6 @@ public interface MemberService {
 	public List<TalkDTO> sentlist(int no);
 	public int deletesent(List<String> talk_no);
 	public List<MemberDTO> idsearch(String search);
+	public MemberDTO nosearch(int no);
 	
 }

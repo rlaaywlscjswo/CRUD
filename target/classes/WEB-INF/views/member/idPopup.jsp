@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,17 +70,17 @@ body{
 }
 .box{
 	margin: 30px auto;
-  	width: 300px;
+  	width: 70%;
   	height: 50px;
 }
 .container-4{
   overflow: hidden;
-  width: 300px;
+  width: 100%;
   vertical-align: middle;
   white-space: nowrap;
 }
 .container-4 input#search{
-  width: 300px;
+  width: 100%;
   height: 50px;
   background: #2b303b;
   border: none;
@@ -137,6 +138,17 @@ body{
   .container-4:hover button.icon:hover{
     background: white;
   }
+.no_none{
+	display: none;
+}
+#btns{	
+	margin-top: -11px;
+}
+#searchcount{
+	color: #9cafe2;
+	margin: 5px 30px;
+    text-align: left;
+}
 </style>
 <script>
 $(document).ready(function(){
@@ -153,52 +165,48 @@ $(document).ready(function(){
 	
 	$('.green').on('click', function() {
 		let checkbtn = $(this).parent().parent();
-		let name = checkbtn.find('li.alias');
-		let road = checkbtn.find('li.road');
-		let pho  = checkbtn.find('li.photo');
+		let names = checkbtn.find('li.name');
 		
-		let alias = name.children().eq(0).text();
-		let address_name = name.children().eq(2).text();
-		let zipno = road.children().eq(0).text();
-		let roadaddrPart1 = road.children().eq(2).text();
-		let roadaddrPart2 = road.children().eq(4).text();
-		let addrDetail = road.children().eq(3).text();
-		let address_photo = pho.text();
-		window.opener.addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, address_name, address_photo);
+		let email = checkbtn.find('li.email').text();
+		let name = names.children().eq(0).text();
+		let recipient = names.children().eq(1).text();
+		
+		window.opener.idCallBack(name, recipient, email);
 		self.close();
 	});
 });
+
 </script>
 </head>
 <body>
 <div>
 	<div id="pop_header">
 		<h1 class="h1">회원 찾기</h1>
-		<button type="button" class="popup_img popup_close btn" ><span class="blind">팝업 닫기</span></button>
+		<button type="button" class="popup_img popup_close btn"  id="btns"><span class="blind">팝업 닫기</span></button>
 	</div>
 	
 	<div class="box">
 	  <div class="container-4">
-	  <form action="idsearch" method="post">
-		<input type="search" id="search" name="search" placeholder="Search..." />
+	  <form action="/idPopup" method="post">
+		<input type="search" id="search" name="search" placeholder="이름 또는 이메일 입력해주세요." />
 		<button class="icon"><i class="fa fa-search"></i></button>
 	   </form>
 	  </div>
 	</div>
-	
+	<div id="searchcount"><span >검색 결과가 ${fn:length(list)}개 있습니다.</span></div>
 	<div id="list">
 		<ul id="listtitle">
 			<li class="names">이름</li>
 			<li class="emails">이메일</li>
 			<li class="mid">선택</li>
 		</ul>
-		<%-- <c:forEach var="list" items="${addrlist }"> --%>
+		<c:forEach var="list" items="${list}">
 		<ul class="sen">
-			<li class="name"><span>이찬영</span><br></li>
-			<li class="email"><span>joy23456@naver.com</span></li>
+			<li class="name"><span>${list.name }</span><span class="no_none">${list.no}</span></li>
+			<li class="email"><span>${list.email}</span></li>
 			<li class="btns"><input type="button" class="_select setting_btn type_h green" value="선택"></li>
 		</ul>
-		<%-- </c:forEach> --%>
+		</c:forEach>
 	</div>
 	<div id="pop_footer">
         <button type="button" class="button btn" >닫기</button>

@@ -1,6 +1,8 @@
 package com.bitcamp.app;
 
+import java.net.URI;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -139,13 +141,19 @@ public class MemberController {
 	
 	// 쪽지 상세페이지
 	@RequestMapping("/talkdetail/{talk_no}")
-	public String talkDetail(@PathVariable int talk_no, Principal principal, Model model) {
+	public String talkDetail(HttpServletRequest request, @PathVariable int talk_no, Principal principal, Model model) {
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
 		HashMap<TalkDTO, Object> dto = memberService.talkdetail(talk_no);
 		int result = memberService.talkstatus(talk_no); 
 		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
 		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
 		
+		String url = Function.url((String)request.getHeader("REFERER"));
+		System.out.println(url);
+		String urlarr[] = url.split("/");
+		System.out.println(urlarr[0]);
+
+		model.addAttribute("select", urlarr[0]);
 		model.addAttribute("member", mdto);
 		model.addAttribute("detail", dto);
 		model.addAttribute("unread", unread);
@@ -185,10 +193,10 @@ public class MemberController {
 		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
 		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
 		// no -> 0 일때 쪽지 쓰기   /   no -> 0 이 아닐때 답장
+		MemberDTO reply = new MemberDTO();
 		if(no != 0) {
-			//reply
-			//memberService.reply();
-			System.out.println("답장 하자!");
+			reply = memberService.nosearch(no);
+			model.addAttribute("reply", reply);
 		}
 		model.addAttribute("member", mdto);
 		model.addAttribute("unread", unread);
@@ -198,15 +206,14 @@ public class MemberController {
 	
 	// 회원 찾기 새창
 	@RequestMapping("/idPopup")
-	public String idPopup() {
+	public String idPopup(@RequestParam(defaultValue="", required=false) String search, Principal principal, Model model) {
+		List<MemberDTO> dto = new ArrayList<>();
+		System.out.println("검색값 : "+search);
+		if(!"".equals(search)) {
+			dto = memberService.idsearch(search);
+		}
+		model.addAttribute("list", dto);
 		return "/member/idPopup";
-	}
-	
-	//회원 찾기
-	@RequestMapping(value = "/idsearch", method=RequestMethod.POST)
-	public @ResponseBody List<MemberDTO> idsearch(@RequestParam(required=false) String search, Principal principal) {
-		List<MemberDTO> dto = memberService.idsearch(search); 
-		return dto;
 	}
 	
 	// 쪽지 보내기

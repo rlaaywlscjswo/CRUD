@@ -54,6 +54,13 @@ $(document).ready(function(){
 			$("input[type=checkbox]").prop("checked", false);
 		}
 	});
+	
+	$('tr').on('mouseover', function() {
+		$(this).css('background-color', '#d3d3d3');
+	});
+	$('tr').on('mouseout', function() {
+		$(this).css('background-color', '');
+	});
 });
 </script>
 <h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">보낸 쪽지함</strong>입니다.</h1>

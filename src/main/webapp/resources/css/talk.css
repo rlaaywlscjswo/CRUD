@@ -491,12 +491,12 @@ body, a, td {
 	color: #1376AD;
 }
 
-/* �섎떒 �섏씠吏� / 寃��� */
 #noteList div.tools {
 	width: 100%;
-	height: auto;
+	height: 59px;
 	margin: 2px 0 0 0;
 	background: #F2F2F2;
+	border-radius: 5px;
 }
 
 #noteList #notePaging {
@@ -523,16 +523,24 @@ body, a, td {
 	float: left;
 	display: inline;
 }
-
-#noteList #noteSearch select {
-	width: 86px;
-	font-family: gulim, 援대┝;
-	font-size: 9pt;
-	margin: 0px 0 0 114px;
+option{
+	text-align: center;
 }
 
+#noteList #noteSearch select {
+	width: 15%;
+	font-family: gulim, 援대┝;
+	font-size: 9pt;
+	margin: 2px 0 0 114px;
+	text-align-last: center;
+}
+#searchWord, #searchWhere{
+	border: solid 1px #808080;
+	border-radius: 5px;
+	font-size:9pt;
+}
 #noteList #noteSearch input.word {
-	width: 132px;
+	width: 25%;
 	font-family: gulim, 援대┝;
 	font-size: 9pt;
 	border: solid 1px #808080;
@@ -540,7 +548,7 @@ body, a, td {
 }
 
 #noteList #noteSearch input.submit {
-	width: 56px;
+	width: 10%;
 	height: 21px;
 	border: none;
 	margin: 0 0 0 5px;
@@ -708,4 +716,7 @@ body, a, td {
 	border:0;
 	cellpadding:0;
 	cellspacing:0;
+}
+table tbody a{
+	display:block;
 }

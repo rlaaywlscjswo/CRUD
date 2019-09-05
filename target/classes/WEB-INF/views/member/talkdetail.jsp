@@ -10,6 +10,17 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <script>
+$(document).ready(function(){
+	let display = "${select}";
+	if(display == "talkkeep"){
+		$("li").eq(3).attr('class', "selected oldstart");
+	} else if(display == "talksend") {
+		$("li").eq(2).attr('class', "selected oldstart");
+	} else {
+		$("li").eq(1).attr('class', "selected oldstart");
+	}
+});
+
 // 쪽지 삭제 및 보관 함수
 function talk(no, method) {
 	if($(".talk_no:checked").length <= 0){
@@ -21,6 +32,7 @@ function talk(no, method) {
 	fmObj.action = "/"+method;
 	fmObj.submit();
 }
+
 </script>
 <body class="bPopup">
 <div id="noteWrap">
@@ -30,13 +42,13 @@ function talk(no, method) {
 		<dd>
 			<ul>
 				<li><span class="orange"><a href="/talkreply/0" >쪽지 보내기</a></span></li>
-				<li class="selected oldstart"><span class="orange"><a href="/talk" >받은 쪽지함
+				<li class="orange"><span class="orange"><a href="/talk" >받은 쪽지함
 					<c:if test="${unread gt 0}">
 						<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
 					</c:if>
 				</a></span></li>
 				<li><span class="orange"><a href="/talksend" >보낸 쪽지함</a></span></li>
-				<li><span class="orange size3"><a href="/talkkeep" >쪽지 보관함
+				<li class=""><span class="orange size3"><a href="/talkkeep" >쪽지 보관함
 					<c:if test="${keepunread gt 0}">
 						<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
 					</c:if>
@@ -69,7 +81,7 @@ function talk(no, method) {
 				</tr>
 			</table>
 			<div class="command">
-				<a id="aNoteList" href="/talk" class="bttn76l">리스트</a>
+				<a id="aNoteList" href="/${select}" class="bttn76l">리스트</a>
 				<a id="aNoteReply" href="/talkreply/${detail.no}" class="bttn65">답장쓰기</a>
 				<a id="aNoteDelete" href="javascript:talk(${detail.talk_no}, 'talkdelete');" class="bttn46">삭제</a>
 				
@@ -83,4 +95,5 @@ function talk(no, method) {
 	</div>
 </div>
 </body>
+<link rel="stylesheet" href="/resources/css/talk.css">
 </html>

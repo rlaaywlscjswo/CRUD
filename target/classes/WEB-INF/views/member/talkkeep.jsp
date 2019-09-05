@@ -54,17 +54,30 @@ $(document).ready(function(){
 			$("input[type=checkbox]").prop("checked", false);
 		}
 	});
+	
+	$('tr').on('mouseover', function() {
+		$(this).css('background-color', '#d3d3d3');
+	});
+	$('tr').on('mouseout', function() {
+		$(this).css('background-color', '');
+	});
+	$('.unread td').on('mouseover', function() {
+		$('.unread td').css('background-color', '#8bd3fc');
+	});
+	$('.unread td').on('mouseout', function() {
+		$('.unread td').css('background-color', '#F4FFFF');
+	});
 });
 </script>
 <h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">보관 쪽지함</strong>입니다.
-<c:if test="${unread > 0}">
-	(읽지 않은 쪽지: ${unread}통)
+<c:if test="${keepunread > 0}">
+	(읽지 않은 쪽지: ${keepunread}통)
 <a href="/allread" class="allread" >모두읽음</a>
 </c:if>
 </h1>
 <div id="noteList">
 	<div class="cmdWrap">
-		<a id="cmdDelete" class="bttn46" href="javascript:talk('delete');" >삭제</a>
+		<a id="cmdDelete" class="bttn46" href="javascript:talk('talkdelete');" >삭제</a>
 		<a id="cmdStore" class="bttn65" href="javascript:talk('move');">받은 쪽지함으로</a>
 		<a id="cmdWrite" class="bttn92w" href="/talkreply/0" >쪽지보내기</a>
 	</div>

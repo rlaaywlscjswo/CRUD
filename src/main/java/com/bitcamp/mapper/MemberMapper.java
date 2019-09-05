@@ -47,6 +47,8 @@ public interface MemberMapper {
 	public List<TalkDTO> sentlist(int no); // 보낸 쪽지함 리스트
 	public int deletesent(List<String> talk_no); // 보낸 쪽지 삭제
 	public List<MemberDTO> idsearch(String search); // 회원 검색
+	public MemberDTO nosearch(int no);
+
 
 
 

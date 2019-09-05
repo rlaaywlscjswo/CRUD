@@ -158,5 +158,10 @@ public class MemberServiceImple implements MemberService {
 		return mapper.idsearch(search);
 	}
 
+	@Override
+	public MemberDTO nosearch(int no) {
+		return mapper.nosearch(no);
+	}
+
 
 }

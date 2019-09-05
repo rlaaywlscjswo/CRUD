@@ -44,10 +44,28 @@ textarea.content{
 function submitbtn() {
 	$("form").submit();
 };
+
+function idCallBack(name, recipient, email) {
+	document.fmNoteWrite.email.value = name+" <"+email+">";
+	document.fmNoteWrite.recipient.value = recipient;
+}
+
 $(document).ready(function(){
-	$('#nick').on('click', function(){
-		let pop = window.open("/idPopup","pops","width=450,height=500, scrollbars=yes, resizable=yes"); 
-	});
+	let reply = "${reply.no}";
+	if(reply > 0){
+		let name = "${reply.name}";
+		let email = "${reply.email}";
+		document.fmNoteWrite.email.value = name+" <"+email+">";
+	}
+	
+$('#nick').on('click', function(){
+	let left = ($(window).width() - $('#noteWrap').width()) / 2; //'#noteWrap'
+	let top = ($(window).height() - $('#noteWrap').height()) / 2;
+	console.log(left);
+	console.log(top);
+	
+	let pop = window.open("/idPopup","pops","width=450, height=500, left="+left+", top="+top+", scrollbars=yes, resizable=yes");
+});
 });
 </script>
 <form id="fmNoteWrite" name="fmNoteWrite" action="/send" method="POST">
@@ -60,7 +78,7 @@ $(document).ready(function(){
 					<td class="value">
 						<input class="nick" type="text" id="nick" name="email" value="" required="required" readonly="readonly">
 						<input type="hidden" name="no" value="${member.no}"><!-- 보낸사람 번호 -->
-						<input type="hidden" name="recipient" value=""><!-- 받는사람 번호 -->
+						<input type="hidden" name="recipient" value="${reply.no}"><!-- 받는사람 번호 -->
 					</td>
 				</tr>
 				<tr>
