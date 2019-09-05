@@ -6,13 +6,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -30,10 +28,15 @@ public class AdminServiceImple implements AdminService {
 
 	// Excel Download
 	@Override
-	public void getExcelDown(HttpServletResponse response) {
+	public void getExcelDown(HttpServletResponse response, int startRow, int pagePerSize, String fmember_search) {
 
-		List<HashMap<String, Object>> list1 = mapper.admin_fmember1();
-		List<HashMap<String, Object>> list2 = mapper.admin_fmember2();
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("startRow", startRow);
+		hm.put("pagePerSize", pagePerSize);
+		hm.put("fmember_search", fmember_search);
+
+		List<HashMap<String, Object>> list1 = mapper.admin_fmember1(hm);
+		List<HashMap<String, Object>> list2 = mapper.admin_fmember2(hm);
 
 		try {
 
@@ -185,20 +188,74 @@ public class AdminServiceImple implements AdminService {
 
 	} // end getExcelDown method
 
+	@Override
+	public int fmember_totalCount(String fmember_search) {
+
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("fmember_search", fmember_search);
+
+		return mapper.fmember_totalCount(hm);
+
+	} // end fmember_totalCount method
+
 	// 펀딩 회원 관리 1
 	@Override
-	public List<HashMap<String, Object>> admin_fmember1() {
+	public List<HashMap<String, Object>> admin_fmember1(int startRow, int pagePerSize, String fmember_search) {
 
-		return mapper.admin_fmember1();
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("startRow", startRow);
+		hm.put("pagePerSize", pagePerSize);
+		hm.put("fmember_search", fmember_search);
+
+		return mapper.admin_fmember1(hm);
 
 	} // end admin_fmember method
 
 	// 펀딩 회원 관리 2
 	@Override
-	public List<HashMap<String, Object>> admin_fmember2() {
+	public List<HashMap<String, Object>> admin_fmember2(int startRow, int pagePerSize, String fmember_search) {
 
-		return mapper.admin_fmember2();
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("startRow", startRow);
+		hm.put("pagePerSize", pagePerSize);
+		hm.put("fmember_search", fmember_search);
+
+		return mapper.admin_fmember2(hm);
 
 	} // end admin_fmember2 method
+
+	// 통계
+
+	// 성공 횟수
+	@Override
+	public int successCount() {
+
+		return mapper.successCount();
+
+	} // end successCount method
+
+	// 총 프로젝트 등록 횟수
+	@Override
+	public int theNumbersOfRegiProject() {
+
+		return mapper.theNumbersOfRegiProject();
+
+	} // end theNumbersOfRegiProject method
+
+	// 평균 달성률
+	@Override
+	public float avgdal() {
+
+		return mapper.avgdal();
+
+	} // end avgdal method
+		// 평균 평점
+
+	@Override
+	public float avgRating() {
+
+		return mapper.avgRating();
+
+	} // end avgRating method
 
 } // end AdminServiceImple class
