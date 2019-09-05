@@ -7,10 +7,12 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
 
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.ReplyDTO;
@@ -36,15 +38,35 @@ public class ReplyController {
 	// 댓글 등록
 	@RequestMapping(value="/replyinsert", method= {RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody int replyinsert (@RequestParam int project_no, @RequestParam String reply_contents,
+			//@RequestParam float rating,
 			Principal principal) {
 		System.out.println("프번"+project_no);
 		System.out.println("contents"+reply_contents);
 		MemberDTO mdto = memberservice.memberinfo(principal.getName());
 		System.out.println("회ㅣㅣㅣㅣㅣㅣㅣㅣㅣ번"+mdto.getNo());
+		//System.out.println("평점"+rating);
 		ReplyDTO reply =new ReplyDTO();
 		reply.setNo(mdto.getNo()); // 회원번호
 		reply.setProject_no(project_no); // 프로젝트 번호		
 		reply.setReply_contents(reply_contents); // 댓글 내용
+		//reply.setRating(rating); // 평점
 		return replyservice.replyInsert(reply);
+	}
+	
+	// 댓글 수정
+	@RequestMapping(value="/replyupdate",method= {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody int replyupdate(@RequestParam int reply_no
+			,@RequestParam String reply_contents) {
+		ReplyDTO reply = new ReplyDTO();
+		reply.setReply_no(reply_no);
+		reply.setReply_contents(reply_contents);
+		System.out.println("수정할내용"+reply_no);
+		return replyservice.replyUpdate(reply);
+	}	
+	
+	// 댓글 삭제
+	@RequestMapping(value="/replydelete/{reply_no}",method= {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody int replydelete(@PathVariable int reply_no) {
+		return replyservice.replyDelete(reply_no);
 	}
 }

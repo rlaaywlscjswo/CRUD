@@ -3,7 +3,7 @@ package com.bitcamp.dto;
 public class ReplyDTO {
 	private int reply_no; // 댓글 번호
 	private String reply_contents; // 댓글 내용
-	private String rating; // 평점
+	private float rating; // 평점
 	private int project_no; // 프로젝트 번호
 	private int no; // 회원번호
 	
@@ -19,10 +19,10 @@ public class ReplyDTO {
 	public void setReply_contents(String reply_contents) {
 		this.reply_contents = reply_contents;
 	}
-	public String getRating() {
+	public float getRating() {
 		return rating;
 	}
-	public void setRating(String rating) {
+	public void setRating(float rating) {
 		this.rating = rating;
 	}
 	public int getProject_no() {

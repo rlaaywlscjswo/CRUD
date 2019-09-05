@@ -18,7 +18,7 @@
 	<resultMap type="hashMap" id="optdto">
 		<result column="option_no" property="option_no" />
 		<result column="option_name" property="option_name" />
-		<result column="option_price" property="option_prDDice" />
+		<result column="option_price" property="option_price" />
 		<result column="option_contents" property="option_contents" />
 		<result column="option_quantity" property="option_quantity" />
 		<result column="project_no" property="project_no" />
@@ -30,6 +30,7 @@
 	<result column="rating" property="rating"/>
 	<result column="reply_no" property="reply_no"/>
 	<result column="name" property="name"/>
+	<result column="photo" property="photo"/>
 	</resultMap>
 	
 
@@ -175,18 +176,28 @@
 
 	<!-- 댓글 목록 -->
 	<select id="replyList" parameterType="int" resultMap="replydto">
-	select reply_no, member.name, reply_contents, rating
+	select reply_no, member.name, member.photo, reply_contents, rating
 	from reply join member
 	on reply.no = member.no
 	where project_no=#{proejct_no} order by reply_no desc
-	</select>
-	
+	</select>	
 	
 	<!-- 댓글 등록 -->
 	<insert id="replyInsert"
 		parameterType="com.bitcamp.dto.ReplyDTO">
 		insert into reply (reply_contents,rating,no,project_no)
 		values
-		(#{reply_contents},5,#{no},#{project_no})
+		(#{reply_contents},4.5,#{no},#{project_no})
 	</insert>
+	
+	
+	<!-- 댓글 수정 -->
+	<update id="replyUpdate" parameterType="com.bitcamp.dto.ReplyDTO">
+	update reply set reply_contents = #{reply_contents} where reply_no = #{reply_no}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="replyDelete" parameterType="int">
+	 delete from reply where reply_no = #{reply_no}
+	</delete>
 </mapper>

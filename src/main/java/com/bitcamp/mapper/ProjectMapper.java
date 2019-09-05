@@ -30,5 +30,6 @@ public interface ProjectMapper {
 	public int sign(HashMap<String, Object> dto);
 	public List<ReplyDTO> replyList(int project_no); // 댓글 목록
 	public int replyInsert(ReplyDTO dto); // 댓글 등록
-	
+	public int replyUpdate(ReplyDTO dto); // 댓글 수정
+	public int replyDelete(int reply_no); // 댓글 삭제
 }

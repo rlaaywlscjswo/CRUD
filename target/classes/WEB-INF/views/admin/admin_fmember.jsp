@@ -7,9 +7,18 @@
 <meta charset="UTF-8">
 <title>관리자 페이지 - 펀딩 회원 관리</title>
 <style>
+
+	*{
+		margin: 0;
+		padding: 0;
+	}
 	table, th, td {
 		border: 1px solid silver;
 		border-collapse: collapse;
+	}
+	
+	th, td {
+		height: 60px;
 	}
 	
 	table {
@@ -18,6 +27,15 @@
 </style>
 </head>
 <body>
+
+		<div id="fmember_searching">
+			<form method="get" action="fmember?currPage=${dto.firstPageOfBlock}">
+				<label for="fmember_search" id="fmember_label"></label>
+				<input type="text" id="fmember_search" name="fmember_search" placeholder="  프로젝트 이름으로 검색해주세요 :)">
+				<input type="submit" value="찾아줘!!" id="fmember_find">
+			</form>
+		</div>
+
 	
 		<table>
 			<thead>
@@ -92,13 +110,43 @@
 			<table>
 				<thead>
 					<tr>
-						<th>성공 횟수 / 총 펀딩 횟수
+						<th>성공 횟수 / 총 펀딩 횟수</th>
 						<th>평균 달성률</th>
 						<th>평균 평가점수</th>
 					</tr>
 				</thead>
+				<tbody>
+					<tr>
+						<td>${successCount}회 / ${regipro}회</td>
+						<td>${avgdal}%</td>
+						<td>${avgRating}점</td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
+		
+			<div id="fmember_paging">
+		
+			<c:if test="${dto.prev}">
+				<a href="fmember?currPage=${dto.firstPageOfBlock-1}&fmember_search=${fmember_search}">
+				<c:out value="이전" /></a>
+			</c:if>
+
+			<c:forEach var="index" begin="${dto.firstPageOfBlock}" end="${dto.lastPageOfBlock}">
+				<a href="fmember?currPage=${index}&fmember_search=${support_search}">
+				<c:out value="${index}" /></a>
+			</c:forEach>
+
+			<c:if test="${dto.next}">
+				<a href="fmember?currPage=${dto.lastPageOfBlock+1}&fmember_search=${fmember_search}">
+				<c:out value="다음" /></a>
+			</c:if>
+			
+		</div> <!-- #support_paging -->
+		
+		<form name="excelForm" id="excelForm" method="post" action="./excelDown.do">
+			<input type="submit" id="excelDown" value="Excel 다운">
+		</form>
 
 </body>
 </html>

@@ -5,6 +5,8 @@
 
 <mapper namespace="com.bitcamp.mapper.AdminMapper">
 
+	<parameterMap type="java.util.HashMap" id="hashmap" />
+
 	<!-- 펀딩 회원 관리 -->
 	
 	<!-- 회원 번호, 이름, 이메일, 펀딩 이름, 달성 금액 / 목표 금액, 성공 여부 / 달성률, 계약서 -->
@@ -21,22 +23,39 @@
 		<result property="arating" column="rating" />
 	</resultMap>
 	
-	<select id="admin_fmember1" resultMap="mdto">
-		select member.no, name, email, project_title, avg(rating) as arating, project.project_no
+	<!-- 펀딩 회원 개수 - 검색용 -->
+	<select id="fmember_totalCount" resultType="int"
+		parameterMap="hashmap">
+		select count(project_no)
+		from project join member on project.no = member.no
+		join authority on member.no = authority.no
+		<where>
+			and auth = 'ROLE_MANAGER'
+			<if test="fmember_search!=null and fmember_search!=''">
+				and project_title like CONCAT('%',#{fmember_search},'%')
+			</if>
+		</where>
+	</select>
+	
+	<select id="admin_fmember1" resultMap="mdto" parameterMap="hashmap">
+		select member.no, name, email, project_title, round(avg(rating), 1) as arating, project.project_no
 		from project join member on project.no = member.no
 		join authority on authority.no = member.no
 		left join reply on reply.project_no = project.project_no
 		join `option` on `option`.project_no = project.project_no
 		left join support on `option`.option_no = support.option_no		
 		<where>
-		and auth = 'ROLE_MANAGER'
+			and auth = 'ROLE_MANAGER'
+			<if test="fmember_search!=null and fmember_search!=''">
+				and project_title like CONCAT('%',#{fmember_search},'%')
+			</if>
 		</where>
 		group by project.project_no
-		order by name
-		<!-- limit #{startRow}, #{pagePerSize} -->
+		order by project.project_no
+		limit #{startRow}, #{pagePerSize}
 	</select>
 	
-	<select id="admin_fmember2" resultMap="mdto">
+	<select id="admin_fmember2" resultMap="mdto" parameterMap="hashmap">
 		select project.project_no, sum(option_price) as sumop, targetprice as ntargetprice, 
 		round(sum(option_price) / targetprice * 100, 2) as reachper, 
 		project_contract
@@ -45,9 +64,62 @@
 		join member on member.no = project.no
 		join authority on authority.no = member.no
 		<where>
-		and auth = 'ROLE_MANAGER'
+			and auth = 'ROLE_MANAGER'
+			<if test="fmember_search!=null and fmember_search!=''">
+				and project_title like CONCAT('%',#{fmember_search},'%')
+			</if>
 		</where>
 		group by project.project_no
-		order by name
+		order by project.project_no
+		limit #{startRow}, #{pagePerSize}
 	</select>
+	
+	<!-- 통계 자료 -->
+	
+	<!-- 성공 횟수 -->
+	<select id="successCount" resultType="int">
+		select count(d.dal)
+		from (select project.project_no, ifnull(round(sum(option_price) / targetprice * 100, 2), 0) as dal
+		from support join `option` on support.option_no = `option`.option_no
+		right join project on project.project_no = `option`.project_no
+		join member on member.no = project.no
+		join authority on authority.no = member.no
+		where auth = 'ROLE_MANAGER' and member.no = 36
+		group by project.project_no) as d
+		where d.dal > 100
+	</select>
+	
+	<!-- 총 프로젝트 등록 횟수 -->
+	<select id="theNumbersOfRegiProject" resultType="int">
+		select count(project.project_no)
+		from project join member on project.no = member.no
+		join authority on authority.no = member.no
+		where auth = 'ROLE_MANAGER' and member.no = 36
+	</select>
+	
+	<!-- 평균 달성률 -->
+	<select id="avgdal" resultType="float">
+		select round(avg(d.dal), 2)
+		from (select project.project_no, ifnull(round(sum(option_price) / targetprice * 100, 2), 0) as dal
+		from support join `option` on support.option_no = `option`.option_no
+		right join project on project.project_no = `option`.project_no
+		join member on member.no = project.no
+		join authority on authority.no = member.no
+		where auth = 'ROLE_MANAGER' and member.no = 36
+		group by project.project_no) as d
+	</select>
+	
+	<!-- 평균 평점 -->
+	<select id="avgRating" resultType="float">
+		select round(avg(ravg), 1)
+		from (
+		select ifnull(round(avg(rating), 1), 0) as ravg
+		from project join member on project.no = member.no
+		join authority on authority.no = member.no
+		left join reply on reply.project_no = project.project_no
+		where auth = 'ROLE_MANAGER' and member.no = 36
+		group by project.project_no ) as t
+	</select>
+	
+	
 </mapper>
