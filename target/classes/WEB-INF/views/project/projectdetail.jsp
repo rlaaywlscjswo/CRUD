@@ -8,61 +8,6 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 <style type="text/css">
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-body {
-    margin: 5%; 
-    text-align: center;
-    background: #111;
-    color: #333; 
-}
-h1 {
-    font-size: 2em; 
-    margin-bottom: .5rem;
-}
-
-/* Ratings widget */
-.rate {
-    display: inline-block;
-    border: 0;
-}
-/* Hide radio */
-.rate > input {
-    display: none;
-}
-/* Order correctly by floating highest to the right */
-.rate > label {
-    float: right;
-}
-/* The star of the show */
-.rate > label:before {
-    display: inline-block;
-    font-size: 1.1rem;
-    padding: .3rem .2rem;
-    margin: 0;
-    cursor: pointer;
-    font-family: FontAwesome;
-    content: "\f005 "; /* full star */
-}
-/* Zero stars rating */
-.rate > label:last-child:before {
-    content: "\f006 "; /* empty star outline */
-}
-/* Half star trick */
-.rate .half:before {
-    content: "\f089 "; /* half star no outline */
-    position: absolute;
-    padding-right: 0;
-}
-/* Click + hover color */
-input:checked ~ label, /* color current and previous stars on checked */
-label:hover, label:hover ~ label { color: #73B100;  } /* color previous stars on hover */
-
-/* Hover highlights */
-input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
-input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
-label:hover ~ input:checked ~ label /* highlight previous selected stars */ { color: #A6E72D;  } 
-
-
 /*  */
 body{
 /* background-image: url("/resources/img/cloud.jpg"); */
@@ -183,59 +128,99 @@ border-radius: 50px;
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">	
-	$(function () {		
-		commentList();		
-	
-		$('[name=replyinsertbtn]').click(function(){ //댓글 등록 버튼 클릭시 
-		    var insertData = $('[name=replyinsertform]').serialize(); //commentInsertForm의 내용을 가져옴
-		    console.log(insertData);
-		    commentInsert(insertData); //Insert 함수호출(아래)
-		});
-		
-		//댓글 목록 
-		function commentList(){
-			var project_no = ${list.project_no}; // 프로젝트 번호
-			console.log(project_no);
-		    $.ajax({
-		        url : '/replylist',
-		        type : 'post',
-		        data : {"project_no" : project_no},     
-		        success: function(result) {	   
-		        	var htmls = "";
-		        	if(result.length < 1){		        		 
-		        		 htmls += '<p>' +"등록된댓글 ㄴㄴ" + '</p>';				  
-					} else {
-			                    $(result).each(function(){	    						
- 	    						 htmls += '<div class="card" style="width: 360px;height: 312px;">';
- 	    						  htmls += '<p>' + this.reply_no + '</p>';		
- 	    						 htmls += '<p>' + this.name + '</p>';		
-			                     htmls += '<img id="replyimg" src="'+this.photo+'"alt="프로필사진"/>';	
-								 htmls += '<p>' + this.reply_contents + '</p>';
-								 htmls += '<p>' + this.rating + '</p>';
-								 htmls += '</div>';
-								 });	//each end
-					}
-					$(".replylist").html(htmls);			        		        	
-		        }
-		    });
-		}		
-		//댓글 등록
-		function commentInsert(insertData){
-		    $.ajax({
-		        url : '/replyinsert',
-		        type : 'post',
-		        data : insertData,
-		        success : function(data){
-		            if(data == 1) {
-		                commentList(); //댓글 작성 후 댓글 목록 reload
-		                $('[name=reply_contents]').val('');
-		            }
-		        }
-		    });			
-		}
-		
-	});
+var project_no = ${list.project_no}; // 프로젝트 번호
+$(function(){	
+    commentList(); //페이지 로딩시 댓글 목록 출력 
+    
+    $('[name=replyinsertbtn]').click(function(){ //댓글 등록 버튼 클릭시 
+        var insertData = $('[name=replyinsertform]').serialize(); //commentInsertForm의 내용을 가져옴
+        console.log(insertData);
+        commentInsert(insertData); //Insert 함수호출(아래)
+    });
+    
+});
 
+
+  
+//댓글 목록 
+function commentList(){
+    $.ajax({
+        url : '/replylist',
+        type : 'post',
+        data : {"project_no" : project_no},
+        success: function(result) {	   
+        	var a = "";
+        	if(result.length < 1){		        		 
+        		 a += '<p>' +"등록된댓글 ㄴㄴ" + '</p>';				  
+			} else {
+				$.each(result, function(key, value){ 	    
+					console.log(value.reply_contents);					
+					a += '<div class="card" style="width: 800px; height: 150px;">';		
+					a += '<div class="card-body">';
+	                a += '<div class="commentInfo'+value.reply_no+'">'+'댓글번호 : '+value.reply_no+' / 작성자 : '+value.name;
+	                a += '<a onclick="commentUpdate('+value.reply_no+',\''+value.reply_contents+'\');"> 수정 </a>';
+	                a += '<a onclick="commentDelete('+value.reply_no+');"> 삭제 </a> </div>';
+	                a += '<div class="commentContent'+value.reply_no+'"> <p> 내용 : '+value.reply_contents +'</p>';
+	                a += '</div></div></div>';
+	            });
+				}
+        	 $(".replylist").html(a);
+        }
+    });
+}
+													
+//댓글 등록
+function commentInsert(insertData){
+	  $.ajax({
+	        url : '/replyinsert',
+	        type : 'post',
+	        data : insertData,
+	        success : function(data){
+	            if(data == 1) {
+	                commentList(); //댓글 작성 후 댓글 목록 reload
+	                $('[name=reply_contents]').val('');
+            }
+        }
+    });
+}
+ 
+//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
+function commentUpdate(reply_no, reply_contents){
+	console.log('no:'+reply_no);
+	console.log('contents:'+reply_contents);	
+    var a ='';    
+    a += '<div class="input-group">';
+    a += '<input type="text" name="reply_contents'+reply_no+'" value="'+reply_contents+'"/>';
+    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+reply_no+');">수정</button> </span>';
+    a += '</div>';    
+    $('.commentContent'+reply_no).html(a);
+    
+}
+ 
+//댓글 수정
+function commentUpdateProc(reply_no){
+    var updateContent = $('[name=reply_contents'+reply_no+']').val();    
+    $.ajax({
+        url : '/replyupdate',
+        type : 'post',
+        data : {'reply_contents' : updateContent, 'reply_no' : reply_no},
+        success : function(data){        	
+            if(data == 1) commentList(project_no); //댓글 수정후 목록 출력 
+        }
+    });
+}
+ 
+//댓글 삭제 
+function commentDelete(reply_no){
+    $.ajax({
+        url : '/replydelete/'+reply_no,
+        type : 'post',
+        success : function(data){
+        	alert('삭제하겠습니까?');
+            if(data == 1) commentList(project_no); //댓글 삭제후 목록 출력 
+        }
+    });
+}
 </script>
 
 </head>
@@ -341,13 +326,15 @@ border-radius: 50px;
 </div>
   
   </div>
-  <div class="tab-pane fade" id="asd">
-  
+  <div class="tab-pane fade" id="asd">  	
 	<sec:authorize access="isAuthenticated()">  
+	<div class="card" style="width: 800px; height: 150px;">
+  	<div class="card-body">	
  	<form method="post" name="replyinsertform">
  	<input type="hidden" id="project_no" name="project_no" value="${list.project_no }"> 	
- 	<input type="text" id="reply_contents" name="reply_contents">
- 	<fieldset class="rate">
+ 	<!-- <input type="text" id="reply_contents" name="reply_contents"> -->
+ 	<textarea style="width: 100%; resize: none;" id="reply_contents" name="reply_contents"></textarea>
+ 	<!-- <fieldset class="rate">
     <input type="radio" id="rating10" name="rating" value="5" /><label for="rating10" title="5 stars"></label>
     <input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4 1/2 stars"></label>
     <input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
@@ -358,11 +345,13 @@ border-radius: 50px;
     <input type="radio" id="rating3" name="rating" value="1.5" /><label class="half" for="rating3" title="1 1/2 stars"></label>
     <input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
     <input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="1/2 star"></label>
-	</fieldset>
+	</fieldset> -->
  	<button type="button" name="replyinsertbtn">댓글등록</button>
  	</form>
- 	</sec:authorize>	
+ 	</div>
+ 	</div>
  	
+ 	</sec:authorize>	
  	
  	<div class="replylist">
  	</div>	

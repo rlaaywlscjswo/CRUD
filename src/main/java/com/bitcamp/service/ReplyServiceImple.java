@@ -24,6 +24,16 @@ public class ReplyServiceImple implements ReplyService {
 		return mapper.replyInsert(dto);
 	}
 
+	@Override
+	public int replyUpdate(ReplyDTO dto) {		
+		return mapper.replyUpdate(dto);
+	}
+
+	@Override
+	public int replyDelete(int reply_no) {		
+		return mapper.replyDelete(reply_no);
+	}
+
 	
 
 }
