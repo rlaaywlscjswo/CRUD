@@ -100,6 +100,30 @@ public class ProjectServiceImple implements ProjectService {
 		dto.put("no", no);
 		return mapper.sign(dto);
 	}
+	
+	// 병훈쓰 인기 프로젝트
+	@Override
+	public List<ProjectDTO> popularProject() {
+		
+		return mapper.popularProject();
+		
+	} // end popularProject method
+	
+	// 병훈쓰 새로운 프로젝트
+	@Override
+	public List<ProjectDTO> newProject() {
+		
+		return mapper.newProject();
+		
+	} // end newProject method
+	
+	// 병훈쓰 성공 임박 프로젝트
+	@Override
+	public List<ProjectDTO> successApproach() {
+		
+		return mapper.successApproach();
+		
+	} // end successApproach method
 
 	
 }

@@ -62,6 +62,20 @@ public class ProjectController {
 	public String main(Model model) {
 		List<ProjectDTO> dto = service.mainHitList();
 		model.addAttribute("list", dto);
+		
+		
+		// 병훈쓰 인기 프로젝트
+		List<ProjectDTO> popularProject = service.popularProject();
+		model.addAttribute("popularProject", popularProject);
+		
+		// 병훈쓰 새로운 프로젝트
+		List<ProjectDTO> newProject = service.newProject();
+		model.addAttribute("newProject", newProject);
+		
+		// 병훈쓰 성공 임박 프로젝트
+		List<ProjectDTO> successApproach = service.successApproach();
+		model.addAttribute("successApproach", successApproach);
+		
 		return "main";
 	}		
 
@@ -265,5 +279,6 @@ public class ProjectController {
 		model.addAttribute("option", option);		
 		return "project/projectdetail.temp";
 	}
+	
 
 }
