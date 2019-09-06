@@ -20,5 +20,12 @@ public interface ProjectService {
 	// 메인 화면에서 보여주는 프로젝트 list
 	public List<ProjectDTO> mainHitList(); // 인기순으로 보여주는 프로젝트 list
 	// 서명 업댓!!!!!!!!!!!!!!!!!!!!!!!
-	public int sign(String sign, int no); // 사인 파일명 , 회원 번호 
+	public int sign(String sign, int no); // 사인 파일명 , 회원 번호
+	
+	// 병훈쓰 인기 프로젝트
+	public List<ProjectDTO> popularProject();
+	// 병훈쓰 새로운 프로젝트
+	public List<ProjectDTO> newProject();
+	// 병훈쓰 성공 임박 프로젝트
+	public List<ProjectDTO> successApproach();
 }

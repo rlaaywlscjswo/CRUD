@@ -200,4 +200,81 @@
 	<delete id="replyDelete" parameterType="int">
 	 delete from reply where reply_no = #{reply_no}
 	</delete>
+	
+	
+	
+	<!-- 병훈쓰가 뿌려주는 메인 캐러셀 -->
+	
+	<!-- 썸네일 이미지, 프로젝트 이름, 작성자, 남은 시간, 모인 금액, 달성률 -->
+	<resultMap type="hashmap" id="mcdto">
+		<result column="project_photo" property="project_photo" />
+		<result column="project_title" property="project_title" />
+		<result column="name" property="name" />
+		<result column="enddate" property="nam" />
+		<result column="option_price" property="sumop" />
+		<result column="targetprice" property="ntargetprice" />
+		<result column="project_views" property="project_views" />
+		<result column="startdate" property="startdate" />
+	</resultMap>
+	
+	<!-- 인기 프로젝트 -->
+	<select id="popularProject" resultMap="mcdto">
+		select project_photo, project_title, name,
+			   to_days(enddate) - to_days(now()) + 1 as nam,
+			   ifnull(sumop, 0) as sumop,
+			   ifnull(ntargetprice, 0) as ntargetprice
+
+		from project left join (
+			select project.project_no, sum(option_price) as sumop, 
+			round(ifnull(sum(option_price), 0) / targetprice * 100, 2) as ntargetprice
+    		from `option` join support on `option`.option_no = support.option_no
+    		join project on project.project_no = `option`.project_no
+    		group by project.project_no) as so
+    		
+		on project.project_no = so.project_no
+		join member on project.no = member.no
+		where to_days(enddate) - to_days(now()) > 0
+		order by project_views desc
+	</select>
+	
+	<!-- 새로운 프로젝트 -->
+	<select id="newProject" resultMap="mcdto">
+		select project_photo, project_title, name,
+			   to_days(enddate) - to_days(now()) + 1 as nam,
+			   ifnull(sumop, 0) as sumop,
+			   ifnull(ntargetprice, 0) as ntargetprice
+
+		from project left join (
+			select project.project_no, sum(option_price) as sumop, 
+			round(ifnull(sum(option_price), 0) / targetprice * 100, 2) as ntargetprice
+    		from `option` join support on `option`.option_no = support.option_no
+    		join project on project.project_no = `option`.project_no
+    		group by project.project_no) as so
+    		
+		on project.project_no = so.project_no
+		join member on project.no = member.no
+		where to_days(now()) - to_days(startdate) <![CDATA[ < ]]> 7 and to_days(enddate) - to_days(now()) > 0
+		order by startdate desc
+	</select>
+	
+	<!-- 성공 임박 프로젝트 -->
+	<select id="successApproach" resultMap="mcdto">
+				select project_photo, project_title, name,
+			   to_days(enddate) - to_days(now()) + 1 as nam,
+			   ifnull(sumop, 0) as sumop,
+			   ifnull(ntargetprice, 0) as ntargetprice
+
+		from project left join (
+			select project.project_no, sum(option_price) as sumop, 
+			round(ifnull(sum(option_price), 0) / targetprice * 100, 2) as ntargetprice
+    		from `option` join support on `option`.option_no = support.option_no
+    		join project on project.project_no = `option`.project_no
+    		group by project.project_no) as so
+    		
+		on project.project_no = so.project_no
+		join member on project.no = member.no
+		where to_days(enddate) - to_days(now()) > 0 and round(ifnull(ntargetprice, 0), 2) > 95
+		group by project.project_no
+	</select>
+	
 </mapper>

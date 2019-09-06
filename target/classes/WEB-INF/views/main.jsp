@@ -31,6 +31,15 @@
 	#cate2{
 	background-color: green;
 	}
+	
+	#popularProject, #newProject, #successApproach {
+		border: 1px solid silver;
+		display: inline-block;
+		height: 200px;
+		position: relative;
+		width: 200px;
+	}
+	
 	</style>
 
 </head>
@@ -123,6 +132,61 @@
            <button type="button" class="btn btn-light">고객센터</button>
         </div>
     </nav>
+    
+    
+    
+    
+    <!-- 병훈쓰가 뿌려주고 묘진쓰가 캐러셀로 만들어 줄 메인 본문 -->
+    <!-- 인기 프로젝트 -->
+    <div style="border: 1px solid silver; display: inline-block; width: 1000px;">
+    <span style="display: inline-block;">인기 프로젝트</span>
+    <c:forEach var="popularProject" items="${popularProject}">
+    	<div id="popularProject">
+    		썸네일 이미지 : ${popularProject.project_photo} <br>
+    		프로젝트 이름 : ${popularProject.project_title} <br>
+    		작성자 : ${popularProject.name} <br>
+    		남은 시간 : ${popularProject.nam}일 <br>
+    		모인 금액 : ${popularProject.sumop}원 <br>
+    		달성률 : ${popularProject.ntargetprice}% <br>
+    	</div>
+    </c:forEach>
+    </div>
+    
+    <!-- 새로운 프로젝트 -->
+    <!-- 계속 돌릴 거면 prepend, append // 끝낼 거면 width 잡아서 -->
+    <div style="border: 1px solid silver; display: inline-block; width: 1000px;">
+    <span style="display: inline-block;">새로운 프로젝트</span>
+    <c:forEach var="newProject" items="${newProject}">
+    	<div id="newProject">
+    		썸네일 이미지 : ${newProject.project_photo} <br>
+    		프로젝트 이름 : ${newProject.project_title} <br>
+    		작성자 : ${newProject.name} <br>
+    		남은 시간 : ${newProject.nam}일 <br>
+    		모인 금액 : ${newProject.sumop}원 <br>
+    		달성률 : ${newProject.ntargetprice}% <br>
+    	</div>
+    </c:forEach>
+    </div>
+    
+     <!-- 성공 임박 프로젝트 -->
+    <div style="border: 1px solid silver; display: inline-block; width: 1000px;">
+    <span style="display: inline-block;">성공 임박 프로젝트</span>
+    <c:forEach var="successApproach" items="${successApproach}">
+    	<div id="successApproach">
+    		썸네일 이미지 : ${successApproach.project_photo} <br>
+    		프로젝트 이름 : ${successApproach.project_title} <br>
+    		작성자 : ${successApproach.name} <br>
+    		남은 시간 : ${successApproach.nam}일 <br>
+    		모인 금액 : ${successApproach.sumop}원 <br>
+    		달성률 : ${successApproach.ntargetprice}% <br>
+    	</div>
+    </c:forEach>
+    </div>
+    
+    
+    
+    
+    
 
 <div class="container-fluid"> 
     
