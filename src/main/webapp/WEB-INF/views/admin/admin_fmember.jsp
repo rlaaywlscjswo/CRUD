@@ -124,7 +124,7 @@ window.onload = function() {
 						<td>
 						<c:set var="ara" value="${fmlist.arating}" />
 						<c:choose>
-							<c:when test="${ara == null}">아직 등록 된 평점이 없..</c:when>
+							<c:when test="${ara == null}">아직 등록 된 평점이 없..</c:when>	
 							<c:otherwise>${fmlist.arating}점</c:otherwise>
 						</c:choose>
 						</td>
