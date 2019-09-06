@@ -180,13 +180,12 @@ function submitbtn() {
 		$("#exampleModalCenterTitle").text("이메일을 입력해주세요.");
 		$("#modalbtn").trigger("click");
 	} else if ($("#title").val() == "") {
-		console.log("제목을 적어주세요.");
 		$("#exampleModalCenterTitle").text("제목을 입력해주세요.");
 		$("#modalbtn").trigger('click');
 		return;
 	} else if ($("#content").val() == "") {
 		$("#exampleModalCenterTitle").text("내용을 입력해주세요.");
-		console.log("내용을 적어주세요.");
+		$("#modalbtn").trigger('click');
 		return;
 	} else {
 		$("form").submit();
