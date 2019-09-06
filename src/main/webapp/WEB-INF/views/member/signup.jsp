@@ -276,6 +276,7 @@ margin-top: 50px;
 .hasDatepicker{cursor: pointer;}
 
 </style>
+</head>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
@@ -466,7 +467,5 @@ $(document).ready(function(){
 
 </div>
 
-</body>
-</html>
 </body>
 </html>

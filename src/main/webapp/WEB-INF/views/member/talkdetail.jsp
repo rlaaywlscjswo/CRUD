@@ -23,9 +23,6 @@ $(document).ready(function(){
 
 // 쪽지 삭제 및 보관 함수
 function talk(no, method) {
-	if($(".talk_no:checked").length <= 0){
-		return;
-	}
 	let fmObj = document.getElementById("talk");
 	let talk = document.getElementById("talkvalue").value = no;
 	console.log(no+", "+method);
@@ -84,8 +81,15 @@ function talk(no, method) {
 				<a id="aNoteList" href="/${select}" class="bttn76l">리스트</a>
 				<a id="aNoteReply" href="/talkreply/${detail.no}" class="bttn65">답장쓰기</a>
 				<a id="aNoteDelete" href="javascript:talk(${detail.talk_no}, 'talkdelete');" class="bttn46">삭제</a>
+				<c:choose>
+					<c:when test="${select == 'talkkeep'}">
+						<a id="aNoteStore" href="javascript:talk(${detail.talk_no}, 'move');" class="bttn46">이동</a>
+					</c:when>
+					<c:otherwise>
+						<a id="aNoteStore" href="javascript:talk(${detail.talk_no}, 'keep');" class="bttn46">보관</a>
+					</c:otherwise>			
+				</c:choose>
 				
-				<a id="aNoteStore" href="javascript:talk(${detail.talk_no}, 'keep');" class="bttn46">보관</a>
 				
 			</div>
 			<form id="talk" action="" method="POST">

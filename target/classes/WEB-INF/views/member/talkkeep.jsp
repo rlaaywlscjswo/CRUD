@@ -9,31 +9,6 @@
 <link rel="stylesheet" href="/resources/css/talk.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
-<body>
-<div id="noteWrap">
-<div id="noteLeft">
-<dl class="menu">
-	<dt>쪽지함</dt>
-	<dd>
-		<ul>
-			<li class=""><span class="orange"><a href="/talkreply/0" >쪽지 보내기</a></span></li>
-			<li class=""><span class="orange"><a href="/talk" >받은 쪽지함
-				<c:if test="${unread gt 0}">
-					<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
-				</c:if>
-			</a></span></li>
-			<li class=""><span class="orange"><a href="/talksend" >보낸 쪽지함</a></span></li>
-			<li class="selected oldstart"><span class="orange size3"><a href="/talkkeep" >쪽지 보관함
-				<c:if test="${keepunread gt 0}">
-					<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
-				</c:if>
-			</a></span></li>
-		</ul>
-	</dd>
-</dl>
-</div>
-<div id="noteMain">
-
 <script>
 // 쪽지 보관함으로 이동 및 쪽지 삭제 함수
 function talk(method) {
@@ -69,6 +44,30 @@ $(document).ready(function(){
 	});
 });
 </script>
+<body>
+<div id="noteWrap">
+<div id="noteLeft">
+<dl class="menu">
+	<dt>쪽지함</dt>
+	<dd>
+		<ul>
+			<li class=""><span class="orange"><a href="/talkreply/0" >쪽지 보내기</a></span></li>
+			<li class=""><span class="orange"><a href="/talk" >받은 쪽지함
+				<c:if test="${unread gt 0}">
+					<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
+				</c:if>
+			</a></span></li>
+			<li class=""><span class="orange"><a href="/talksend" >보낸 쪽지함</a></span></li>
+			<li class="selected oldstart"><span class="orange size3"><a href="/talkkeep" >쪽지 보관함
+				<c:if test="${keepunread gt 0}">
+					<img class="new" src="/resources/img/icon_new_orange.gif" alt="새글"/>
+				</c:if>
+			</a></span></li>
+		</ul>
+	</dd>
+</dl>
+</div>
+<div id="noteMain">
 <h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">보관 쪽지함</strong>입니다.
 <c:if test="${keepunread > 0}">
 	(읽지 않은 쪽지: ${keepunread}통)
