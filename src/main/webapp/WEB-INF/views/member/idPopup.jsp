@@ -78,11 +78,13 @@ body{
   width: 100%;
   vertical-align: middle;
   white-space: nowrap;
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
 }
 .container-4 input#search{
   width: 100%;
   height: 50px;
-  background: #2b303b;
+  background: white;
   border: none;
   font-size: 10pt;
   float: left;
@@ -116,7 +118,7 @@ body{
   border-bottom-right-radius: 5px;
  
   border: none;
-  background: #232833;
+  background: #dadde3;
   height: 50px;
   width: 50px;
   color: #4f5b66;
@@ -145,9 +147,15 @@ body{
 	margin-top: -11px;
 }
 #searchcount{
-	color: #9cafe2;
+	color: #82858c;
 	margin: 5px 30px;
     text-align: left;
+}
+.icon{
+	border-radius: 5px;
+}
+#pop_header{
+	background-color: #007bff;
 }
 </style>
 <script>

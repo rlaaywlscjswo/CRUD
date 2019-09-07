@@ -83,35 +83,38 @@
 		<result column="talk_status" property="talk_status" />
 	</resultMap>
 	
-	<!-- 받은 쪽지 리스트 -->
-	<select id="recipientlist" parameterType="int" resultMap="talk">
+	<!-- 받은 or 보관함 쪽지 리스트 -->
+	<select id="recipientlist" parameterType="java.util.HashMap" resultMap="talk">
 		select talk_no, talk_title, name, email, talk_status, talk_keep, talk_date
 		from member m join 
-			(select talk_title, t.no, talk_status, talk_no, talk_keep, 
+			(select talk_title, t.no, talk_status, talk_no, talk_keep, talk,
 				case date_format(talk_date, "%m-%d")
 					when date_format(now(), "%m-%d") then date_format(talk_date, "%T")
 				else date_format(talk_date, "%m-%d")
 				end talk_date
 			from talk t join member m
 			on t.no = m.no
-			where recipient = #{no} and talk_keep = 0) t
-		where m.no = t.no
-		order by talk_no desc
-	</select>
-	
-	<!-- 받은 쪽지 리스트 -->
-	<select id="recipientkeeplist" parameterType="int" resultMap="talk">
-		select talk_no, talk_title, name, email, talk_status, talk_keep, talk_date
-		from member m join 
-			(select talk_title, t.no, talk_status, talk_no, talk_keep, 
-				case date_format(talk_date, "%m-%d")
-					when date_format(now(), "%m-%d") then date_format(talk_date, "%T")
-				else date_format(talk_date, "%m-%d")
-				end talk_date
-			from talk t join member m
-			on t.no = m.no
-			where recipient = #{no} and talk_keep = 1) t
-		where m.no = t.no
+			where recipient = #{no} and talk_keep = #{talk_keep}) t
+		on m.no = t.no
+		<where>
+			<if test="search != '' || search != null">
+				<choose>
+					<when test="'talk_title'.equals(kind)">
+						and talk_title like CONCAT('%',#{search},'%')
+					</when>
+					<when test="'talk'.equals(kind)">
+						and talk like CONCAT('%',#{search},'%')
+					</when>
+					<when test="'titlecontent'.equals(kind)">
+						and talk_title like CONCAT('%',#{search},'%')
+			    		or talk like CONCAT('%',#{search},'%')
+					</when>
+					<otherwise>
+						and name like CONCAT('%',#{search},'%')
+					</otherwise>
+				</choose>
+			</if>
+		</where>
 		order by talk_no desc
 	</select>
 	
@@ -123,9 +126,8 @@
 		<result column="recipient" property="recipient" />
 		<result column="name" property="name" />
 	</resultMap>
-	
 	<!-- 보낸 쪽지 리스트 -->
-	<select id="sentlist" parameterType="int" resultMap="sendtalk">
+	<select id="sentlist" parameterType="java.util.HashMap" resultMap="sendtalk">
 		select talk_no, talk_title, talk, talk_img, talk_date, recipient, name,
 			case date_format(talk_status, "%m-%d")
 				when date_format(now(), "%m-%d") then date_format(talk_status, "%T")
@@ -133,8 +135,27 @@
 			end talk_status
 		from member m join talk t
 		on m.no = t.recipient
-		where t.no = #{no}
+		<where>
+		t.no = #{no}
 		and talk_deletesenttalk = 0
+			<if test="search != '' || search != null">
+				<choose>
+					<when test="'talk_title'.equals(kind)">
+						and talk_title like CONCAT('%',#{search},'%')
+					</when>
+					<when test="'talk'.equals(kind)">
+						and talk like CONCAT('%',#{search},'%')
+					</when>
+					<when test="'titlecontent'.equals(kind)">
+						and talk_title like CONCAT('%',#{search},'%')
+			    		or talk like CONCAT('%',#{search},'%')
+					</when>
+					<otherwise>
+						and name like CONCAT('%',#{search},'%')
+					</otherwise>
+				</choose>
+			</if>
+		</where>
 		order by talk_no desc
 	</select>
 	

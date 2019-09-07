@@ -111,9 +111,14 @@ public class MemberController {
 	
 	// 받은 쪽지함 리스트.
 	@RequestMapping("/talk")
-	public String talk(Principal principal, Model model) {
+	public String talk(@RequestParam(defaultValue="", required=false) String kind, @RequestParam(defaultValue="", required=false) String search, Principal principal, Model model) {
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
-		List<TalkDTO> tdto = memberService.recipientlist(mdto.getNo());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("kind", kind);
+		map.put("search", search);
+		map.put("no", mdto.getNo());
+		map.put("talk_keep", 0);
+		List<TalkDTO> tdto = memberService.recipientlist(map);
 		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
 		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
 		
@@ -121,14 +126,22 @@ public class MemberController {
 		model.addAttribute("talklist", tdto);
 		model.addAttribute("unread", unread);
 		model.addAttribute("keepunread", keepunread);
+		model.addAttribute("kind", kind);
+		model.addAttribute("search", search);
 		return "/member/talk";
 	}
 	
 	// 보관함 쪽지 리스트.
 	@RequestMapping("/talkkeep")
-	public String talkkeep(Principal principal, Model model) {
+	public String talkkeep(@RequestParam(defaultValue="", required=false) String kind, @RequestParam(defaultValue="", required=false) String search, Principal principal, Model model) {
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
-		List<TalkDTO> tdto = memberService.recipientkeeplist(mdto.getNo());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("kind", kind);
+		map.put("search", search);
+		map.put("no", mdto.getNo());
+		map.put("talk_keep", 1);
+		
+		List<TalkDTO> tdto = memberService.recipientlist(map);
 		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
 		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
 		
@@ -136,6 +149,8 @@ public class MemberController {
 		model.addAttribute("talklist", tdto);
 		model.addAttribute("unread", unread);
 		model.addAttribute("keepunread", keepunread);
+		model.addAttribute("kind", kind);
+		model.addAttribute("search", search);
 		return "/member/talkkeep";
 	}
 	
@@ -163,9 +178,15 @@ public class MemberController {
 	
 	// 보낸 쪽지함 리스트
 	@RequestMapping("/talksend")
-	public String talksend(Principal principal, Model model) {
+	public String talksend(@RequestParam(defaultValue="", required=false) String kind, @RequestParam(defaultValue="", required=false) String search, Principal principal, Model model) {
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
-		List<TalkDTO> tdto = memberService.sentlist(mdto.getNo());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("kind", kind);
+		map.put("search", search);
+		map.put("no", mdto.getNo());
+		System.out.println(kind + ", "+search+mdto.getNo());
+		
+		List<TalkDTO> tdto = memberService.sentlist(map);
 		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
 		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
 	
@@ -173,6 +194,8 @@ public class MemberController {
 		model.addAttribute("list", tdto);
 		model.addAttribute("unread", unread);
 		model.addAttribute("keepunread", keepunread);
+		model.addAttribute("kind", kind);
+		model.addAttribute("search", search);
 		return "/member/talksend";
 	}
 	

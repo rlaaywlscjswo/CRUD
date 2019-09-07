@@ -8,6 +8,43 @@
 <title>쪽지함 - CRUD</title>
 <link rel="stylesheet" href="/resources/css/talk.css">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+//쪽지 보관함으로 이동 및 쪽지 삭제 함수
+function talk(method) {
+	if($(".talk_no:checked").length <= 0){
+		return;
+	}
+	let fmObj = document.getElementById("fmNoteData");
+	fmObj.action = '/'+method;
+	fmObj.submit();
+}
+
+$(document).ready(function(){
+	// select 기본 체크 값
+	let kind = $('#tampkind').val();
+	console.log($('#tampkind').val());
+	if(kind == '' || kind == null) {
+		kind = 'talk_title';
+	}
+	$('#searchWhere').val(kind).prop("selected", true);
+	
+	// 모든 체크박스 체크 or 풀기.
+	$("#allcheckbox").on('click', function() {
+		if($("#allcheckbox").prop("checked")){
+			$("input[type=checkbox]").prop("checked", true);
+		} else {
+			$("input[type=checkbox]").prop("checked", false);
+		}
+	});
+	
+	$('tr').on('mouseover', function() {
+		$(this).css('background-color', '#d3d3d3');
+	});
+	$('tr').on('mouseout', function() {
+		$(this).css('background-color', '');
+	});
+});
+</script>
 </head>
 <body>
 <div id="noteWrap">
@@ -33,44 +70,14 @@
 </dl>
 </div>
 <div id="noteMain">
-
-<script>
-//쪽지 보관함으로 이동 및 쪽지 삭제 함수
-function talk(method) {
-	if($(".talk_no:checked").length <= 0){
-		return;
-	}
-	let fmObj = document.getElementById("fmNoteData");
-	fmObj.action = '/'+method;
-	fmObj.submit();
-}
-
-$(document).ready(function(){
-	// 모든 체크박스 체크 or 풀기.
-	$("#allcheckbox").on('click', function() {
-		if($("#allcheckbox").prop("checked")){
-			$("input[type=checkbox]").prop("checked", true);
-		} else {
-			$("input[type=checkbox]").prop("checked", false);
-		}
-	});
-	
-	$('tr').on('mouseover', function() {
-		$(this).css('background-color', '#d3d3d3');
-	});
-	$('tr').on('mouseout', function() {
-		$(this).css('background-color', '');
-	});
-});
-</script>
 <h1 class="note"><strong class="nick">${member.name}</strong>님의 <strong class="page">보낸 쪽지함</strong>입니다.</h1>
 <div id="noteList">
 	<div class="cmdWrap">
 		<a id="cmdDelete" class="bttn46" href="javascript:talk('deletesent');" >삭제</a>
 		<a id="cmdWrite" class="bttn92w" href="/talkreply/0" >쪽지보내기</a>
 	</div>
-	<div class="list">
 	<form id="fmNoteData" name="fmNoteData" action="" method="POST">
+	<div class="list">
 		<table border="0" cellpadding="0" cellspacing="0">
 			<thead>
 			<tr>
@@ -115,22 +122,22 @@ $(document).ready(function(){
 			</c:forEach>
 			</tbody>
 		</table>
-	</form>
 	</div>
 
 	<div class="tools">
 		<div id="notePaging"><span class="basetext"><img class="leftarrow" src="http://static.inven.co.kr/image/member/note/icon_arrow_left.gif"><span class="prevtext">이전</span> <span class="currentpg">1</span> <span class="nexttext">다음</span> <img class="rightarrow" src="http://static.inven.co.kr/image/member/note/icon_arrow_right.gif"></span></div>
-		<form id="noteSearch" name="noteSearch" method="GET" action="">
-			<select id="searchWhere" name="s_where">
-				<option value="title" > 제 목</option>
-				<option value="content" > 내 용</option>
+		<div id="noteSearch">
+			<select id="searchWhere" name="kind">
+				<option value="talk_title" >제 목</option>
+				<option value="talk" >내 용</option>
 				<option value="titlecontent" > 제목+내용</option>
-				<option value="nick" >이름</option>
+				<option value="name" >이름</option>
 			</select>
-			<input class="word" type="text" id="searchWord" name="s_word" value=""/>
-			<input class="submit" type="image" src="/resources/img/bttn_search.gif"/>
-		</form>
+			<input class="word" type="text" id="searchWord" name="search" value="${search}"/>
+			<input class="submit" id="tampkind" type="image" src="/resources/img/bttn_search.gif" value="${kind}">
+		</div>
 	</div>
+	</form>
 </div>
 </div>
 </div>

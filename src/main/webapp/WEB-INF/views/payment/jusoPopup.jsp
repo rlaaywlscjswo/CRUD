@@ -51,6 +51,9 @@ body{background-color: #373737;}
 
 /* 페이지 선택되지 않은 페이지 버튼*/
 .page_num strong{background-color: #186bb9; color:#fff;}
+#pop_header{
+	background-color: #007bff;
+}
 </style>
 <% 
 	request.setCharacterEncoding("UTF-8");  //한글깨지면 주석제거

@@ -91,8 +91,8 @@ public class MemberServiceImple implements MemberService {
 	}
 
 	@Override
-	public List<TalkDTO> recipientlist(int no) {
-		return mapper.recipientlist(no);
+	public List<TalkDTO> recipientlist(HashMap<String, Object> map) {
+		return mapper.recipientlist(map);
 	}
 
 	@Override
@@ -124,11 +124,6 @@ public class MemberServiceImple implements MemberService {
 	}
 
 	@Override
-	public List<TalkDTO> recipientkeeplist(int no) {
-		return mapper.recipientkeeplist(no);
-	}
-
-	@Override
 	public int talkdelete(List<String> talk_no) {
 		return mapper.talkdelete(talk_no);
 	}
@@ -144,8 +139,8 @@ public class MemberServiceImple implements MemberService {
 	}
 
 	@Override
-	public List<TalkDTO> sentlist(int no) {
-		return mapper.sentlist(no);
+	public List<TalkDTO> sentlist(HashMap<String, Object> map) {
+		return mapper.sentlist(map);
 	}
 
 	@Override
