@@ -36,5 +36,7 @@ public interface MemberService {
 	public int deletesent(List<String> talk_no);
 	public List<MemberDTO> idsearch(String search);
 	public MemberDTO nosearch(int no);
+	public int recipientcount(HashMap<String, Object> map);
+	public int sentcount(HashMap<String, Object> map);
 	
 }

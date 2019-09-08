@@ -1,6 +1,5 @@
 package com.bitcamp.app;
 
-import java.net.URI;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bitcamp.dto.AddressDTO;
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.OptionDTO;
+import com.bitcamp.dto.PagingDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
 import com.bitcamp.dto.TalkDTO;
@@ -111,17 +111,27 @@ public class MemberController {
 	
 	// 받은 쪽지함 리스트.
 	@RequestMapping("/talk")
-	public String talk(@RequestParam(defaultValue="", required=false) String kind, @RequestParam(defaultValue="", required=false) String search, Principal principal, Model model) {
+	public String talk(@RequestParam(defaultValue="", required=false) String kind, @RequestParam(defaultValue="", required=false) String search, 
+			@RequestParam(defaultValue="1", required=false) int currPage, Principal principal, Model model) {
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("kind", kind);
 		map.put("search", search);
 		map.put("no", mdto.getNo());
 		map.put("talk_keep", 0);
+		
+		int totalCount = memberService.recipientcount(map);
+		int pagePerSize = 9;
+		int blockPerSize = 5;
+		
+		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
+		map.put("startRow", dto.getStartRow());
+		map.put("pagePerSize", pagePerSize);
 		List<TalkDTO> tdto = memberService.recipientlist(map);
 		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
 		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
 		
+		model.addAttribute("dto", dto);
 		model.addAttribute("member", mdto);
 		model.addAttribute("talklist", tdto);
 		model.addAttribute("unread", unread);
@@ -133,7 +143,8 @@ public class MemberController {
 	
 	// 보관함 쪽지 리스트.
 	@RequestMapping("/talkkeep")
-	public String talkkeep(@RequestParam(defaultValue="", required=false) String kind, @RequestParam(defaultValue="", required=false) String search, Principal principal, Model model) {
+	public String talkkeep(@RequestParam(defaultValue="", required=false) String kind, @RequestParam(defaultValue="", required=false) String search, 
+			@RequestParam(defaultValue="1", required=false) int currPage, Principal principal, Model model) {
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("kind", kind);
@@ -141,10 +152,19 @@ public class MemberController {
 		map.put("no", mdto.getNo());
 		map.put("talk_keep", 1);
 		
+		int totalCount = memberService.recipientcount(map);
+		int pagePerSize = 9;
+		int blockPerSize = 5;
+
+		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
+		map.put("startRow", dto.getStartRow());
+		map.put("pagePerSize", pagePerSize);
 		List<TalkDTO> tdto = memberService.recipientlist(map);
+		
 		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
 		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
 		
+		model.addAttribute("dto", dto);
 		model.addAttribute("member", mdto);
 		model.addAttribute("talklist", tdto);
 		model.addAttribute("unread", unread);
@@ -159,6 +179,7 @@ public class MemberController {
 	public String talkDetail(HttpServletRequest request, @PathVariable int talk_no, Principal principal, Model model) {
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
 		HashMap<TalkDTO, Object> dto = memberService.talkdetail(talk_no);
+		
 		int result = memberService.talkstatus(talk_no); 
 		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
 		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
@@ -178,18 +199,26 @@ public class MemberController {
 	
 	// 보낸 쪽지함 리스트
 	@RequestMapping("/talksend")
-	public String talksend(@RequestParam(defaultValue="", required=false) String kind, @RequestParam(defaultValue="", required=false) String search, Principal principal, Model model) {
+	public String talksend(@RequestParam(defaultValue="", required=false) String kind, @RequestParam(defaultValue="", required=false) String search, 
+			@RequestParam(defaultValue="1", required=false) int currPage, Principal principal, Model model) {
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("kind", kind);
 		map.put("search", search);
 		map.put("no", mdto.getNo());
-		System.out.println(kind + ", "+search+mdto.getNo());
+		
+		int totalCount = memberService.sentcount(map);
+		int pagePerSize = 9;
+		int blockPerSize = 5;
+		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
+		map.put("startRow", dto.getStartRow());
+		map.put("pagePerSize", pagePerSize);
 		
 		List<TalkDTO> tdto = memberService.sentlist(map);
 		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
 		int keepunread = memberService.unread(new TalkDTO(mdto.getNo(), 1));
 	
+		model.addAttribute("dto", dto);
 		model.addAttribute("member", mdto);
 		model.addAttribute("list", tdto);
 		model.addAttribute("unread", unread);

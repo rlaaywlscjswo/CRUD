@@ -6,7 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>쪽지함 - CRUD</title>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/css/talk.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 //쪽지 보관함으로 이동 및 쪽지 삭제 함수
@@ -125,7 +129,24 @@ $(document).ready(function(){
 	</div>
 
 	<div class="tools">
-		<div id="notePaging"><span class="basetext"><img class="leftarrow" src="http://static.inven.co.kr/image/member/note/icon_arrow_left.gif"><span class="prevtext">이전</span> <span class="currentpg">1</span> <span class="nexttext">다음</span> <img class="rightarrow" src="http://static.inven.co.kr/image/member/note/icon_arrow_right.gif"></span></div>
+		<div id="notePaging">
+			<ul class="basetext pagination">
+				<c:if test="${dto.prev}">
+					<li><a href="talk?currPage=${dto.firstPageOfBlock-1}">
+					<c:out value="이전" /></a></li>
+				</c:if>
+				<c:forEach var="index" begin="${dto.firstPageOfBlock}" end="${dto.lastPageOfBlock}">
+						<c:choose>
+							<c:when test="${dto.currPage == index}">
+								<li class="active"><a href="talk?currPage=${index}"><c:out value="${index}" /></a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="talk?currPage=${index}"><c:out value="${index}" /></a></li>
+							</c:otherwise>
+						</c:choose>
+				</c:forEach>
+			</ul>
+		</div>
 		<div id="noteSearch">
 			<select id="searchWhere" name="kind">
 				<option value="talk_title" >제 목</option>

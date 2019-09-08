@@ -172,7 +172,12 @@ button.bg-dark:focus {
 .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
   background: #4540f7;
   color: #fff;
-  border-color: #4540f7; }
+  border-color: #4540f7; 
+}
+
+#aNoteSave{
+	padding: 5px 0 0 13px;
+}
 </style>
 <script>
 function submitbtn() {
@@ -266,7 +271,7 @@ $(document).ready(function(){
 		</table>
 		<div class="command">
 			<a id="aNoteCancel" href="/back" class="bttn46">취소</a>
-			<a id="aNoteSave" href="javascript:submitbtn()" class="bttn92w">쪽지보내기</a>
+			<a id="aNoteSave" href="javascript:submitbtn()" class="bttn92ws">쪽지보내기</a>
 		</div>
 	</div>
 </form>

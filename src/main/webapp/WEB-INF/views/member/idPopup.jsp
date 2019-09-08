@@ -157,6 +157,14 @@ body{
 #pop_header{
 	background-color: #007bff;
 }
+.setting_btn.green{
+	border-color: #007bff;
+	color: #007bff;
+}
+.setting_btn.green:hover {
+	background-color : #007bff;
+	color:#fff;
+}
 </style>
 <script>
 $(document).ready(function(){

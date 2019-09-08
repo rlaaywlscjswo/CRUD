@@ -83,6 +83,32 @@
 		<result column="talk_status" property="talk_status" />
 	</resultMap>
 	
+	<select id="recipientcount" parameterType="java.util.HashMap" resultType="int">
+		select count(*)
+		from member m join talk t 
+		on t.no = m.no
+		<where>
+			recipient = #{no} and talk_keep = #{talk_keep}
+			<if test="search != '' || search != null">
+				<choose>
+					<when test="'talk_title'.equals(kind)">
+						and talk_title like CONCAT('%',#{search},'%')
+					</when>
+					<when test="'talk'.equals(kind)">
+						and talk like CONCAT('%',#{search},'%')
+					</when>
+					<when test="'titlecontent'.equals(kind)">
+						and talk_title like CONCAT('%',#{search},'%')
+			    		or talk like CONCAT('%',#{search},'%')
+					</when>
+					<otherwise>
+						and name like CONCAT('%',#{search},'%')
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+	
 	<!-- 받은 or 보관함 쪽지 리스트 -->
 	<select id="recipientlist" parameterType="java.util.HashMap" resultMap="talk">
 		select talk_no, talk_title, name, email, talk_status, talk_keep, talk_date
@@ -116,6 +142,35 @@
 			</if>
 		</where>
 		order by talk_no desc
+		limit #{startRow}, #{pagePerSize}
+	</select>
+	
+	<!-- 보낸 쪽지 카운트 -->
+	<select id="sentcount" parameterType="java.util.HashMap" resultType="int">
+		select count(*)
+		from member m join talk t
+		on m.no = t.recipient
+		<where>
+			t.no = #{no}
+			and talk_deletesenttalk = 0
+			<if test="search != '' || search != null">
+				<choose>
+					<when test="'talk_title'.equals(kind)">
+						and talk_title like CONCAT('%',#{search},'%')
+					</when>
+					<when test="'talk'.equals(kind)">
+						and talk like CONCAT('%',#{search},'%')
+					</when>
+					<when test="'titlecontent'.equals(kind)">
+						and talk_title like CONCAT('%',#{search},'%')
+			    		or talk like CONCAT('%',#{search},'%')
+					</when>
+					<otherwise>
+						and name like CONCAT('%',#{search},'%')
+					</otherwise>
+				</choose>
+			</if>
+		</where>
 	</select>
 	
 	<resultMap type="hashMap" id="sendtalk">
@@ -157,6 +212,7 @@
 			</if>
 		</where>
 		order by talk_no desc
+		limit #{startRow}, #{pagePerSize}
 	</select>
 	
 	<!-- 보낸 쪽지 삭제 -->

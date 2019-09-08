@@ -158,5 +158,15 @@ public class MemberServiceImple implements MemberService {
 		return mapper.nosearch(no);
 	}
 
+	@Override
+	public int recipientcount(HashMap<String, Object> map) {
+		return mapper.recipientcount(map);
+	}
+
+	@Override
+	public int sentcount(HashMap<String, Object> map) {
+		return mapper.sentcount(map);
+	}
+
 
 }

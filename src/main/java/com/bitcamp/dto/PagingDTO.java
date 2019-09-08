@@ -72,4 +72,14 @@ public class PagingDTO {
 		return next;
 	}
 
+	public int getCurrPage() {
+		return currPage;
+	}
+
+	public void setCurrPage(int currPage) {
+		this.currPage = currPage;
+	}
+	
+	
+
 } // end PagingDTO class

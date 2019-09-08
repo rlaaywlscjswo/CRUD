@@ -34,6 +34,7 @@ public interface MemberMapper {
 	public int supportinsert(SupportDTO sdto);
 	public MemberDTO memberinfo(String email); // 회원 정보
 	public ProjectDTO projectinfo(int option_no); // 프로젝트 정보
+	public int recipientcount(HashMap<String, Object> map); // 받은, 보관함 카운트
 	public List<TalkDTO> recipientlist(HashMap<String, Object> map); // 받은 쪽지 리스트  or 보관함 쪽지 리스트
 	public int unread(TalkDTO dto); // 읽지 않은 쪽지 갯수
 	public HashMap<TalkDTO, Object> talkdetail(int talk_no); // 쪽지 상세
@@ -47,6 +48,8 @@ public interface MemberMapper {
 	public int deletesent(List<String> talk_no); // 보낸 쪽지 삭제
 	public List<MemberDTO> idsearch(String search); // 회원 검색
 	public MemberDTO nosearch(int no);
+	public int sentcount(HashMap<String, Object> map);
+
 
 
 
