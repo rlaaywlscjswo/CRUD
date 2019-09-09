@@ -181,7 +181,7 @@ public class ProjectController {
 			,@RequestParam int[] option_quantity		   
 		    ,@RequestParam int btncnt
 			,@RequestParam String summernote
-			,Principal principal) { 		
+			,Principal principal) throws Exception { 		
 		MemberDTO mdto = memberservice.memberinfo(principal.getName());
 		System.out.println("회원 이름 : "+mdto.getName());
 		System.out.println("회원 싸인 --------"+mdto.getSign());
@@ -196,7 +196,8 @@ public class ProjectController {
 			String realpath = contract_pdfpath+"\\"+contract_filename;	
 			System.out.println("realpath?"+realpath);
 			
-			pdfservice.createContractPdf(mdto.getSign(),realpath); // 계약서pdf 생성 service
+			pdfservice.htmlcreate(mdto.getSign());
+			//pdfservice.createContractPdf(mdto.getSign(),realpath); // 계약서pdf 생성 service
 			//pdfservice.pdfpdf(mdto.getSign(), realpath);
 			dto.setProject_contract(pdfpath+"/"+contract_filename); 
 			System.out.println("리소스거시기냐?"+dto.getProject_contract());
