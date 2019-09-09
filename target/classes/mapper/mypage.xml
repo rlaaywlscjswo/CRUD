@@ -36,6 +36,7 @@
 		<result property="reachper" column="targetprice" />
 		<result property="project_contract" column="project_contract" />
 		<result property="project_title" column="project_title" />
+		<result column="enddate" property="nam" />
 	</resultMap>
 
 	<!-- 내가 만든 프로젝트 개수 -->
@@ -66,10 +67,11 @@
 		parameterMap="hashmap">
 		select project_title, project_photo, project_contract,
 		sum(option_price) as sumop,
-		(to_days(p.enddate) - to_days(now()) + 1)
+		(to_days(p.enddate) - to_days(now()))
 		as remainingDay,
 		round(sum(option_price) / targetprice * 100, 2) as
-		reachper
+		reachper,
+		timestampdiff(hour, now(), enddate) as nam
 		from support s left join `option`
 		o
 		on s.option_no = o.option_no
@@ -122,7 +124,7 @@
 		parameterMap="hashmap">
 		select date_format(support_date, '%y년 %c월 %e일') as da,
 		project_photo,
-		support_status, project_title, option_name, option_price
+		support_status, project_title, option_name, option_price,
 		from
 		project
 		join `option` on project.project_no = `option`.project_no
