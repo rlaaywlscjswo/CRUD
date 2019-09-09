@@ -71,17 +71,9 @@ public class AdminController {
 		model.addAttribute("avgdal", avgdal);
 		model.addAttribute("avgRating", avgRating);
 
-		return "/admin/admin_fmember";
+		return "/admin/admin_fmember.temp";
 
 	} // end admin_fmember method
-	
-	// 통계
-	// 성공 횟수
-	
-	// 총 프로젝트 등록 횟수
-	
-	// 평균 달성률
-	// 평균 평점
 
 	@RequestMapping("/admin")
 	public String adminPage(Principal principal, Model model) {
@@ -118,7 +110,7 @@ public class AdminController {
 		model.addAttribute("admin_sproject", admin_sproject);
 		model.addAttribute("dto", dto);
 		
-		return "/admin/admin_sproject";
+		return "/admin/admin_sproject.temp";
 		
 	} // end admin_sproject method
 	

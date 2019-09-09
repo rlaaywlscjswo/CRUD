@@ -42,7 +42,7 @@ public class MypageController {
 		List<MemberDTO> myProfile = service.myProfile(email);
 		model.addAttribute("myProfile", myProfile);
 
-		return "/mypage/mypage_info";
+		return "/mypage/mypage_info.temp";
 
 	} // end myProfile method
 
@@ -70,14 +70,14 @@ public class MypageController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("myProject_list", myProject_list);
 
-		return "/mypage/mypage_myProject";
+		return "/mypage/mypage_myProject.temp";
 
 	} // end mypage_MyProjectList method
 
 	// 마이 페이지 - 내 후원 내역
 
 	@RequestMapping(value = "/support", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> mySupport_list(
+	public String mySupport_list(
 			@RequestParam(required = false, defaultValue = "1") int currPage,
 			@RequestParam(required = false, defaultValue = "") String support_search, Principal principal) {
 
@@ -96,7 +96,7 @@ public class MypageController {
 		hm.put("dto", dto);
 		hm.put("mySupport_list", mySupport_list);
 
-		return hm;
+		return "/mypage/mypage_support";
 
 	} // end mySupport_list method
 

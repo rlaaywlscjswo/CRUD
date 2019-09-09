@@ -1,6 +1,5 @@
 package com.bitcamp.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -37,5 +36,8 @@ public interface AdminService {
 	
 	// Excel Download
 	public void sproject_getExcelDown(HttpServletResponse response);
+	
+	// 거절 된 프로젝트 지워주기 (매주 금요일 저녁 6시에 삭제)
+	public void deleteDisagree();
 
 } // end AdminService interface
