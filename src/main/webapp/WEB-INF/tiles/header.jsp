@@ -16,22 +16,15 @@ button {
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-	$(document)
-			.ready(
-					function() {
-						//주소목록 팝업 호출
-						$('#talk')
-								.on(
-										'click',
-										function() {
-											//인코딩 문제 방지
-											let uri = encodeURI("/talk");
-											console.log(uri);
-											let pop = window
-													.open(uri, "pop",
-															"width=780,height=520, scrollbars=yes, resizable=yes");
-										});
-					});
+	$(document).ready(function() {
+		//주소목록 팝업 호출
+		$('#talk').on('click', function() {
+			//인코딩 문제 방지
+			let uri = encodeURI("/talk");
+			console.log(uri);
+			let pop = window.open(uri, "pop", "width=750,height=495, scrollbars=yes, resizable=yes");
+		});
+	});
 </script>
 </head>
 <body>
