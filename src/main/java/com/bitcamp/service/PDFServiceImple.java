@@ -163,8 +163,13 @@ public class PDFServiceImple implements PDFService {
 			
 			// 폰트 설정에서 별칭으로 줬던 "MalgunGothic"을 html 안에 폰트로 지정한다.
 			String htmlStr = "<html><head><body style='font-family: malgun;'>"			
-			            + "<p>펀딩 계약서 아래 서명 sdkflsdfkslddjejfksdlfjkdfdsjfskldjflskdjflskdjfsldkjfskldjflajfdskljflkewjfoisdjfaiwlejfksldjfaoise</p>"			            
-			        + "</body></head></html>";
+			            + " <h1>펀딩 계약서</h1>" + 
+			            "    <p>회원이름</p>" + 
+			            "    <p>프로젝트 제목</p>" + 
+			            "    <p>사업자등록번호</p>" + 
+			            "    <p>서명</p>" + 
+			            "    <p>(인)</p>"
+					+ "</body></head></html>";
 			 
 			StringReader strReader = new StringReader(htmlStr);
 			xmlparser.parse(strReader);		
