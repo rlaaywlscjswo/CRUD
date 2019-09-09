@@ -78,34 +78,96 @@
 	padding: 5px;
 }
 
+<!-- 여기서 부터임 -->
+
+.container .bh_nav {
+    position: absolute;
+    top: 100px;
+}
+
+.hide {
+    display: none;
+}
+
+.bh_nav div {
+    position: absolute;
+    width: 600px;
+    height: 320px;
+    left 200px;
+    border: 1px solid transparent;
+}
+
+.bh_nav > ul > li {
+    display: inline-block;
+    position: relative;
+    margin-top: 100px;
+    margin-right: 20px;
+    left: 50%;
+    font-weight: 800;
+}
+
+.bh_nav > ul > li > div > ul > li {
+    display: inline-block;
+    margin: 20px;
+    position: relative;
+    float: left;
+}
+
+.bh_nav > ul > li > div > ul > li ul li {
+    margin: 10px 0;
+}
+
+.bh_nav > ul > li > div > ul {
+    margin: 10px;
+    position: absolute;
+    top: -5px;
+}
+
+.bh_nav > ul > li:nth-of-type(1) > div {
+    border: 1px solid transparent;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    right: 0;
+    z-index: 101;
+}
+
+.bh_nav > ul > li:nth-of-type(2) > div {
+    border: 1px solid transparent;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    right: 0;
+    z-index: 101;
+}
+
+.bh_nav div > ul ul li {
+    display: block;
+    width: 100px;
+    border-left: 1px solid silver;
+    padding-left: 5px;
+}
+
+
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 	jQuery.noConflict();
 	jQuery(document).ready(function($) {
-
-		$('#myHide').hide();
-		$('#adminHide').hide();
-
-		$('#myButton').on('click', function() {
-
-			$('#myHide').slideDown(function() {
-				$('#myButton').on('click', function() {
-					$('#myHide').slideUp();
-				}); // end on
-			}); // end slideDown
-
-		}); // end on
 		
-		$('#adminButton').on('click', function() {
-			
-			$('#adminHide').slideDown(function() {
-				$('#adminButton').on('click', function() {
-					$('#adminHide').slideUp();
-				}); // end on
-			}); // end slideDown
-			
+		// menu slide
+		var sl = $('.bh_nav').find('ul').find('li');
+		sl.on('click', function() {
+			if($(this).children('div').hasClass('hide')) {
+				var hi = sl.children('div').not('hide').slideUp(500);
+				hi.addClass('hide');
+				$(this).children('div').slideDown(500);
+				$(this).children('div').removeClass('hide');
+			} else {
+				$(this).children('div').addClass('hide');
+				$(this).children('div').slideUp(500);				
+			}
 		}); // end on
+
+		
 
 	}); // end ready
 </script>
@@ -132,27 +194,50 @@
 				</form>
 			</sec:authorize>
 
-			<sec:authorize access="isAuthenticated()">
-				<div id="myPage">
-					<a id="myButton" href="#">마이 페이지</a>
-					<div id="myHide">
-						<a id="myProfile" href="/info">내 프로필</a> <a id="mySupport"
-							href="/support">내 후원 내역</a> <a id="madeByMe" href="/mypro">내가
-							만든 프로젝트</a>
-					</div>
-				</div>
-			</sec:authorize>
+			
+			
+				<nav class="bh_nav">
+					<ul>
+					<sec:authorize access="isAuthenticated()">
+						<li>
+							<h5><a href="#">마이 페이지</a></h5>
+								<div class="my hide">
+									<ul>
+										<li><a href="/info">내 프로필</a></li>
+										<li><a href="/support">내 후원 내역</a></li>
+										<li><a href="/mypro">내가 만든 프로젝트</a>
+									</ul>
+								</div>
+						</li>
+					</sec:authorize>
+					
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li>
+							<h5><a href="#">관리 페이지</a></h5>
+								<div class="admin hide">
+									<ul>
+										<li><a href="/fmember">펀딩 회원 관리</a></li>
+										<li><a href="/spro">펀딩 현황 목록</a></li>
+										<li><a href="#">고객 문의</a></li>
+									</ul>
+								</div>
+						</li>
+					</sec:authorize>
+					</ul>
+				</nav>
+				
+			
 
-			<sec:authorize access="hasRole('ROLE_ADMIN')">
-			<div id="adminPage">
+
+<!-- 			<div id="adminPage">
 				<a id="adminButton" href="#">관리자 페이지</a>
 				<div id="adminHide">
 					<a id="fmem" href="/fmember">펀딩 회원 관리</a>
 					<a id="spr" href="/spro">펀딩 현황 목록</a>
 					<a id="cus" href="#">고객 문의</a>
 				</div>
-			</div>
-			</sec:authorize>
+			</div> -->
+
 
 
 		</div>
