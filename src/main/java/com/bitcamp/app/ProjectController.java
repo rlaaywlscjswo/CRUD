@@ -63,6 +63,11 @@ public class ProjectController {
 	public String yummy() {
 		return "index.temp";
 	}	
+	
+	@RequestMapping("single")
+	public String s() {
+		return "single.temp";
+	}
 	// 메인 페이지
 	@RequestMapping("main") 
 	public String main(Model model) {
