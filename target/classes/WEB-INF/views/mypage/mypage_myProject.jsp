@@ -68,7 +68,13 @@
 					<div id="mypro_each">	 	
 						썸네일 이미지 : ${myProject_list.project_photo}<br>
 						모인 금액 : ${myProject_list.sumop}원<br>
-						남은 날 : ${myProject_list.remainingDay}일<br>
+						
+						<c:set var="rd" value="${myProject_list.remainingDay}" />
+						<c:choose>
+						<c:when test="${rd < 2}">남은 시간 : ${myProject_list.nam}시간<br></c:when>
+						<c:otherwise>남은 날 : ${myProject_list.remainingDay}일<br></c:otherwise>
+						</c:choose>					
+						
 						달성 퍼센트 : ${myProject_list.reachper}%<br>
 						계약서 : ${myProject_list.project_contract}<br>
 						프로젝트 이름 : ${myProject_list.project_title}<br>

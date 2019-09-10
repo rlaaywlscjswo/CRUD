@@ -22,7 +22,7 @@ import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.mapper.AdminMapper;
 
-@Service
+@Service("adminService")
 public class AdminServiceImple implements AdminService {
 
 	@Autowired
@@ -372,5 +372,13 @@ public class AdminServiceImple implements AdminService {
 		}
 
 	} // end getExcelDown method
+	
+	// 거절 된 프로젝트 지워주기 (매주 금요일 저녁 6시에 삭제)
+	@Override
+	public void deleteDisagree() {
+		mapper.deleteDisagree();
+		System.out.println("금요일 저녁 6시가 되었습니다..");
+		System.out.println("마피아는 고개를 들어주세요..");
+	} // end deleteDisagree method
 
 } // end AdminServiceImple class

@@ -174,4 +174,9 @@
 		select project_no, project_title, project_status from project
 	</select>
 	
+	<!-- 거절 된 프로젝트 지워주기 -->
+	<delete id="deleteDisagree">
+		delete from project where project_status = 4
+	</delete>
+	
 </mapper>

@@ -1,7 +1,6 @@
 package com.bitcamp.app;
 
 import java.security.Principal;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,9 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.PagingDTO;
@@ -42,7 +39,7 @@ public class MypageController {
 		List<MemberDTO> myProfile = service.myProfile(email);
 		model.addAttribute("myProfile", myProfile);
 
-		return "/mypage/mypage_info";
+		return "/mypage/mypage_info.temp";
 
 	} // end myProfile method
 
@@ -70,16 +67,16 @@ public class MypageController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("myProject_list", myProject_list);
 
-		return "/mypage/mypage_myProject";
+		return "/mypage/mypage_myProject.temp";
 
 	} // end mypage_MyProjectList method
 
 	// 마이 페이지 - 내 후원 내역
 
-	@RequestMapping(value = "/support", method = RequestMethod.GET)
-	public @ResponseBody HashMap<String, Object> mySupport_list(
+	@RequestMapping("/support")
+	public String mySupport_list(
 			@RequestParam(required = false, defaultValue = "1") int currPage,
-			@RequestParam(required = false, defaultValue = "") String support_search, Principal principal) {
+			@RequestParam(required = false, defaultValue = "") String support_search, Principal principal, Model model) {
 
 		String email = principal.getName();
 
@@ -90,13 +87,11 @@ public class MypageController {
 		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
 
 		List<SupportDTO> mySupport_list = service.mySupport_list(dto.getStartRow(), pagePerSize, support_search, email);
-		HashMap<String, Object> hm = new HashMap<>();
+		
+		model.addAttribute("dto", dto);
+		model.addAttribute("mySupport_list", mySupport_list);
 
-		hm.put("support_search", support_search);
-		hm.put("dto", dto);
-		hm.put("mySupport_list", mySupport_list);
-
-		return hm;
+		return "/mypage/mypage_support.temp";
 
 	} // end mySupport_list method
 

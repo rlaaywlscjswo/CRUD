@@ -40,5 +40,23 @@
 		base-package="com.bitcamp.service" />
 	<mybatis-spring:scan
 		base-package="com.bitcamp.mapper" />
+		
+		<!-- 병훈쓰 spring quartz -->
+		<bean id="delete_Disagree" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+			<property name="targetObject" ref="adminService" />
+			<property name="targetMethod" value="deleteDisagree" />
+			<property name="concurrent" value="false" />
+		</bean>
+		<!-- 트리거 -->
+		<bean id="deleteDisagreeTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+			<property name="jobDetail" ref="delete_Disagree" />
+			<property name="cronExpression" value="0 0 18 ? * FRI" />
+		</bean>
+		<!-- 스케쥴러 -->
+		<bean id="deleteDisagreeScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+			<property name="triggers">
+				<list><ref bean="deleteDisagreeTrigger" /></list>
+			</property>
+		</bean>
 
 </beans>

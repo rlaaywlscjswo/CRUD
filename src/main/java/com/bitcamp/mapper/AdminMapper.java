@@ -41,5 +41,8 @@ public interface AdminMapper {
 
 	// Excel용 Full List
 	public List<ProjectDTO> admin_Allsproject();
+	
+	// 거절 된 프로젝트 지워주기
+	public void deleteDisagree();
 
 } // end AdminMapper interface
