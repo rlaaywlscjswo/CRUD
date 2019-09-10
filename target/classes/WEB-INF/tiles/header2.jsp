@@ -24,11 +24,11 @@
                         <a href="#" id="talk">쪽지함</a>
                         <ul></ul>
                         <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="/projectcategorylist=게임" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">게임</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="/projectcategorylist=pc게임">PC 게임</a>
-                                        <a class="dropdown-item" href="/projectcategorylist=모바일게임">모바일 게임</a>
-                                        <a class="dropdown-item" href="/projectcategorylist=비디오게임">비디오 게임</a>                                       
+                                        <a class="dropdown-item" href="/info">내프로필</a>
+                                        <a class="dropdown-item" href="/support">내후원내역</a>
+                                        <a class="dropdown-item" href="/mypro">내가만든프로젝트</a>                                       
                                     </div>
                         </li>
                         <a href="#">고객센터</a>                       

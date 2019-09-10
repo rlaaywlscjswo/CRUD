@@ -131,8 +131,7 @@ public class ProjectController {
 	// 카테고리선택 json ( 프로젝트 등록페이지에서)
 	@RequestMapping(value="project/category", method=RequestMethod.GET)
 	public @ResponseBody List<CategoryDTO> category(	
-		@RequestParam String main_category){
-		//String main_category=ca.get("main_category");
+		@RequestParam String main_category){		
 		 System.out.println(" ajax" + main_category) ;		
 		List<CategoryDTO> subcategorylist = categoryservice.subcategoryList(main_category);
 		
