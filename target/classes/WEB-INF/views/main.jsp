@@ -30,7 +30,7 @@
 	rel="stylesheet">
 <!-- Custom styles for this template -->
 <link href="resources\css\landing-page.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="\resources\css/main.css">
 <style type="text/css">
 #cate1 {
 	background-color: yellow;
@@ -39,138 +39,9 @@
 #cate2 {
 	background-color: green;
 }
-
-#popularProject, #newProject, #successApproach {
-	border: 1px solid silver;
-	display: inline-block;
-	height: 200px;
-	position: relative;
-	width: 200px;
-}
-
-#logButton, #myPage, #adminPage {
-	position: relative;
-	width: 150px;
-}
-
-#logButton {
-	left: 0%;
-}
-
-#myPage {
-	left: 0%;
-}
-
-#adminPage {
-	left: 0%;
-}
-
-#logButton, #myButton, #myProfile, #mySupport, #madeByMe, #adminButton, #fmem, #spr, #cus {
-	background-color: dodgerblue;
-	border: 1px solid;
-	border-radius: 5px;
-	color: #fff;
-	display: inline-block;
-	padding: 5px;
-	position: relative;
-	text-align: center;
-	width: 200px;
-	padding: 5px;
-}
-
-<!-- 여기서 부터임 -->
-
-.container .bh_nav {
-    position: absolute;
-    top: 100px;
-}
-
-.hide {
-    display: none;
-}
-
-.bh_nav div {
-    position: absolute;
-    width: 600px;
-    height: 320px;
-    left 200px;
-    border: 1px solid transparent;
-}
-
-.bh_nav > ul > li {
-    display: inline-block;
-    position: relative;
-    margin-top: 100px;
-    margin-right: 20px;
-    left: 50%;
-    font-weight: 800;
-}
-
-.bh_nav > ul > li > div > ul > li {
-    display: inline-block;
-    margin: 20px;
-    position: relative;
-    float: left;
-}
-
-.bh_nav > ul > li > div > ul > li ul li {
-    margin: 10px 0;
-}
-
-.bh_nav > ul > li > div > ul {
-    margin: 10px;
-    position: absolute;
-    top: -5px;
-}
-
-.bh_nav > ul > li:nth-of-type(1) > div {
-    border: 1px solid transparent;
-    background-color: rgba(255, 255, 255, 0.5);
-    position: absolute;
-    right: 0;
-    z-index: 101;
-}
-
-.bh_nav > ul > li:nth-of-type(2) > div {
-    border: 1px solid transparent;
-    background-color: rgba(255, 255, 255, 0.5);
-    position: absolute;
-    right: 0;
-    z-index: 101;
-}
-
-.bh_nav div > ul ul li {
-    display: block;
-    width: 100px;
-    border-left: 1px solid silver;
-    padding-left: 5px;
-}
-
-
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>
-	jQuery.noConflict();
-	jQuery(document).ready(function($) {
-		
-		// menu slide
-		var sl = $('.bh_nav').find('ul').find('li');
-		sl.on('click', function() {
-			if($(this).children('div').hasClass('hide')) {
-				var hi = sl.children('div').not('hide').slideUp(500);
-				hi.addClass('hide');
-				$(this).children('div').slideDown(500);
-				$(this).children('div').removeClass('hide');
-			} else {
-				$(this).children('div').addClass('hide');
-				$(this).children('div').slideUp(500);				
-			}
-		}); // end on
-
-		
-
-	}); // end ready
-</script>
+<script src="\resources\js/main.js"></script>
 
 </head>
 
@@ -227,16 +98,6 @@
 				</nav>
 				
 			
-
-
-<!-- 			<div id="adminPage">
-				<a id="adminButton" href="#">관리자 페이지</a>
-				<div id="adminHide">
-					<a id="fmem" href="/fmember">펀딩 회원 관리</a>
-					<a id="spr" href="/spro">펀딩 현황 목록</a>
-					<a id="cus" href="#">고객 문의</a>
-				</div>
-			</div> -->
 
 
 
@@ -355,67 +216,6 @@
 			</div>
 		</c:forEach>
 	</div>
-
-
-
-
-
-
-	<div class="container-fluid">
-
-		<c:forEach var="item" items="${list }">
-			<div class="col-lg-4 col-md-6 mb-4">
-				<div class="card h-100">
-					<a href="projectdetail=${item.project_no }"><img
-						class="card-img-top" src="${item.project_photo }" alt=""></a>
-					<div class="card-body">
-						이름:
-						<c:out value="${item.name}"></c:out>
-						<br> 프로젝트번호:
-						<c:out value="${item.project_no }"></c:out>
-						<br> 프로젝트제목:
-						<c:out value="${item.project_title }"></c:out>
-						<br> 카테고리번호:
-						<c:out value="${item.category_no }"></c:out>
-						<br> 조회수:
-						<c:out value="${item.project_views }"></c:out>
-						<br> 사진:
-						<c:out value="${item.project_photo }"></c:out>
-						<br>
-					</div>
-					<div class="card-footer">
-						<small class="text-muted">&#9733; &#9733; &#9733; &#9733;
-							&#9734;</small>
-					</div>
-				</div>
-			</div>
-		</c:forEach>
-	</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
