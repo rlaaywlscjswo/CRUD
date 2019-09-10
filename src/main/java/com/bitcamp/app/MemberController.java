@@ -25,6 +25,7 @@ import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
 import com.bitcamp.dto.TalkDTO;
 import com.bitcamp.service.MemberService;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 @Controller
 public class MemberController {
@@ -35,6 +36,17 @@ public class MemberController {
 	@RequestMapping("/signup")
 	public String signup() {
 		return "/member/signup";
+	}
+	
+	@RequestMapping("/naverlogin")
+	public String naverlogin() {
+		return "/security/callback";
+	}
+	
+	@RequestMapping("/naverlogincheck")
+	public String naverlogincheck() {
+		
+		return "/";
 	}
 	
 	@RequestMapping("/signupresult")
@@ -323,6 +335,11 @@ public class MemberController {
 		}
 		System.out.println("이동 경로 : "+url);
 		return "redirect:"+url;
+	}
+	
+	@RequestMapping("/pays")
+	public String pays() {
+		return "/payment/pays.temp";
 	}
 	
 	// 이전 페이지로 돌아가기.

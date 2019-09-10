@@ -143,14 +143,14 @@ input[type=submit] {
 			</div>
 			<div id="signup"><a href="/signup">회원 가입</a></div>
 			<div id="naver_id_login"></div>
-
 	</div>
 
 <script type="text/javascript">
-  	var naver_id_login = new naver_id_login("6rXHgI2ZoOW_8CoLjVmW", "http://localhost:8080/MiniPro2/naverlogin.do&svctype=0");
+	//&svctype=0
+  	var naver_id_login = new naver_id_login("TuceI6ryHcQLt78CA67C", "http://localhost:8080/naverlogin");
   	var state = naver_id_login.getUniqState();
-  	naver_id_login.setButton("white", 2,40);
-  	naver_id_login.setDomain("http://localhost:8080/MiniPro2/teatime.do");
+  	naver_id_login.setButton("white", 4,50);
+  	naver_id_login.setDomain("http://localhost:8080/main");
   	naver_id_login.setState(state);
   	/* naver_id_login.setPopup(false); */
   	naver_id_login.init_naver_id_login();
