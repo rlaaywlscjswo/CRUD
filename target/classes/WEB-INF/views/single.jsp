@@ -1,369 +1,373 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+
+<!-- 댓글 JS  -->
+<script type="text/javascript">
+	var project_no = $
+	{
+		list.project_no
+	}; // 프로젝트 번호
+	$(function() {
+		commentList(); //페이지 로딩시 댓글 목록 출력 
+
+		$('[name=replyinsertbtn]').click(function() { //댓글 등록 버튼 클릭시 
+			var insertData = $('[name=replyinsertform]').serialize(); //commentInsertForm의 내용을 가져옴
+			console.log(insertData);
+			commentInsert(insertData); //Insert 함수호출(아래)
+		});
+
+	});
+
+	//댓글 목록 
+	function commentList() {
+		$
+				.ajax({
+					url : '/replylist',
+					type : 'post',
+					data : {
+						"project_no" : project_no
+					},
+					success : function(result) {
+						var a = "";
+						if (result.length < 1) {
+							a += '<p>' + "등록된댓글 ㄴㄴ" + '</p>';
+						} else {
+							$
+									.each(
+											result,
+											function(key, value) {
+												console
+														.log(value.reply_contents);
+												a += '<div class="card" style="width: 800px; height: 150px;">';
+												a += '<div class="card-body">';
+												a += '<div class="commentInfo'+value.reply_no+'">'
+														+ '댓글번호 : '
+														+ value.reply_no
+														+ ' / 작성자 : '
+														+ value.name;
+												a += '<a onclick="commentUpdate('
+														+ value.reply_no
+														+ ',\''
+														+ value.reply_contents
+														+ '\');"> 수정 </a>';
+												a += '<a onclick="commentDelete('
+														+ value.reply_no
+														+ ');"> 삭제 </a> </div>';
+												a += '<div class="commentContent'+value.reply_no+'"> <p> 내용 : '
+														+ value.reply_contents
+														+ '</p>';
+												a += '</div></div></div>';
+											});
+						}
+						$(".replylist").html(a);
+					}
+				});
+	}
+
+	//댓글 등록
+	function commentInsert(insertData) {
+		$.ajax({
+			url : '/replyinsert',
+			type : 'post',
+			data : insertData,
+			success : function(data) {
+				if (data == 1) {
+					commentList(); //댓글 작성 후 댓글 목록 reload
+					$('[name=reply_contents]').val('');
+				}
+			}
+		});
+	}
+
+	//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
+	function commentUpdate(reply_no, reply_contents) {
+		console.log('no:' + reply_no);
+		console.log('contents:' + reply_contents);
+		var a = '';
+		a += '<div class="input-group">';
+		a += '<input type="text" name="reply_contents'+reply_no+'" value="'+reply_contents+'"/>';
+		a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('
+				+ reply_no + ');">수정</button> </span>';
+		a += '</div>';
+		$('.commentContent' + reply_no).html(a);
+
+	}
+
+	//댓글 수정
+	function commentUpdateProc(reply_no) {
+		var updateContent = $('[name=reply_contents' + reply_no + ']').val();
+		$.ajax({
+			url : '/replyupdate',
+			type : 'post',
+			data : {
+				'reply_contents' : updateContent,
+				'reply_no' : reply_no
+			},
+			success : function(data) {
+				if (data == 1)
+					commentList(project_no); //댓글 수정후 목록 출력 
+			}
+		});
+	}
+
+	//댓글 삭제 
+	function commentDelete(reply_no) {
+		$.ajax({
+			url : '/replydelete/' + reply_no,
+			type : 'post',
+			success : function(data) {
+				alert('삭제하겠습니까?');
+				if (data == 1)
+					commentList(project_no); //댓글 삭제후 목록 출력 
+			}
+		});
+	}
+</script>
 </head>
 <body>
- <!-- ****** Breadcumb Area Start ****** -->
+	<!-- ****** Breadcumb Area Start ****** -->
 	<div class="breadcumb-nav">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Archive</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Single Post Blog</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ****** Single Blog Area Start ****** -->
-    <section class="single_blog_area section_padding_80">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-lg-8">
-                    <div class="row no-gutters">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i
+									class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+							<li class="breadcrumb-item"><a href="#">Archive</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Single
+								Post Blog</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ****** Single Blog Area Start ****** -->
+	<section class="single_blog_area section_padding_80">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-12 col-lg-8">
+					<div class="row no-gutters">
 
-                        <!-- Single Post Share Info -->
-                        <div class="col-2 col-sm-1">
-                            <div class="single-post-share-info mt-100">                                
-                            </div>
-                        </div>
+						<!-- Single Post Share Info -->
+						<div class="col-2 col-sm-1">
+							<div class="single-post-share-info mt-100"></div>
+						</div>
 
-                        <!-- Single Post -->
-                        <div class="col-10 col-sm-11">
-                            <div class="single-post">
-                                <!-- Post Thumb -->
-                                <div class="post-thumb">
-                                    <img src="/resources/yummy/img/blog-img/10.jpg" alt="">
-                                </div>
-                                <!-- Post Content -->
-                                <div class="post-content">
-                                    <div class="post-meta d-flex">
-                                        <div class="post-author-date-area d-flex">
-                                            <!-- Post Author -->
-                                            <div class="post-author">
-                                                <a href="#">By Marian</a>
-                                            </div>
-                                            <!-- Post Date -->
-                                            <div class="post-date">
-                                                <a href="#">May 19, 2017</a>
-                                            </div>
-                                        </div>
-                                        <!-- Post Comment & Share Area -->
-                                        <div class="post-comment-share-area d-flex">
-                                            <!-- Post Favourite -->
-                                            <div class="post-favourite">
-                                                <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
-                                            </div>
-                                            <!-- Post Comments -->
-                                            <div class="post-comments">
-                                                <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
-                                            </div>
-                                            <!-- Post Share -->
-                                            <div class="post-share">
-                                                <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#">
-                                        <h2 class="post-headline">Boil The Kettle And Make A Cup Of Tea Folks, This Is Going To Be A Big One!</h2>
-                                    </a>
-                                    <p>Tiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea. Liusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, qui s nostrud exercitation ullamLorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+						<!-- Single Post -->
+						<div class="col-10 col-sm-11">
+							<div class="single-post">
+								<!-- Post Thumb -->
+								<div class="post-thumb">
+									<img src="${list.project_photo }" alt="프로젝트대표사진">
+								</div>
+								<!-- Post Content -->
+								<div class="post-content">
 
-                                    <blockquote class="yummy-blockquote mt-30 mb-30">
-                                        <h5 class="mb-30">“Technology is nothing. What's important is that you have a faith in people, that they're basically good and smart, and if you give them tools, they'll do wonderful things with them.”</h5>
-                                        <h6 class="text-muted">Steven Jobs</h6>
-                                    </blockquote>
+									<ul class="nav nav-tabs">
+										<li class="nav-item"><a class="nav-link active"
+											data-toggle="tab" href="#qwe">프로젝트 설명</a></li>
+										<li class="nav-item"><a class="nav-link"
+											data-toggle="tab" href="#asd">후기 및 평점</a></li>
+										<li class="nav-item"><a class="nav-link"
+											data-toggle="tab" href="#zxc">환불정책</a></li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane fade show active" id="qwe">
+											<p>pdf viewer 들어올 곳</p>
+										</div>
+										<div class="tab-pane fade" id="asd">
+											<!-- 댓글 form -->
+											<form method="post" name="replyinsertform">
+												<input type="hidden" id="project_no" name="project_no"
+													value="${list.project_no }">
+												<textarea style="width: 100%; resize: none;"
+													id="reply_contents" class="form-control"
+													name="reply_contents"></textarea>
+												<button type="button" name="replyinsertbtn">댓글등록</button>
+											</form>
 
-                                    <h4>You Can Buy For Less Than A College Degree</h4>
-                                    <p>Dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+											<!-- Comment Area Start -->
+											<div class="comment_area section_padding_50 clearfix">
+												<ol>
+													<!-- Single Comment Area -->
+													<li class="single_comment_area">
+														<div class="comment-wrapper d-flex">
+															<!-- Comment Meta -->
+															<div class="comment-author">
+																<img src="/resources/yummy/img/blog-img/17.jpg" alt="">
+															</div>
+															<!-- 댓글 -->
+															<div class="comment-content">
+																<span class="comment-date text-muted">27 Aug 2018</span>
+																<h5>Brandon Kelley</h5>
+																<p>Neque porro qui squam est, qui dolorem ipsum quia
+																	dolor sit amet, consectetur, adipisci velit, sed quia
+																	non numquam eius modi tempora.</p>
+																<a class="active" href="#">수정</a> <a href="#">삭제</a>
+															</div>
+														</div>
+													</li>
 
-                                    <img class="br-30 mb-30" src="img/blog-img/11.jpg" alt="">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+												</ol>
+											</div>
 
-                                    <img class="br-30 mb-30" src="img/blog-img/12.jpg" alt="">
-                                    <p>Liusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, qui s nostrud exercitation ullamLorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+										</div>
+										<div class="tab-pane fade" id="zxc">
+											<p>Curabitur dignissim quis nunc vitae laoreet. Etiam ut
+												mattis leo, vel fermentum tellus. Sed sagittis rhoncus
+												venenatis. Quisque commodo consectetur faucibus. Aenean eget
+												ultricies justo.</p>
+										</div>
+									</div>
+								</div>
+							</div>
 
-                                    <img class="br-30 mb-30" src="img/blog-img/13.jpg" alt="">
-                                    <h4>You Can Buy For Less Than A College Degree</h4>
-                                    <p>Liusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, qui s nostrud exercitation ullamLorem ipsum dolor sit amet, consectetur adipisicing elit.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
 
-                                    <ul class="mb-30">
-                                        <li>1/3 cup Lonsectetur adipisicing elit.Lorem ipsum</li>
-                                        <li>1/2 cup Veniam, quis nostrud exercitation</li>
-                                        <li>Ut labore et dolore magna</li>
-                                        <li>Lonsectetur adipisicing elit.Lorem ipsum</li>
-                                        <li>Lonsectetur adipisicing elit.Lorem ipsum</li>
-                                        <li>Ut labore et dolore magna</li>
-                                        <li>Lonsectetur adipisicing elit.Lorem ipsum</li>
-                                    </ul>
-
-                                    <img class="br-30 mb-15" src="img/blog-img/14.jpg" alt="">
-                                </div>
-                            </div>
-
-                            <!-- Tags Area -->
-                            <div class="tags-area">
-                                <a href="#">Multipurpose</a>
-                                <a href="#">Design</a>
-                                <a href="#">Ideas</a>
-                            </div>
-
-                            <!-- Related Post Area -->
-                            <div class="related-post-area section_padding_50">
-                                <h4 class="mb-30">Related post</h4>
-
-                                <div class="related-post-slider owl-carousel">
-                                    <!-- Single Related Post-->
-                                    <div class="single-post">
-                                        <!-- Post Thumb -->
-                                        <div class="post-thumb">
-                                            <img src="/resources/yummy/img/blog-img/15.jpg" alt="">
-                                        </div>
-                                        <!-- Post Content -->
-                                        <div class="post-content">
-                                            <div class="post-meta d-flex">
-                                                <div class="post-author-date-area d-flex">
-                                                    <!-- Post Author -->
-                                                    <div class="post-author">
-                                                        <a href="#">By Marian</a>
-                                                    </div>
-                                                    <!-- Post Date -->
-                                                    <div class="post-date">
-                                                        <a href="#">May 19, 2017</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a href="#">
-                                                <h6>The Top Breakfast And Brunch Spots In Hove</h6>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- Single Related Post-->
-                                    <div class="single-post">
-                                        <!-- Post Thumb -->
-                                        <div class="post-thumb">
-                                            <img src="/resources/yummy/img/blog-img/5.jpg" alt="">
-                                        </div>
-                                        <!-- Post Content -->
-                                        <div class="post-content">
-                                            <div class="post-meta d-flex">
-                                                <div class="post-author-date-area d-flex">
-                                                    <!-- Post Author -->
-                                                    <div class="post-author">
-                                                        <a href="#">By Marian</a>
-                                                    </div>
-                                                    <!-- Post Date -->
-                                                    <div class="post-date">
-                                                        <a href="#">May 19, 2017</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a href="#">
-                                                <h6>The Top Breakfast And Brunch Spots In Hove</h6>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- Single Related Post-->
-                                    <div class="single-post">
-                                        <!-- Post Thumb -->
-                                        <div class="post-thumb">
-                                            <img src="/resources/yummy/img/blog-img/16.jpg" alt="">
-                                        </div>
-                                        <!-- Post Content -->
-                                        <div class="post-content">
-                                            <div class="post-meta d-flex">
-                                                <div class="post-author-date-area d-flex">
-                                                    <!-- Post Author -->
-                                                    <div class="post-author">
-                                                        <a href="#">By Marian</a>
-                                                    </div>
-                                                    <!-- Post Date -->
-                                                    <div class="post-date">
-                                                        <a href="#">May 19, 2017</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a href="#">
-                                                <h6>The Top Breakfast And Brunch Spots In Hove</h6>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <!-- Single Related Post-->
-                                    <div class="single-post">
-                                        <!-- Post Thumb -->
-                                        <div class="post-thumb">
-                                            <img src="/resources/yummy/img/blog-img/5.jpg" alt="">
-                                        </div>
-                                        <!-- Post Content -->
-                                        <div class="post-content">
-                                            <div class="post-meta d-flex">
-                                                <div class="post-author-date-area d-flex">
-                                                    <!-- Post Author -->
-                                                    <div class="post-author">
-                                                        <a href="#">By Marian</a>
-                                                    </div>
-                                                    <!-- Post Date -->
-                                                    <div class="post-date">
-                                                        <a href="#">May 19, 2017</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <a href="#">
-                                                <h6>The Top Breakfast And Brunch Spots In Hove</h6>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Comment Area Start -->
-                            <div class="comment_area section_padding_50 clearfix">
-                                <h4 class="mb-30">2 Comments</h4>
-
-                                <ol>
-                                    <!-- Single Comment Area -->
-                                    <li class="single_comment_area">
-                                        <div class="comment-wrapper d-flex">
-                                            <!-- Comment Meta -->
-                                            <div class="comment-author">
-                                                <img src="/resources/yummy/img/blog-img/17.jpg" alt="">
-                                            </div>
-                                            <!-- Comment Content -->
-                                            <div class="comment-content">
-                                                <span class="comment-date text-muted">27 Aug 2018</span>
-                                                <h5>Brandon Kelley</h5>
-                                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>
-                                                <a href="#">Like</a>
-                                                <a class="active" href="#">Reply</a>
-                                            </div>
-                                        </div>
-                                        <ol class="children">
-                                            <li class="single_comment_area">
-                                                <div class="comment-wrapper d-flex">
-                                                    <!-- Comment Meta -->
-                                                    <div class="comment-author">
-                                                        <img src="/resources/yummy/img/blog-img/18.jpg" alt="">
-                                                    </div>
-                                                    <!-- Comment Content -->
-                                                    <div class="comment-content">
-                                                        <span class="comment-date text-muted">27 Aug 2018</span>
-                                                        <h5>Brandon Kelley</h5>
-                                                        <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>
-                                                        <a href="#">Like</a>
-                                                        <a class="active" href="#">Reply</a>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ol>
-                                    </li>
-                                    <li class="single_comment_area">
-                                        <div class="comment-wrapper d-flex">
-                                            <!-- Comment Meta -->
-                                            <div class="comment-author">
-                                                <img src="/resources/yummy/img/blog-img/19.jpg" alt="">
-                                            </div>
-                                            <!-- Comment Content -->
-                                            <div class="comment-content">
-                                                <span class="comment-date text-muted">27 Aug 2018</span>
-                                                <h5>Brandon Kelley</h5>
-                                                <p>Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora.</p>
-                                                <a href="#">Like</a>
-                                                <a class="active" href="#">Reply</a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </div>
-
-                            <!-- Leave A Comment -->
-                            <div class="leave-comment-area section_padding_50 clearfix">
-                                <div class="comment-form">
-                                    <h4 class="mb-30">Leave A Comment</h4>
-
-                                    <!-- Comment Form -->
-                                    <form action="#" method="post">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="contact-name" placeholder="Name">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" id="contact-email" placeholder="Email">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="contact-website" placeholder="Website">
-                                        </div>
-                                        <div class="form-group">
-                                            <textarea class="form-control" name="message" id="message" cols="30" rows="10" placeholder="Message"></textarea>
-                                        </div>
-                                        <button type="submit" class="btn contact-btn">Post Comment</button>
-                                    </form>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ****** Blog Sidebar ****** -->
-                <div class="col-12 col-sm-8 col-md-6 col-lg-4">
-                    <div class="blog-sidebar mt-5 mt-lg-0">                       
-                        <!-- 프로젝트 설명 -->
-                        <div class="single-widget-area subscribe_widget text-center">
-                            <div class="widget-title">
-                                <h6>여기다가 프로젝트 title 넣자</h6>
-                            </div>
-                            <div class="subscribe-link">
-                               <p>블라블라블라</p>
-                            </div>
-                        </div>
-
-						 <!-- 창작자 설명 -->
-                        <div class="single-widget-area about-me-widget text-center">
-                            <div class="widget-title">
-                                <h6>여기다가는 창작자 소개</h6>
-                            </div>
-                            <div class="about-me-widget-thumb">
-                                <img src="/resources/yummy/img/about-img/1.jpg" alt="창작자프로필">
-                            </div>
-                            <h4 class="font-shadow-into-light">창작자이름</h4>
-                            <p>창작자소개</p>
-                        </div>
 						
-                        <!-- 옵션목록들 -->
-                        <div class="single-widget-area popular-post-widget">
-                            <div class="widget-title text-center">
-                                <h6>후원 옵션</h6>
-                            </div>                   
-                        <!-- 옵션 한개한개-->
-                        <div class="single-widget-area add-widget text-center">
-                            <div class="add-widget-area">
-                                <img src="/resources/yummy/img/sidebar-img/6.jpg" alt="">
-                                <div class="add-text">
-                                    <div class="yummy-table">
-                                        <div class="yummy-table-cell">
-                                            <h2>Cooking Book</h2>
-                                            <p>Buy Book Online Now!</p>
-                                              <p>Buy Book Online Now!</p>
-                                               <p>Buy Book Online Now!</p>
-                                            <a href="#" class="add-btn">Buy Now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                  
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
-    <!-- ****** Single Blog Area End ****** -->
+						</div>
+					</div>
+				</div>
+
+				<!-- ****** Blog Sidebar ****** -->
+				<div class="col-12 col-sm-8 col-md-6 col-lg-4">
+					<div class="blog-sidebar mt-5 mt-lg-0">
+						<!-- 프로젝트 설명 -->
+						<div class="single-widget-area subscribe_widget text-center">
+							<div class="widget-title">
+								<h6>${list.project_title }</h6>
+							</div>
+							<div class="subscribe-link">
+								<p>조회수 ${list.project_views }</p>
+								<p>카테고리번호 ${list.category_no }</p>
+								<p>모인금액</p>
+								<p>종료일:${list.enddate }</p>
+								<p>
+									펀딩진행중<br>목표금액인${list.targetprice }이 모여야만 결제됩니다.
+								</p>
+								<button type="button" class="btn btn-primary"
+									data-toggle="modal" data-target="#exampleModalCenter">
+									후원하기</button>
+									<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    <c:forEach var="opt" items="${option }">
+	<form action="/pay" method="post">
+		<div id="option">
+		<div class="card" style="width: 360px;height: 312px;">
+ 	    <div class="card-body">
+    	<h5 class="card-title">후원 옵션</h5>
+    	<h6 class="card-subtitle mb-2 text-muted">서브없음</h6>
+    	<p class="card-text">
+    	<c:out value="${opt.option_no }"/><br>
+		<c:out value="${opt.option_name}"/><br>
+		<c:out value="${opt.option_price }"/><br>
+		<c:out value="${opt.option_contents }"/><br>
+		<c:out value="${opt.option_quantity }"/><br>
+		<c:out value="${opt.project_no }"/><br>
+		
+		<input type="hidden" name="option_no" value="${opt.option_no }">
+		<input type="hidden" name="option_name" value="${opt.option_name }">
+		<input type="hidden" name="option_price" value="${opt.option_price }">
+		<input type="hidden" name="option_contents" value="${opt.option_contents }">
+		<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
+		<input type="hidden" name="alias" value="${list.alias}">   	    
+    	                                   
+    	</p>
+   		<button class="btn btn-sm btn-outline-secondary">후원하기</button>
+  		</div>
+		</div>		
+		</div>
+	</form>
+</c:forEach>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+							</div>
+						</div>
+
+						<!-- 창작자 설명 -->
+						<div class="single-widget-area about-me-widget text-center">
+							<div class="widget-title">
+								<h6>여기다가는 창작자 소개</h6>
+							</div>
+							<div class="about-me-widget-thumb">
+								<img src="${list.img}" alt="창작자프로필">
+							</div>
+							<h4 class="font-shadow-into-light">${list.alias}</h4>
+							<p>소개글 ${list.introduce }</p>
+						<button class="btn btn-sm btn-outline-secondary">쪽지로 문의하기</button> 
+						</div>
+
+						<!-- 옵션목록들 -->
+						<div class="single-widget-area popular-post-widget">
+							<div class="widget-title text-center">
+								<h6>후원 옵션</h6>
+							</div>
+							<!-- 옵션 한개한개-->
+							<div class="single-widget-area add-widget text-center">
+							<div class="add-widget-area">									
+									<div class="add-text">
+										<div class="yummy-table">
+											<div class="yummy-table-cell">
+											</div>
+											</div>
+											</div>
+											</div>
+											</div>
+											
+							<c:forEach var="opt" items="${option }">
+							
+								<form action="/pay" method="post">	
+								
+												<h2>${opt.option_name}</h2>
+												<p>가격 ${opt.option_price }</p>
+												<p>내용 ${opt.option_contents }</p>
+												<p>수량 ${opt.option_quantity }</p>
+												
+												<input type="hidden" name="option_no" value="${opt.option_no }">
+												<input type="hidden" name="option_name" value="${opt.option_name }">
+												<input type="hidden" name="option_price" value="${opt.option_price }">
+												<input type="hidden" name="option_contents" value="${opt.option_contents }">
+												<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
+												<input type="hidden" name="alias" value="${list.alias}">   	    
+    	
+												
+												<button class="add-btn">후원하기</button>
+									
+								</form>
+								
+								</c:forEach>
+								
+								
+								
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- ****** Single Blog Area End ****** -->
 </body>
 </html>
