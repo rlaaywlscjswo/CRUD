@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -112,10 +113,27 @@ window.onclick = function(event) {
 				<ul>
 					<li><h4>회원 Q&A</h4></li>
 					<!-- forEach 돌리면 됨 -->
-					<li>
-						<p>질문</p>
-						<p>답변</p>
-					</li>						
+					<c:forEach var="csList" items="${csList}">
+						<li>
+							<p> <!-- 질문 단락 -->
+								제목 : ${csList.st}
+								내용 : ${csList.sc}
+								질문자 : ${csList.name}
+								공개 여부 : ${csList.ss}
+							</p>
+							<p> <!-- 답변 단락 -->
+								<c:set var="reply" value="${csList.sr}" />
+								<c:choose>
+									<c:when test="${reply == null}">
+										아직 작성 된 답변이 없습니다.
+									</c:when>
+									<c:otherwise>
+										답변 : ${csList.sr}
+									</c:otherwise>
+								</c:choose>							
+							</p>
+						</li>
+					</c:forEach>						
 				</ul>
 			</article>
 		</section> <!-- end 회원 Q&A -->
@@ -129,12 +147,7 @@ window.onclick = function(event) {
 		<hr>
 		
 		<div>
-			<a href="#"><span>질문 작성</span></a>
-		</div>
-		
-		<hr>
-		
-
+			<!-- <a href="#"><span>질문 작성</span></a> -->
 			
 					    <!-- Trigger/Open The Modal -->
     <button id="myBtn">질문 작성</button>
@@ -148,19 +161,19 @@ window.onclick = function(event) {
         
                                                                     
         <form action="wq" method="get">
-        <select name="question_type">
-            <option value="member">회원 관련</option>
-            <option value="business">사업자 관련</option>
-            <option value="project">프로젝트 관련</option>
-            <option value="support">후원 관련</option>
-            <option value="delivery">배송 관련</option>
-            <option value="refund">환불 관련</option>
+        <select name="question_no">
+            <option value="1">회원 관련</option>
+            <option value="2">사업자 관련</option>
+            <option value="3">프로젝트 관련</option>
+            <option value="4">후원 관련</option>
+            <option value="5">배송 관련</option>
+            <option value="6">환불 관련</option>
         </select>
         	<label for="service_title"></label>
         	<input type="text" id="service_title" name="service_title" placeholder="제목을 입력해주세요.">
         	<label for="service_secret"></label>
-        	<input type="radio" id="service_secret" name="service_secret" value="public">동의
-        	<input type="radio" id="service_secret" name="service_secret" value="private">비동의
+        	<input type="radio" id="service_secret" name="service_secret" value="0">공개
+        	<input type="radio" id="service_secret" name="service_secret" value="1">비공개
         	<textarea rows="10" cols="40" name="service_contents" placeholder="내용을 입력해주세요."></textarea>
         	<input type="submit" value="작성 완료">
         </form>
@@ -169,7 +182,7 @@ window.onclick = function(event) {
  
     </div>
 			
-
+		</div>
 		
 	</div> <!-- end .cs_wrap -->
 

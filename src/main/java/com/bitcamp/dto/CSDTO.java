@@ -17,6 +17,14 @@ public class CSDTO {
 		this.service_secret = service_secret;
 		this.service_reply = service_reply;
 	}
+	
+	public CSDTO(int service_no, String service_title, String service_contents, int service_secret) {
+		super();
+		this.service_no = service_no;
+		this.service_title = service_title;
+		this.service_contents = service_contents;
+		this.service_secret = service_secret;
+	}
 
 	public CSDTO() {
 		super();

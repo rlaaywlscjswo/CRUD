@@ -1,6 +1,7 @@
 package com.bitcamp.app;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,25 +20,25 @@ public class CSController {
 
 	// 질문 작성
 	@RequestMapping("wq")
-	public String writeQuestion(@RequestParam(required = false) String question_type, 
-			@RequestParam(required = false) String service_title,
-			@RequestParam(required = false, defaultValue="1") int service_secret,
-			@RequestParam(required = false) String service_contents,
-			Model model,
-			Principal principal) {
+	public String writeQuestion(@RequestParam(value = "question_no", defaultValue = "1") int question_no, 
+			CSDTO dto, Principal principal) {
 
+		// 현재 로그인 한 사용자의 이메일 추출
 		String email = principal.getName();
 
-		int writeQuestion = service.writeQuestion(email, question_type, service_title, service_secret, service_contents);
-
-		model.addAttribute("writeQuestion", writeQuestion);
+		// 질문 작성
+		service.writeQuestion(email, dto, question_no);
 
 		return "redirect:/cs";
 
 	} // end writeQuestion method
 
 	@RequestMapping("/cs")
-	public String customerService() {
+	public String customerService(Model model) {
+		
+		// 질문 목록
+		List<CSDTO> csList = service.csList();
+		model.addAttribute("csList", csList);
 
 		return "/cs/customerService.temp";
 
