@@ -13,7 +13,7 @@ import com.bitcamp.dto.ReplyDTO;
 @Mapper
 public interface ProjectMapper {
 	public int totalCount(HashMap<String, Object> dto); // 검색 결과 리스트페이징 totalcount
-	public int categorytotalCount(String main_category); // 카테고리 결과 리스트페이징 totalcount 
+	public int categorytotalCount(String sub_category); // 카테고리 결과 리스트페이징 totalcount 
 	public List<ProjectDTO> projectList(HashMap<String, Object> dto); // 목록
 	public List<ProjectDTO> projectcategoryList(HashMap<String, Object> dto); // 카테고리별 목록
 	public int projectInsert(ProjectDTO dto); // 등록

@@ -6,9 +6,9 @@
  
     <!-- 메뉴 표시 -->
     <definition name="base" template="/WEB-INF/tiles/template.jsp">       
-        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="header" value="/WEB-INF/tiles/header2.jsp" />
         <put-attribute name="title" value="CRUD" />    
-        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/footer2.jsp" />
     </definition>
  
     <definition name="*.temp" extends="base">

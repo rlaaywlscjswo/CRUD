@@ -57,8 +57,8 @@
 		from project join category
 		on
 		project.category_no = category.category_no
-		where main_category =
-		#{main_category}
+		where sub_category =
+		#{sub_category}
 	</select>
 
 	<select id="projectList" resultMap="listdto"
@@ -92,8 +92,8 @@
 		join category
 		on
 		project.category_no=category.category_no
-		where category.main_category
-		=#{main_category}
+		where category.sub_category
+		=#{sub_category}
 		order by startdate desc
 		limit #{startRow},9
 	</select>

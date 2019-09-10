@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bitcamp.dto.BusinessDTO;
@@ -57,6 +58,11 @@ public class ProjectController {
 	@Resource // pdf 서비스
 	private PDFService pdfservice;
 	
+	// 임시 메인
+	@RequestMapping("yummy")
+	public String yummy() {
+		return "index.temp";
+	}	
 	// 메인 페이지
 	@RequestMapping("main") 
 	public String main(Model model) {
@@ -80,17 +86,17 @@ public class ProjectController {
 	}		
 
 	// 프로젝트 카테고리 선택 결과 목록 페이지 
-	@RequestMapping("/projectcategorylist={main_category}")
-	public String categorylist(@PathVariable String main_category, 
+	@RequestMapping("/projectcategorylist={sub_category}")
+	public String categorylist(@PathVariable String sub_category, 
 			@RequestParam(required = false, defaultValue = "1") int currPage,
 			Model model) {		
-		System.out.println(main_category);				
-		int totalCount = service.categorytotalCount(main_category);
+		System.out.println(sub_category);				
+		int totalCount = service.categorytotalCount(sub_category);
 		System.out.println("카테고리list total : "+totalCount);
 		int pageSize =9;
 		int blockSize = 5;
 		PageDTO page = new PageDTO(currPage, totalCount, pageSize, blockSize);		
-		List<ProjectDTO> projectlist = service.projectcategoryList(main_category, page.getStartRow(), page.getEndRow());
+		List<ProjectDTO> projectlist = service.projectcategoryList(sub_category, page.getStartRow(), page.getEndRow());
 		model.addAttribute("list", projectlist);	
 		model.addAttribute("page", page);		
 		return "project/projectcategorylist.temp";

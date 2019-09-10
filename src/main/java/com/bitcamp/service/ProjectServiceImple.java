@@ -25,8 +25,8 @@ public class ProjectServiceImple implements ProjectService {
 	}
 	
 	@Override
-	public int categorytotalCount(String main_category) {
-		return mapper.categorytotalCount(main_category);
+	public int categorytotalCount(String sub_category) {
+		return mapper.categorytotalCount(sub_category);
 	}
 	
 	@Override
@@ -45,9 +45,9 @@ public class ProjectServiceImple implements ProjectService {
 	}
 
 	@Override
-	public List<ProjectDTO> projectcategoryList(String main_category,int startRow, int endRow) {
+	public List<ProjectDTO> projectcategoryList(String sub_category,int startRow, int endRow) {
 		HashMap<String, Object> dto = new HashMap<>();
-		dto.put("main_category", main_category);
+		dto.put("sub_category", sub_category);
 		dto.put("startRow", startRow);
 		dto.put("endRow", endRow);
 		return mapper.projectcategoryList(dto);
