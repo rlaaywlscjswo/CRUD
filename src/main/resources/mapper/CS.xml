@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+ <mapper namespace="com.bitcamp.mapper.CSMapper">
+ 
+ 	<parameterMap type="java.util.HashMap" id="hashmap" />
+ 	
+ 	<!-- insert -->
+<!--  	<insert id="writeQuestion" parameterMap="hashmap">
+ 		insert into service (service_title, service_contents, service_secret, no, question_no) 
+		values (#{service_title}, #{service_content}, #{service_secret}, 
+		#{select no from member where no = (select no from member where email = #{email})}, 1)
+ 	</insert> -->
+ 
+ </mapper>

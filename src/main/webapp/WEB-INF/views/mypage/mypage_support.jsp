@@ -161,7 +161,7 @@
 			<div id="support_main">
 
 				<div id="da">후원 일자 : <c:out value="${mySupport_list.da}" /></div>
-				<div id="project_photo">썸네일 이미지 : <c:out value="${mySupport_list.project_photo}" /></div>
+				<div id="project_photo">썸네일 이미지 : <img src="${mySupport_list.project_photo}" alt="썸네일 이미지"></div>
 				
 				<div id="support_sub">
 				

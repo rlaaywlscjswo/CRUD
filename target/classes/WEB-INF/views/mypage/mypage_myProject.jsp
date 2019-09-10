@@ -66,7 +66,7 @@
 			<div id="mypro_main">
 				<c:forEach var="myProject_list" items="${myProject_list}">
 					<div id="mypro_each">	 	
-						썸네일 이미지 : ${myProject_list.project_photo}<br>
+						썸네일 이미지 : <img src="${myProject_list.project_photo}" alt="썸네일 이미지"><br>
 						모인 금액 : ${myProject_list.sumop}원<br>
 						
 						<c:set var="rd" value="${myProject_list.remainingDay}" />
