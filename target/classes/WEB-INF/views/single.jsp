@@ -9,11 +9,13 @@
 <title>Insert title here</title>
 
 <!-- 댓글 JS  -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 	var project_no = $
 	{
 		list.project_no
 	}; // 프로젝트 번호
+	console.log("프번프번"+project_no);
 	$(function() {
 		commentList(); //페이지 로딩시 댓글 목록 출력 
 
