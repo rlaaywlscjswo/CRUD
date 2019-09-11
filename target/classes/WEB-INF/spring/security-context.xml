@@ -16,8 +16,12 @@
 
 	<security:http>
 
-		<security:intercept-url pattern="/admin"
+		<!-- 관리자 페이지 -->
+		<security:intercept-url pattern="/fmember"
 			access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/spro"
+			access="hasRole('ROLE_ADMIN')" />
+		
 		<security:intercept-url pattern="/sec_manager"
 			access="hasRole('ROLE_MANAGER')" />
 		<security:intercept-url pattern="/sec_member"
