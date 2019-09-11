@@ -37,5 +37,15 @@ public class CSServiceImple implements CSService {
 		return mapper.csList();
 		
 	} // end csList method
+	
+	// 질문 수정
+	
+	// 질문 삭제
+	@Override
+	public int deleteQuestion(int service_no) {
+		
+		return mapper.deleteQuestion(service_no);
+		
+	} // end deleteQuestion method
 
 } // end CSServiceImple class

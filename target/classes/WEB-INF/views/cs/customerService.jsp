@@ -73,7 +73,22 @@ window.onclick = function(event) {
     }
 }
 
-}
+} // end javaScript
+
+jQuery.noConflict();
+jQuery(document).ready(function($) {
+	
+	var service_no = ${csList.service_no};
+	
+	$('#deleteQuestion').on('click', function(service_no) {
+		
+		alert('아 왜!!');
+		$(location).attr('href' ,'dq');
+		
+	}); // end on
+	
+}); // end ready
+
 </script>
 </head>
 <body>
@@ -115,12 +130,19 @@ window.onclick = function(event) {
 					<!-- forEach 돌리면 됨 -->
 					<c:forEach var="csList" items="${csList}">
 						<li>
-							<p> <!-- 질문 단락 -->
-								제목 : ${csList.st}
-								내용 : ${csList.sc}
-								질문자 : ${csList.name}
-								공개 여부 : ${csList.ss}
-							</p>
+							<div> <!-- 질문 영역 -->
+								<div> <!-- 질문 - 제목 영역 -->
+									<span>제목 : ${csList.st}</span>
+									<span>질문자 : ${csList.name}</span>
+									<span>공개 여부 : ${csList.ss}</span>
+									<span>질문 번호 : ${csList.sn}</span>
+								</div>
+								<div> <!-- 질문 - 내용 영역 -->
+									<p> 내용 : ${csList.sc} <p> 
+									<span>수정</span>
+									<span id="deleteQuestion">삭제</span>
+								</div>
+							</div>
 							<p> <!-- 답변 단락 -->
 								<c:set var="reply" value="${csList.sr}" />
 								<c:choose>

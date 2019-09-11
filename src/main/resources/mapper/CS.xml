@@ -22,9 +22,17 @@
  	</resultMap>
  	
  	<select id="csList" resultMap="csdto">
- 		select st, (select name from member where no = mno) as name, ss, sc, sr
-from (select service_title as st, member.no as mno, service_secret as ss, service_contents as sc, service_reply as sr 
-from member join service on member.no = service.no) as mns
+ 		select st, (select name from member where no = mno) as name, ss, sc, sr, sn
+		from (select service_title as st, member.no as mno, service_secret as ss, service_contents as sc, 
+		service_reply as sr, service_no as sn 
+		from member join service on member.no = service.no) as mns
  	</select>
+ 	
+ 	<!-- 질문 수정 -->
+ 	
+ 	<!-- 질문 삭제 -->
+ 	<delete id="deleteQuestion" parameterType="int">
+ 		delete from service where service_no = #{service_no}
+ 	</delete>
  
  </mapper>

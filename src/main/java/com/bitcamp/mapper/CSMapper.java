@@ -15,5 +15,10 @@ public interface CSMapper {
 	
 	// 질문 목록
 	public List<CSDTO> csList();
+	
+	// 질문 수정
+	
+	// 질문 삭제
+	public int deleteQuestion(int service_no);
 
 } // end CSMapper
