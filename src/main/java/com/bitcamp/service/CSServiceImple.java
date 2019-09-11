@@ -42,9 +42,9 @@ public class CSServiceImple implements CSService {
 	
 	// 질문 삭제
 	@Override
-	public int deleteQuestion(int service_no) {
+	public int deleteQuestion() {
 		
-		return mapper.deleteQuestion(service_no);
+		return mapper.deleteQuestion();
 		
 	} // end deleteQuestion method
 

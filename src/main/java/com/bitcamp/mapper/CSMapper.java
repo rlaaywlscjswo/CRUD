@@ -19,6 +19,6 @@ public interface CSMapper {
 	// 질문 수정
 	
 	// 질문 삭제
-	public int deleteQuestion(int service_no);
+	public int deleteQuestion();
 
 } // end CSMapper

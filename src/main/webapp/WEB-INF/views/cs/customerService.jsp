@@ -69,7 +69,7 @@ span.onclick = function() {
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+        modal.style.display = "none";	이미지, ppt, 스크립트 - 19일, 24일 리허설
     }
 }
 
@@ -78,9 +78,7 @@ window.onclick = function(event) {
 jQuery.noConflict();
 jQuery(document).ready(function($) {
 	
-	//var service_no = ${csList.service_no};
-	
-	$('#deleteQuestion').on('click', function() {
+	$('#deleteQuestion').on('click', function(service_no) {
 		
 		alert('아 왜!!');
 		$(location).attr('href' ,'dq');
@@ -123,7 +121,7 @@ jQuery(document).ready(function($) {
 		
 		<hr>
 		
-		<section> <!-- 회원 Q&A -->
+		<section> <!-- 회원 Q&A 목록 -->
 			<article>
 				<ul>
 					<li><h4>회원 Q&A</h4></li>
@@ -144,7 +142,7 @@ jQuery(document).ready(function($) {
 								</div>
 							</div>
 							<p> <!-- 답변 단락 -->
-								<c:set var="reply" value="${csList.sr}" />
+								<c:set var="reply" value="${csList.sr}" />		
 								<c:choose>
 									<c:when test="${reply == null}">
 										아직 작성 된 답변이 없습니다.
@@ -158,7 +156,29 @@ jQuery(document).ready(function($) {
 					</c:forEach>						
 				</ul>
 			</article>
-		</section> <!-- end 회원 Q&A -->
+		</section> <!-- end 회원 Q&A 목록 -->
+		
+		<hr>
+		
+		<div> <!-- 수정 양식 -->
+			<form action="wq" method="get">
+        		<select name="question_no">
+            		<option value="1">회원 관련</option>
+           			<option value="2">사업자 관련</option>
+         		    <option value="3">프로젝트 관련</option>
+            		<option value="4">후원 관련</option>
+          		    <option value="5">배송 관련</option>
+         		    <option value="6">환불 관련</option>
+       			</select>
+        		<label for="service_title"></label>
+        		<input type="text" id="service_title" name="service_title" placeholder="제목을 입력해주세요.">
+        		<label for="service_secret"></label>
+        		<input type="radio" id="service_secret" name="service_secret" value="0">공개
+        		<input type="radio" id="service_secret" name="service_secret" value="1">비공개
+        		<textarea rows="10" cols="40" name="service_contents" placeholder="내용을 입력해주세요."></textarea>
+        		<input type="submit" value="수정 완료">
+        	</form>
+		</div> <!-- end 수정 양식 -->
 		
 		<hr>
 		

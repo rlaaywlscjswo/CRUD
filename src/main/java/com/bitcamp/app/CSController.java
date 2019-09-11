@@ -47,11 +47,11 @@ public class CSController {
 	} // end customerService method
 
 
-	@RequestMapping(value = "dq", method = RequestMethod.GET)
-	public String deleteQuestion(@RequestParam int service_no) {
+	@RequestMapping("dq")
+	public String deleteQuestion() {
 
-		service.deleteQuestion(service_no);
-		System.out.println("1번 질문 삭제 완료!" + service_no);
+		service.deleteQuestion();
+		System.out.println("1번 질문 삭제 완료!");
 
 		return "redirect:/cs";
 
