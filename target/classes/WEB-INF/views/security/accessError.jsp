@@ -18,6 +18,10 @@
 		
 	</sec:authorize>
 	
+	<sec:authorize access="hasRole('ROLE_MANAGER')">
+		<h2>매니저셈??</h2>
+	</sec:authorize>
+	
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<h1>올ㅋ<br>
 		admin 어서오세용</h1>
