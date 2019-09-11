@@ -55,7 +55,7 @@
 		from project
 		<where>
 			and no = (select no from member where email = #{email})
-			<if test="support_search!=null and support_search!=''">
+			<if test="project_search!=null and project_search!=''">
 				and project_title like CONCAT('%',#{project_search},'%')
 			</if>
 		</where>

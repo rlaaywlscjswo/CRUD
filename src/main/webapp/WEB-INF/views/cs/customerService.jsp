@@ -73,7 +73,7 @@ window.onclick = function(event) {
     }
 }
 
-} // end javaScript
+}; // end javaScript
 
 jQuery.noConflict();
 jQuery(document).ready(function($) {
