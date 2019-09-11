@@ -292,9 +292,9 @@ public class ProjectController {
 	public String projectdetail(@PathVariable int project_no, Model model) {	
 		ProjectDTO detail = service.projectDetail(project_no);
 		List<OptionDTO> option= service.projectoptionList(project_no);
-		int viewcnt = service.viewcnt(project_no);
+		int viewcnt = service.viewcnt(project_no);			
 		model.addAttribute("list", detail);
-		model.addAttribute("option", option);		
+		model.addAttribute("option", option);	
 		return "single.temp";
 	}
 	

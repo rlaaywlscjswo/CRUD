@@ -23,6 +23,7 @@ public class CategoryServiceImple implements CategoryService {
 	public List<CategoryDTO> subcategoryList(String main_category) {		
 		return mapper.subcategoryList(main_category);
 	}
+
 	
 	
 

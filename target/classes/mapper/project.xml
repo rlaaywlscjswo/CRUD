@@ -124,9 +124,9 @@
 	</insert>
 
 	<!-- 프로젝트 디테일 -->
-	<select id="projectDetail" parameterType="int"
-		resultType="com.bitcamp.dto.ProjectDTO">
-		select * from project where project_no = #{project_no}		
+	<select id="projectDetail" parameterType="int" resultType="com.bitcamp.dto.ProjectDTO">
+		select * from project
+		where project_no= #{project_no}		
 	</select>
 
 	<!-- 프로젝트 디테일 창에서 보여주는 옵션 list -->

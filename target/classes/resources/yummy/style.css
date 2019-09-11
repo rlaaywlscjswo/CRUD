@@ -211,7 +211,7 @@ ol {
     font-size: 14px;
     right: 50%;
     width: 30px;
-    background-color: #fc6c3f;
+    background-color: #ADDCAF;
     color: #fff;
     text-align: center;
     height: 30px;
@@ -460,7 +460,7 @@ li {
 
 .navbar.navbar-expand-lg .navbar-nav .nav-link:hover,
 .navbar.navbar-expand-lg .navbar-nav .active .nav-link {
-    color: #99f19e;
+    color: #ADDCAF;
 }
 
 .dropdown-item {
@@ -472,7 +472,7 @@ li {
 
 .dropdown-item:focus,
 .dropdown-item:hover {
-    color: #99f19e;
+    color: #ADDCAF;
     text-decoration: none;
     background-color: #f8f9fa;
 }
@@ -897,7 +897,7 @@ li {
 }
 
 .widget-title > h6 {
-    background: rgb(255, 187, 214, 0.5);
+    background:#F4D2D7;
     height: 40px;
     width: 100%;
     line-height: 40px;
@@ -991,9 +991,10 @@ li {
     left: 0;
     top: 0;
     content: '';
-    border: 2px solid #FAB1CE;
+    border: 2px solid #F4D2D7;
     z-index: 1;
-    border-radius: 30px;    
+    border-radius: 30px;
+    
 }
 
 
@@ -1006,11 +1007,11 @@ li {
     z-index: 5;
 }
 
-.add-widget .add-text h2,
+/* .add-widget .add-text h2,
 .add-widget .add-text p {
-    color: black;
+    color: #fff;
 }
-
+ */
 .add-widget .add-text p {
     font-size: 14px;
 }
@@ -1018,7 +1019,7 @@ li {
 .add-widget .add-text a {
     min-width: 130px;
     height: 40px;
-    border: 1px solid #99f19e;
+    border: 1px solid #ADDCAF;
     color: #fc6c3f;
     font-size: 12px;
     display: inline-block;
@@ -1028,9 +1029,9 @@ li {
 }
 
 .add-widget .add-text a:hover {
-    border: 1px solid #99f19e;
+    border: 1px solid #ADDCAF;
     color: #fff;
-    background-color: #99f19e;
+    background-color: #ADDCAF;
 }
 
 /* Newsletter Widget CSS */
@@ -1274,19 +1275,10 @@ li {
     position: relative;
     z-index: 1;
     color: #51545f;
-    margin-bottom: 15px;
-    padding-left: 30px;
+    margin-bottom: 15px;   
 }
 
-.single_blog_area ul li:before {
-    position: absolute;
-    content: '\f111';
-    left: 0;
-    top: 5px;
-    font-family: 'FontAwesome';
-    font-size: 8px;
-    color: #fc6c3f;
-}
+
 
 .tags-area {
     border-bottom: 1px solid #ebebeb;
@@ -1448,7 +1440,7 @@ li {
 
 #pattern-switcher {
 	width: 120px;
-	background-color: #99f19e;
+	background-color: #ADDCAF;
 	position: fixed;
 	top: 15%;
 	z-index: 9999;
@@ -1475,7 +1467,7 @@ li {
 }
 
 #pattern-switcher:hover {
-	background-color: #ffbbd6;
+	background-color: #F4D2D7;
 }
 
 #patter-close > i {

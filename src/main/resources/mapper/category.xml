@@ -11,4 +11,5 @@ select distinct(main_category) from category
 select sub_category , category_no from category where main_category = #{main_category}
 </select>
 
+
 </mapper>

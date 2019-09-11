@@ -45,25 +45,30 @@
 											function(key, value) {
 												console
 														.log(value.reply_contents);
-												a += '<div class="card" style="width: 800px; height: 150px;">';
-												a += '<div class="card-body">';
-												a += '<div class="commentInfo'+value.reply_no+'">'
-														+ '댓글번호 : '
-														+ value.reply_no
-														+ ' / 작성자 : '
-														+ value.name;
-												a += '<a onclick="commentUpdate('
-														+ value.reply_no
-														+ ',\''
-														+ value.reply_contents
-														+ '\');"> 수정 </a>';
-												a += '<a onclick="commentDelete('
-														+ value.reply_no
-														+ ');"> 삭제 </a> </div>';
-												a += '<div class="commentContent'+value.reply_no+'"> <p> 내용 : '
+												a += '<div class="comment_area section_padding_50 clearfix">';
+												a += '<ol>';
+												a += '<li class="single_comment_area">';
+												a += '<div class="comment-wrapper d-flex">';
+												a += '<div class="comment-author">';
+												a += '<img src="/resources/yummy/img/blog-img/17.jpg" alt="">';
+												a += '</div>';
+												a += '<div class="comment-content">';
+												a += '<span class="comment-date text-muted" class="commentInfo'+value.reply_no+'">'
+													 + '댓글번호 : '+ value.reply_no + ' / 작성자 : ' + value.name
+													 + '</span>';
+												a += '<h5>Brandon Kelley</h5>';
+												a += '<p class="commentContent'+value.reply_no+'">'
 														+ value.reply_contents
 														+ '</p>';
-												a += '</div></div></div>';
+												a += '<a class="active" href="#">수정</a> <a href="#">삭제</a>';
+												a += '</div></div></li></ol></div>';												
+
+													
+												
+												
+												
+												
+												
 											});
 						}
 						$(".replylist").html(a);
@@ -140,10 +145,10 @@
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="#"><i
-									class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-							<li class="breadcrumb-item"><a href="#">Archive</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Single
-								Post Blog</li>
+									class="fa fa-home" aria-hidden="true"></i></a></li>
+							<li class="breadcrumb-item"><a href="#"></a></li>		
+							<li class="breadcrumb-item"><a href="#"></a></li>						
+							<li class="breadcrumb-item active" aria-current="page">${list.project_title }</li>
 						</ol>
 					</nav>
 				</div>
@@ -194,32 +199,10 @@
 													name="reply_contents"></textarea>
 												<button type="button" name="replyinsertbtn">댓글등록</button>
 											</form>
-
-											<!-- Comment Area Start -->
-											<div class="comment_area section_padding_50 clearfix">
-												<ol>
-													<!-- Single Comment Area -->
-													<li class="single_comment_area">
-														<div class="comment-wrapper d-flex">
-															<!-- Comment Meta -->
-															<div class="comment-author">
-																<img src="/resources/yummy/img/blog-img/17.jpg" alt="">
-															</div>
-															<!-- 댓글 -->
-															<div class="comment-content">
-																<span class="comment-date text-muted">27 Aug 2018</span>
-																<h5>Brandon Kelley</h5>
-																<p>Neque porro qui squam est, qui dolorem ipsum quia
-																	dolor sit amet, consectetur, adipisci velit, sed quia
-																	non numquam eius modi tempora.</p>
-																<a class="active" href="#">수정</a> <a href="#">삭제</a>
-															</div>
-														</div>
-													</li>
-
-												</ol>
-											</div>
-
+											
+											<div class="replylist">
+ 											</div>																
+											
 										</div>
 										<div class="tab-pane fade" id="zxc">
 											<p>Curabitur dignissim quis nunc vitae laoreet. Etiam ut
@@ -261,44 +244,44 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalCenterTitle">후원 옵션</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
     <c:forEach var="opt" items="${option }">
-	<form action="/pay" method="post">
-		<div id="option">
-		<div class="card" style="width: 360px;height: 312px;">
- 	    <div class="card-body">
-    	<h5 class="card-title">후원 옵션</h5>
-    	<h6 class="card-subtitle mb-2 text-muted">서브없음</h6>
-    	<p class="card-text">
-    	<c:out value="${opt.option_no }"/><br>
-		<c:out value="${opt.option_name}"/><br>
-		<c:out value="${opt.option_price }"/><br>
-		<c:out value="${opt.option_contents }"/><br>
-		<c:out value="${opt.option_quantity }"/><br>
-		<c:out value="${opt.project_no }"/><br>
-		
-		<input type="hidden" name="option_no" value="${opt.option_no }">
-		<input type="hidden" name="option_name" value="${opt.option_name }">
-		<input type="hidden" name="option_price" value="${opt.option_price }">
-		<input type="hidden" name="option_contents" value="${opt.option_contents }">
-		<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
-		<input type="hidden" name="alias" value="${list.alias}">   	    
-    	                                   
-    	</p>
-   		<button class="btn btn-sm btn-outline-secondary">후원하기</button>
-  		</div>
-		</div>		
-		</div>
-	</form>
+	 <div class="single-widget-area add-widget text-center">
+                            	<div class="add-widget-area">
+                            	
+                                <div style="width: 289px; height: 207px;"></div>
+                                <div class="add-text">
+                                    <div class="yummy-table">
+                                        <div class="yummy-table-cell">
+                                        	<form action="/pay" method="post">	
+                                            <h2>${opt.option_name}</h2>
+											<p>가격 ${opt.option_price }</p>
+											<p>내용 ${opt.option_contents }</p>
+											<p>수량 ${opt.option_quantity }</p> 
+											<input type="hidden" name="option_no" value="${opt.option_no }">
+											<input type="hidden" name="option_name" value="${opt.option_name }">
+											<input type="hidden" name="option_price" value="${opt.option_price }">
+											<input type="hidden" name="option_contents" value="${opt.option_contents }">
+											<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
+											<input type="hidden" name="alias" value="${list.alias}">   
+											
+											<button class="btn btn-primary">후원하기</button>   
+										
+                                            </form>                                             
+                                        </div>
+                                    </div>
+                                </div>                               
+                            	</div>
+                       		 </div>			
 </c:forEach>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>        
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>        
       </div>
     </div>
   </div>
@@ -316,7 +299,7 @@
 							</div>
 							<h4 class="font-shadow-into-light">${list.alias}</h4>
 							<p>소개글 ${list.introduce }</p>
-						<button class="btn btn-sm btn-outline-secondary">쪽지로 문의하기</button> 
+						<button  class="btn btn-primary">쪽지로 문의하기</button> 
 						</div>
 
 						<!-- 옵션목록들 -->
@@ -345,9 +328,9 @@
 											<input type="hidden" name="option_contents" value="${opt.option_contents }">
 											<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
 											<input type="hidden" name="alias" value="${list.alias}">   
-											<a class="add-btn">
-											<input type="submit" value="후원하기">    
-											</a>
+											
+											<button class="btn btn-primary">후원하기</button>   
+										
                                             </form>                                             
                                         </div>
                                     </div>
