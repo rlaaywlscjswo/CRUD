@@ -324,46 +324,38 @@
 							<div class="widget-title text-center">
 								<h6>후원 옵션</h6>
 							</div>
-							<!-- 옵션 한개한개-->
-							<div class="single-widget-area add-widget text-center">
-							<div class="add-widget-area">									
-									<div class="add-text">
-										<div class="yummy-table">
-											<div class="yummy-table-cell">
-											</div>
-											</div>
-											</div>
-											</div>
-											</div>
-											
+							
 							<c:forEach var="opt" items="${option }">
 							
-								<form action="/pay" method="post">	
-								
-												<h2>${opt.option_name}</h2>
-												<p>가격 ${opt.option_price }</p>
-												<p>내용 ${opt.option_contents }</p>
-												<p>수량 ${opt.option_quantity }</p>
-												
-												<input type="hidden" name="option_no" value="${opt.option_no }">
-												<input type="hidden" name="option_name" value="${opt.option_name }">
-												<input type="hidden" name="option_price" value="${opt.option_price }">
-												<input type="hidden" name="option_contents" value="${opt.option_contents }">
-												<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
-												<input type="hidden" name="alias" value="${list.alias}">   	    
-    	
-												
-												<button class="add-btn">후원하기</button>
-									
-								</form>
-								
-								</c:forEach>
-								
-								
-								
-							
+							  <div class="single-widget-area add-widget text-center">
+                            	<div class="add-widget-area">                            	
+                                <img src="/resources/yummy/img/sidebar-img/6.jpg" alt="">
+                                <div class="add-text">
+                                    <div class="yummy-table">
+                                        <div class="yummy-table-cell">
+                                        	<form action="/pay" method="post">	
+                                            <h2>${opt.option_name}</h2>
+											<p>가격 ${opt.option_price }</p>
+											<p>내용 ${opt.option_contents }</p>
+											<p>수량 ${opt.option_quantity }</p> 
+											<input type="hidden" name="option_no" value="${opt.option_no }">
+											<input type="hidden" name="option_name" value="${opt.option_name }">
+											<input type="hidden" name="option_price" value="${opt.option_price }">
+											<input type="hidden" name="option_contents" value="${opt.option_contents }">
+											<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
+											<input type="hidden" name="alias" value="${list.alias}">   
+											<a class="add-btn">
+											<input type="submit" value="후원하기">    
+											</a>
+                                            </form>                                             
+                                        </div>
+                                    </div>
+                                </div>                               
+                            	</div>
+                       		 </div>							
+							</c:forEach>		
 						</div>
-					</div>
+						</div>
 				</div>
 			</div>
 		</div>

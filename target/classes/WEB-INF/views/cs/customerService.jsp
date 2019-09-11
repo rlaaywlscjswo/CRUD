@@ -78,9 +78,9 @@ window.onclick = function(event) {
 jQuery.noConflict();
 jQuery(document).ready(function($) {
 	
-	var service_no = ${csList.service_no};
+	//var service_no = ${csList.service_no};
 	
-	$('#deleteQuestion').on('click', function(service_no) {
+	$('#deleteQuestion').on('click', function() {
 		
 		alert('아 왜!!');
 		$(location).attr('href' ,'dq');

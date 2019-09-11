@@ -22,7 +22,7 @@
                     <!--  Top Social bar start -->
                     <div class="top_social_bar">
                         <a href="#" id="talk">쪽지함</a>
-                        <ul></ul>
+                        <ul>
                         <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
@@ -31,7 +31,8 @@
                                         <a class="dropdown-item" href="/mypro">내가만든프로젝트</a>                                       
                                     </div>
                         </li>
-                        <a href="#">고객센터</a>                       
+                        </ul>
+                        <a href="/cs">고객센터</a>                       
                         <a href="/sec_login">로그인</a>
                         <a href="/customLogout">로그아웃</a>
                     </div>
