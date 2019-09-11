@@ -460,7 +460,7 @@ li {
 
 .navbar.navbar-expand-lg .navbar-nav .nav-link:hover,
 .navbar.navbar-expand-lg .navbar-nav .active .nav-link {
-    color: #fc6c3f;
+    color: #99f19e;
 }
 
 .dropdown-item {
@@ -472,7 +472,7 @@ li {
 
 .dropdown-item:focus,
 .dropdown-item:hover {
-    color: #fc6c3f;
+    color: #99f19e;
     text-decoration: none;
     background-color: #f8f9fa;
 }
@@ -897,7 +897,7 @@ li {
 }
 
 .widget-title > h6 {
-    background: #fee2d9;
+    background: rgb(255, 187, 214, 0.5);
     height: 40px;
     width: 100%;
     line-height: 40px;
@@ -991,10 +991,11 @@ li {
     left: 0;
     top: 0;
     content: '';
-    background-color: rgba(30, 29, 29, 0.8);
+    border: 2px solid #FAB1CE;
     z-index: 1;
-    border-radius: 30px
+    border-radius: 30px;    
 }
+
 
 .add-widget .add-text {
     position: absolute;
@@ -1007,7 +1008,7 @@ li {
 
 .add-widget .add-text h2,
 .add-widget .add-text p {
-    color: #fff;
+    color: black;
 }
 
 .add-widget .add-text p {
@@ -1017,7 +1018,7 @@ li {
 .add-widget .add-text a {
     min-width: 130px;
     height: 40px;
-    border: 1px solid #fc6c3f;
+    border: 1px solid #99f19e;
     color: #fc6c3f;
     font-size: 12px;
     display: inline-block;
@@ -1027,9 +1028,9 @@ li {
 }
 
 .add-widget .add-text a:hover {
-    border: 1px solid #fc6c3f;
+    border: 1px solid #99f19e;
     color: #fff;
-    background-color: #fc6c3f;
+    background-color: #99f19e;
 }
 
 /* Newsletter Widget CSS */
@@ -1447,7 +1448,7 @@ li {
 
 #pattern-switcher {
 	width: 120px;
-	background-color: #fc6c3f;
+	background-color: #99f19e;
 	position: fixed;
 	top: 15%;
 	z-index: 9999;
@@ -1464,12 +1465,17 @@ li {
             transition-duration: 500ms;
 }
 
+#pattern-switcher a{
+	color: white;
+}
+
+
 #pattern-switcher.pattern-remove {
     right: -200px;
 }
 
 #pattern-switcher:hover {
-	background-color: #e3410e;
+	background-color: #ffbbd6;
 }
 
 #patter-close > i {

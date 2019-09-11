@@ -328,8 +328,9 @@
 							<c:forEach var="opt" items="${option }">
 							
 							  <div class="single-widget-area add-widget text-center">
-                            	<div class="add-widget-area">                            	
-                                <img src="/resources/yummy/img/sidebar-img/6.jpg" alt="">
+                            	<div class="add-widget-area">
+                            	
+                                <div style="width: 289px; height: 207px;"></div>
                                 <div class="add-text">
                                     <div class="yummy-table">
                                         <div class="yummy-table-cell">

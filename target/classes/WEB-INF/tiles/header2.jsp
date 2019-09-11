@@ -24,11 +24,21 @@
                         <a href="#" id="talk">쪽지함</a>
                         <ul>
                         <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이페이지</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이 페이지</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="/info">내프로필</a>
-                                        <a class="dropdown-item" href="/support">내후원내역</a>
-                                        <a class="dropdown-item" href="/mypro">내가만든프로젝트</a>                                       
+                                        <a class="dropdown-item" href="/info">내 프로필</a>
+                                        <a class="dropdown-item" href="/support">내 후원 내역</a>
+                                        <a class="dropdown-item" href="/mypro">내가 만든 프로젝트</a>                                       
+                                    </div>
+                        </li>
+                        </ul>
+                        <ul>
+                        <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">관리 페이지</a>
+                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
+                                        <a class="dropdown-item" href="/fmember">펀딩 회원 관리</a>
+                                        <a class="dropdown-item" href="/spro">펀딩 현황 목록</a>
+                                        <a class="dropdown-item" href="#">고객 문의</a>                                       
                                     </div>
                         </li>
                         </ul>

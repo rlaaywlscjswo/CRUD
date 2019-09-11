@@ -160,19 +160,7 @@
 		update project set
 		project_views = project_views+1 where project_no=
 		#{project_no}
-	</update>
-
-	<!-- main 인기순 프로젝트 list -->
-	<select id="mainHitList" resultMap="listdto">
-		select member.name,
-		project.project_no, project.project_title,
-		project.category_no,
-		project.project_views,project.project_photo
-		from project join member
-		on
-		project.no=member.no
-		order by project_views desc
-	</select>
+	</update>	
 
 	<!-- 댓글 목록 -->
 	<select id="replyList" parameterType="int" resultMap="replydto">

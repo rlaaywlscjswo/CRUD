@@ -80,27 +80,18 @@ public class ProjectServiceImple implements ProjectService {
 		System.out.println("==========================================");
 		for(int i=0; i<optionlist.size(); i++) {
 			System.out.println(optionlist.get(i).getOption_name());
-		}
-		
-		
+		}		
 		map.put("list", optionlist);
 
 		return mapper.projectoptionInsert(map);
 	}
-
-	@Override
-	public List<ProjectDTO> mainHitList() {		
-		return mapper.mainHitList();
-	}
-
 	@Override
 	public int sign(String sign, int no) {
 		HashMap<String, Object> dto = new HashMap<>();
 		dto.put("sign", sign);
 		dto.put("no", no);
 		return mapper.sign(dto);
-	}
-	
+	}	
 	// 병훈쓰 인기 프로젝트
 	@Override
 	public List<ProjectDTO> popularProject() {
