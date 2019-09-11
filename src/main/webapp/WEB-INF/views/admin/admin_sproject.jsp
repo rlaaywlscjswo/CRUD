@@ -170,10 +170,20 @@
 
 					<c:forEach var="index" begin="${dto.firstPageOfBlock}"
 						end="${dto.lastPageOfBlock}">
-						<li class="page-item"><a class="page-link"
+						<c:choose>
+							<c:when test="${dto.currPage == index}">
+								<li class="page-item"><a class="active"
 							href="spro?currPage=${index}&sproject_search=${sproject_search}">
 								<c:out value="${index}" />
 						</a></li>
+							</c:when>
+							<c:otherwise>
+							<li class="page-item"><a class="page-link"
+							href="spro?currPage=${index}&sproject_search=${sproject_search}">
+								<c:out value="${index}" />
+						</a></li>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 
 					<li class="page-item"><c:if test="${dto.next}">
