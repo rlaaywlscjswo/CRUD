@@ -36,7 +36,7 @@
 		<security:remember-me
 			data-source-ref="dataSource" token-validity-seconds="604800" />
 		<security:logout logout-url="/customLogout"
-			invalidate-session="true" logout-success-url="/main"
+			invalidate-session="true" logout-success-url="/yummy"
 			delete-cookies="remember-me, JSESSION_ID" />
 			
 		<security:csrf disabled="true" />

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +24,7 @@
                     <div class="top_social_bar">
                         <a href="#" id="talk">쪽지함</a>
                         <ul>
+                        <sec:authorize access="isAuthenticated()">
                         <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이 페이지</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
@@ -31,8 +33,10 @@
                                         <a class="dropdown-item" href="/mypro">내가 만든 프로젝트</a>                                       
                                     </div>
                         </li>
+                        </sec:authorize>
                         </ul>
                         <ul>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">관리 페이지</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
@@ -41,10 +45,15 @@
                                         <a class="dropdown-item" href="#">고객 문의</a>                                       
                                     </div>
                         </li>
+                        </sec:authorize>
                         </ul>
-                        <a href="/cs">고객센터</a>                       
+                        <a href="/cs">고객센터</a>  
+                        <sec:authorize access="isAnonymous()">                     
                         <a href="/sec_login">로그인</a>
+                        </sec:authorize>
+                        <sec:authorize access="isAuthenticated()">
                         <a href="/customLogout">로그아웃</a>
+                        </sec:authorize>
                     </div>
                 </div>
                 <!--  Login Register Area -->

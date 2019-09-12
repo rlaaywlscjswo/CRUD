@@ -17,55 +17,54 @@
 			<span id="filter_all">모두 보기</span> <span id="filter_ing">진행 중인
 				프로젝트</span> <span id="filter_complete">목표 금액을 달성한 프로젝트</span>
 		</div>
-
+		
+		
+		<!-- 검색 -->
 		<div id="support_searching">
 			<form method="get" action="support?currPage=${dto.firstPageOfBlock}">
 				<label for="support_search" id="search_label"></label> <input
 					class="form-control form-control-sm" type="text"
 					id="support_search" name="support_search"
-					placeholder="  프로젝트 이름으로 검색해주세요 :)" style="width: 400px;"> <input type="submit"
-					value="찾아줘!!" id="support_find" class="btn btn-primary">
+					placeholder="  프로젝트 이름으로 검색해주세요 :)" style="width: 400px;">
+				<input type="submit" value="찾아줘!!" id="support_find"
+					class="btn btn-primary">
 			</form>
 		</div>
 
+		<!-- 내가 후원 한 프로젝트 목록 -->
 		<c:forEach var="mySupport_list" items="${mySupport_list}">
 
-			<div id="support_main">
+			<div class="card mb-3" style="max-width: 540px;">
+				<div class="row no-gutters">
+					<div class="col-md-4">
+						<img src="${mySupport_list.project_photo}" alt="썸네일 이미지">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title">
+								<c:out value="${mySupport_list.project_title}" />
+							</h5>
+							<p class="card-text">
+								후원 일자 :
+								<c:out value="${mySupport_list.da}" />
+								<br> 후원 진행 사항 :
+								<c:out value="${mySupport_list.support_status}" />
+								<br> 선택한 옵션 :
+								<c:out value="${mySupport_list.option_name}" />
+								<br> 후원 금액 :
+								<c:out value="${mySupport_list.option_price}" />
 
-				<div id="da">
-					후원 일자 :
-					<c:out value="${mySupport_list.da}" />
+							</p>
+							<p class="card-text">
+								<small class="text-muted">Last updated 3 mins ago</small>
+							</p>
+						</div>
+					</div>
 				</div>
-				<div id="project_photo">
-					썸네일 이미지 : <img src="${mySupport_list.project_photo}" alt="썸네일 이미지">
-				</div>
-
-				<div id="support_sub">
-
-					<div id="support_status">
-						후원 진행 사항 :
-						<c:out value="${mySupport_list.support_status}" />
-					</div>
-					<div id="project_title">
-						프로젝트 이름 :
-						<c:out value="${mySupport_list.project_title}" />
-					</div>
-					<div id="option_no">
-						선택한 옵션 :
-						<c:out value="${mySupport_list.option_name}" />
-					</div>
-					<div id="option_price">
-						후원 금액 :
-						<c:out value="${mySupport_list.option_price}" />
-					</div>
-
-				</div>
-				<!-- end #support_sub -->
-
 			</div>
-			<!-- end #support_main -->
 
 		</c:forEach>
+
 
 		<!-- 페이징 -->
 		<div class="col-12">

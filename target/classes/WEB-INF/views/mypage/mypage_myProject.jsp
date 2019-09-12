@@ -14,6 +14,8 @@
 		<div id="theNumbersOfMyProject">내가 만든 프로젝트 개수 :
 			${theNumbersOfMyProject}개</div>
 
+
+		<!-- 검색 -->
 		<div id="myProject_searching">
 			<form method="get" action="mypro?currPage=${dto.firstPageOfBlock}">
 				<label for="project_search" id="project_label"></label> <input
@@ -25,26 +27,40 @@
 			</form>
 		</div>
 
-		<div id="mypro_main">
-			<c:forEach var="myProject_list" items="${myProject_list}">
-				<div id="mypro_each">
-					썸네일 이미지 : <img src="${myProject_list.project_photo}" alt="썸네일 이미지"><br>
-					모인 금액 : ${myProject_list.sumop}원<br>
+		<!-- 내가 만든 프로젝트 목록 -->
+		<c:forEach var="myProject_list" items="${myProject_list}">
+			<div class="card mb-3" style="max-width: 540px;">
+				<div class="row no-gutters">
+					<div class="col-md-4">
+						<img src="${myProject_list.project_photo}" alt="썸네일 이미지">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title">${myProject_list.project_title}</h5>
+							<p class="card-text">
+								모인 금액 : ${myProject_list.sumop}원<br>
+								<c:set var="rd" value="${myProject_list.remainingDay}" />
+								<c:choose>
+									<c:when test="${rd < 2}">남은 시간 : ${myProject_list.nam}시간<br>
+									</c:when>
+									<c:otherwise>남은 날 : ${myProject_list.remainingDay}일<br>
+									</c:otherwise>
+								</c:choose>
+								달성 퍼센트 : ${myProject_list.reachper}%<br> 계약서 :
+								${myProject_list.project_contract}<br>
 
-					<c:set var="rd" value="${myProject_list.remainingDay}" />
-					<c:choose>
-						<c:when test="${rd < 2}">남은 시간 : ${myProject_list.nam}시간<br>
-						</c:when>
-						<c:otherwise>남은 날 : ${myProject_list.remainingDay}일<br>
-						</c:otherwise>
-					</c:choose>
 
-					달성 퍼센트 : ${myProject_list.reachper}%<br> 계약서 :
-					${myProject_list.project_contract}<br> 프로젝트 이름 :
-					${myProject_list.project_title}<br>
+							</p>
+							<p class="card-text">
+								<small class="text-muted">Last updated 3 mins ago</small>
+							</p>
+						</div>
+					</div>
 				</div>
-			</c:forEach>
-		</div>
+			</div>
+		</c:forEach>
+		<!-- 내가 만든 프로젝트 목록 끝 -->
+
 
 		<!-- 페이징 -->
 		<div class="col-12">
