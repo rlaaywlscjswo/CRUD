@@ -105,8 +105,7 @@ $(function () {
 
     
     $("ul.tabs li").click(function () {
-        $("ul.tabs li").removeClass("active").css("color", "#333");
-        //$(this).addClass("active").css({"color": "darkred","font-weight": "bolder"});
+        $("ul.tabs li").removeClass("active").css("color", "#333");       
         $(this).addClass("active").css("color", "darkred");
         $(".tab_content").hide()
         var activeTab = $(this).attr("rel");
@@ -155,6 +154,8 @@ $(function () {
     	
     });
     
+   $("#main_category option:eq(0)").attr("selected","selected");
+    
     // 메인카테고리에 해당하는 서브카테고리불러오기
     $("#main_category").on('change',function(){
     	$("#category_no").empty();
@@ -174,7 +175,7 @@ $(function () {
             	
             	$.each(data,function(i,item){
             		console.log(item.category_no);  
-            		console.log(item.sub_category);
+            		console.log(item.sub_category);            		
             		$("#category_no").append("<option value='"+item.category_no+"'>"+item.sub_category+"</option>");
             		});
             }
@@ -242,29 +243,6 @@ $(function () {
 		});
 		
 });			
-	/* 	function resizeCanvas(){
-			var canvas = $("#signature-pad canvas")[0];	
-			var ratio =  Math.max(window.devicePixelRatio || 1, 1);
-			canvas.width = canvas.offsetWidth * ratio;
-			canvas.height = canvas.offsetHeight * ratio;
-			canvas.getContext("2d").scale(ratio, ratio);
-		}
-    
-	    $(window).on("resize", function(){
-			resizeCanvas();
-		});
-
-		resizeCanvas();
-     */
-    
-    
-
-
-
-
-
-
-
 </script>
 
 </head> 
@@ -291,9 +269,12 @@ $(function () {
 			<label for="main_category">대분류</label>
 			<div>
 			<select class="form-control input-default" id="main_category" name="main_category" id="default">
-			<c:forEach var="main" items="${mainlist }">
+			<%-- <c:forEach var="main" items="${mainlist }">
 			<option value="${main.main_category }">${main.main_category }</option>
-			</c:forEach>
+			</c:forEach> --%>
+			<option value="">대분류를 선택하세요</option>
+			<option value="게임" >게임</option>
+			<option value="패션" >패션</option>			
 			</select>
 			</div>
 			
@@ -312,13 +293,13 @@ $(function () {
  			
  			
  			<label for="startdate">시작 날짜</label>
- 			<div><input type="date" class="form-control input-default" id="startdate" name="startdate" value="2019-03-21"></div>
+ 			<div><input type="date" class="form-control input-default" id="startdate" name="startdate"></div>
  			
  			
  			<label for="enddate">종료 날짜</label>
- 			<div><input type="date" class="form-control input-default" id="enddate" name="enddate" value="2019-03-21"></div>
+ 			<div><input type="date" class="form-control input-default" id="enddate" name="enddate"></div>
  			
- 			<div class="btn2"><a href="#" id="btn2">다음</a></div>			 
+ 			<div class="btn2" id="btn2"><a href="#" >다음</a></div>			 
  			
  		</div>
  		
@@ -334,29 +315,18 @@ $(function () {
  		<div>
  		<input type="radio" name="business_division" value="개인">개인<br>
  		<input type="radio" name="business_division" value="법인">법인<br>
- 		</div>
- 		
-	
-		
+ 		</div>		
 
  		<label for="business_addr">소재지</label>
- 		<div><input type="text" class="form-control input-default" id="business_addr" name="business_addr" value="고정주소"></div>
- 		
- 	
- 		
+ 		<div><input type="text" class="form-control input-default" id="business_addr" name="business_addr" value="고정주소"></div> 		
  		
  		<label for="business_startdate">법인설립연월일</label>
  		<div><input type="date" class="form-control input-default" id="business_startdate" name="business_startdate" value="2019-03-21"></div>
  		
- 
- 		
- 	
  		<label for="business_url">홈페이지</label>
- 		<div><input type="text" class="form-control input-default" id="business_url" name="business_url" value="고정페이지"></div>
+ 		<div><input type="text" class="form-control input-default" id="business_url" name="business_url" value="고정페이지"></div> 		
  		
- 		
- 		
- 		<div class="btn2"><a href="#" id="btn3">다음</a></div>		
+ 		<div class="btn2"  id="btn3"><a href="#">다음</a></div>		
  		
  			
         </div>
@@ -376,7 +346,7 @@ $(function () {
 		<label for="introduce">창작자 소개</label>
 		<div><textarea class="form-control input-default" id="introduce" name="introduce">1111</textarea></div>
 		
-		<div class="btn2"><a href="#" id="btn4">다음</a></div>		
+		<div class="btn2" id="btn4"><a href="#" >다음</a></div>		
 
  		 	
 		
@@ -390,7 +360,7 @@ $(function () {
 		<h1>작성가이드</h1>
 		</div>
 		<textarea id="summernote" name="summernote"></textarea>
-		<div class="btn2"><a href="#" id="btn5">다음</a></div>		
+		<div class="btn2" id="btn5"><a href="#" >다음</a></div>		
     	</div>   	
     	
     	<!-- #tab4 -->
@@ -419,7 +389,7 @@ $(function () {
 	    <input type="hidden" id="btncnt" name="btncnt" value="1">
 	    
     	<!-- <input type="submit" id="save" value="등록하기">   -->	
-    	
+    	<div class="btn2" id="btn6"><a href="#" >다음</a></div>	
     	</div> 
     	
     	<!-- #tab5 -->
