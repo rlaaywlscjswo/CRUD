@@ -102,7 +102,6 @@ $(function () {
   
     $(".tab_content").hide();
     $(".tab_content:first").show();
-
     
     $("ul.tabs li").click(function () {
         $("ul.tabs li").removeClass("active").css("color", "#333");       
@@ -110,15 +109,14 @@ $(function () {
         $(".tab_content").hide()
         var activeTab = $(this).attr("rel");
         $("#" + activeTab).fadeIn()
-    });
-    
+    });    
     
     // 다음눌렀을때 다음탭으로 이동!
     $('#btn2').on('click',function(){
     	$("ul.tabs li").removeClass("active").css("color", "#333")
     	$("ul.tabs li:eq(1)").addClass("active").css("color", "darkred")  	
     	$('.tab_content').hide()
-    	$('.tab_content:eq(1)').show()    
+    	$('.tab_content:eq(1)').show()   
     	
     });
     
@@ -158,21 +156,16 @@ $(function () {
     
     // 메인카테고리에 해당하는 서브카테고리불러오기
     $("#main_category").on('change',function(){
-    	$("#category_no").empty();
-    	/* console.log($(this).val()); */
+    	$("#category_no").empty();   	
     	
-       var main_category=$(this).val();   
-      /*   var d=JSON.stringify( {'main_category=' : $(this).val()} );  */
+       var main_category=$(this).val();       
         $.ajax({  
         	method:"GET",
-        	dataType: "JSON",
-        	/* contentType:"application/json;charset=UTF-8",  */
-           /*   data:d,  */
+        	dataType: "JSON",        	
             url:"http://localhost:8080/project/category",
       		data:'main_category='+main_category, 
             success:function(data){   
-            	console.log(data);
-            	
+            	console.log(data);            	
             	$.each(data,function(i,item){
             		console.log(item.category_no);  
             		console.log(item.sub_category);            		
@@ -191,13 +184,13 @@ $(function () {
         document.getElementById('field').appendChild(div);    	
 		/*   $('#field').append('<label for="option_name">옵션명</label> <div><input type="text" id="option_name" name="option_name"></div> <label for="option_price">옵션가격</label> <div><input type="text" id="option_price" name="option_price"></div> <label for="option_contents">옵션내용</label><div><input type="text" id="option_contents" name="option_contents"</div><br> <label for="option_quantity">옵션 수량</label> <div><input type="text" id="option_quantity" name="option_quantity"></div> <a href="#" class="down">삭제</a>');
     	    */    
-    	$('#field').append('<a href="#" class="down">삭제</a>');
+    	$('#field').append('<a href="#" id="down">삭제</a>');
     	    btncount++;
     	    $('#btncnt').val(btncount);	
     	    console.log(btncount); 
     });
 
-    $('.down').on('click', function(){
+    $('#down').on('click', function(){
     		document.getElementById('field').removeChild(obj.parentNode);    
     	    btncount--;
     	    $('#btncnt').val(btncount);	
