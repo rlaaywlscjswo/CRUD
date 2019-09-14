@@ -129,9 +129,9 @@
                                <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="projectcategorylist=패션" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">패션</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="projectcategorylist=의류">의류</a>
-                                        <a class="dropdown-item" href="projectcategorylist=액서서리">액세서리</a>
-                                        <a class="dropdown-item" href="projectcategorylist=패션잡화">패션 잡화</a>     
+                                        <a class="dropdown-item" href="/projectcategorylist=의류">의류</a>
+                                        <a class="dropdown-item" href="/projectcategorylist=액서서리">액세서리</a>
+                                        <a class="dropdown-item" href="/projectcategorylist=패션잡화">패션 잡화</a>     
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">

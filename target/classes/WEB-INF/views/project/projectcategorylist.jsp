@@ -28,7 +28,11 @@ display: inline-block;
                      <div class="card h-100">
               <a href="projectdetail/${item.project_no }"><img class="card-img-top" src="${item.project_photo }" alt="프로젝트대표사진"></a>
               <div class="card-body">           
-
+				 <div class="progress">
+   				 	<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="${item.reachper }" aria-valuemin="0" aria-valuemax="100" style="width:${item.reachper }% ">    
+    				${item.reachper }
+    				</div>
+ 				 </div>
 				창작자:<c:out value="${item.alias}"></c:out><br>
 				프로젝트번호:<c:out value="${item.project_no }"></c:out><br>
 				프로젝트제목:<c:out value="${item.project_title }"></c:out><br>

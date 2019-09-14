@@ -13,6 +13,7 @@
 		<result column="category_no" property="category_no" />
 		<result column="project_photo" property="project_photo" />
 		<result column="project_status" property="project_status"/>
+		<result column="targetprice"    property="reachper" />
 	</resultMap>
 
 	<!-- detail option resultmap -->
@@ -61,6 +62,8 @@
 		where project_status = 1 and sub_category = #{sub_category}
 	</select>
 
+	 
+
 	<select id="projectList" resultMap="listdto"
 		parameterType="java.util.HashMap">
 		select alias, project_no,project_title,
@@ -79,18 +82,20 @@
 		order by startdate desc
 		limit #{startRow},9
 	</select>
-
+	
 	<!-- 카테고리 선택 결과 list -->
 	<select id="projectcategoryList"
 		parameterType="java.util.HashMap" resultMap="listdto">
-		select alias,
-		project_no, project_title,
-		category.category_no,
-		project_views, project_photo
-		from project join category
-		on
-		project.category_no = category.category_no		
-		where project_status = 1 and category.sub_category=#{sub_category}
+		select  round(ifnull(sum(option_price), 0) / targetprice * 100, 2) as reachper, 
+		p.*,
+		c.category_no		
+		from support s left join `option` o
+        on s.option_no = o.option_no
+        right join project p
+        on o.project_no = p.project_no
+		join category c
+		on p.category_no = c.category_no		
+		where project_status = 1 and c.sub_category=#{sub_category}
 		order by startdate desc
 		limit #{startRow},9
 	</select>
