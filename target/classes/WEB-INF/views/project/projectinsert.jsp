@@ -154,6 +154,18 @@ $(function () {
     
    $("#main_category option:eq(0)").attr("selected","selected");
     
+   
+   $("#contentoption1").on("click",function(){
+	   $('#directpdf').append('<label for="project_contents_file">프로젝트 설명 pdf파일 직접 업로드하기</label><div><input type="file" class="form-control input-default" id="project_contents_file" name="project_contents_file"></div>');
+	});
+   
+  /*  $("#contentoption2").on("click",function(){
+	   $('#summerwrite').append('<div id="gide" style="border: 1px solid; width: 100%; height: 200px; margin: auto;"><h1>작성가이드</h1></div><textarea id="summernote" name="summernote"></textarea>');
+	  
+   }); */
+   
+
+   
     // 메인카테고리에 해당하는 서브카테고리불러오기
     $("#main_category").on('change',function(){
     	$("#category_no").empty();   	
@@ -261,10 +273,7 @@ $(function () {
  			
 			<label for="main_category">대분류</label>
 			<div>
-			<select class="form-control input-default" id="main_category" name="main_category" id="default">
-			<%-- <c:forEach var="main" items="${mainlist }">
-			<option value="${main.main_category }">${main.main_category }</option>
-			</c:forEach> --%>
+			<select class="form-control input-default" id="main_category" name="main_category" id="default">			
 			<option value="">대분류를 선택하세요</option>
 			<option value="게임" >게임</option>
 			<option value="패션" >패션</option>			
@@ -349,10 +358,23 @@ $(function () {
         
     	<div id="tab4" class="tab_content">
     	
+    	<!-- <select id="contentoption">
+    	<option>직접 pdf파일 올리기</option>
+    	<option>작성하기</option>
+    	</select> -->
+    	<div id="contentoption1">직접파일올리기</div>
+    	<div id="contentoption2">내용작성하기</div>
+    	
+    	<div id="directpdf">
+    	</div>
+		
+		<div id="summerwrite">
     	<div id="gide" style="border: 1px solid; width: 100%; height: 200px; margin: auto;">
 		<h1>작성가이드</h1>
 		</div>
 		<textarea id="summernote" name="summernote"></textarea>
+		</div>
+		
 		<div class="btn2" id="btn5"><a href="#" >다음</a></div>		
     	</div>   	
     	

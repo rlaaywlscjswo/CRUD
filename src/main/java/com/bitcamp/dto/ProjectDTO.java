@@ -13,8 +13,8 @@ public class ProjectDTO {
 	private String img; // 창작자 프로필 사진 경로
 	private String introduce; // 창작자 소개글
 	private String startdate; // 시작일
-	private String enddate; // 종료일	
-	// 내용 pdf 파일 multipartfile dto 추가해야함
+	private String enddate; // 종료일		
+	private MultipartFile project_contents_file; // 내용pdf 파일
 	private String project_contents; // 내용pdf
 	private MultipartFile project_contract_file; // 계약서pdf 파일
 	private String project_contract; // 계약서pdf 경로
@@ -133,7 +133,12 @@ public class ProjectDTO {
 		this.category_no = category_no;
 	}
 	
-	
+	public MultipartFile getProject_contents_file() {
+		return project_contents_file;
+	}
+	public void setProject_contents_file(MultipartFile project_contents_file) {
+		this.project_contents_file = project_contents_file;
+	}
 	
 	
 }

@@ -41,6 +41,7 @@ import com.bitcamp.service.ProjectService;
 public class ProjectController {
 	private String path = "/resources/upload"; // 파일저장 폴더명 : upload
 	private String signpath ="/resources/sign"; // 파일저장 폴더명 : sign
+	private String contentpdf="/resources/contentpdf"; // 파일저장 폴더명 : contentpdfpath(프로젝트설명pdf)
 	private String pdfpath = "/resources/contractpdf"; // 파일저장 폴더명 : pdfpath(계약서pdf)
 	
 	@Resource(name="service") // 프로젝트 서비스
@@ -204,18 +205,21 @@ public class ProjectController {
 		System.out.println("회원 싸인 --------"+mdto.getSign());
 		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일 
 		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일			
-		MultipartFile project_contract = dto.getProject_contract_file(); // 계약서pdf 파일		
+		MultipartFile project_contract = dto.getProject_contract_file(); // 계약서pdf 파일	
+		MultipartFile project_contents = dto.getProject_contents_file(); // 내용pdf 파일
+		String contents_filename= "content"+System.currentTimeMillis()+".pdf"; //내용pdf 파일 이름
 		String contract_filename = "pdf"+System.currentTimeMillis()+".pdf";	//계약서pdf 파일 이름	
 		try {				
 			String uploadpath = request.getSession().getServletContext().getRealPath(path);	// 경로
+			String contents_pdfpath = request.getSession().getServletContext().getRealPath(contentpdf); // 내용pdf 경로
 			String contract_pdfpath = request.getSession().getServletContext().getRealPath(pdfpath); // 계약서pdf 경로	
+			String contents_pdfpath_realpath = contents_pdfpath+"\\"+contents_filename;
+			String contract_pdfpath_realpath = contract_pdfpath+"\\"+contract_filename;	
+			System.out.println("contract_pdfpath_realpath?"+contract_pdfpath_realpath);
 			
-			String realpath = contract_pdfpath+"\\"+contract_filename;	
-			System.out.println("realpath?"+realpath);
-			
-			pdfservice.htmlcreate(mdto.getSign());
-			//pdfservice.createContractPdf(mdto.getSign(),realpath); // 계약서pdf 생성 service
-			//pdfservice.pdfpdf(mdto.getSign(), realpath);
+			pdfservice.createSummernotePdf(summernote,contents_pdfpath_realpath);
+			pdfservice.htmlcreate(mdto.getSign(),contract_pdfpath_realpath); // 계약서pdf 생성 service		
+		
 			dto.setProject_contract(pdfpath+"/"+contract_filename); 
 			System.out.println("리소스거시기냐?"+dto.getProject_contract());
 			
@@ -227,6 +231,10 @@ public class ProjectController {
 				File file2 = new File(uploadpath, img.getOriginalFilename());// 창작자 프로필사진
 				img.transferTo(file2);
 				dto.setImg(path+"/"+dto.getImg_file().getOriginalFilename());					
+				
+				File file3 = new File(contents_pdfpath, project_contents.getOriginalFilename()); //직접올리는pdf
+				project_contents.transferTo(file3);
+				dto.setProject_contents(contentpdf+"/"+dto.getProject_contents_file().getOriginalFilename());
 				
 				System.out.println("프로젝트 제목 : " + dto.getProject_title());
 				System.out.println("대표사진 파일명 : " + dto.getProject_photo());		
@@ -253,7 +261,7 @@ public class ProjectController {
 		
 		//계약서 pdf		
 		System.out.println("사인 경로 :"+mdto.getSign());
-		pdfservice.createContractPdf(mdto.getSign(),dto.getProject_contract()); // 계약서pdf 생성 service		
+		
 		
 		System.out.println("1 프로젝트 번호"+dto.getProject_no());
 		System.out.println("프로젝트 등록 ");  		
@@ -281,7 +289,7 @@ public class ProjectController {
 		
 		System.out.println("옵션등록");		
 		
-		pdfservice.createSummernotePdf(summernote);
+		
 		System.out.println("컨트롤러에서 pdf서비스 실행");			
 
 		return "project/projectinsertresult.temp";
