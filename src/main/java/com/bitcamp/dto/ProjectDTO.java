@@ -22,6 +22,8 @@ public class ProjectDTO {
 	private int project_status; // 승인여부
 	private int no; // 회원번호
 	private int category_no; // 카테고리 번호
+	private String remainingDay;
+	private int sumop;
 	
 	public MultipartFile getProject_contract_file() {
 		return project_contract_file;
@@ -139,6 +141,21 @@ public class ProjectDTO {
 	public void setProject_contents_file(MultipartFile project_contents_file) {
 		this.project_contents_file = project_contents_file;
 	}
+	public String getRemainingDay() {
+		return remainingDay;
+	}
+	public void setRemainingDay(String remainingDay) {
+		this.remainingDay = remainingDay;
+	}
+	public int getSumop() {
+		return sumop;
+	}
+	public void setSumop(int sumop) {
+		this.sumop = sumop;
+	}
+	
+	
+	
 	
 	
 }

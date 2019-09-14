@@ -16,6 +16,22 @@
 		<result column="targetprice"    property="reachper" />
 	</resultMap>
 
+	<!-- detail  -->
+	<resultMap type="com.bitcamp.dto.ProjectDTO" id="detaildto">
+	<result property="sumop" column="option_price" />
+	<result property="remainingDay" column="enddate" />
+	<result column="project_no" property="project_no"/>
+	<result column="project_photo" property="project_photo"/>
+	<result column="project_title" property="project_title"/>
+	<result column="project_views" property="project_views"/>
+	<result column="category_no" property="category_no"/>
+	<result column="enddate" property="enddate"/>
+	<result column="targetprice" property="targetprice"/>
+	<result column="alias" property="alias"/>
+	<result column="img" property="img"/>
+	<result column="project_contents" property="project_contents"/>
+	</resultMap>
+
 	<!-- detail option resultmap -->
 	<resultMap type="hashMap" id="optdto">
 		<result column="option_no" property="option_no" />
@@ -35,7 +51,8 @@
 	<result column="photo" property="photo"/>
 	</resultMap>
 	
-
+	
+	
 	<!-- 검색 결과 리스트 total -->
 	<select id="totalCount" resultType="int"
 		parameterType="java.util.HashMap">
@@ -87,7 +104,7 @@
 	<select id="projectcategoryList"
 		parameterType="java.util.HashMap" resultMap="listdto">
 		select  round(ifnull(sum(option_price), 0) / targetprice * 100, 2) as reachper, 
-		p.*,
+		p.alias, p.project_no, p.project_title, p.project_views, p.project_photo,
 		c.category_no		
 		from support s left join `option` o
         on s.option_no = o.option_no
@@ -126,11 +143,23 @@
 	</insert>
 
 	<!-- 프로젝트 디테일 -->
-	<select id="projectDetail" parameterType="int" resultType="com.bitcamp.dto.ProjectDTO">
+	<!-- <select id="projectDetail" parameterType="int" resultMap="detaildto">
 		select * from project
 		where project_no= #{project_no}		
 	</select>
-
+ -->
+	<select id="projectDetail" parameterType="int" resultMap="detaildto">
+	select sum(option_price) as sumop,
+	(to_days(p.enddate)-to_days(now())) as remainingDay,
+	p.project_photo, p.project_title, p.project_views, p.category_no, p.enddate,
+	p.targetprice, p.alias, p.img, p.project_contents, p.project_no
+	from support s left join `option` o
+	on s.option_no = o.option_no
+	right join project p
+	on o.project_no = p.project_no
+	where p.project_no = #{project_no}
+	</select>
+	
 	<!-- 프로젝트 디테일 창에서 보여주는 옵션 list -->
 	<select id="projectoptionList" parameterType="int"
 		resultMap="optdto">

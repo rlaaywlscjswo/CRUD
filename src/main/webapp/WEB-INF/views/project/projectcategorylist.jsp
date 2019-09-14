@@ -30,7 +30,7 @@ display: inline-block;
               <div class="card-body">           
 				 <div class="progress">
    				 	<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="${item.reachper }" aria-valuemin="0" aria-valuemax="100" style="width:${item.reachper }% ">    
-    				${item.reachper }
+    				${item.reachper }%
     				</div>
  				 </div>
 				창작자:<c:out value="${item.alias}"></c:out><br>

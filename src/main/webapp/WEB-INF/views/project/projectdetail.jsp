@@ -226,7 +226,7 @@ function commentDelete(reply_no){
 </head>
 <body>
 <div id="first">
-<div id="title">${list.project_title }</div>
+<div id="title"></div>
 <div id="views">조회수${list.project_views }</div>
 <div id="category">카테고리번호${list.category_no }</div>
 <div id="photo">
@@ -236,7 +236,8 @@ function commentDelete(reply_no){
 <div class="card" style="width: 360px; height: 495.33px;">
   <div class="card-body">   
     <p class="card-text">
-    <p>모인금액</p>
+    <p>모인금액: ${list.sumop }</p>
+    <p>남은날짜:${list.remainingDay }</p>
 <p>종료일:${list.enddate }</p>
 <p>후원자</p>
 <div id="taget">펀딩진행중<br>목표금액인${list.targetprice }이 모여야만 결제됩니다.</div>

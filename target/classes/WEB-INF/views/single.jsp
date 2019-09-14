@@ -149,7 +149,7 @@
 							<li class="breadcrumb-item"><a href="#"><i
 									class="fa fa-home" aria-hidden="true"></i></a></li>
 							<li class="breadcrumb-item"><a href="#"></a></li>		
-							<li class="breadcrumb-item"><a href="#"></a></li>						
+							<li class="breadcrumb-item"><a href="#"></a></li>											
 							<li class="breadcrumb-item active" aria-current="page">${list.project_title }</li>
 						</ol>
 					</nav>
@@ -233,7 +233,8 @@
 							<div class="subscribe-link">
 								<p>조회수 ${list.project_views }</p>
 								<p>카테고리번호 ${list.category_no }</p>
-								<p>모인금액</p>
+								 <p>모인금액: ${list.sumop }</p>
+   								 <p>남은날짜:${list.remainingDay }</p>
 								<p>종료일:${list.enddate }</p>
 								<p>
 									펀딩진행중<br>목표금액인${list.targetprice }이 모여야만 결제됩니다.
@@ -346,6 +347,7 @@
 			</div>
 		</div>
 	</section>
+	
 	<!-- ****** Single Blog Area End ****** -->
 </body>
 </html>
