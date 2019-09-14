@@ -138,7 +138,7 @@
 		#{project_no},
 		#{project_title}, #{project_photo}, #{targetprice},
 		#{alias}, #{img},
-		#{introduce}, #{startdate}, #{enddate},'내용.pdf',
+		#{introduce}, #{startdate}, #{enddate},#{project_contents},
 		#{project_contract}, #{no}, #{category_no},0)
 	</insert>
 

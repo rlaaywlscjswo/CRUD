@@ -189,7 +189,9 @@
 									</ul>
 									<div class="tab-content">
 										<div class="tab-pane fade show active" id="qwe">
-											<p>pdf viewer 들어올 곳</p>
+											<object type="application/pdf" data="${list.project_contents }" width="624" height="882">
+    											<param name="src" value="${list.project_contents }">
+											</object>
 										</div>
 										<div class="tab-pane fade" id="asd">
 											<!-- 댓글 form -->

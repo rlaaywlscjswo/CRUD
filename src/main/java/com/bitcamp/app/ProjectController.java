@@ -219,8 +219,9 @@ public class ProjectController {
 			
 			pdfservice.createSummernotePdf(summernote,contents_pdfpath_realpath);
 			pdfservice.htmlcreate(mdto.getSign(),contract_pdfpath_realpath); // 계약서pdf 생성 service		
-		
+			//dto.setProject_contents(contentpdf+"/"+contents_pdfpath);
 			dto.setProject_contract(pdfpath+"/"+contract_filename); 
+			
 			System.out.println("리소스거시기냐?"+dto.getProject_contract());
 			
 			if(!project_photo.isEmpty()&&!img.isEmpty()) { // 대표사진, 프로필사진 둘다있을때 
@@ -232,14 +233,15 @@ public class ProjectController {
 				img.transferTo(file2);
 				dto.setImg(path+"/"+dto.getImg_file().getOriginalFilename());					
 				
-				File file3 = new File(contents_pdfpath, project_contents.getOriginalFilename()); //직접올리는pdf
+				File file3 = new File(contents_pdfpath,contract_filename); //직접올리는pdf
 				project_contents.transferTo(file3);
-				dto.setProject_contents(contentpdf+"/"+dto.getProject_contents_file().getOriginalFilename());
+				dto.setProject_contents(contentpdf+"/"+contract_filename);
 				
 				System.out.println("프로젝트 제목 : " + dto.getProject_title());
 				System.out.println("대표사진 파일명 : " + dto.getProject_photo());		
 				System.out.println("창작자 프로필 사진"+ dto.getImg());			
 				System.out.println("경로 : "+dto.getProject_photo());	
+				System.out.println("리소스거시기니2"+dto.getProject_contents());
 				System.out.println("pdf경로 맞냐? : "+dto.getProject_contract());
 			}						
 		}catch(IOException e) {			
