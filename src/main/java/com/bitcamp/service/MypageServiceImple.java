@@ -26,6 +26,17 @@ public class MypageServiceImple implements MypageService {
 
 	} // end myProfile method
 
+	
+	
+	@Override
+	public String updatePhoto(String email, String photo) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("email", email);
+		map.put("photo", photo);		
+		return mypageMapper.updatePhoto(map);
+	} // end updatePhoto method
+	
+	
 	// 마이 페이지 - 내가 만든 프로젝트
 
 	// 내가 만든 프로젝트 개수
@@ -90,5 +101,9 @@ public class MypageServiceImple implements MypageService {
 		return mypageMapper.mySupport_list(hm);
 
 	} // end mypageSupportList method
+
+	
+
+	
 
 } // end MypageServiceImple class

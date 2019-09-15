@@ -1,5 +1,6 @@
 package com.bitcamp.service;
 
+import java.util.HashMap;
 import java.util.List;
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.ProjectDTO;
@@ -10,6 +11,9 @@ public interface MypageService {
 	// 마이 페이지 - 내 프로필
 	public List<MemberDTO> myProfile(String email);
 
+	// 프로필사진 수정
+	public String updatePhoto(String email, String photo);
+	
 	// 마이 페이지 - 내가 만든 프로젝트
 
 	// 내가 만든 프로젝트 개수

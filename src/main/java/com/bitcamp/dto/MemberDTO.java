@@ -11,6 +11,7 @@ public class MemberDTO {
 	private String email; // 이메일
 	private String password; // 비밀번호
 	private String photo; // 프로필 사진
+	private MultipartFile photo_file; // 프로필 사진 파일
 	private String phone; // 연락처
 	private String birth; // 생년월일
 	private String joindate; // 가입일
@@ -133,6 +134,17 @@ public class MemberDTO {
 	public void setSign(String sign) {
 		this.sign = sign;
 	}
+
+	public MultipartFile getPhoto_file() {
+		return photo_file;
+	}
+
+	public void setPhoto_file(MultipartFile photo_file) {
+		this.photo_file = photo_file;
+	}
+	
+	
+	
 
 	
 	

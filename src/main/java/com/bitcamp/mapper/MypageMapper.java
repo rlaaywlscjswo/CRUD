@@ -15,6 +15,9 @@ public interface MypageMapper {
 	// 마이 페이지 - 내 프로필
 	public List<MemberDTO> myProfile(String email);
 
+	// 프로필사진 수정
+	public String updatePhoto(HashMap<String, Object> update);
+	
 	// 마이 페이지 - 내가 만든 프로젝트
 
 	// 내가 만든 프로젝트 개수

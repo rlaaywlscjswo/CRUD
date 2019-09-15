@@ -24,7 +24,10 @@
 		where email = #{email}
 	</select>
 
-
+	<update id="updatePhoto" parameterType="java.util.HashMap">
+	update member set photo=#{photo}
+	where email=#{email}	
+	</update>
 
 	<!-- 마이 페이지 - 내 프로젝트 -->
 
