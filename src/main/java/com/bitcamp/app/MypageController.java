@@ -1,27 +1,36 @@
 package com.bitcamp.app;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.PagingDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
+import com.bitcamp.service.MemberService;
 import com.bitcamp.service.MypageService;
 
 @Controller
 public class MypageController {
-
+	private String path = "/resources/photo"; // 프로필사진 파일저장 폴더명 : photo
 	@Inject
 	private MypageService service;
 
+	@Inject
+	private MemberService memservice;
 	// 마이 페이지 - main
 	@RequestMapping("/mypage")
 	public String mypage() {
@@ -42,7 +51,25 @@ public class MypageController {
 		return "/mypage/mypage_info.temp";
 
 	} // end myProfile method
-
+	
+	
+	@RequestMapping("/updatephoto")
+	public @ResponseBody String updatePhoto(@RequestParam String email, @RequestParam String photo, HttpServletRequest request,Principal principal) {
+		MemberDTO mdto = memservice.memberinfo(principal.getName());
+		MultipartFile photo_file = mdto.getPhoto_file(); // 프로필사진 파일
+		
+		try {
+			String photo_path = request.getSession().getServletContext().getRealPath(path); //경로
+			File file = new File(photo_path, photo_file.getOriginalFilename());
+			photo_file.transferTo(file);
+			mdto.setPhoto(path+"/"+mdto.getPhoto_file().getOriginalFilename());
+			System.out.println("프로필사진파일명: "+mdto.getPhoto());
+			service.updatePhoto(email, mdto.getPhoto());
+		}catch(Exception e) {
+			System.out.println(e);
+		}		
+		return "/mypage/mypage_info.temp";
+	}
 	// 마이 페이지 - 내가 만든 프로젝트
 	@RequestMapping("mypro")
 	public String mypage_MyProjectList(@RequestParam(required = false, defaultValue = "1") int currPage,
