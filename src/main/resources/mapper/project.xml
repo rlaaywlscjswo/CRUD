@@ -238,7 +238,7 @@
 	
 	<!-- 인기 프로젝트 -->
 	<select id="popularProject" resultMap="mcdto">
-		select project_photo, project_title, name,
+		select project_photo, project_title, alias,project.project_no,
 			   to_days(enddate) - to_days(now()) + 1 as nam,
 			   ifnull(sumop, 0) as sumop,
 			   ifnull(ntargetprice, 0) as ntargetprice
@@ -258,7 +258,7 @@
 	
 	<!-- 새로운 프로젝트 -->
 	<select id="newProject" resultMap="mcdto">
-		select project_photo, project_title, name,
+		select project_photo, project_title, alias,project.project_no,
 			   to_days(enddate) - to_days(now()) + 1 as nam,
 			   ifnull(sumop, 0) as sumop,
 			   ifnull(ntargetprice, 0) as ntargetprice
@@ -278,7 +278,7 @@
 	
 	<!-- 성공 임박 프로젝트 -->
 	<select id="successApproach" resultMap="mcdto">
-				select project_photo, project_title, name,
+				select project_photo, project_title, alias,project.project_no,
 			   to_days(enddate) - to_days(now()) + 1 as nam,
 			   ifnull(sumop, 0) as sumop,
 			   ifnull(ntargetprice, 0) as ntargetprice

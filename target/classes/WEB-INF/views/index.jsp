@@ -121,16 +121,16 @@
 												<div class="post-author-date-area d-flex">
 													<!-- Post Author -->
 													<div class="post-author">
-														<a href="#">{newProject.project_title}</a>
+														<a>지울거임</a>
 													</div>
 													<!-- Post Date -->
 													<div class="post-date">
-														<a href="#">${newProject.name}</a>
+														<a>${newProject.alias}</a>
 													</div>
 												</div>
 											</div>
-											<a href="#">
-												<h6>The Top Breakfast And Brunch Spots In Hove</h6>
+											<a href="projectdetail/${newProject.project_no }">
+												<h6>${newProject.project_title}</h6>
 											</a>
 										</div>
 									</div>
@@ -144,18 +144,32 @@
 								<h4 class="mb-30">인기 프로젝트</h4>
 								<div class="related-post-slider owl-carousel">
 								<!-- Single Related Post-->									
-								<c:forEach var="popularProject" items="${popularProject}">
-									 <div class="col-12 col-md-6 col-lg-4">
-                     					<div class="card h-100">	
-                     				  <div class="card-body">  
-                     				<img src="${popularProject.project_photo}" alt="프로젝트대표사진">
-                     				  </div>
-                     				     <div class="card-footer">
-                     				      <span>111111111111111111111111111111111111</span>
-                     				     </div>
-                     				     </div>
-                     				     </div>
-                     				  </c:forEach>            				  
+									<c:forEach var="popularProject" items="${popularProject}">
+									<div class="single-post">
+										<!-- Post Thumb -->
+										<div class="post-thumb">
+											<img src="${popularProject.project_photo}" alt="프로젝트대표사진"> 
+										</div>
+										<!-- Post Content -->
+										<div class="post-content">
+											<div class="post-meta d-flex">
+												<div class="post-author-date-area d-flex">
+													<!-- Post Author -->
+													<div class="post-author">
+														<a>지울거임</a>
+													</div>
+													<!-- Post Date -->
+													<div class="post-date">
+														<a>${popularProject.alias}</a>
+													</div>
+												</div>
+											</div>
+											<a href="projectdetail/${popularProject.project_no }">
+												<h6>${popularProject.project_title}</h6>
+											</a>
+										</div>
+									</div>
+									</c:forEach>           				  
                      				</div>
 								</div>
         
@@ -164,11 +178,10 @@
 
 								<div class="related-post-slider owl-carousel">
 								<c:forEach var="successApproach" items="${successApproach}">
-									<!-- Single Related Post-->
 									<div class="single-post">
 										<!-- Post Thumb -->
 										<div class="post-thumb">
-											<img src="/resources/yummy/img/blog-img/15.jpg" alt="">
+											<img src="${successApproach.project_photo}" alt="프로젝트대표사진"> 
 										</div>
 										<!-- Post Content -->
 										<div class="post-content">
@@ -176,20 +189,20 @@
 												<div class="post-author-date-area d-flex">
 													<!-- Post Author -->
 													<div class="post-author">
-														<a href="#">By Marian</a>
+														<a>지울거임</a>
 													</div>
 													<!-- Post Date -->
 													<div class="post-date">
-														<a href="#">May 19, 2017</a>
+														<a>${successApproach.alias}</a>
 													</div>
 												</div>
 											</div>
-											<a href="#">
-												<h6>The Top Breakfast And Brunch Spots In Hove</h6>
+											<a href="projectdetail/${successApproach.project_no }">
+												<h6>${successApproach.project_title}</h6>
 											</a>
 										</div>
 									</div>
-									</c:forEach>							
+									</c:forEach>  						
 								</div>
 							</div>
         
