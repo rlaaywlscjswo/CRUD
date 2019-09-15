@@ -34,7 +34,8 @@
 	console.log(name);
 	console.log(birth);
 	console.log(photo);
-	/* location.href = "logincheck.do?id=" +id + "&pwd=0" + "&naverid=1"; // 아이디 패스워드가 맞으면 로그인 및 세션 저장, 틀리면 로그인 페이지 */
+	/* location.href = "naverlogincheck.do?id=" +id + "&pwd=0" + "&naverid=1"; // 아이디 패스워드가 맞으면 로그인 및 세션 저장, 틀리면 로그인 페이지 */
+	
 	//location.href = "signup?email" + email + "&name=" + name + "&pwd=0" + "&confirmPassword=0" +"&naverid=1" ; // 이미 가입 되어 있으면, 회원가입 폼으로
 	
 	// email로 중복체크 -> 이미 가입된 아이디면 로그인
@@ -45,6 +46,13 @@
 	window.close();
   }
 </script>
+<form action="/login">
+<div>
+<!-- <label for="username" id="email"><strong>Email
+	address</strong></label> <input type="text" name="username" id="username">
+</div> -->
+	<input type="hidden" name="username">
+</form>
 
   
   </body>
