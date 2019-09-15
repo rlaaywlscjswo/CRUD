@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,12 +9,9 @@
 <title>Insert title here</title>
 
 <!-- 댓글 JS  -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script type="text/javascript">
-	var project_no = $
-	{
-		list.project_no
-	}; // 프로젝트 번호
+	var project_no = ${list.project_no}; // 프로젝트 번호
 	console.log("프번프번"+project_no);
 	$(function() {
 		commentList(); //페이지 로딩시 댓글 목록 출력 
@@ -29,8 +26,7 @@
 
 	//댓글 목록 
 	function commentList() {
-		$
-				.ajax({
+		$.ajax({
 					url : '/replylist',
 					type : 'post',
 					data : {
@@ -41,12 +37,8 @@
 						if (result.length < 1) {
 							a += '<p>' + "등록된댓글 ㄴㄴ" + '</p>';
 						} else {
-							$
-									.each(
-											result,
-											function(key, value) {
-												console
-														.log(value.reply_contents);
+							$.each(result,function(key, value) {
+								console.log(value.reply_contents);
 												a += '<div class="comment_area section_padding_50 clearfix">';
 												a += '<ol>';
 												a += '<li class="single_comment_area">';
@@ -56,21 +48,14 @@
 												a += '</div>';
 												a += '<div class="comment-content">';
 												a += '<span class="comment-date text-muted" class="commentInfo'+value.reply_no+'">'
-													 + '댓글번호 : '+ value.reply_no + ' / 작성자 : ' + value.name
+													 + '댓글번호 : '+ value.reply_no
 													 + '</span>';
-												a += '<h5>Brandon Kelley</h5>';
+												a += '<h5>'+value.name+'</h5>';
 												a += '<p class="commentContent'+value.reply_no+'">'
 														+ value.reply_contents
 														+ '</p>';
-												a += '<a class="active" href="#">수정</a> <a href="#">삭제</a>';
+												a += '<a onclick="commentUpdate('+value.reply_no+',\''+value.reply_contents+'\');" class="active">수정</a> <a onclick="commentDelete('+value.reply_no+');">삭제</a>';
 												a += '</div></div></li></ol></div>';												
-
-													
-												
-												
-												
-												
-												
 											});
 						}
 						$(".replylist").html(a);
@@ -194,6 +179,7 @@
 											</object>
 										</div>
 										<div class="tab-pane fade" id="asd">
+											<sec:authorize access="isAuthenticated()">  
 											<!-- 댓글 form -->
 											<form method="post" name="replyinsertform">
 												<input type="hidden" id="project_no" name="project_no"
@@ -201,9 +187,21 @@
 												<textarea style="width: 100%; resize: none;"
 													id="reply_contents" class="form-control"
 													name="reply_contents"></textarea>
+												<fieldset class="rate">
+    											<input type="radio" id="rating10" name="rating" value="5" /><label for="rating10" title="5 stars"></label>
+    											<input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4 1/2 stars"></label>
+    											<input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
+    											<input type="radio" id="rating7" name="rating" value="3.5" /><label class="half" for="rating7" title="3 1/2 stars"></label>
+    											<input type="radio" id="rating6" name="rating" value="3" /><label for="rating6" title="3 stars"></label>
+    											<input type="radio" id="rating5" name="rating" value="2.5" /><label class="half" for="rating5" title="2 1/2 stars"></label>
+    											<input type="radio" id="rating4" name="rating" value="2" /><label for="rating4" title="2 stars"></label>
+    											<input type="radio" id="rating3" name="rating" value="1.5" /><label class="half" for="rating3" title="1 1/2 stars"></label>
+    											<input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
+   											 	<input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="1/2 star"></label>
+												</fieldset>
 												<button type="button" name="replyinsertbtn">댓글등록</button>
 											</form>
-											
+											</sec:authorize>
 											<div class="replylist">
  											</div>																
 											
