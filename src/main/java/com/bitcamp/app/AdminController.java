@@ -69,6 +69,8 @@ public class AdminController {
 		System.out.println("no값을 알려주세요.." + no);
 		
 		// 통계
+		// 이름 가져오기
+		String getName = adminService.getName(no);
 		// 성공 횟수
 		int successCount = adminService.successCount(no);
 		// 총 프로젝트 등록 횟수
@@ -79,6 +81,7 @@ public class AdminController {
 		float avgRating = adminService.avgRating(no);
 		
 		Map<String, Object> map = new HashMap<>();
+		map.put("getName", getName);
 		map.put("successCount", successCount);
 		map.put("regipro", regipro);
 		map.put("avgdal", avgdal);

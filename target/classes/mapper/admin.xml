@@ -73,6 +73,11 @@
 	
 	<!-- 통계 자료 -->
 	
+	<!-- 이름 가져오기 -->
+	<select id="getName" resultType="String" parameterType="int">
+		select name from member where no = #{no}
+	</select>
+	
 	<!-- 성공 횟수 -->
 	<select id="successCount" resultType="int" parameterType="int">
 		select count(d.dal)

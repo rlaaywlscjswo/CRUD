@@ -30,11 +30,27 @@ public class CSServiceImple implements CSService {
 
 	} // end writeQuestion method
 	
+	// 질문 개수
+	@Override
+	public int csList_totalCount(String cs_search) {
+		
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("cs_search", cs_search);
+		
+		return mapper.csList_totalCount(hm);
+		
+	} // end csList_totalCount method
+	
 	// 질문 목록
 	@Override
-	public List<CSDTO> csList() {
+	public List<CSDTO> csList(int startRow, int pagePerSize, String cs_search) {
 		
-		return mapper.csList();
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("startRow", startRow);
+		hm.put("pagePerSize", pagePerSize);
+		hm.put("cs_search", cs_search);
+		
+		return mapper.csList(hm);
 		
 	} // end csList method
 	

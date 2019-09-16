@@ -18,6 +18,10 @@ public interface AdminMapper {
 	public List<MemberDTO> admin_fmember(HashMap<String, Object> hm);
 
 	// 통계
+	
+	// 이름 가져오기
+	public String getName(int no);
+	
 	// 성공 횟수
 	public int successCount(int no);
 

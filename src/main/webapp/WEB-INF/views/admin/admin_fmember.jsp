@@ -53,15 +53,20 @@
 				dataType:"json",
 				success:function(data) {
 					
+					$('.modal-content').find('h3:eq(0)').empty();
+					$('.modal-content table tr').find('td:eq(0)').empty();
+					$('.modal-content table tr').find('td:eq(1)').empty();
+					$('.modal-content table tr').find('td:eq(2)').empty();
+					
 					var name = '';
 					var sure = '';
 					var avgdal = '';
 					var avgRating = '';
 					
-					name += d;
-					sure += ${successCount} + '/' + ${regipro} ;
-					avgdal += '100';
-					avgRating += '5.0';
+					name += data.getName + " 님의 통계 자료";
+					sure += data.successCount + '회 /' + data.regipro + "회";
+					avgdal += data.avgdal + '%';
+					avgRating += data.avgRating + '점';
 					
 					$('.modal-content').find('h3:eq(0)').append(name);
 					$('.modal-content table tr').find('td:eq(0)').append(sure);
@@ -81,8 +86,6 @@
 </script>
 </head>
 <body>
-
-<div id="testya" style="border: 1px solid silver; display: inline-block; width: 50px; height: 50px;"></div>
 
 	<div class="wrap">
 
@@ -185,7 +188,7 @@
 	</form>
 
 	<!-- Trigger/Open The Modal -->
-	<button id="myBtn">Open Modal</button>
+<!-- 	<button id="myBtn">Open Modal</button> -->
 
 	<!-- The Modal -->
 	<div id="myModal" class="modal">

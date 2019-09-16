@@ -208,6 +208,14 @@ public class AdminServiceImple implements AdminService {
 	} // end admin_fmember method
 
 	// 통계
+	
+	// 이름 가져오기
+	@Override
+	public String getName(int no) {
+		
+		return mapper.getName(no);
+		
+	} // end getName method
 
 	// 성공 횟수
 	@Override
