@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.PagingDTO;
@@ -53,30 +54,39 @@ public class AdminController {
 		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
 
 		List<MemberDTO> fmemberList = adminService.admin_fmember(dto.getStartRow(), pagePerSize, fmember_search);
-		// List<HashMap<String, Object>> fmemberList2 =
-		// adminService.admin_fmember2(dto.getStartRow(), pagePerSize, fmember_search);
-
-		// 통계
-		// 성공 횟수
-		int successCount = adminService.successCount();
-		// 총 프로젝트 등록 횟수
-		int regipro = adminService.theNumbersOfRegiProject();
-		// 평균 달성률
-		float avgdal = adminService.avgdal();
-		// 평균 평점
-		float avgRating = adminService.avgRating();
 
 		model.addAttribute("fmemberList", fmemberList);
 		model.addAttribute("dto", dto);
-		model.addAttribute("successCount", successCount);
-		model.addAttribute("regipro", regipro);
-		model.addAttribute("avgdal", avgdal);
-		model.addAttribute("avgRating", avgRating);
 
 		return "/admin/admin_fmember.temp";
 
 	} // end admin_fmember method
-
+	
+	// 통계 페이지
+	@RequestMapping("stats")
+	public @ResponseBody String stats(@RequestParam(required=false, defaultValue="0") int no, Model model) {
+		
+		System.out.println("no값을 알려주세요.." + no);
+		
+		// 통계
+		// 성공 횟수
+		int successCount = adminService.successCount(no);
+		// 총 프로젝트 등록 횟수
+		int regipro = adminService.theNumbersOfRegiProject(no);
+		// 평균 달성률
+		float avgdal = adminService.avgdal(no);
+		// 평균 평점
+		float avgRating = adminService.avgRating(no);
+		
+		model.addAttribute("successCount", successCount);
+		model.addAttribute("regipro", regipro);
+		model.addAttribute("avgdal", avgdal);
+		model.addAttribute("avgRating", avgRating);
+		
+		return "";
+		
+	} // end stats method
+	
 	@RequestMapping("/admin")
 	public String adminPage(Principal principal, Model model) {
 

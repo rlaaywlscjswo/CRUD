@@ -20,13 +20,13 @@ public interface AdminService {
 	
 	// 통계
 	// 성공 횟수
-	public int successCount();
+	public int successCount(int no);
 	// 총 프로젝트 등록 횟수
-	public int theNumbersOfRegiProject();	
+	public int theNumbersOfRegiProject(int no);	
 	// 평균 달성률
-	public float avgdal();
+	public float avgdal(int no);
 	// 평균 평점
-	public float avgRating();
+	public float avgRating(int no);
 	
 	// for paging
 	public int sproject_totalCount(String sproject_search);

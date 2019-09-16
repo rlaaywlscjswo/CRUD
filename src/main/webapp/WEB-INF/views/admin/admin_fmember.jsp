@@ -38,8 +38,30 @@
 
 	}
 </script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+	jQuery.noConflict();
+	jQuery(document).ready(function($) {
+		
+		$('tr').on('click', function() {
+			 var d=$(this).find('td:eq(0)').text();
+			$.ajax({
+				url:"stats",
+				data: "no="+d,
+				success:function(data) {
+					alert(d);
+				}
+				
+			}); // end ajax */
+			
+		}); // end on
+		
+	}); // end ready
+</script>
 </head>
 <body>
+
+<div id="testya" style="border: 1px solid silver; display: inline-block; width: 50px; height: 50px;"></div>
 
 	<div class="wrap">
 

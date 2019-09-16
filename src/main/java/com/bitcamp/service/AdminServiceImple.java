@@ -211,33 +211,34 @@ public class AdminServiceImple implements AdminService {
 
 	// 성공 횟수
 	@Override
-	public int successCount() {
+	public int successCount(int no) {
+		System.out.println("성공 횟수 : " + no);
 
-		return mapper.successCount();
+		return mapper.successCount(no);
 
 	} // end successCount method
 
 	// 총 프로젝트 등록 횟수
 	@Override
-	public int theNumbersOfRegiProject() {
+	public int theNumbersOfRegiProject(int no) {
 
-		return mapper.theNumbersOfRegiProject();
+		return mapper.theNumbersOfRegiProject(no);
 
 	} // end theNumbersOfRegiProject method
 
 	// 평균 달성률
 	@Override
-	public float avgdal() {
+	public float avgdal(int no) {
 
-		return mapper.avgdal();
+		return mapper.avgdal(no);
 
 	} // end avgdal method
 		// 평균 평점
 
 	@Override
-	public float avgRating() {
+	public float avgRating(int no) {
 
-		return mapper.avgRating();
+		return mapper.avgRating(no);
 
 	} // end avgRating method
 
