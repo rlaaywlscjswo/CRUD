@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,6 +36,7 @@ import com.bitcamp.service.CategoryService;
 import com.bitcamp.service.MemberService;
 import com.bitcamp.service.PDFService;
 import com.bitcamp.service.ProjectService;
+import com.itextpdf.text.log.SysoCounter;
 
 
 @Controller
@@ -218,7 +220,8 @@ public class ProjectController {
 			System.out.println("contract_pdfpath_realpath?"+contract_pdfpath_realpath);
 			
 			pdfservice.createSummernotePdf(summernote,contents_pdfpath_realpath);
-			pdfservice.htmlcreate(mdto.getSign(),contract_pdfpath_realpath); // 계약서pdf 생성 service		
+			System.out.println("++++dtodtodtodtodtodto========="+dto.getProject_title());
+			pdfservice.htmlcreate(mdto.getSign(),contract_pdfpath_realpath, dto); // 계약서pdf 생성 service		
 			//dto.setProject_contents(contentpdf+"/"+contents_pdfpath);
 			dto.setProject_contract(pdfpath+"/"+contract_filename); 
 			
@@ -299,12 +302,17 @@ public class ProjectController {
 	
 	// 프로젝트 상세 페이지
 	@RequestMapping("projectdetail/{project_no}")
-	public String projectdetail(@PathVariable int project_no, Model model) {	
+	public String projectdetail(@PathVariable int project_no,  Model model) {	
+	
+		
+		
 		ProjectDTO detail = service.projectDetail(project_no);
+		System.out.println("========================내용pdf:"+detail.getProject_contents());
 		List<OptionDTO> option= service.projectoptionList(project_no);
 		int viewcnt = service.viewcnt(project_no);			
 		model.addAttribute("list", detail);
-		model.addAttribute("option", option);	
+		model.addAttribute("option", option);
+		
 		return "single.temp";
 	}
 	

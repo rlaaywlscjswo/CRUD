@@ -275,8 +275,11 @@ $(function () {
 			<div>
 			<select class="form-control input-default" id="main_category" name="main_category" id="default">			
 			<option value="">대분류를 선택하세요</option>
-			<option value="게임" >게임</option>
-			<option value="패션" >패션</option>			
+			<option value="게임" >게임</option>			
+			<option value="패션" >패션</option>	
+			<option value="도서" >도서</option>	
+			<option value="IT" >IT</option>	
+			<option value="도서번역" >도서 번역<option>						
 			</select>
 			</div>
 			

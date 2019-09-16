@@ -38,18 +38,18 @@ public class ReplyController {
 	// 댓글 등록
 	@RequestMapping(value="/replyinsert", method= {RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody int replyinsert (@RequestParam int project_no, @RequestParam String reply_contents,
-			//@RequestParam float rating,
+			@RequestParam float rating,
 			Principal principal) {
 		System.out.println("프번"+project_no);
 		System.out.println("contents"+reply_contents);
 		MemberDTO mdto = memberservice.memberinfo(principal.getName());
 		System.out.println("회ㅣㅣㅣㅣㅣㅣㅣㅣㅣ번"+mdto.getNo());
-		//System.out.println("평점"+rating);
+		System.out.println("평점"+rating);
 		ReplyDTO reply =new ReplyDTO();
 		reply.setNo(mdto.getNo()); // 회원번호
 		reply.setProject_no(project_no); // 프로젝트 번호		
 		reply.setReply_contents(reply_contents); // 댓글 내용
-		//reply.setRating(rating); // 평점
+		reply.setRating(rating); // 평점
 		return replyservice.replyInsert(reply);
 	}
 	

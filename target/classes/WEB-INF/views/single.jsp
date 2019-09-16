@@ -7,7 +7,36 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<style type="text/css">
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
+/* Styling h1 and links
+––––––––––––––––––––––––––––––––– */
+h1[alt="Simple"] {color: white;}
+a[href], a[href]:hover {color: grey; font-size: 0.5em; text-decoration: none}
+
+
+.starrating > input {display: none;}  /* Remove radio buttons */
+
+.starrating > label:before { 
+  content: "\f005"; /* Star */
+  margin: 2px;
+  font-size: 8em;
+  font-family: FontAwesome;
+  display: inline-block; 
+}
+
+.starrating > label
+{
+  color: #222222; /* Start color when not clicked */
+}
+
+.starrating > input:checked ~ label
+{ color: #ffca08 ; } /* Set yellow color when star checked */
+
+.starrating > input:hover ~ label
+{ color: #ffca08 ;  } /* Set yellow color when star hover */
+</style>
 <!-- 댓글 JS  -->
 
 <script type="text/javascript">
@@ -20,7 +49,14 @@
 			var insertData = $('[name=replyinsertform]').serialize(); //commentInsertForm의 내용을 가져옴
 			console.log(insertData);
 			commentInsert(insertData); //Insert 함수호출(아래)
-		});
+		});		
+		
+		
+        	$('#talk').on('click', function() { //인코딩 문제 방지
+    			let uri = encodeURI("/talk");
+    			console.log(uri);
+    			let pop = window.open(uri, "pop", "width=750,height=495, scrollbars=yes, resizable=yes");
+    		});
 
 	});
 
@@ -48,7 +84,7 @@
 												a += '</div>';
 												a += '<div class="comment-content">';
 												a += '<span class="comment-date text-muted" class="commentInfo'+value.reply_no+'">'
-													 + '댓글번호 : '+ value.reply_no
+													 + '평점 : '+ value.rating
 													 + '</span>';
 												a += '<h5>'+value.name+'</h5>';
 												a += '<p class="commentContent'+value.reply_no+'">'
@@ -173,10 +209,8 @@
 											data-toggle="tab" href="#zxc">환불정책</a></li>
 									</ul>
 									<div class="tab-content">
-										<div class="tab-pane fade show active" id="qwe">
-											<object type="application/pdf" data="pdf1568601434331.pdf" width="624" height="882">
-    											<param name="src" value="/resources/contentpdf/pdf1568601434331.pdf">
-											</object>
+										<div class="tab-pane fade show active" id="qwe">										
+											<iframe src="http://localhost:8080${list.project_contents }" style="width:559px; height: 882px;" frameborder="0"></iframe>
 										</div>
 										<div class="tab-pane fade" id="asd">
 											<sec:authorize access="isAuthenticated()">  
@@ -184,22 +218,21 @@
 											<form method="post" name="replyinsertform">
 												<input type="hidden" id="project_no" name="project_no"
 													value="${list.project_no }">
+		<div class="container">
+        <div class="starrating risingstar d-flex justify-content-center flex-row-reverse">
+            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+        </div>
+  		</div>
 												<textarea style="width: 100%; resize: none;"
 													id="reply_contents" class="form-control"
 													name="reply_contents"></textarea>
-												<fieldset class="rate">
-    											<input type="radio" id="rating10" name="rating" value="5" /><label for="rating10" title="5 stars"></label>
-    											<input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4 1/2 stars"></label>
-    											<input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
-    											<input type="radio" id="rating7" name="rating" value="3.5" /><label class="half" for="rating7" title="3 1/2 stars"></label>
-    											<input type="radio" id="rating6" name="rating" value="3" /><label for="rating6" title="3 stars"></label>
-    											<input type="radio" id="rating5" name="rating" value="2.5" /><label class="half" for="rating5" title="2 1/2 stars"></label>
-    											<input type="radio" id="rating4" name="rating" value="2" /><label for="rating4" title="2 stars"></label>
-    											<input type="radio" id="rating3" name="rating" value="1.5" /><label class="half" for="rating3" title="1 1/2 stars"></label>
-    											<input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
-   											 	<input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="1/2 star"></label>
-												</fieldset>
-												<button type="button" name="replyinsertbtn">댓글등록</button>
+		
+
+												<button type="button" name="replyinsertbtn">등록</button>
 											</form>
 											</sec:authorize>
 											<div class="replylist">
@@ -299,7 +332,8 @@
 							</div>
 							<h4 class="font-shadow-into-light">${list.alias}</h4>
 							<p>소개글 ${list.introduce }</p>
-						<button  class="btn btn-primary">쪽지로 문의하기</button> 
+							
+						<a href="/talkreply/${list.no }" class="btn btn-primary" id="talk">쪽지로 문의하기</a> 
 						</div>
 
 						<!-- 옵션목록들 -->
