@@ -243,54 +243,51 @@
 									data-toggle="modal" data-target="#exampleModalCenter">
 									후원하기</button>
 									<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">후원 옵션</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-    <c:forEach var="opt" items="${option }">
-	 <div class="single-widget-area add-widget text-center">
-                            	<div class="add-widget-area">
-                            	
-                                <div style="width: 289px; height: 207px;"></div>
-                                <div class="add-text">
-                                    <div class="yummy-table">
-                                        <div class="yummy-table-cell">
-                                        	<form action="/pay" method="post">	
-                                            <h2>${opt.option_name}</h2>
-											<p>가격 ${opt.option_price }</p>
-											<p>내용 ${opt.option_contents }</p>
-											<p>수량 ${opt.option_quantity }</p> 
-											<input type="hidden" name="option_no" value="${opt.option_no }">
-											<input type="hidden" name="option_name" value="${opt.option_name }">
-											<input type="hidden" name="option_price" value="${opt.option_price }">
-											<input type="hidden" name="option_contents" value="${opt.option_contents }">
-											<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
-											<input type="hidden" name="alias" value="${list.alias}">   
-											
-											<button class="btn btn-primary">후원하기</button>   
-										
-                                            </form>                                             
-                                        </div>
-                                    </div>
-                                </div>                               
-                            	</div>
-                       		 </div>			
-</c:forEach>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>        
-      </div>
-    </div>
-  </div>
-</div>
+									<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  										<div class="modal-dialog modal-dialog-centered" role="document">
+    										<div class="modal-content">
+     		 									<div class="modal-header">
+        											<h5 class="modal-title" id="exampleModalCenterTitle">후원 옵션</h5>
+        											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          												<span aria-hidden="true">&times;</span>
+        											</button>
+      											</div>
+      											<div class="modal-body">
+    												<c:forEach var="opt" items="${option }">
+	 													<div class="single-widget-area add-widget text-center">
+                            								<div class="add-widget-area">                            	
+                                							<div style="width: 289px; height: 207px;"></div>
+                                							<div class="add-text">
+                                    						<div class="yummy-table">
+                                        					<div class="yummy-table-cell">
+                                        					<form action="/pay" method="post">	
+                                            					<h2>${opt.option_name}</h2>
+																<p>가격 ${opt.option_price }</p>
+																<p>내용 ${opt.option_contents }</p>
+																<p>수량 ${opt.option_quantity }</p> 
+																<input type="hidden" name="option_no" value="${opt.option_no }">
+																<input type="hidden" name="option_name" value="${opt.option_name }">
+																<input type="hidden" name="option_price" value="${opt.option_price }">
+																<input type="hidden" name="option_contents" value="${opt.option_contents }">
+																<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
+																<input type="hidden" name="alias" value="${list.alias}">   											
+																<button class="btn btn-primary">후원하기</button>   										
+                                            				</form>                                             
+                                        					</div>
+                                    						</div>
+                                							</div>                               
+                            								</div>
+                       		 								</div>			
+													</c:forEach>
+      											</div>
+      											<div class="modal-footer">
+        											<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>        
+      											</div>
+    										</div>
+  										</div>
+									</div>
+								</div>
 							</div>
-						</div>
 
 						<!-- 창작자 설명 -->
 						<div class="single-widget-area about-me-widget text-center">
