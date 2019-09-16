@@ -45,11 +45,32 @@
 		
 		$('tr').on('click', function() {
 			 var d=$(this).find('td:eq(0)').text();
+			 // $('.modal-content').find('h3:eq(0)').css('background-color', 'lime');
+			 // $('.modal-content table tr').find('td:eq(0)').css('background-color', 'dodgerblue');
 			$.ajax({
-				url:"stats",
+				url:"/stats",
 				data: "no="+d,
+				dataType:"json",
 				success:function(data) {
-					alert(d);
+					
+					var name = '';
+					var sure = '';
+					var avgdal = '';
+					var avgRating = '';
+					
+					name += d;
+					sure += ${successCount} + '/' + ${regipro} ;
+					avgdal += '100';
+					avgRating += '5.0';
+					
+					$('.modal-content').find('h3:eq(0)').append(name);
+					$('.modal-content table tr').find('td:eq(0)').append(sure);
+					$('.modal-content table tr').find('td:eq(1)').append(avgdal);
+					$('.modal-content table tr').find('td:eq(2)').append(avgRating);
+					
+					$('#myModal').css('display', 'block');
+				}, error: function() {
+					alert('실팬뒝');
 				}
 				
 			}); // end ajax */
@@ -174,7 +195,7 @@
 		<div class="modal-content">
 			<span class="close">&times;</span>
 			<div>
-				<h3>펀딩 회원 명</h3>
+				<h3></h3>
 
 				<table class="table table-striped">
 					<thead>
@@ -186,9 +207,12 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>${successCount}회/${regipro}회</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<%-- <td>${successCount}회/${regipro}회</td>
 							<td>${avgdal}%</td>
-							<td>${avgRating}점</td>
+							<td>${avgRating}점</td> --%>
 						</tr>
 					</tbody>
 				</table>

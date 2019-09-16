@@ -1,9 +1,9 @@
 package com.bitcamp.app;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -62,9 +62,9 @@ public class AdminController {
 
 	} // end admin_fmember method
 	
-	// 통계 페이지
-	@RequestMapping("stats")
-	public @ResponseBody String stats(@RequestParam(required=false, defaultValue="0") int no, Model model) {
+	// 통계 페이지	
+	@RequestMapping("/stats")
+	public @ResponseBody Map<String, Object> stats(@RequestParam(required=false, defaultValue="0") int no) {		
 		
 		System.out.println("no값을 알려주세요.." + no);
 		
@@ -78,12 +78,13 @@ public class AdminController {
 		// 평균 평점
 		float avgRating = adminService.avgRating(no);
 		
-		model.addAttribute("successCount", successCount);
-		model.addAttribute("regipro", regipro);
-		model.addAttribute("avgdal", avgdal);
-		model.addAttribute("avgRating", avgRating);
+		Map<String, Object> map = new HashMap<>();
+		map.put("successCount", successCount);
+		map.put("regipro", regipro);
+		map.put("avgdal", avgdal);
+		map.put("avgRating", avgRating);
 		
-		return "";
+		return map;
 		
 	} // end stats method
 	
