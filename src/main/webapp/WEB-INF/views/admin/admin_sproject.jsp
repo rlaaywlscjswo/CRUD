@@ -6,43 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지 - 펀딩 현황 목록</title>
+<link href="\resources\css/admin.css" rel="stylesheet">
 <style>
-
-/* The Modal (background) */
-.modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-	background-color: #fefefe;
-	margin: 15% auto; /* 15% from the top and centered */
-	padding: 20px;
-	border: 1px solid #888;
-	width: 50%; /* Could be more or less, depending on screen size */
-}
-/* The Close Button */
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
 
 #pdfhere {
 	border: 1px solid silver;
@@ -98,20 +63,15 @@
 </script>
 </head>
 <body>
-
+<div class="wrap">
 	<!-- 검색 -->
-	<div id="sproject_search">
-		<!-- 검색 옵션 -->
-		<select class="form-control form-control-sm" style="width: 150px;">
-			<option>프로젝트 이름</option>
-			<option>현황</option>
-		</select>
+	<div id="search">
 		<!-- 검색 바 -->
 		<form method="get" action="spro?currPage=${dto.firstPageOfBlock}">
 			<label for="sproject_search" id="sproject_label"></label> <input
 				class="form-control form-control-sm" type="text"
-				id="sproject_search" name="sproject_search"
-				placeholder="  프로젝트 이름으로 검색해주세요 :)" style="width: 400px;"> <input
+				id="admin_search" name="sproject_search"
+				placeholder="  프로젝트 이름으로 검색해주세요 :)"> <input
 				type="submit" value="찾아줘!!" class="btn btn-primary">
 		</form>
 	</div>
@@ -157,7 +117,7 @@
 	<!-- 펀딩 현황 목록 끝 -->
 
 	<!-- 페이징 -->
-	<div class="col-12">
+	<div class="col-12" id="paging">
 		<div class="pagination-area d-sm-flex mt-15">
 			<nav aria-label="#">
 				<ul class="pagination">
@@ -172,7 +132,7 @@
 						end="${dto.lastPageOfBlock}">
 						<c:choose>
 							<c:when test="${dto.currPage == index}">
-								<li class="page-item"><a class="active"
+								<li class="page-item"><a class="page-link"
 							href="spro?currPage=${index}&sproject_search=${sproject_search}">
 								<c:out value="${index}" />
 						</a></li>
@@ -223,6 +183,6 @@
 
 	</div>
 
-
+</div>
 </body>
 </html>

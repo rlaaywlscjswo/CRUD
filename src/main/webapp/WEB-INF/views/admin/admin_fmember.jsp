@@ -6,72 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지 - 펀딩 회원 관리</title>
-<style>
-
-/* The Modal (background) */
-.modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-	background-color: #fefefe;
-	margin: 15% auto; /* 15% from the top and centered */
-	padding: 20px;
-	border: 1px solid #888;
-	width: 50%; /* Could be more or less, depending on screen size */
-}
-/* The Close Button */
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-#fmember_wrap {
-	margin: 0 auto;
-	margin-top: 50px;
-	width: 1500px;
-} 
-
- #search {
-	display: inline-block;
-	left: 70%;
-	margin-bottom: 10px;
-	position: relative;
-}
-
-#fmember_search {
-	display: inline-block;
-}
-
-#paging {
-	left: 42%;
-}
-
-#excelForm {
-	left: 95%;
-	position: relative;
-	top: -20px;
-}
-
-</style>
+<link href="\resources\css/admin.css" rel="stylesheet">
 <script>
 	window.onload = function() {
 
@@ -106,7 +41,7 @@
 </head>
 <body>
 
-	<div id="fmember_wrap">
+	<div class="wrap">
 
 	<!-- 검색 -->
 	<div id="search">
@@ -114,7 +49,7 @@
 		<form method="get" action="fmember?currPage=${dto.firstPageOfBlock}">
 			<label for="fmember_search"></label>
 			<input class="form-control form-control-sm" type="text" 
-			id="fmember_search" name="fmember_search" placeholder="  회원 이름으로 검색해주세요 :)" style="width: 400px;">
+			id="admin_search" name="fmember_search" placeholder="  회원 이름으로 검색해주세요 :)">
 			<input type="submit" value="찾아줘!!"	id="fmember_find" class="btn btn-primary">
 		</form>
 	</div>
