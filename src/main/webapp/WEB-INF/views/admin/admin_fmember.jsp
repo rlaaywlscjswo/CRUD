@@ -43,6 +43,34 @@
 	text-decoration: none;
 	cursor: pointer;
 }
+
+#fmember_wrap {
+	margin: 0 auto;
+	margin-top: 50px;
+	width: 1500px;
+} 
+
+ #search {
+	display: inline-block;
+	left: 70%;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+#fmember_search {
+	display: inline-block;
+}
+
+#paging {
+	left: 42%;
+}
+
+#excelForm {
+	left: 95%;
+	position: relative;
+	top: -20px;
+}
+
 </style>
 <script>
 	window.onload = function() {
@@ -77,20 +105,17 @@
 </script>
 </head>
 <body>
+
+	<div id="fmember_wrap">
+
 	<!-- 검색 -->
-	<div id="fmember_search">
-	<!-- 검색 옵션 -->
-		<select class="form-control form-control-sm" style="width: 150px;">
-			<option>회원 이름</option>
-			<option>이메일</option>
-			<option>프로젝트 이름</option>
-		</select>
+	<div id="search">
 		<!-- 검색 바 -->
 		<form method="get" action="fmember?currPage=${dto.firstPageOfBlock}">
-			<label for="fmember_search" id="fmember_label"></label> <input class="form-control form-control-sm"
-				type="text" id="fmember_search" name="fmember_search"
-				placeholder="  프로젝트 이름으로 검색해주세요 :)" style="width: 400px;"> <input type="submit"
-				value="찾아줘!!" id="fmember_find" class="btn btn-primary">
+			<label for="fmember_search"></label>
+			<input class="form-control form-control-sm" type="text" 
+			id="fmember_search" name="fmember_search" placeholder="  회원 이름으로 검색해주세요 :)" style="width: 400px;">
+			<input type="submit" value="찾아줘!!"	id="fmember_find" class="btn btn-primary">
 		</form>
 	</div>
 	<!-- 검색 끝 -->
@@ -144,8 +169,8 @@
 		</tbody>
 	</table>
 
-		<!-- 페이징 -->
-	<div class="col-12">
+	<!-- 페이징 -->
+	<div class="col-12" id="paging">
 		<div class="pagination-area d-sm-flex mt-15">
 			<nav aria-label="#">
 				<ul class="pagination">
@@ -178,7 +203,7 @@
 
 	<form name="excelForm" id="excelForm" method="post"
 		action="./fmemberExcelDown.do">
-		<input type="submit" id="excelDown" value="Excel 다운">
+		<input type="submit" id="excelDown" value="Excel 다운" class="btn btn-primary">
 	</form>
 
 	<!-- Trigger/Open The Modal -->
@@ -188,16 +213,18 @@
 	<div id="myModal" class="modal">
 
 		<!-- Modal content -->
+
 		<div class="modal-content">
 			<span class="close">&times;</span>
 			<div>
 				<h3>펀딩 회원 명</h3>
-				<table>
+
+				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>성공 횟수 / 총 펀딩 횟수</th>
-							<th>평균 달성률</th>
-							<th>평균 평가점수</th>
+							<th scope="col">성공 횟수 / 총 펀딩 횟수</th>
+							<th scope="col">평균 달성률</th>
+							<th scope="col">평균 평가점수</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -211,6 +238,8 @@
 			</div>
 		</div>
 
+	</div>
+	
 	</div>
 
 </body>

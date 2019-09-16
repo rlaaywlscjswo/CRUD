@@ -32,7 +32,7 @@
 		<where>
 			and auth = 'ROLE_MANAGER'
 			<if test="fmember_search!=null and fmember_search!=''">
-				and project_title like CONCAT('%',#{fmember_search},'%')
+				and name like CONCAT('%',#{fmember_search},'%')
 			</if>
 		</where>
 	</select>
@@ -64,7 +64,7 @@
 		<where>
 		auth = 'ROLE_MANAGER'
 			<if test="fmember_search!=null and fmember_search!=''">
-				and project_title like CONCAT('%',#{fmember_search},'%')
+				and name like CONCAT('%',#{fmember_search},'%')
 			</if>
 		</where>
 		group by p.project_no
