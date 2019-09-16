@@ -174,8 +174,8 @@
 									</ul>
 									<div class="tab-content">
 										<div class="tab-pane fade show active" id="qwe">
-											<object type="application/pdf" data="${list.project_contents }" width="624" height="882">
-    											<param name="src" value="${list.project_contents }">
+											<object type="application/pdf" data="pdf1568601434331.pdf" width="624" height="882">
+    											<param name="src" value="/resources/contentpdf/pdf1568601434331.pdf">
 											</object>
 										</div>
 										<div class="tab-pane fade" id="asd">

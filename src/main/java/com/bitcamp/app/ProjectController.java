@@ -233,9 +233,9 @@ public class ProjectController {
 				img.transferTo(file2);
 				dto.setImg(path+"/"+dto.getImg_file().getOriginalFilename());					
 				
-				File file3 = new File(contents_pdfpath,contract_filename); //직접올리는pdf
+				File file3 = new File(contents_pdfpath,contents_filename); //직접올리는pdf
 				project_contents.transferTo(file3);
-				dto.setProject_contents(contentpdf+"/"+contract_filename);
+				dto.setProject_contents(contentpdf+"/"+contents_filename);
 				
 				System.out.println("프로젝트 제목 : " + dto.getProject_title());
 				System.out.println("대표사진 파일명 : " + dto.getProject_photo());		

@@ -76,7 +76,7 @@
 		from project join category
 		on
 		project.category_no = category.category_no
-		where project_status = 1 and sub_category = #{sub_category}
+		where project.project_status = 1 and sub_category = #{sub_category}
 	</select>
 
 	 
@@ -112,7 +112,7 @@
         on o.project_no = p.project_no
 		join category c
 		on p.category_no = c.category_no		
-		where project_status = 1 and c.sub_category=#{sub_category}
+		where p.project_status = 1 and c.sub_category=#{sub_category}
 		order by startdate desc
 		limit #{startRow},9
 	</select>
@@ -141,13 +141,7 @@
 		#{introduce}, #{startdate}, #{enddate},#{project_contents},
 		#{project_contract}, #{no}, #{category_no},0)
 	</insert>
-
-	<!-- 프로젝트 디테일 -->
-	<!-- <select id="projectDetail" parameterType="int" resultMap="detaildto">
-		select * from project
-		where project_no= #{project_no}		
-	</select>
- -->
+		
 	<select id="projectDetail" parameterType="int" resultMap="detaildto">
 	select sum(option_price) as sumop,
 	(to_days(p.enddate)-to_days(now())) as remainingDay,
