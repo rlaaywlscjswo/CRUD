@@ -43,7 +43,7 @@
 	jQuery.noConflict();
 	jQuery(document).ready(function($) {
 		
-		$('tr').on('click', function() {
+		$('tbody tr').on('click', function() {
 			 var d=$(this).find('td:eq(0)').text();
 			 // $('.modal-content').find('h3:eq(0)').css('background-color', 'lime');
 			 // $('.modal-content table tr').find('td:eq(0)').css('background-color', 'dodgerblue');

@@ -200,4 +200,21 @@
 		delete from project where project_status = 2
 	</delete>
 	
+	<!-- 고객 문의 -->
+	
+	<resultMap type="hashmap" id="adcsdto">
+	<result column="service_no" property="service_no" />
+	<result column="service_title" property="service_title" />
+	<result column="name" property="name" />
+	<result column="question_no" property="question_no" />
+	</resultMap>
+	
+	<select id="adminCS" resultMap="adcsdto">
+		select service_no, service_title, name, question_no
+		from service join member on service.no = member.no
+		<where>
+			and service_reply is null
+		</where>
+	</select>
+	
 </mapper>

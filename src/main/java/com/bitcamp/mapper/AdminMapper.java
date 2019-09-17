@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.bitcamp.dto.CSDTO;
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.ProjectDTO;
 
@@ -57,5 +58,8 @@ public interface AdminMapper {
 	
 	// 거절 된 프로젝트 지워주기
 	public void deleteDisagree();
+	
+	// 고객 문의
+	public List<CSDTO> adminCS();
 
 } // end AdminMapper interface

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bitcamp.dto.CSDTO;
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.PagingDTO;
 import com.bitcamp.dto.ProjectDTO;
@@ -172,5 +173,17 @@ public class AdminController {
 		System.out.println("★★★★★ Excel Down End ★★★★★");
 
 	} // end ExcelDown method
+	
+	// 고객 문의
+	@RequestMapping("/adcs")
+	public String admin_cs(Model model) {
+		
+		List<CSDTO> adminCS = adminService.adminCS();
+		
+		model.addAttribute("adminCS", adminCS);
+		
+		return "/admin/admin_cs.temp";
+		
+	} // end admin_cs method
 
 } // end AdminController class
