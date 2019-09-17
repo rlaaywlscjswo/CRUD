@@ -272,6 +272,30 @@ public class AdminServiceImple implements AdminService {
 		return mapper.admin_sproject(hm);
 
 	} // end admin_sproject method
+	
+	// 승인 시 권한 변경
+	@Override
+	public int agree(int project_no) {
+		
+		return mapper.agree(project_no);
+		
+	} // end agree method
+	
+	// 승인 시 프로젝트 상태 변경 (1로)
+	@Override
+	public int psChange(int project_no) {
+		
+		return mapper.psChange(project_no);
+		
+	} // end psChange method
+	
+	// 거절 시 프로젝트 상태 변경 (2로)
+	@Override
+	public int disagree(int project_no) {
+		
+		return mapper.disagree(project_no);
+		
+	} // end disagree method
 
 	// Excel Download
 	@Override

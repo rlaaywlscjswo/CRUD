@@ -17,7 +17,7 @@
 	width: 400px;
 }
 
-#agree {
+/* #agree {
 	background-color: dodgerblue;
 	border: 1px solid;
 	border-radius: 10px;
@@ -28,7 +28,7 @@
 	padding: 10px;
 	position: relative;
 	width: 100px;
-}
+} */
 </style>
 <script>
 	window.onload = function() {
@@ -60,6 +60,76 @@
 		}
 
 	}
+</script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+	jQuery.noConflict();
+	jQuery(document).ready(function($) {
+		
+		$('table a').on('click', function() {
+			$('#pdfhere').empty();
+			var project_no = $(this).parents('tr').children('td:eq(0)').text();
+			
+			var html = '';
+			html += project_no;
+			$('#pdfhere').append(html); // pdf 추가할 곳
+			
+			$('#myModal').css('display', 'block');	
+			
+			$('.modal-content input:eq(0)').on('click', function() { // 동의 버튼 클릭 시
+				console.log(project_no);
+			
+				$.ajax({
+					
+					url: "agree",
+					data: "project_no="+project_no,
+					success: function(data) {
+						console.log('성공쓰');
+						console.log(project_no);
+						(this).submit();
+					},
+					error: function(data) {
+						console.log('실패쓰');
+						console.log(project_no);
+					}
+					
+				}); // end ajax
+				
+			}); // end 동의 버튼 클릭 시
+			
+			$('.modal-content input:eq(1)').on('click', function() {
+				
+				$.ajax({
+					
+					url: "disagree",
+					data: "project_no="+project_no,
+					success: function(data) {
+						console.log('성공쓰');
+						console.log(project_no);
+						(this).submit();
+					},
+					error: function(data) {
+						console.log('실패쓰');
+						console.log(project_no);
+					}
+					
+				}); // end ajax
+				
+			}); // end 거절 버튼 클릭 시
+			
+			$('.close').on('click', function() {
+				$('#myModal').css('display', 'none');
+			}); // end 모달 창 닫기 버튼 클릭 시
+			
+/* 			$(document).on('click', function(event) {				
+				if ($(event.target) == $('#myModal')) {
+					$('#myModal').css('display', 'none');
+				}
+			}); // end 모달 창 제외한 곳 클릭 시 */
+			
+		}); // end 승인 대기 프로젝트 클릭 시
+		
+	}); // end ready
 </script>
 </head>
 <body>
@@ -93,7 +163,7 @@
 					<td>${spro.project_no}</td>
 					<td>${spro.project_title}</td>
 					<td><c:set var="ps" value="${spro.project_status}" /> <c:choose>
-							<c:when test="${ps == 0}">승인 대기<img
+							<c:when test="${ps == 0}"><a href="#">승인 대기</a><img
 									src="/resources/img/thinking.png" alt="승인 대기" width="20px"
 									height="20px">
 							</c:when>
@@ -168,7 +238,7 @@
 
 
 	<!-- Trigger/Open The Modal -->
-	<button id="myBtn">Open Modal</button>
+	<!-- <button id="myBtn">Open Modal</button> -->
 
 	<!-- The Modal -->
 	<div id="myModal" class="modal">
@@ -177,8 +247,12 @@
 		<div class="modal-content">
 			<span class="close">&times;</span>
 			<div id="pdfhere"></div>
-			<a href="#"><span id="agree">승인</span></a> <a href="#"><span
-				id="agree">비승인</span></a>
+			<form action="" method="get">
+			<input type="button" class="btn btn-primary" value="승인">
+			</form>
+			<form action="" method="get">
+			<input type="button" class="btn btn-primary" value="거절">
+			</form>
 		</div>
 
 	</div>

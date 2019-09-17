@@ -64,7 +64,7 @@
 					var avgRating = '';
 					
 					name += data.getName + " 님의 통계 자료";
-					sure += data.successCount + '회 /' + data.regipro + "회";
+					sure += data.successCount + '회 / ' + data.regipro + "회";
 					avgdal += data.avgdal + '%';
 					avgRating += data.avgRating + '점';
 					
@@ -74,11 +74,13 @@
 					$('.modal-content table tr').find('td:eq(2)').append(avgRating);
 					
 					$('#myModal').css('display', 'block');
-				}, error: function() {
-					alert('실팬뒝');
 				}
 				
-			}); // end ajax */
+			}); // end ajax
+			
+			$('.close').on('click', function() {
+				$('#myModal').css('display', 'none');
+			}); // end 모달 창 닫기 버튼 클릭 시
 			
 		}); // end on
 		

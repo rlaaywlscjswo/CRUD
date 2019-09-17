@@ -174,6 +174,22 @@
 		limit #{startRow}, #{pagePerSize}
 	</select>
 	
+	<!-- 승인 시 권한 변경 -->
+	<update id="agree" parameterType="int">
+		update authority set auth = 'ROLE_MANAGER' 
+		where no = (select member.no from member join project on member.no = project.no where project_no = #{project_no})
+	</update>
+	
+	<!-- 승인 시 프로젝트 상태 변경 (1로) -->
+	<update id="psChange" parameterType="int">
+		update project set project_status = 1 where project_no = #{project_no}
+	</update>
+	
+	<!-- 거절 시 프로젝트 상태 변경 (2로) -->
+	<update id="disagree" parameterType="int">
+		update project set project_status = 2 where project_no = #{project_no}
+	</update>
+	
 	<!-- Excel용 Full List -->
 	<select id="admin_Allsproject" resultType="com.bitcamp.dto.ProjectDTO">
 		select project_no, project_title, project_status from project
@@ -181,7 +197,7 @@
 	
 	<!-- 거절 된 프로젝트 지워주기 -->
 	<delete id="deleteDisagree">
-		delete from project where project_status = 4
+		delete from project where project_status = 2
 	</delete>
 	
 </mapper>
