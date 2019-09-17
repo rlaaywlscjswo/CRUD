@@ -6,6 +6,14 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<style type="text/css">
+#c{
+	width: 60px;
+	position: relative;
+    bottom: 7px;
+    right: 5px;
+}
+</style>
 </head>
 <body>
 <!-- Background Pattern Swither -->
@@ -94,7 +102,7 @@
                 <!-- Logo Area Start -->
                 <div class="col-12">
                     <div class="logo_area text-center">
-                        <a href="/yummy" class="yummy-logo">CRUD</a>
+                        <a href="/yummy" class="yummy-logo"><img id="c"alt="c" src="http://localhost:8080/resources/yummy/img/B_02.png">RUD</a>
                     </div>
                 </div>
             </div>
@@ -118,35 +126,34 @@
                                     </div>
                                 </li>
                                  <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="/projectcategorylist=패션" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">도서</a>
-                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="archive.html">만화</a>
-                                        <a class="dropdown-item" href="archive.html">웹툰</a>
-                                        <a class="dropdown-item" href="archive.html">소설</a>     
-                                        <a class="dropdown-item" href="archive.html">시집</a>     
-                                    </div>
-                                </li>
-                               <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="projectcategorylist=패션" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">패션</a>
+                                  <a class="nav-link dropdown-toggle" href="/projectcategorylist=패션" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">패션</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
                                         <a class="dropdown-item" href="/projectcategorylist=의류">의류</a>
                                         <a class="dropdown-item" href="/projectcategorylist=액서서리">액세서리</a>
                                         <a class="dropdown-item" href="/projectcategorylist=패션잡화">패션 잡화</a>     
-                                    </div>
+                                    </div>                                    
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">IT</a>
-                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">                                     
-                                        <a class="dropdown-item" href="archive.html">모바일 앱</a>
-                                        <a class="dropdown-item" href="archive.html">게임</a>     
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">도서 번역</a>
+                               <li class="nav-item dropdown">
+                                   <a class="nav-link dropdown-toggle" href="/projectcategorylist=도서" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">도서</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="archive.html">영미권</a>
-                                        <a class="dropdown-item" href="archive.html">일본</a>
-                                        <a class="dropdown-item" href="archive.html">프랑스</a>     
+                                        <a class="dropdown-item" href="/projectcategorylist=만화">만화</a>
+                                        <a class="dropdown-item" href="/projectcategorylist=웹툰">웹툰</a>
+                                        <a class="dropdown-item" href="/projectcategorylist=소설">소설</a>     
+                                        <a class="dropdown-item" href="/projectcategorylist=시집">시집</a>     
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="/projectcategorylist=IT" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">IT</a>
+                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">                                     
+                                        <a class="dropdown-item" href="/projectcategorylist=모바일앱">모바일 앱</a>                                        
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="/projectcategorylist=도서번역" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">도서 번역</a>
+                                    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
+                                        <a class="dropdown-item" href="/projectcategorylist=영미권">영미권</a>
+                                        <a class="dropdown-item" href="/projectcategorylist=일본">일본</a>
+                                        <a class="dropdown-item" href="/projectcategorylist=프랑스">프랑스</a>     
                                     </div>
                                 </li> 
                                <li class="nav-item">

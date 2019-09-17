@@ -15,18 +15,20 @@ public interface AdminService {
 	// for paging
 	public int fmember_totalCount(String fmember_search);
 
-	// 펀딩 회원 관리 1
+	// 펀딩 회원 관리
 	public List<MemberDTO> admin_fmember(int starRow, int pagePerSize, String fmember_search);
 	
 	// 통계
+	//이름 가져오기
+	public String getName(int no);
 	// 성공 횟수
-	public int successCount();
+	public int successCount(int no);
 	// 총 프로젝트 등록 횟수
-	public int theNumbersOfRegiProject();	
+	public int theNumbersOfRegiProject(int no);	
 	// 평균 달성률
-	public float avgdal();
+	public float avgdal(int no);
 	// 평균 평점
-	public float avgRating();
+	public float avgRating(int no);
 	
 	// for paging
 	public int sproject_totalCount(String sproject_search);

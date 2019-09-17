@@ -7,6 +7,7 @@ import java.nio.charset.Charset;
 
 import org.springframework.stereotype.Service;
 
+import com.bitcamp.dto.ProjectDTO;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -77,7 +78,7 @@ public class PDFServiceImple implements PDFService {
 	}
 	
 	@Override
-	public void htmlcreate(String sign, String project_contract) {
+	public void htmlcreate(String sign, String project_contract,ProjectDTO dto) {
 		
 	String result = ""; // 초기값이 null이 들어가면 오류가 발생될수 있기 때문에 공백을 지정
 		
@@ -89,9 +90,9 @@ public class PDFServiceImple implements PDFService {
 			
 			//css
 			CSSResolver cssresolver = new StyleAttrCSSResolver();		
-	        CssFile cssFile = helper.getCSS(new FileInputStream("d:/pdf.css"));
+	        CssFile cssFile = helper.getCSS(new FileInputStream("d:/pdf.css")); 
 	        System.out.println("css주소 맞냐"+cssFile);
-	        cssresolver.addCss(cssFile);
+	       cssresolver.addCss(cssFile); 
 	        
 			//html, font
 			XMLWorkerFontProvider fontprovider = new XMLWorkerFontProvider(XMLWorkerFontProvider.DONTLOOKFORFONTS);
@@ -112,8 +113,8 @@ public class PDFServiceImple implements PDFService {
 			// 폰트 설정에서 별칭으로 줬던 "MalgunGothic"을 html 안에 폰트로 지정한다.
 			String htmlStr = "<html><head><body style='font-family: malgun;'>"			
 			            + " <h1>펀딩 계약서</h1>" + 
-			            "    <p>회원이름</p>" + 
-			            "    <p>프로젝트 제목</p>" + 
+			            "    <p>창작자: "+ dto.getAlias() +"</p>" + 
+			            "    <p>프로젝트 제목:"+dto.getProject_title() +"</p>" + 
 			            "    <p>사업자등록번호</p>" + 
 			            "    <p>서명</p>" + 
 			            "    <p>(인)</p>"
@@ -122,7 +123,7 @@ public class PDFServiceImple implements PDFService {
 			StringReader strReader = new StringReader(htmlStr);
 			xmlparser.parse(strReader);		
 			Image jpg =Image.getInstance(sign);
-			jpg.setAbsolutePosition(280,0);
+			jpg.setAbsolutePosition(200,0);
 			document.add(jpg);	
 			document.close();
 		} catch (Exception e) {

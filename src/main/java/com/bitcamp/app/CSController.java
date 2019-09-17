@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bitcamp.dto.CSDTO;
+import com.bitcamp.dto.PagingDTO;
 import com.bitcamp.service.CSService;
 
 @Controller
@@ -36,11 +37,19 @@ public class CSController {
 	} // end writeQuestion method
 
 	@RequestMapping("/cs")
-	public String customerService(Model model) {
+	public String customerService(@RequestParam(required = false, defaultValue = "1") int currPage,
+			@RequestParam(required = false, defaultValue = "") String cs_search, Model model) {
 
+		int totalCount = service.csList_totalCount(cs_search);
+		int pagePerSize = 5;
+		int blockPerSize = 3;
+
+		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
+		
 		// 질문 목록
-		List<CSDTO> csList = service.csList();
+		List<CSDTO> csList = service.csList(dto.getStartRow(), pagePerSize, cs_search);
 		model.addAttribute("csList", csList);
+		model.addAttribute("dto", dto);
 
 		return "/cs/customerService.temp";
 

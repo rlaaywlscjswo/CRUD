@@ -13,8 +13,11 @@ public interface CSMapper {
 	// 질문 작성
 	public int writeQuestion(HashMap<String, Object> hm);
 	
+	// 질문 개수
+	public int csList_totalCount(HashMap<String, Object> hm);
+	
 	// 질문 목록
-	public List<CSDTO> csList();
+	public List<CSDTO> csList(HashMap<String, Object> hm);
 	
 	// 질문 수정
 	

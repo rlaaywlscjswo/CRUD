@@ -15,7 +15,9 @@
 		class="com.bitcamp.security.CustomAccessDeniedHandler" />
 
 	<security:http>
-
+        <security:headers>
+         <security:frame-options disabled="true"></security:frame-options>
+        </security:headers>
 		<!-- 관리자 페이지 -->
 		<security:intercept-url pattern="/fmember"
 			access="hasRole('ROLE_ADMIN')" />

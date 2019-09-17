@@ -6,44 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지 - 펀딩 회원 관리</title>
-<style>
-
-/* The Modal (background) */
-.modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-	background-color: #fefefe;
-	margin: 15% auto; /* 15% from the top and centered */
-	padding: 20px;
-	border: 1px solid #888;
-	width: 50%; /* Could be more or less, depending on screen size */
-}
-/* The Close Button */
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-</style>
+<link href="\resources\css/admin.css" rel="stylesheet">
 <script>
 	window.onload = function() {
 
@@ -75,22 +38,65 @@
 
 	}
 </script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+	jQuery.noConflict();
+	jQuery(document).ready(function($) {
+		
+		$('tr').on('click', function() {
+			 var d=$(this).find('td:eq(0)').text();
+			 // $('.modal-content').find('h3:eq(0)').css('background-color', 'lime');
+			 // $('.modal-content table tr').find('td:eq(0)').css('background-color', 'dodgerblue');
+			$.ajax({
+				url:"/stats",
+				data: "no="+d,
+				dataType:"json",
+				success:function(data) {
+					
+					$('.modal-content').find('h3:eq(0)').empty();
+					$('.modal-content table tr').find('td:eq(0)').empty();
+					$('.modal-content table tr').find('td:eq(1)').empty();
+					$('.modal-content table tr').find('td:eq(2)').empty();
+					
+					var name = '';
+					var sure = '';
+					var avgdal = '';
+					var avgRating = '';
+					
+					name += data.getName + " 님의 통계 자료";
+					sure += data.successCount + '회 /' + data.regipro + "회";
+					avgdal += data.avgdal + '%';
+					avgRating += data.avgRating + '점';
+					
+					$('.modal-content').find('h3:eq(0)').append(name);
+					$('.modal-content table tr').find('td:eq(0)').append(sure);
+					$('.modal-content table tr').find('td:eq(1)').append(avgdal);
+					$('.modal-content table tr').find('td:eq(2)').append(avgRating);
+					
+					$('#myModal').css('display', 'block');
+				}, error: function() {
+					alert('실팬뒝');
+				}
+				
+			}); // end ajax */
+			
+		}); // end on
+		
+	}); // end ready
+</script>
 </head>
 <body>
+
+	<div class="wrap">
+
 	<!-- 검색 -->
-	<div id="fmember_search">
-	<!-- 검색 옵션 -->
-		<select class="form-control form-control-sm" style="width: 150px;">
-			<option>회원 이름</option>
-			<option>이메일</option>
-			<option>프로젝트 이름</option>
-		</select>
+	<div id="search">
 		<!-- 검색 바 -->
 		<form method="get" action="fmember?currPage=${dto.firstPageOfBlock}">
-			<label for="fmember_search" id="fmember_label"></label> <input class="form-control form-control-sm"
-				type="text" id="fmember_search" name="fmember_search"
-				placeholder="  프로젝트 이름으로 검색해주세요 :)" style="width: 400px;"> <input type="submit"
-				value="찾아줘!!" id="fmember_find" class="btn btn-primary">
+			<label for="fmember_search"></label>
+			<input class="form-control form-control-sm" type="text" 
+			id="admin_search" name="fmember_search" placeholder="  회원 이름으로 검색해주세요 :)">
+			<input type="submit" value="찾아줘!!"	id="fmember_find" class="btn btn-primary">
 		</form>
 	</div>
 	<!-- 검색 끝 -->
@@ -144,8 +150,8 @@
 		</tbody>
 	</table>
 
-		<!-- 페이징 -->
-	<div class="col-12">
+	<!-- 페이징 -->
+	<div class="col-12" id="paging">
 		<div class="pagination-area d-sm-flex mt-15">
 			<nav aria-label="#">
 				<ul class="pagination">
@@ -178,39 +184,46 @@
 
 	<form name="excelForm" id="excelForm" method="post"
 		action="./fmemberExcelDown.do">
-		<input type="submit" id="excelDown" value="Excel 다운">
+		<input type="submit" id="excelDown" value="Excel 다운" class="btn btn-primary">
 	</form>
 
 	<!-- Trigger/Open The Modal -->
-	<button id="myBtn">Open Modal</button>
+<!-- 	<button id="myBtn">Open Modal</button> -->
 
 	<!-- The Modal -->
 	<div id="myModal" class="modal">
 
 		<!-- Modal content -->
+
 		<div class="modal-content">
 			<span class="close">&times;</span>
 			<div>
-				<h3>펀딩 회원 명</h3>
-				<table>
+				<h3></h3>
+
+				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>성공 횟수 / 총 펀딩 횟수</th>
-							<th>평균 달성률</th>
-							<th>평균 평가점수</th>
+							<th scope="col">성공 횟수 / 총 펀딩 횟수</th>
+							<th scope="col">평균 달성률</th>
+							<th scope="col">평균 평가점수</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>${successCount}회/${regipro}회</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<%-- <td>${successCount}회/${regipro}회</td>
 							<td>${avgdal}%</td>
-							<td>${avgRating}점</td>
+							<td>${avgRating}점</td> --%>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 
+	</div>
+	
 	</div>
 
 </body>

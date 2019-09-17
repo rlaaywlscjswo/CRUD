@@ -30,6 +30,7 @@
 	<result column="alias" property="alias"/>
 	<result column="img" property="img"/>
 	<result column="project_contents" property="project_contents"/>
+	<result column="no" property="no"/>
 	</resultMap>
 
 	<!-- detail option resultmap -->
@@ -76,7 +77,7 @@
 		from project join category
 		on
 		project.category_no = category.category_no
-		where project_status = 1 and sub_category = #{sub_category}
+		where project.project_status = 1 and sub_category = #{sub_category}
 	</select>
 
 	 
@@ -112,7 +113,7 @@
         on o.project_no = p.project_no
 		join category c
 		on p.category_no = c.category_no		
-		where project_status = 1 and c.sub_category=#{sub_category}
+		where p.project_status = 1 and c.sub_category=#{sub_category}
 		order by startdate desc
 		limit #{startRow},9
 	</select>
@@ -141,18 +142,12 @@
 		#{introduce}, #{startdate}, #{enddate},#{project_contents},
 		#{project_contract}, #{no}, #{category_no},0)
 	</insert>
-
-	<!-- 프로젝트 디테일 -->
-	<!-- <select id="projectDetail" parameterType="int" resultMap="detaildto">
-		select * from project
-		where project_no= #{project_no}		
-	</select>
- -->
+		
 	<select id="projectDetail" parameterType="int" resultMap="detaildto">
 	select sum(option_price) as sumop,
 	(to_days(p.enddate)-to_days(now())) as remainingDay,
 	p.project_photo, p.project_title, p.project_views, p.category_no, p.enddate,
-	p.targetprice, p.alias, p.img, p.project_contents, p.project_no
+	p.targetprice, p.alias, p.img, p.project_contents, p.project_no, p.no
 	from support s left join `option` o
 	on s.option_no = o.option_no
 	right join project p
@@ -177,7 +172,6 @@
 			,#{item.option_contents} ,#{item.option_quantity})
 		</foreach>
 	</insert>
-
 
 	<!-- 서명 -->
 	<update id="sign" parameterType="java.util.HashMap">
@@ -206,7 +200,7 @@
 		parameterType="com.bitcamp.dto.ReplyDTO">
 		insert into reply (reply_contents,rating,no,project_no)
 		values
-		(#{reply_contents},4.5,#{no},#{project_no})
+		(#{reply_contents},#{rating},#{no},#{project_no})
 	</insert>
 	
 	

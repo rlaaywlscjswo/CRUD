@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <title>Insert title here</title>
 	<!-- Favicon -->
-    <link rel="icon" href="/resources/yummy/img/core-img/favicon.ico">
+    <link rel="icon" href="/resources/yummy/img/A_02.png">
 
     <!-- Core Stylesheet -->
     <link href="/resources/yummy/style.css" rel="stylesheet">

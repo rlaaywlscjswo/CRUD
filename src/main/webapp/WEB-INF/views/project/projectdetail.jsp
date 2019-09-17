@@ -319,12 +319,14 @@ function commentDelete(reply_no){
 <div class="tab-content">
   <div class="tab-pane fade show active" id="qwe">
   <div id="content">
-<div id="pdf">
-<div id="my-pdf" class=" pdfobject-container">
-<embed class="pdfobject" src="https://pipwerks.com/pdfobject/file.php?item=sample-3pp#view=FitV&amp;pagemode=thumbs&amp;search=lorem%20ipsum&amp;page=2" type="application/pdf" style="overflow: auto; width: 100%; height: 100%;" internalinstanceid="79">
-</div>
-</div>
-</div>
+	<div id="pdf">
+	<div id="my-pdf" class=" pdfobject-container">
+	<embed class="pdfobject" src="https://pipwerks.com/pdfobject/file.php?item=sample-3pp#view=FitV&amp;pagemode=thumbs&amp;search=lorem%20ipsum&amp;page=2" type="application/pdf" style="overflow: auto; width: 100%; height: 100%;" internalinstanceid="79">
+	</div>
+	</div>
+	</div>
+  
+  <iframe src="${list.project_contents }" style="width:624px; height: 882px;" frameborder="0"></iframe>
   
   </div>
   <div class="tab-pane fade" id="asd">  	
