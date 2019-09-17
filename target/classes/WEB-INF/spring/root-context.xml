@@ -13,6 +13,22 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 
+	<bean id="mailSender" class = "org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" />
+      <property name="username" value="sloth7711@gmail.com" />
+      <property name="password" value="tlstn0921!" />
+      <property name="javaMailProperties">
+         <props>
+               <prop key="mail.transport.protocol">smtp</prop>
+               <prop key="mail.smtp.auth">true</prop>
+               <prop key="mail.smtp.starttls.enable">true</prop>
+               <prop key="mail.debug">true</prop>
+         </props>
+      </property>
+ 
+   </bean>
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:property-placeholder
 		location="classpath:config/db.properties" />
@@ -32,27 +48,11 @@
 			value="classpath:mapper/*.xml" />
 	</bean>
 
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="sloth7711@gmail.com" />
-		<property name="password" value="tlstn0921!@" />
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.transport.protocol">smtp</prop>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-				<prop key="mail.debug">true</prop>
-			</props>
-		</property>
-	</bean>
-
-
-
 	<context:component-scan
 		base-package="com.bitcamp.service" />
 	<mybatis-spring:scan
 		base-package="com.bitcamp.mapper" />
+	
 		
 		<!-- 병훈쓰 spring quartz -->
 		<bean id="delete_Disagree" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">

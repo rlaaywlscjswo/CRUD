@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,33 +29,85 @@ import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.dto.SupportDTO;
 import com.bitcamp.dto.TalkDTO;
 import com.bitcamp.service.MemberService;
-import com.bitcamp.service.UserMailSendService;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-
 @Controller
 public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
+	private JavaMailSender mailSender;
 	/*@Autowired
 	private UserMailSendService mailsender;*/
 	
-	@RequestMapping("/signup")
-	public String signup() {
+	@RequestMapping(value = "/signup", method = {RequestMethod.POST, RequestMethod.GET})
+	public String signup(@RequestParam(value="email", required=false) String email, @RequestParam(value="name", required=false) String name, Model model) {
+		model.addAttribute("email", email);
+		model.addAttribute("name", name);
 		return "/member/signup";
 	}
 	
 	@RequestMapping("/naverlogin")
 	public String naverlogin() {
-		
 		return "/security/callback";
 	}
 	
-	@RequestMapping("/naverlogincheck")
-	public String naverlogincheck() {
-		
-		return "/";
+	@RequestMapping("/mailForm")
+	public String mailForm() {
+		return "/mail/mailForm";
+	}
+	
+	@RequestMapping(value = "/mail/mailSending")
+	  public String mailSending(HttpServletRequest request) {
+	   
+	    String setfrom = "sloth7711@gmail.com";         
+	    String tomail  = request.getParameter("tomail");     // 받는 사람 이메일
+	    String title   = request.getParameter("title");      // 제목
+	    TempKey key = new TempKey();
+	    key.getKey(10, true);
+	    String content = request.getParameter("content");    // 내용
+	   
+	    try {
+	      MimeMessage message = mailSender.createMimeMessage();
+	      MimeMessageHelper messageHelper 
+	                        = new MimeMessageHelper(message, true, "UTF-8");
+	 
+	      messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
+	      messageHelper.setTo(tomail);     // 받는사람 이메일
+	      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
+	      messageHelper.setText(content);  // 메일 내용
+	     
+	      mailSender.send(message);
+	    } catch(Exception e){
+	      System.out.println(e);
+	    }
+	   
+	    return "redirect:/mailForm";
+	}
+	
+	@RequestMapping(value = "/naverlogincheck", method = RequestMethod.POST)
+	public @ResponseBody int naverlogincheck(@RequestParam String email, @RequestParam String name) {
+		//System.out.println(email);
+		int result  = memberService.emailCheck(email);
+		//String url = "redirect:/yummy";
+		/*if(result != 1) {
+			MemberDTO dto = new MemberDTO();
+			dto.setEmail(email);
+			dto.setName(name);
+			dto.setPhone("404");
+			dto.setBirth("404");
+			
+			TempKey key = new TempKey();
+			String temppwd = key.getKey(10, true);
+			System.out.println(temppwd);
+			
+			dto.setPassword(temppwd);
+			memberService.memberAdd(dto);
+			System.out.println("네이버 아이디 신규 추가!");
+		} else {
+			System.out.println("이미있던 아이디");
+		}*/
+		return result;
 	}
 
 	@RequestMapping("/signupresult")
@@ -69,7 +123,6 @@ public class MemberController {
 		
 		int result = memberService.memberAdd(dto);	
 		System.out.println("비밀 번호 : " + dto.getPassword());
-		
 		//mailsender.mailSendWithUserKey(dto.getEmail(), dto.getEmail(), request);
 		
 		return "/member/signupsuccess";
@@ -85,7 +138,7 @@ public class MemberController {
     }
 
     //이메일 인증 코드 검증
-    @RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
     public String emailConfirm(MemberDTO user,Model model,RedirectAttributes rttr) throws Exception { 
         
         System.out.println("cont get user"+user);
@@ -98,7 +151,7 @@ public class MemberController {
         //System.out.println("usercontroller vo =" +vo);
         model.addAttribute("login",dto);
         return "/user/emailConfirm";
-    }
+    }*/
 	
 	@RequestMapping(value = "/emailcheck", method=RequestMethod.POST)
 	public @ResponseBody int eamilcheck(@RequestBody String email) {
@@ -108,7 +161,6 @@ public class MemberController {
 	
 	@RequestMapping(value = "/pay", method=RequestMethod.POST)
 	public String pay(OptionDTO odto, @RequestParam(defaultValue="null") String alias, Model model, Principal principal) {
-		System.out.println("페이페이페이페이페이페이");
 		if("null".equals(alias)) {
 			ProjectDTO dto = memberService.projectinfo(odto.getOption_no());
 			alias = dto.getAlias();
@@ -375,6 +427,13 @@ public class MemberController {
 	public String pays() {
 		return "/payment/pays.temp";
 	}
+	
+	@RequestMapping("/passwordfind")
+	public String passwordfind() {
+		
+		return "/mail/passwordfind";
+	}
+	
 	
 	// 이전 페이지로 돌아가기.
 	@RequestMapping("/back")

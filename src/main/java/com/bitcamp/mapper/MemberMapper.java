@@ -49,15 +49,7 @@ public interface MemberMapper {
 	public List<MemberDTO> idsearch(String search); // 회원 검색
 	public MemberDTO nosearch(int no);
 	public int sentcount(HashMap<String, Object> map);
-
-
-
-
-
-
-
-
-
+	public String memberpwd(String email);
 
 	
 	

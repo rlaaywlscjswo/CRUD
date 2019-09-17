@@ -1,7 +1,10 @@
 package com.bitcamp.app;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class SecurityController {
@@ -42,9 +45,9 @@ public class SecurityController {
 
 	} // end memberPage method
 
-	@RequestMapping("/sec_login")
-	public String customLogin() {
-		
+	@RequestMapping(value = "/sec_login", method = {RequestMethod.POST, RequestMethod.GET})
+	public String customLogin(@RequestParam(value="email", required=false) String email, Model model) {
+		model.addAttribute("email", email);
 		return "/security/customlogin";
 
 	} // end memberPage method

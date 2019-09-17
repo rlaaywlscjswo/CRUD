@@ -13,9 +13,9 @@
 <link href="resources/css/sb-admin.css" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/css/signup.css">
-</head>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
 <script>
 $(document).ready(function(){
 	// 이메일 체크
@@ -51,6 +51,13 @@ $(document).ready(function(){
 			}
 		}
     });
+	
+    let emailval = "${email}";
+    let nameval = "${name}";
+    if(emailval){
+		$('#email').val(emailval).attr('readonly', true);
+		$('#name').val(nameval).attr('readonly', true);
+    }
 	
 	// 비밀번호 체크	
 	let check = $('#check');
@@ -159,7 +166,6 @@ $(document).ready(function(){
 		  monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] // 월의 한글 형식.
 		 });
 	});
-	
 	
 });
 </script>

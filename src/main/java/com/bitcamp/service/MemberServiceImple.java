@@ -168,5 +168,10 @@ public class MemberServiceImple implements MemberService {
 		return mapper.sentcount(map);
 	}
 
+	@Override
+	public String memberpwd(String email) {
+		return mapper.memberpwd(email);
+	}
+
 
 }
