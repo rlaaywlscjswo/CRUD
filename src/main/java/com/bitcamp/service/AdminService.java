@@ -37,6 +37,9 @@ public interface AdminService {
 	// 펀딩 현황 목록
 	public List<ProjectDTO> admin_sproject(int starRow, int pagePerSize, String sproject_search);
 	
+	// 해당하는 내용.pdf 받아오기
+	public String getPdf(int project_no);
+	
 	// 승인 시 권한 변경
 	public int agree(int project_no);
 	

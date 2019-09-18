@@ -12,9 +12,9 @@
 #pdfhere {
 	border: 1px solid silver;
 	display: inline-block;
-	height: 300px;
+	height: 900px;
 	position: relative;
-	width: 400px;
+	width: 550px;
 }
 
 /* #agree {
@@ -31,7 +31,7 @@
 } */
 </style>
 <script>
-	window.onload = function() {
+	/* window.onload = function() {
 
 		// Get the modal
 		var modal = document.getElementById('myModal');
@@ -59,7 +59,7 @@
 			}
 		}
 
-	}
+	} */
 </script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
@@ -72,32 +72,40 @@
 			
 			var html = '';
 			html += project_no;
-			$('#pdfhere').append(html); // pdf 추가할 곳
+			
+			
+			$.ajax({
+				url:"/getpdf",
+				data:"project_no="+project_no,
+				success:function(data){
+					console.log(data);
+					$('#pdfhere').append('<iframe src="http://localhost:8080'+data+'" style="width:559px; height: 882px;" frameborder="0"></iframe>'); // pdf 추가할 곳
+				}				
+			});		
 			
 			$('#myModal').css('display', 'block');	
 			
-			$('.modal-content input:eq(0)').on('click', function() { // 동의 버튼 클릭 시
-				console.log(project_no);
-			
-				$.ajax({
-					
+			$('.modal-content button:eq(0)').on('click', function() { // 동의 버튼 클릭 시
+		
+				console.log(project_no);				
+				$.ajax({					
 					url: "agree",
 					data: "project_no="+project_no,
-					success: function(data) {
+					success: function(data) {				
 						console.log('성공쓰');
 						console.log(project_no);
-						(this).submit();
+						 location.reload();				
 					},
 					error: function(data) {
 						console.log('실패쓰');
 						console.log(project_no);
 					}
-					
+					 
 				}); // end ajax
 				
 			}); // end 동의 버튼 클릭 시
 			
-			$('.modal-content input:eq(1)').on('click', function() {
+			$('.modal-content button:eq(1)').on('click', function() {
 				
 				$.ajax({
 					
@@ -106,7 +114,8 @@
 					success: function(data) {
 						console.log('성공쓰');
 						console.log(project_no);
-						(this).submit();
+						 location.reload();									
+						
 					},
 					error: function(data) {
 						console.log('실패쓰');
@@ -246,13 +255,11 @@
 		<!-- Modal content -->
 		<div class="modal-content">
 			<span class="close">&times;</span>
-			<div id="pdfhere"></div>
-			<form action="" method="get">
-			<input type="button" class="btn btn-primary" value="승인">
-			</form>
-			<form action="" method="get">
-			<input type="button" class="btn btn-primary" value="거절">
-			</form>
+			<div id="pdfhere"></div>			
+			<div style="display: inline-block;">
+			<button class="btn btn-primary">승인</button>			
+			<button class="btn btn-primary">거절</button>
+			</div>
 		</div>
 
 	</div>

@@ -111,6 +111,13 @@ public class AdminController {
 
 	} // end changeAuth method
 
+	
+	// pdf 받아오기
+	@RequestMapping(value="/getpdf" ,method= {RequestMethod.GET,RequestMethod.POST})
+	public @ResponseBody String getpdf(@RequestParam int project_no) {
+		String result = adminService.getPdf(project_no);
+		return result;
+	}
 	// 펀딩 현황 목록
 	@RequestMapping("/spro")
 	public String admin_sproject(@RequestParam(required = false, defaultValue = "1") int currPage,
@@ -133,7 +140,7 @@ public class AdminController {
 	
 	// 승인 시 권한 변경, 프로젝트 상태 변경 (1로)
 	@RequestMapping("agree")
-	public void agree(@RequestParam(required = false, defaultValue = "1") int project_no) {
+	public @ResponseBody void agree(@RequestParam(required = false, defaultValue = "1") int project_no) {
 		
 		System.out.println("동의는 잘 넘어왔어요? : " + project_no);
 		
@@ -144,7 +151,7 @@ public class AdminController {
 	
 	// 거절 시 프로젝트 상태 변경 (2로)
 	@RequestMapping("disagree")
-	public void disagree(@RequestParam(required = false, defaultValue = "1") int project_no) {
+	public @ResponseBody void disagree(@RequestParam(required = false, defaultValue = "1") int project_no) {
 		
 		System.out.println("거절도 잘 넘어왔어요? : " + project_no);
 		
