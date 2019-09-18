@@ -12,14 +12,12 @@
 	<resultMap type="com.bitcamp.dto.MemberDTO" id="mdto">
 		<result column="name" property="name" />
 		<result column="email" property="email" />
-		<result column="password" property="password" />
 		<result column="photo" property="photo" />
 		<result column="phone" property="phone" />
-		<result column="birth" property="birth" />
 	</resultMap>
 
 	<select id="myProfile" resultMap="mdto">
-		select name, email, password, photo, phone, birth
+		select name, email, photo, phone
 		from member
 		where email = #{email}
 	</select>
@@ -27,6 +25,12 @@
 	<update id="updatePhoto" parameterType="java.util.HashMap">
 	update member set photo=#{photo}
 	where email=#{email}	
+	</update>
+	
+	<!-- 비밀 번호 수정 -->
+	<update id="updatePassword" parameterType="java.util.HashMap">
+		update member set password = #{password}
+		where email = #{email}
 	</update>
 
 	<!-- 마이 페이지 - 내 프로젝트 -->

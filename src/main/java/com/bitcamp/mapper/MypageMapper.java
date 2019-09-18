@@ -18,6 +18,9 @@ public interface MypageMapper {
 	// 프로필사진 수정
 	public String updatePhoto(HashMap<String, Object> update);
 	
+	// 비밀 번호 수정
+	public int updatePassword(HashMap<String, Object> hm);
+	
 	// 마이 페이지 - 내가 만든 프로젝트
 
 	// 내가 만든 프로젝트 개수
