@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bitcamp.dto.CSDTO;
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.PagingDTO;
 import com.bitcamp.dto.ProjectDTO;
@@ -61,13 +62,13 @@ public class AdminController {
 		return "/admin/admin_fmember.temp";
 
 	} // end admin_fmember method
-	
-	// 통계 페이지	
+
+	// 통계 페이지
 	@RequestMapping("/stats")
-	public @ResponseBody Map<String, Object> stats(@RequestParam(required=false, defaultValue="0") int no) {		
-		
+	public @ResponseBody Map<String, Object> stats(@RequestParam(required = false, defaultValue = "0") int no) {
+
 		System.out.println("no값을 알려주세요.." + no);
-		
+
 		// 통계
 		// 이름 가져오기
 		String getName = adminService.getName(no);
@@ -79,18 +80,18 @@ public class AdminController {
 		float avgdal = adminService.avgdal(no);
 		// 평균 평점
 		float avgRating = adminService.avgRating(no);
-		
+
 		Map<String, Object> map = new HashMap<>();
 		map.put("getName", getName);
 		map.put("successCount", successCount);
 		map.put("regipro", regipro);
 		map.put("avgdal", avgdal);
 		map.put("avgRating", avgRating);
-		
+
 		return map;
-		
+
 	} // end stats method
-	
+
 	@RequestMapping("/admin")
 	public String adminPage(Principal principal, Model model) {
 
@@ -129,6 +130,37 @@ public class AdminController {
 		return "/admin/admin_sproject.temp";
 
 	} // end admin_sproject method
+	
+	// 승인 시 권한 변경, 프로젝트 상태 변경 (1로)
+	@RequestMapping("agree")
+	public void agree(@RequestParam(required = false, defaultValue = "1") int project_no) {
+		
+		System.out.println("동의는 잘 넘어왔어요? : " + project_no);
+		
+		adminService.agree(project_no);
+		adminService.psChange(project_no);
+		
+	} // end agree method
+	
+	// 거절 시 프로젝트 상태 변경 (2로)
+	@RequestMapping("disagree")
+	public void disagree(@RequestParam(required = false, defaultValue = "1") int project_no) {
+		
+		System.out.println("거절도 잘 넘어왔어요? : " + project_no);
+		
+		adminService.disagree(project_no);
+		
+	} // end disagree method
+	
+	// 승인 대기 프로젝트 승인 여부 (pdf controller)
+	@RequestMapping("/agreeee")
+	public @ResponseBody String agreeee(@RequestParam(required = false, defaultValue = "1") int project_no) {
+		
+		System.out.println("바보야 : " + project_no);
+		
+		return "바보야 : " + project_no;
+		
+	} // end agree method
 
 	// Excel Download
 	@RequestMapping(value = "/sprojectExcelDown.do", method = RequestMethod.POST)
@@ -141,5 +173,17 @@ public class AdminController {
 		System.out.println("★★★★★ Excel Down End ★★★★★");
 
 	} // end ExcelDown method
+	
+	// 고객 문의
+	@RequestMapping("/adcs")
+	public String admin_cs(Model model) {
+		
+		List<CSDTO> adminCS = adminService.adminCS();
+		
+		model.addAttribute("adminCS", adminCS);
+		
+		return "/admin/admin_cs.temp";
+		
+	} // end admin_cs method
 
 } // end AdminController class

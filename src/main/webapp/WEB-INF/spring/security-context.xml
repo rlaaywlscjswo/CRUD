@@ -41,7 +41,8 @@
 			invalidate-session="true" logout-success-url="/yummy"
 			delete-cookies="remember-me, JSESSION_ID" />
 			
-		<security:csrf disabled="true" />
+		<!-- <security:csrf disabled="true" /> -->
+		<security:csrf />
 	</security:http>
 
 

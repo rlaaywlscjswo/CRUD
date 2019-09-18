@@ -18,6 +18,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bitcamp.dto.CSDTO;
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.mapper.AdminMapper;
@@ -272,6 +273,30 @@ public class AdminServiceImple implements AdminService {
 		return mapper.admin_sproject(hm);
 
 	} // end admin_sproject method
+	
+	// 승인 시 권한 변경
+	@Override
+	public int agree(int project_no) {
+		
+		return mapper.agree(project_no);
+		
+	} // end agree method
+	
+	// 승인 시 프로젝트 상태 변경 (1로)
+	@Override
+	public int psChange(int project_no) {
+		
+		return mapper.psChange(project_no);
+		
+	} // end psChange method
+	
+	// 거절 시 프로젝트 상태 변경 (2로)
+	@Override
+	public int disagree(int project_no) {
+		
+		return mapper.disagree(project_no);
+		
+	} // end disagree method
 
 	// Excel Download
 	@Override
@@ -389,5 +414,13 @@ public class AdminServiceImple implements AdminService {
 		System.out.println("금요일 저녁 6시가 되었습니다..");
 		System.out.println("마피아는 고개를 들어주세요..");
 	} // end deleteDisagree method
+	
+	// 고객 문의
+	@Override
+	public List<CSDTO> adminCS() {
+		
+		return mapper.adminCS();
+		
+	} // end adminCS method
 
 } // end AdminServiceImple class

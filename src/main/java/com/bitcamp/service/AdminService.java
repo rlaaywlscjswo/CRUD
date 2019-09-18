@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.bitcamp.dto.CSDTO;
 import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.ProjectDTO;
 
@@ -36,10 +37,22 @@ public interface AdminService {
 	// 펀딩 현황 목록
 	public List<ProjectDTO> admin_sproject(int starRow, int pagePerSize, String sproject_search);
 	
+	// 승인 시 권한 변경
+	public int agree(int project_no);
+	
+	// 승인 시 프로젝트 상태 변경 (1로)
+	public int psChange(int project_no);
+	
+	// 거절 시 프로젝트 상태 변경 (2로)
+	public int disagree(int project_no);
+	
 	// Excel Download
 	public void sproject_getExcelDown(HttpServletResponse response);
 	
 	// 거절 된 프로젝트 지워주기 (매주 금요일 저녁 6시에 삭제)
 	public void deleteDisagree();
+	
+	// 고객 문의
+	public List<CSDTO> adminCS();
 
 } // end AdminService interface
