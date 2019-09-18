@@ -190,7 +190,7 @@ public class ProjectController {
 	}
 	
 	// 프로젝트 등록 결과 
-	@RequestMapping("projectresult")
+	@RequestMapping(value="projectresult",method= {RequestMethod.POST,RequestMethod.GET})
 	public String projectinsertresult(
 			HttpServletRequest request 
 			,BusinessDTO busdto

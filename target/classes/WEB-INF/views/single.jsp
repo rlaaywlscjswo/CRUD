@@ -12,8 +12,7 @@
 
 /* Styling h1 and links
 ––––––––––––––––––––––––––––––––– */
-h1[alt="Simple"] {color: white;}
-a[href], a[href]:hover {color: grey; font-size: 0.5em; text-decoration: none}
+
 
 
 .starrating > input {display: none;}  /* Remove radio buttons */

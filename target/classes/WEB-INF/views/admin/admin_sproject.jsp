@@ -9,12 +9,12 @@
 <link href="\resources\css/admin.css" rel="stylesheet">
 <style>
 
-#pdfhere {
-	border: 1px solid silver;
-	display: inline-block;
-	height: 900px;
-	position: relative;
-	width: 550px;
+#pdfhere {	
+    display: inline-block;
+    height: 650px;
+    position: relative;
+    width: 560px;
+    margin: 0 auto;
 }
 
 /* #agree {
@@ -67,6 +67,14 @@
 	jQuery(document).ready(function($) {
 		
 		$('table a').on('click', function() {
+			$('html, body').css({'overflow': 'hidden', 'height': '100%'}); 
+			$('#element').on('scroll touchmove mousewheel', function(event) { 
+				// 터치무브와 마우스휠 스크롤 방지
+				    event.preventDefault();
+				    event.stopPropagation();
+				    return false;
+				});
+			
 			$('#pdfhere').empty();
 			var project_no = $(this).parents('tr').children('td:eq(0)').text();
 			
@@ -79,7 +87,7 @@
 				data:"project_no="+project_no,
 				success:function(data){
 					console.log(data);
-					$('#pdfhere').append('<iframe src="http://localhost:8080'+data+'" style="width:559px; height: 882px;" frameborder="0"></iframe>'); // pdf 추가할 곳
+					$('#pdfhere').append('<iframe src="http://localhost:8080'+data+'" style="width:559px; height: 600px;" frameborder="0"></iframe>'); // pdf 추가할 곳
 				}				
 			});		
 			
@@ -94,7 +102,11 @@
 					success: function(data) {				
 						console.log('성공쓰');
 						console.log(project_no);
-						 location.reload();				
+						 location.reload();		
+						 $('html, body').css({'overflow': 'auto', 'height': '100%'}); 
+						//scroll hidden 해제
+						$('#element').off('scroll touchmove mousewheel');
+					
 					},
 					error: function(data) {
 						console.log('실패쓰');
@@ -115,7 +127,9 @@
 						console.log('성공쓰');
 						console.log(project_no);
 						 location.reload();									
-						
+						 $('html, body').css({'overflow': 'auto', 'height': '100%'}); 
+							//scroll hidden 해제
+							$('#element').off('scroll touchmove mousewheel');
 					},
 					error: function(data) {
 						console.log('실패쓰');
@@ -256,7 +270,7 @@
 		<div class="modal-content">
 			<span class="close">&times;</span>
 			<div id="pdfhere"></div>			
-			<div style="display: inline-block;">
+			<div style="display: inline-block; margin: 0 auto;">
 			<button class="btn btn-primary">승인</button>			
 			<button class="btn btn-primary">거절</button>
 			</div>

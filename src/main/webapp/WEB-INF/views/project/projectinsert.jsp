@@ -89,9 +89,7 @@ height: 25px;
 text-align: center;
 }
 
-#field{
-border: 1px solid;
-}
+
 
 .bg-dark{
 margin-top: 800px;  
@@ -99,6 +97,8 @@ margin-top: 800px;
 </style>
 <script type="text/javascript">
 $(function () {
+	$("#pattern-switcher").hide();
+	$("#patter-close").hide();
 	
 	
     $(".tab_content").hide();
@@ -112,12 +112,19 @@ $(function () {
         $("#" + activeTab).fadeIn()
     });    
     
+  
     // 다음눌렀을때 다음탭으로 이동!
     $('#btn2').on('click',function(){
-    	$("ul.tabs li").removeClass("active").css("color", "#333")
-    	$("ul.tabs li:eq(1)").addClass("active").css("color", "darkred")  	
-    	$('.tab_content').hide()
-    	$('.tab_content:eq(1)').show()   
+    	
+    	
+    	
+    	
+ 			$("ul.tabs li").removeClass("active").css("color", "#333")
+        	$("ul.tabs li:eq(1)").addClass("active").css("color", "darkred")  	
+        	$('.tab_content').hide()
+        	$('.tab_content:eq(1)').show()
+ 
+    	
     	
     });
     
@@ -146,6 +153,8 @@ $(function () {
     });
     
     $('#btn6').on('click',function(){
+    	
+    	// 옵션 form에 하나라도 null이면 다음으로 넘어갈때 alert창 띄워주기
     	$("ul.tabs li").removeClass("active").css("color", "#333")
     	$("ul.tabs li:eq(5)").addClass("active").css("color", "darkred")  	
     	$('.tab_content').hide()
@@ -153,19 +162,21 @@ $(function () {
     	
     });
     
-   $("#main_category option:eq(0)").attr("selected","selected");
-    
+   $("#main_category option:eq(0)").attr("selected","selected");    
    
-   $("#contentoption1").on("click",function(){
-	   $('#directpdf').append('<label for="project_contents_file">프로젝트 설명 pdf파일 직접 업로드하기</label><div><input type="file" class="form-control input-default" id="project_contents_file" name="project_contents_file"></div>');
-	});
+   $("#summerwrite").hide();
+   $('#directpdf').hide();
    
-  /*  $("#contentoption2").on("click",function(){
-	   $('#summerwrite').append('<div id="gide" style="border: 1px solid; width: 100%; height: 200px; margin: auto;"><h1>작성가이드</h1></div><textarea id="summernote" name="summernote"></textarea>');
-	  
-   }); */
+   $("#contentoption1").on("click",function(){	   
+	  $("#summerwrite").hide();
+	   $("#directpdf").show();
+   });
    
-
+   $("#contentoption2").on("click",function(){
+	   $('#directpdf').hide();
+	     $("#summerwrite").show();
+   });
+   
    
     // 메인카테고리에 해당하는 서브카테고리불러오기
     $("#main_category").on('change',function(){
@@ -189,26 +200,58 @@ $(function () {
     });  
 
   //옵션 추가 버튼을 눌렀을때 옵션form 추가로 나옴
-    var btncount=1; // 추가할때 증가, 삭제할때 감소
+    var btncount=0; // 추가할때 증가, 삭제할때 감소
+    
+    $('#up').on('click',function(){    	
+    	var optform = document.getElementById("optform");
+    	var str ="";
+    	str += '<label for="option_name">옵션명</label><div><input type="text" class="form-control input-default" id="option_name" name="option_name"></div>';
+    	str += '<label for="option_price">가격</label><div><input type="text" class="form-control input-default" id="option_price" name="option_price"></div>';
+    	str += '<label for="option_contents">내용</label><div><textarea class="form-control input-default" id="option_contents" name="option_contents"></textarea></div>';
+    	str += '<label for="option_quantity">수량</label><div><input type="text" class="form-control input-default" id="option_quantity" name="option_quantity"></div>      	';
+    
+    	
+    	var addform =document.createElement("div");
+    	addform.id ="added_"+btncount;
+    	addform.innerHTML=str;
+    	optform.appendChild(addform);	    	
+    	btncount++;
+    	
+    	 $('#btncnt').val(btncount);
+    	
+    	console.log(btncount);
+    });   
+    
+    $('#down').on('click',function(){
+    	  var optform = document.getElementById("optform");          
 
-    $('#up').on('click',function(){     
-    	var div = document.createElement('div');
-        div.innerHTML = document.getElementById('optform').innerHTML;
-        document.getElementById('field').appendChild(div);    	
-		/*   $('#field').append('<label for="option_name">옵션명</label> <div><input type="text" id="option_name" name="option_name"></div> <label for="option_price">옵션가격</label> <div><input type="text" id="option_price" name="option_price"></div> <label for="option_contents">옵션내용</label><div><input type="text" id="option_contents" name="option_contents"</div><br> <label for="option_quantity">옵션 수량</label> <div><input type="text" id="option_quantity" name="option_quantity"></div> <a href="#" class="down">삭제</a>');
-    	    */    
-    	$('#field').append('<a href="#" id="down">삭제</a>');
-    	    btncount++;
-    	    $('#btncnt').val(btncount);	
-    	    console.log(btncount); 
-    });
+          if(btncount >1){ // 현재 폼이 두개 이상이면
 
-    $('#down').on('click', function(){
-    		document.getElementById('field').removeChild(obj.parentNode);    
-    	    btncount--;
-    	    $('#btncnt').val(btncount);	
-    }); 	    
+                     var addform = document.getElementById("added_"+(--btncount));
+
+                     // 마지막으로 생성된 폼의 ID를 통해 Div객체를 가져옴
+
+                     optform.removeChild(addform); // 폼 삭제 
+
+          }else{ // 마지막 폼만 남아있다면
+                     document.optform.clear(); // 폼 내용 삭제
+          }
+    	
+          $('#btncnt').val(btncount);
+      	
+      	console.log(btncount);
+    	
+    });   
+    
+    
+    
+    	 
+    	 
+    	 
    
+	
+    
+  
     
  // sign pad
     
@@ -376,6 +419,10 @@ $(function () {
     	<div id="contentoption2">내용작성하기</div>
     	
     	<div id="directpdf">
+    	<label for="project_contents_file">프로젝트 설명 pdf파일 직접 업로드하기</label>
+    	<div>
+    	<input type="file" class="form-control input-default" id="project_contents_file" name="project_contents_file">
+    	</div>
     	</div>
 		
 		<div id="summerwrite">
@@ -393,27 +440,14 @@ $(function () {
      	<div id="tab5" class="tab_content">    	
     	
     	<div id="optform">
-    	<label for="option_name">옵션명</label>
-    	<div><input type="text" class="form-control input-default" id="option_name" name="option_name"></div>
-    	
-    	<label for="option_price">가격</label>
-    	<div><input type="text" class="form-control input-default" id="option_price" name="option_price"></div>
-    	
-    	<label for="option_contents">내용</label>
-    	<div><textarea class="form-control input-default" id="option_contents" name="option_contents"></textarea></div>
-    	
-    	<label for="option_quantity">수량</label>
-    	<div><input type="text" class="form-control input-default" id="option_quantity" name="option_quantity"></div>      	
-   		</div>
+    	</div>
    		
-    	<div id="field">
     	
-    	</div>   	
     	
-    	<input type="button" value="옵션 추가 " id="up">
-	    <input type="hidden" id="btncnt" name="btncnt" value="1">
-	    
-    	<!-- <input type="submit" id="save" value="등록하기">   -->	
+    	
+	    <input type="hidden" id="btncnt" name="btncnt" value="0">
+	    <input type="button" value="옵션 추가 " id="up">
+		<input type="button" value="옵션 삭제 " id="down">
     	<div class="btn2" id="btn6"><a href="#" >다음</a></div>	
     	</div> 
     	
@@ -440,7 +474,7 @@ $(function () {
     	
     	<!-- 로그인 했으면 이거 넣어줘야 함 -->
     	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">    	
-    	
+    
     <!-- .tab_container -->
     </form>
     </div>
