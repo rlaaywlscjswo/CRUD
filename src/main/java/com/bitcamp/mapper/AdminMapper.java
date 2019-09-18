@@ -64,5 +64,8 @@ public interface AdminMapper {
 	
 	// 고객 문의
 	public List<CSDTO> adminCS();
+	
+	// 고객 문의 답변 작성
+	public int answerCS(HashMap<String, Object> hm);
 
 } // end AdminMapper interface

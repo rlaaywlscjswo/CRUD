@@ -262,7 +262,7 @@
 			<!-- <a href="#"><span>질문 작성</span></a> -->
 
 			<!-- Trigger/Open The Modal -->
-			<button class="btn btn-primary" id="writeButton">질문 작성</button>
+			<button class="btn btn-primary" id="myBtn">질문 작성</button>
 
 			<!-- The Modal -->
 			<div id="myModal" class="modal">

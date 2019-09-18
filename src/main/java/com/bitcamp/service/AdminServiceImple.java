@@ -430,5 +430,16 @@ public class AdminServiceImple implements AdminService {
 		
 	} // end adminCS method
 
+	// 고객 문의 답변 작성
+	@Override
+	public int answerCS(String service_reply, int service_no) {
+		
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("service_reply", service_reply);
+		hm.put("service_no", service_no);
+		
+		return mapper.answerCS(hm);
+		
+	} // end answerCS method
 	
 } // end AdminServiceImple class

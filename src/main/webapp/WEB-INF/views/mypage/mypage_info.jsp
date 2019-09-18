@@ -29,7 +29,14 @@ $(function () {
 </script>
 <body>
 
-	<c:forEach var="myProfile" items="${myProfile}">
+	<div class="wrap">
+		<form>
+			<label for="name">이름</label>
+			<input type="text" name="name" id="name" value="${myProfile.name}" class="form-control form-control-sm" style="display: inline-block; width: 300px;">
+		</form>
+	</div>
+
+<%-- 	<c:forEach var="myProfile" items="${myProfile}">
 	
 		이름 : ${myProfile.email} <br>
 		비밀번호 : ${myProfile.password} <br>
@@ -39,6 +46,7 @@ $(function () {
 		<input type="hidden" id="email" name="email" value="${myProfile.email}">
 		<input type="file" id="photo" name="photo">
 		<input type="submit" value="수정하기">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		</form>
 		전화번호 : ${myProfile.phone} <br>
 		생년월일 : ${myProfile.birth} <br>
@@ -46,7 +54,7 @@ $(function () {
 	</c:forEach>
 	
 	<a href="" rel="dpdp"><span>회원 탈퇴</span></a> <br>
-	<span>수정하기?</span>
+	<span>수정하기?</span> --%>
 
 </body>
 </html>

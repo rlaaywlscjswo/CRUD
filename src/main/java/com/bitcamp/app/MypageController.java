@@ -45,7 +45,7 @@ public class MypageController {
 
 		String email = principal.getName();
 
-		List<MemberDTO> myProfile = service.myProfile(email);
+		MemberDTO myProfile = service.myProfile(email);
 		model.addAttribute("myProfile", myProfile);
 
 		return "/mypage/mypage_info.temp";

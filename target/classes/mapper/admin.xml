@@ -212,16 +212,21 @@
 	<result column="service_title" property="service_title" />
 	<result column="name" property="name" />
 	<result column="question_no" property="question_no" />
+	<result column="service_contents" property="service_contents" />
+	<result column="service_reply" property="service_reply" />
 	</resultMap>
 	
 	<select id="adminCS" resultMap="adcsdto">
-		select service_no, service_title, name, question_no
+		select service_no, service_title, name, question_no, service_contents, service_reply
 		from service join member on service.no = member.no
 		<where>
 			and service_reply is null
 		</where>
 	</select>
 	
-	
+	<!-- 고객 문의 답변 작성 -->
+	<update id="answerCS" parameterType="java.util.HashMap">
+		update service set service_reply = #{service_reply} where service_no = #{service_no}
+	</update>
 
 </mapper>

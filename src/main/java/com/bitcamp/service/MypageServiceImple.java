@@ -20,7 +20,7 @@ public class MypageServiceImple implements MypageService {
 
 	// 마이 페이지 - 내 프로필
 	@Override
-	public List<MemberDTO> myProfile(String email) {
+	public MemberDTO myProfile(String email) {
 
 		return mypageMapper.myProfile(email);
 

@@ -9,7 +9,7 @@ import com.bitcamp.dto.SupportDTO;
 public interface MypageService {
 	
 	// 마이 페이지 - 내 프로필
-	public List<MemberDTO> myProfile(String email);
+	public MemberDTO myProfile(String email);
 
 	// 프로필사진 수정
 	public String updatePhoto(String email, String photo);
