@@ -17,7 +17,7 @@ $(document).ready(function(){
 	$('#next').on('click', function() {
 		id = document.getElementById("userId").value;
 		alert("아이디 : "+id);
-		$.ajax({ 
+		$.ajax({
             method:"post",
             url:"/emailcheck",
             data:id,
