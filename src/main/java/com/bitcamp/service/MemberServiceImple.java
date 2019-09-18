@@ -173,5 +173,11 @@ public class MemberServiceImple implements MemberService {
 		return mapper.memberpwd(email);
 	}
 
+	@Override
+	public int passwordupdate(MemberDTO dto) {
+		String changePassword = encoder.encode(dto.getPassword());
+		dto.setPassword(changePassword);
+		return mapper.passwordupdate(dto);
+	}
 
 }

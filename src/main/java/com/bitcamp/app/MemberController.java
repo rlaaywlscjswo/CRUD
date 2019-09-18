@@ -58,16 +58,57 @@ public class MemberController {
 		return "/mail/mailForm";
 	}
 	
-	@RequestMapping(value = "/mail/mailSending")
-	  public String mailSending(HttpServletRequest request) {
-	   
+	@RequestMapping(value = "/mailSending", method = RequestMethod.POST)
+	  public @ResponseBody String mailSending(@RequestBody Map<String, String> email, HttpServletRequest request) {
+	   System.out.println("메일 보내기");
+	   System.out.println("받는 사람 : "+email.get("email"));
+		
 	    String setfrom = "sloth7711@gmail.com";         
-	    String tomail  = request.getParameter("tomail");     // 받는 사람 이메일
-	    String title   = request.getParameter("title");      // 제목
+	    String tomail  = email.get("email");				// 받는 사람 이메일
+	    String title   = "CRUD 비밀번호 인증키 입니다.";	// 제목
 	    TempKey key = new TempKey();
-	    key.getKey(10, true);
-	    String content = request.getParameter("content");    // 내용
-	   
+	    String authkey = key.getKey(6, true);
+	    System.out.println("인증키 : "+authkey);
+	    String content = "<tbody><tr><td style=\" height: 65px; background-color: #000000; border-bottom: 1px solid #4d4b48;\">\r\n" + 
+	    		"              <img src=\"/resources/img/logo.png\" width=\"538\" height=\"65\" alt=\"CURD\">\r\n" + 
+	    		"        </td></tr>\r\n" + 
+	    		"	<tr><td bgcolor=\"#17212e\">\r\n" + 
+	    		"			<table align=\"center\" width=\"470\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-left: 5px; padding-right: 5px; padding-bottom: 10px;\">\r\n" + 
+	    		"\r\n" + 
+	    		"				<tbody><tr bgcolor=\"#17212e\"><td style=\"padding-top: 32px;\">\r\n" + 
+	    		"					<span style=\"padding-top: 16px; padding-bottom: 16px; font-size: 24px; color: #66c0f4; font-family: Arial, Helvetica, sans-serif; font-weight: bold;\">\r\n" + 
+	    		"						안녕하세요 "+tomail+" 님,\r\n" + 
+	    		"					</span><br>\r\n" + 
+	    		"					</td></tr>\r\n" + 
+	    		"				\r\n" + 
+	    		"				<tr><td style=\"padding-top: 12px;\">\r\n" + 
+	    		"					<span style=\"font-size: 17px; color: #c6d4df; font-family: Arial, Helvetica, sans-serif; font-weight: bold;\">\r\n" + 
+	    		"						<p>"+tomail+" 계정 비밀번호 변경하는 데 필요한 CRUD 코드:</p>\r\n" + 
+	    		"					</span>\r\n" + 
+	    		"					</td></tr>\r\n" + 
+	    		"\r\n" + 
+	    		"\r\n" + 
+	    		"				<tr><td>\r\n" + 
+	    		"						<div>\r\n" + 
+	    		"							<span style=\"font-size: 24px; color: #66c0f4; font-family: Arial, Helvetica, sans-serif; font-weight: bold;\"> "+authkey+" </span>\r\n" + 
+	    		"						</div>\r\n" + 
+	    		"					</td></tr>\r\n" + 
+	    		"\r\n" + 
+	    		"\r\n" + 
+	    		"				<tr bgcolor=\"#121a25\"><td style=\"padding: 20px; font-size: 12px; line-height: 17px; color: #c6d4df; font-family: Arial, Helvetica, sans-serif;\">\r\n" + 
+	    		"							<p style=\"padding-bottom: 10px; color: #c6d4df;\">비밀번호 변경하려면 CRUD 코드(이)가 필요합니다. <span style=\"color: #ffffff; font-weight: bold;\">이 이메일이 없으면 누구도 귀하의 계정에 접속할 수 없습니다.</span></p>\r\n" + 
+	    		"							<p style=\"padding-bottom: 10px; color: #c6d4df;\"><span style=\"color: #ffffff; font-weight: bold;\">비밀번호 변경을 하려고 한 게 아니라면</span> CRUD 비밀번호를 변경해 주세요. 계정 보안을 유지하기 위해 이메일 비밀번호도 변경하시는 것이 좋습니다.</p>\r\n" + 
+	    		"					</td></tr>\r\n" + 
+	    		"\r\n" + 
+	    		"\r\n" + 
+	    		"				<tr><td style=\"font-size: 12px; color: #6d7880; padding-top: 16px; padding-bottom: 60px;\">\r\n" + 
+	    		"                    			CURD 팀 드림<br>\r\n" + 
+	    		"                    			<a style=\"color: #8f98a0;\" href=\"http://localhost:8080/yummy\" rel=\"noreferrer noopener\" target=\"_blank\">http://localhost:8080/yummy</a><br>\r\n" + 
+	    		"                    </td></tr>\r\n" + 
+	    		"\r\n" + 
+	    		"			</tbody></table>\r\n" + 
+	    		"		</td></tr>\r\n" + 
+	    		"</tbody>";    // 내용
 	    try {
 	      MimeMessage message = mailSender.createMimeMessage();
 	      MimeMessageHelper messageHelper 
@@ -76,14 +117,14 @@ public class MemberController {
 	      messageHelper.setFrom(setfrom);  // 보내는사람 생략하거나 하면 정상작동을 안함
 	      messageHelper.setTo(tomail);     // 받는사람 이메일
 	      messageHelper.setSubject(title); // 메일제목은 생략이 가능하다
-	      messageHelper.setText(content);  // 메일 내용
+	      messageHelper.setText(content, true);  // 메일 내용
 	     
 	      mailSender.send(message);
 	    } catch(Exception e){
 	      System.out.println(e);
 	    }
 	   
-	    return "redirect:/mailForm";
+	    return authkey;
 	}
 	
 	@RequestMapping(value = "/naverlogincheck", method = RequestMethod.POST)
@@ -129,30 +170,11 @@ public class MemberController {
 		return "/member/signupsuccess";
 	}
 	
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String RegisterPost(MemberDTO user, Model model, RedirectAttributes rttr) throws Exception{
-    
-        System.out.println("regesterPost 진입 ");
-        //memberService.regist(user);
-        rttr.addFlashAttribute("msg" , "가입시 사용한 이메일로 인증해주세요");
-        return "redirect:/";
-    }
-
-    //이메일 인증 코드 검증
-    /*@RequestMapping(value = "/emailConfirm", method = RequestMethod.GET)
-    public String emailConfirm(MemberDTO user,Model model,RedirectAttributes rttr) throws Exception { 
-        
-        System.out.println("cont get user"+user);
-        MemberDTO dto = new MemberDTO();
-        //dto = service.userAuth(user);
-        if(dto == null) {
-            rttr.addFlashAttribute("msg" , "비정상적인 접근 입니다. 다시 인증해 주세요");
-            return "redirect:/";
-        }
-        //System.out.println("usercontroller vo =" +vo);
-        model.addAttribute("login",dto);
-        return "/user/emailConfirm";
-    }*/
+	@RequestMapping(value = "/passwordupdate", method=RequestMethod.POST)
+	public String passwordupdate(MemberDTO dto, @RequestParam(value="auth", required=false) String auth, @RequestParam(value="confirmPassword", required=false) String confirmPassword) {
+		memberService.passwordupdate(dto);
+		return "/security/customlogin";
+	}
 	
 	@RequestMapping(value = "/emailcheck", method=RequestMethod.POST)
 	public @ResponseBody int eamilcheck(@RequestBody Map<String, String> email) {

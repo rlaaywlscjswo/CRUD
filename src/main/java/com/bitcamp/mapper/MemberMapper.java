@@ -50,7 +50,7 @@ public interface MemberMapper {
 	public MemberDTO nosearch(int no);
 	public int sentcount(HashMap<String, Object> map);
 	public String memberpwd(String email);
-
+	public int passwordupdate(MemberDTO dto);
 	
 	
 }

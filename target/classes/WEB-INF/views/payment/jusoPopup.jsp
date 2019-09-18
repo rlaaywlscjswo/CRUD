@@ -10,7 +10,7 @@
 /* 바탕 배경 이미지 */
 .pop-address-search .pop-address-search-inner { background-image: url(http://www.0000.com/img/backImg.png);}
 /* 회사 로고 이미지 */
-.pop-address-search .pop-address-search-inner .logo { background: url(http://www.0000.com/img/logo.png) no-repeat; background-position:center; }
+.pop-address-search .pop-address-search-inner .logo { background: /resources/img/logo.png no-repeat; background-position:center; }
 
 /* 바탕 배경색상 */
 .pop-address-search .pop-address-search-inner { background-color:#ECECEC; }
@@ -25,7 +25,7 @@
 
 /* 모바일 */
 /* 회사 로고 이미지 */
-#logo span{background: url(http://www.0000.com/img/logo.png) 0 0 no-repeat; background-size: contain;}
+#logo span{background: /resources/img/logo.png 0 0 no-repeat; background-size: contain;}
 
 /* 바탕 배경색상*/
 body{background-color: #373737;}

@@ -39,5 +39,6 @@ public interface MemberService {
 	public int recipientcount(HashMap<String, Object> map);
 	public int sentcount(HashMap<String, Object> map);
 	public String memberpwd(String email);
+	public int passwordupdate(MemberDTO dto);
 	
 }

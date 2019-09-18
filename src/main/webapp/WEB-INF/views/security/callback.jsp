@@ -60,15 +60,6 @@
 				$('form').submit();
 	        }
 	    });
-		/* console.log("☆☆☆☆☆☆☆");
-		console.log($('#email').val());
-        console.log($('#password').val());
-		alert($('#email').val());
-		alert($('#password').val()); */
-		// email로 중복체크 -> 이미 가입된 아이디면 로그인
-		//					-> 가입되지 않은 아이디면 가입 동시에 로그인 (패스워드는 개별 설정해야함(사이트내에 비밀번호))
-		//opener.location.href="naverlogin?email=" +email;
-		//window.close();
   }
 </script>
 </body>

@@ -113,6 +113,11 @@
 		</where>
 	</select>
 	
+	<update id="passwordupdate" parameterType="com.bitcamp.dto.MemberDTO">
+		update member set password = #{password} 
+		where email = #{email}
+	</update>
+	
 	<!-- 받은 or 보관함 쪽지 리스트 -->
 	<select id="recipientlist" parameterType="java.util.HashMap" resultMap="talk">
 		select talk_no, talk_title, name, email, talk_status, talk_keep, talk_date
