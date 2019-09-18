@@ -285,7 +285,7 @@ li {
     -webkit-animation: 2000ms linear 0s normal none infinite running yummy-load;
     animation: 2000ms linear 0s normal none infinite running yummy-load;
     background: transparent none repeat scroll 0 0;
-    border-color: #dddddd #dddddd #fc6c3f;
+    border-color: #dddddd #dddddd #ADDCAF;
     border-radius: 50%;
     border-style: solid;
     border-width: 3px;
