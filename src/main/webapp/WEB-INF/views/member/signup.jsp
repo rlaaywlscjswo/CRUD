@@ -29,16 +29,26 @@ $(document).ready(function(){
 				emailcheck.css('color', 'red').text('이메일 형식이 잘못 되었습니다.');
 				status('n');
 			} else {
+				
+				var csrfHeaderName = "${_csrf.headerName}";
+				var csrfTokenValue = "${_csrf.token}";
+				
 				emailcheck.css('color', 'green').text(''); // 쌤이 수정하신 부분
 		        let id=$(this).val();
+				
+				console.log($(this).val());
+				console.log("email.. : "+id);
 		        console.log("jsp 키 액션 : "+emailcheck);
 		        $.ajax({
-		            method:"post",
+		            method:"POST",
 		            url:"/emailcheck",
-		            data:id,
+		            beforeSend:function(xhr){
+		            	xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+		            },
+		            data:JSON.stringify({"email":id}),
 		            contentType:"application/json;charset=UTF-8",
 		            success:function(data){
-		            	console.log(data);
+		            	console.log("..."+data);
 		                if(data == 0){ 
 							status('y');
 		                	emailcheck.css('color', '#007bff').text('사용 가능한 아이디입니다.');

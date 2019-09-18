@@ -5,13 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/resources/css/passwordfind.css" rel="stylesheet"/>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<style type="text/css">
-.box_inn_sub{
-	display: inline;
-}
-</style>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#next').on('click', function() {
@@ -33,21 +27,11 @@ $(document).ready(function(){
                 	alert("아이디를 정확하게 입력해 주세요");
 					return false;
                 }else{ 
-                	$('#divUserId').css("display", "none");
-                	let s = $('.process').children();
-                	s.eq(0).attr('class', '');
-                	s.eq(1).attr('class', 'on');
-                	$('#mailauth').css("display", "");
-                	$('#next').attr('id', 'next2');
-                	$('#email').val(id);
+                	alert("있는 아이디");
+                	document.fm.submit();
                 }
             }
         });
-	});
-	
-	$('#next2').on('click', function() {
-		// #btnEmailAuthNo 인증번호 받기 버튼 
-		// #auth 인증번호 6자리.
 	});
 });
 </script>
@@ -76,7 +60,7 @@ $(document).ready(function(){
 						<div id="mailauth" style="display: none">
 							<ul id="emailauth">
 								<li><span>이메일 주소</span></li>
-								<li><input type="text" name="email" id="email" required="required" readonly="readonly"></li>
+								<li><input type="text" name="email" id="email" required="required"></li>
 								<li><a href="#" id="btnEmailAuthNo" class="btn_ct"><span class="blind">인증번호 받기</span></a></li>
 							</ul>
 							<div id="authdiv">

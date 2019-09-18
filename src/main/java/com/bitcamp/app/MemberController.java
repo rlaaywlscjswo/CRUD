@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -154,10 +155,14 @@ public class MemberController {
     }*/
 	
 	@RequestMapping(value = "/emailcheck", method=RequestMethod.POST)
-	public @ResponseBody int eamilcheck(@RequestBody String email) {
-		int result  = memberService.emailCheck(email);
+	public @ResponseBody int eamilcheck(@RequestBody Map<String, String> email) {
+		System.out.println("check....");
+		String e=email.get("email");
+		int result  = memberService.emailCheck(e);
+		System.out.println("result..."+result);
 		return result;
 	}
+
 	
 	@RequestMapping(value = "/pay", method=RequestMethod.POST)
 	public String pay(OptionDTO odto, @RequestParam(defaultValue="null") String alias, Model model, Principal principal) {
@@ -430,10 +435,8 @@ public class MemberController {
 	
 	@RequestMapping("/passwordfind")
 	public String passwordfind() {
-		
-		return "/mail/passwordfind";
+		return "/mail/passwordfind.temp";
 	}
-	
 	
 	// 이전 페이지로 돌아가기.
 	@RequestMapping("/back")
