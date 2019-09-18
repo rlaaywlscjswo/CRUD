@@ -44,6 +44,9 @@ public interface AdminMapper {
 	// 펀딩 현황 목록
 	public List<ProjectDTO> admin_sproject(HashMap<String, Object> hm);
 	
+	// 해당하는 내용.pdf 받아오기
+	public String getPdf(int project_no);
+	
 	// 승인 시 권한 변경
 	public int agree(int project_no);
 	

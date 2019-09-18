@@ -99,7 +99,8 @@ margin-top: 800px;
 </style>
 <script type="text/javascript">
 $(function () {
-  
+	
+	
     $(".tab_content").hide();
     $(".tab_content:first").show();
     
@@ -219,6 +220,7 @@ $(function () {
 		});
 		
 		$("[data-action]").on("click", function(){
+		
 			if ( $(this).data("action")=="clear" ){
 				sign.clear();
 			}
@@ -227,10 +229,16 @@ $(function () {
 					alert("사인해 주세요!!");
 				}else {
 					var ss = sign.toDataURL(); 
+					var csrfHeaderName="${_csrf.headerName}";
+					var csrfTokenValue="${_csrf.token}";
+					
 					$.ajax({
 						url : "http://localhost:8080/sign",
 						method : "POST",
 						dataType : "text",
+						beforeSend: function(xhr){
+							xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+						},
 						data : {						
 							sign : ss							
 						},
@@ -265,8 +273,7 @@ $(function () {
 <div class="tab_container">
  
  <form method="post" action="projectresult" enctype="multipart/form-data">
-    	<div id="tab1" class="tab_content">
-          
+    	<div id="tab1" class="tab_content">       
  			<label for="project_title">프로젝트 제목</label>
  			<div><input type="text" class="form-control input-default" id="project_title" name="project_title" value="고정제목"></div>
  			

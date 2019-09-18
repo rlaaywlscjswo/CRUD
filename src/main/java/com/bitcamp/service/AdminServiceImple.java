@@ -274,6 +274,13 @@ public class AdminServiceImple implements AdminService {
 
 	} // end admin_sproject method
 	
+	// 해당하는 프로젝트 내용.pdf 받아오기
+	@Override
+	public String getPdf(int project_no) {		
+		return mapper.getPdf(project_no);
+	}
+
+	
 	// 승인 시 권한 변경
 	@Override
 	public int agree(int project_no) {
@@ -423,4 +430,5 @@ public class AdminServiceImple implements AdminService {
 		
 	} // end adminCS method
 
+	
 } // end AdminServiceImple class
