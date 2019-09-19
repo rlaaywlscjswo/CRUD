@@ -408,12 +408,26 @@ $(function () {
  		
  		
  		<div id="tab4" class="tab_content">
-       <textarea id="summernote" name="summernote"></textarea>
-       <input type="file" class="form-control input-default" id="project_contents_file" name="project_contents_file">
- 		<div class="btn2"  id="btn5"><a href="#">다음</a></div>		
- 		
- 			
-        </div>
+    
+    	<div id="contentoption1">직접파일올리기</div>
+    	<div id="contentoption2">내용작성하기</div>
+    	
+    	<div id="directpdf">
+    	<label for="project_contents_file">프로젝트 설명 pdf파일 직접 업로드하기</label>
+    	<div>
+    	<input type="file" class="form-control input-default" id="project_contents_file" name="project_contents_file">
+    	</div>
+    	</div>
+		
+		<div id="summerwrite">
+    	<div id="gide" style="border: 1px solid; width: 100%; height: 200px; margin: auto;">
+		<h1>작성가이드</h1>
+		</div>
+		 <textarea id="summernote" name="summernote"></textarea> 
+		</div>
+		
+		<div class="btn2" id="btn5"><a href="#" >다음</a></div>		
+    	</div>   
         <!-- #tab4 -->
  		
  		
