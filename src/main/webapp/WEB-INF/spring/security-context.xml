@@ -26,11 +26,6 @@
          
       <security:intercept-url pattern="/projectresult"
          access="hasRole('ANONYMOUS')" />
-      
-      <security:intercept-url pattern="/sec_manager"
-         access="hasRole('ROLE_MANAGER')" />
-      <security:intercept-url pattern="/sec_member"
-         access="isAuthenticated()" />  <!-- 인증 된 회원 모두 -->
 
    <!--    <security:access-denied-handler
          ref="customAccessDenied" /> -->

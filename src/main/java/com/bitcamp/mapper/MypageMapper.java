@@ -18,8 +18,16 @@ public interface MypageMapper {
 	// 프로필사진 수정
 	public String updatePhoto(HashMap<String, Object> update);
 	
-	// 비밀 번호 수정
-	public int updatePassword(HashMap<String, Object> hm);
+	// 전화 번호 수정
+	public int updatePhone(HashMap<String, Object> hm);
+	
+	// 회원 탈퇴
+	
+	// 권한부터 삭제해주고 
+	public int deleteAuth(String email);
+	
+	// 후에 회원 삭제
+	public int deleteMember(String email);
 	
 	// 마이 페이지 - 내가 만든 프로젝트
 

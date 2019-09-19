@@ -36,17 +36,34 @@ public class MypageServiceImple implements MypageService {
 		return mypageMapper.updatePhoto(map);
 	} // end updatePhoto method
 	
-	// 비밀 번호 수정
+	// 전화 번호 수정
 	@Override
-	public int updatePassword(String email, MemberDTO dto) {
+	public int updatePhone(String email, MemberDTO dto) {
 		
 		HashMap<String, Object> hm = new HashMap<>();
 		hm.put("email", email);
-		hm.put("password", dto.getPassword());
+		hm.put("phone", dto.getPhone());
+		System.out.println("서비스 전화 번호 : " + dto.getPhone());
 		
-		return mypageMapper.updatePassword(hm);
+		return mypageMapper.updatePhone(hm);
 		
 	} // end updatePassword method
+	
+	// 권한부터 삭제해주고 
+	@Override
+	public int deleteAuth(String email) {
+		
+		return mypageMapper.deleteAuth(email);
+		
+	} // end deleteAuth method
+	
+	// 후에 회원 삭제
+	@Override
+	public int deleteMember(String email) {
+		
+		return mypageMapper.deleteMember(email);
+		
+	} // end deleteMember method
 	
 	
 	// 마이 페이지 - 내가 만든 프로젝트
