@@ -18,7 +18,8 @@
 <body>
 <form id="move" action="" method="post">
 	<input type="hidden" id="email" name="email">
-	<input type="hidden" id="name" name="name">  
+	<input type="hidden" id="name" name="name">
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 </form>
 <a href="main"> 로그인 성공!</a>
 
@@ -41,10 +42,15 @@
 		console.log(name);
 		console.log(birth);
 		console.log(photo);
+		var csrfHeaderName = "${_csrf.headerName}";
+		var csrfTokenValue = "${_csrf.token}";
 		$.ajax({
 	        type:"POST",
 	        url:"/naverlogincheck",
 	        data:{email: email, name: name},
+	        beforeSend: function(xhr){
+	             xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+	          },
 	        dataType:"json",
 	        success:function(data){
 	        	//data가 0이면 미가입 / 1이면 가입되어있는 아이디

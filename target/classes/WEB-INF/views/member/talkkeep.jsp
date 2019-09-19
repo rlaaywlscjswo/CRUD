@@ -47,11 +47,11 @@ $(document).ready(function(){
 	$('tr').on('mouseout', function() {
 		$(this).css('background-color', '');
 	});
-	$('.unread td').on('mouseover', function() {
-		$('.unread td').css('background-color', '#8bd3fc');
+	$('.unread').on('mouseover', function() {
+		$(this).css('background-color', '#8bd3fc');
 	});
-	$('.unread td').on('mouseout', function() {
-		$('.unread td').css('background-color', '#F4FFFF');
+	$('.unread').on('mouseout', function() {
+		$(this).css('background-color', '#F4FFFF');
 	});
 });
 </script>
@@ -109,7 +109,7 @@ $(document).ready(function(){
 			<c:forEach var="list" items="${talklist}">
 				<c:choose>
 					<c:when test="${empty list.talk_status}">
-						<tr class="unread">
+						<tr class="unread" style="background-color: #F4FFFF;">
 							<td class="chk">
 								<input type="checkbox" class="talk_no" name="talk_no" value="${list.talk_no}" />
 							</td>
@@ -148,16 +148,16 @@ $(document).ready(function(){
 		<div id="notePaging">
 			<ul class="basetext pagination">
 				<c:if test="${dto.prev}">
-					<li><a href="talk?currPage=${dto.firstPageOfBlock-1}">
+					<li><a href="talkkeep?currPage=${dto.firstPageOfBlock-1}">
 					<c:out value="이전" /></a></li>
 				</c:if>
 				<c:forEach var="index" begin="${dto.firstPageOfBlock}" end="${dto.lastPageOfBlock}">
 						<c:choose>
 							<c:when test="${dto.currPage == index}">
-								<li class="active"><a href="talk?currPage=${index}"><c:out value="${index}" /></a></li>
+								<li class="active"><a href="talkkeep?currPage=${index}"><c:out value="${index}" /></a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="talk?currPage=${index}"><c:out value="${index}" /></a></li>
+								<li><a href="talkkeep?currPage=${index}"><c:out value="${index}" /></a></li>
 							</c:otherwise>
 						</c:choose>
 				</c:forEach>
@@ -174,6 +174,7 @@ $(document).ready(function(){
 			<input class="submit" id="tampkind" type="image" src="/resources/img/bttn_search.gif" value="${kind}">
 		</div>
 	</div>
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	</form>
 </div>
 </div>

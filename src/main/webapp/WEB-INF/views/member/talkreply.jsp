@@ -107,6 +107,7 @@ $(document).ready(function(){
 			<a id="aNoteSave" href="javascript:submitbtn()" class="bttn92ws">쪽지보내기</a>
 		</div>
 	</div>
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 </form>
 </div>
 </div>

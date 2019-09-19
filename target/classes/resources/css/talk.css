@@ -482,11 +482,6 @@ body, a, td {
 	padding-left: 7px;
 }
 
-#noteList div.list table tr.unread td {
-	background-color: #F4FFFF;
-	color: #1376AD;
-}
-
 #noteList div.list table tr.unread td a {
 	color: #1376AD;
 }

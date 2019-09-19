@@ -132,16 +132,16 @@ $(document).ready(function(){
 		<div id="notePaging">
 			<ul class="basetext pagination">
 				<c:if test="${dto.prev}">
-					<li><a href="talk?currPage=${dto.firstPageOfBlock-1}">
+					<li><a href="talksend?currPage=${dto.firstPageOfBlock-1}">
 					<c:out value="이전" /></a></li>
 				</c:if>
 				<c:forEach var="index" begin="${dto.firstPageOfBlock}" end="${dto.lastPageOfBlock}">
 						<c:choose>
 							<c:when test="${dto.currPage == index}">
-								<li class="active"><a href="talk?currPage=${index}"><c:out value="${index}" /></a></li>
+								<li class="active"><a href="talksend?currPage=${index}"><c:out value="${index}" /></a></li>
 							</c:when>
 							<c:otherwise>
-								<li><a href="talk?currPage=${index}"><c:out value="${index}" /></a></li>
+								<li><a href="talksend?currPage=${index}"><c:out value="${index}" /></a></li>
 							</c:otherwise>
 						</c:choose>
 				</c:forEach>
@@ -158,6 +158,7 @@ $(document).ready(function(){
 			<input class="submit" id="tampkind" type="image" src="/resources/img/bttn_search.gif" value="${kind}">
 		</div>
 	</div>
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	</form>
 </div>
 </div>

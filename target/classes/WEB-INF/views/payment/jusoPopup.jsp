@@ -8,7 +8,7 @@
 <style type="text/css">
 /* 웹 */
 /* 바탕 배경 이미지 */
-.pop-address-search .pop-address-search-inner { background-image: url(http://www.0000.com/img/backImg.png);}
+.pop-address-search .pop-address-search-inner { background-image: /resources/img/logo.png no-repeat;}
 /* 회사 로고 이미지 */
 .pop-address-search .pop-address-search-inner .logo { background: /resources/img/logo.png no-repeat; background-position:center; }
 
@@ -126,6 +126,7 @@ function init(){
 		<input type="hidden" id="encodingType" name="encodingType" value="EUC-KR"/>
 		 -->
 		<!-- 해당시스템의 인코딩타입이 EUC-KR일경우에만 추가 END-->
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	</form>
 </body>
 </html>

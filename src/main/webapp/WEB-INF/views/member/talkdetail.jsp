@@ -94,6 +94,7 @@ function talk(no, method) {
 			</div>
 			<form id="talk" action="" method="POST">
 				<input id="talkvalue" type="hidden" name="talk_no">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			</form>
 		</div>
 	</div>

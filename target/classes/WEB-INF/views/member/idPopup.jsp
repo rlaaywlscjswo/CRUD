@@ -51,6 +51,7 @@ $(document).ready(function(){
 	  <form action="/idPopup" method="post">
 		<input type="search" id="search" name="search" placeholder="이름 또는 이메일 입력해주세요." />
 		<button class="icon"><i class="fa fa-search"></i></button>
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	   </form>
 	  </div>
 	</div>
