@@ -152,6 +152,7 @@ $(document).ready(function(){
 								<li><input type="password" id="confirmPassword" name="confirmPassword" placeholder="다시 입력해주세요." class="password" required="required"  minlength="8"><span id="pwd"></span> </li>
 							</ul>
 						</div>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 						</form>
 					</div>
 					<div class="btn_area">
