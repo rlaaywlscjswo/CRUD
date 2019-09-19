@@ -43,8 +43,8 @@
       <security:logout logout-url="/customLogout"
          invalidate-session="true" logout-success-url="/yummy"
          delete-cookies="remember-me, JSESSION_ID" />
-         <security:csrf request-matcher-ref="csrfMatcher" disabled="true" /> 
-        <security:csrf/>   
+         <security:csrf request-matcher-ref="csrfMatcher"/> 
+         <security:csrf disabled="true"/>   
          
    </security:http>
    <bean id="csrfMatcher" class="org.springframework.security.web.util.matcher.OrRequestMatcher">
@@ -53,13 +53,7 @@
                 <bean class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
                     <constructor-arg name="pattern" value="*.do"/>
                     <constructor-arg name="httpMethod" value="GET"/>
-                </bean>
-                
-                
-                <bean class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
-                    <constructor-arg name="pattern" value="*/projectresult"/>
-                    <constructor-arg name="httpMethod" value="POST"/>
-                </bean>
+                </bean>             
         </list>
      </constructor-arg>
       

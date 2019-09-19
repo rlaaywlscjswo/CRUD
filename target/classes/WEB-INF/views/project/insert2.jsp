@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> 
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script> 
 <link href="http://localhost:8080/resources/css/css.css" rel="stylesheet">
 <script src="http://localhost:8080/resources/js/signature_pad.min.js"></script>
 <style type="text/css">
@@ -78,7 +79,8 @@ ul.tabs li.active {
  	height:1000px;
     width: 1300px;
    	margin: 0 auto; 
-   
+   position: relative;
+    right: 220px;
 
 }
 .btn2{
@@ -114,11 +116,18 @@ $(function () {
     
   
     // 다음눌렀을때 다음탭으로 이동!
-    $('#btn2').on('click',function(){    	
+    $('#btn2').on('click',function(){
+    	
+    	
+    	
+    	
  			$("ul.tabs li").removeClass("active").css("color", "#333")
         	$("ul.tabs li:eq(1)").addClass("active").css("color", "darkred")  	
         	$('.tab_content').hide()
         	$('.tab_content:eq(1)').show()
+ 
+    	
+    	
     });
     
     $('#btn3').on('click',function(){
@@ -126,31 +135,37 @@ $(function () {
     	$("ul.tabs li:eq(2)").addClass("active").css("color", "darkred")  	
     	$('.tab_content').hide()
     	$('.tab_content:eq(2)').show()    
+    	
     });
     
     $('#btn4').on('click',function(){
     	$("ul.tabs li").removeClass("active").css("color", "#333")
     	$("ul.tabs li:eq(3)").addClass("active").css("color", "darkred")  	
     	$('.tab_content').hide()
-    	$('.tab_content:eq(3)').show()  
+    	$('.tab_content:eq(3)').show()    
+    	
     });
     
     $('#btn5').on('click',function(){
     	$("ul.tabs li").removeClass("active").css("color", "#333")
     	$("ul.tabs li:eq(4)").addClass("active").css("color", "darkred")  	
     	$('.tab_content').hide()
-    	$('.tab_content:eq(4)').show()   
+    	$('.tab_content:eq(4)').show()    
+    	
     });
     
     $('#btn6').on('click',function(){
+    	
     	// 옵션 form에 하나라도 null이면 다음으로 넘어갈때 alert창 띄워주기
     	$("ul.tabs li").removeClass("active").css("color", "#333")
     	$("ul.tabs li:eq(5)").addClass("active").css("color", "darkred")  	
     	$('.tab_content').hide()
     	$('.tab_content:eq(5)').show()    
+    	
     });
     
-   $("#main_category option:eq(0)").attr("selected","selected");   
+   $("#main_category option:eq(0)").attr("selected","selected");    
+   
    $("#summerwrite").hide();
    $('#directpdf').hide();
    
@@ -164,28 +179,78 @@ $(function () {
 	     $("#summerwrite").show();
    });
    
+// 메인카테고리에 해당하는 서브카테고리불러오기
+   $("#main_category").on('change',function(){
+   	$("#category_no").empty();   	
    
-    // 메인카테고리에 해당하는 서브카테고리불러오기
-    $("#main_category").on('change',function(){
-    	$("#category_no").empty();   	
-       var main_category=$(this).val();           
-        $.ajax({  
-        	method:"GET",
-        	dataType: "JSON",        	
-            url:"/project/category",
-      		data:'main_category='+main_category, 
-            success:function(data){              	
-            	console.log(data);            	
-            	$.each(data,function(i,item){
-            		console.log(item.category_no);  
-            		console.log(item.sub_category);            		
-            		$("#category_no").append("<option value='"+item.category_no+"'>"+item.sub_category+"</option>");
-            		});
-            }
-        });          
-    });   
+      var main_category=$(this).val();     
+  
+       $.ajax({  
+       	method:"GET",
+       	dataType: "JSON",        	
+           url:"/project/category",
+     		data:'main_category='+main_category, 
+     		
+           success:function(data){  
+           	console.log("ajax1");
+           	console.log(data);            	
+           	$.each(data,function(i,item){
+           		console.log(item.category_no);  
+           		console.log(item.sub_category);            		
+           		$("#category_no").append("<option value='"+item.category_no+"'>"+item.sub_category+"</option>");
+           		});
+           }
+       });          
+   });   
+    
+  
+    
+   var canvas = $("#signature-pad canvas")[0];
+	var sign = new SignaturePad(canvas, {
+		minWidth: 2,
+		maxWidth: 4,
+		penColor: "rgb(0, 0, 0)"
+	});
+	
+	$("[data-action]").on("click", function(){
+	
+		if ( $(this).data("action")=="clear" ){
+			sign.clear();
+		}
+		else if ( $(this).data("action")=="save" ){
+			if (sign.isEmpty()) {
+				alert("사인해 주세요!!");
+			}else {
+				var ss = sign.toDataURL(); 
+				var csrfHeaderName="${_csrf.headerName}";
+				var csrfTokenValue="${_csrf.token}";
+				console.log(csrfTokenValue);
+				console.log(csrfHeaderName);
+				$.ajax({
+					url : "/sign",
+					 method : "POST", 
+					dataType : "text",
+					beforeSend: function(xhr){
+						xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+					},					
+					data: { "sign": ss },
+					success : function(r){
+						console.log("ajax2");
+						console.log(r);
+						alert("저장완료 : " + r);
+						sign.clear();
+					},
+					error : function(res, errcode,xh){						
+						console.log(res+","+errcode+", "+xh+"실패다");
+					}
+				});
+			}
+		}
+	});
 
-  //옵션 추가 버튼을 눌렀을때 옵션form 추가로 나옴
+	
+	
+	//옵션 추가 버튼을 눌렀을때 옵션form 추가로 나옴
     var btncount=0; // 추가할때 증가, 삭제할때 감소
     
     $('#up').on('click',function(){    	
@@ -228,51 +293,8 @@ $(function () {
       	console.log(btncount);
     	
     });       
- // sign pad
-    var canvas = $("#signature-pad canvas")[0];
-		var sign = new SignaturePad(canvas, {
-			minWidth: 2,
-			maxWidth: 4,
-			penColor: "rgb(0, 0, 0)"
-		});
-		
-		$("[data-action]").on("click", function(){
-		
-			if ( $(this).data("action")=="clear" ){
-				sign.clear();
-			}
-			else if ( $(this).data("action")=="save" ){
-				if (sign.isEmpty()) {
-					alert("사인해 주세요!!");
-				}else {
-					var ss = sign.toDataURL(); 
-					var csrfHeaderName="${_csrf.headerName}";
-					var csrfTokenValue="${_csrf.token}";
-					console.log(csrfTokenValue);
-					console.log(csrfHeaderName);
-					$.ajax({
-						url : "/sign",
-						 method : "POST", 
-						dataType : "text",
-						beforeSend: function(xhr){
-							xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
-						},					
-						data: {"sign":ss},
-						success : function(r){
-							console.log("ajax2");
-							console.log(r);
-							alert("저장완료 : " + r);
-							sign.clear();
-						},
-						error : function(res, errcode,xh){						
-							console.log(res+","+errcode+", "+xh+"실패다");
-						}
-					});
-				}
-			}
-		});
  
-		
+	
 });			
 </script>
 
@@ -290,7 +312,8 @@ $(function () {
     
 <div class="tab_container">
  
- <form method="post" action="/projectresult" enctype="multipart/form-data">
+ <form method="post" action="/result" enctype="multipart/form-data">
+
     	<div id="tab1" class="tab_content">       
  			<label for="project_title">프로젝트 제목</label>
  			<div><input type="text" class="form-control input-default" id="project_title" name="project_title" value="고정제목"></div>
@@ -305,15 +328,14 @@ $(function () {
 			<option value="도서번역" >도서 번역<option>						
 			</select>
 			</div>
-			
- 			
 		    <label for="category_no">소분류</label>
-		    <div><select class="form-control input-default" id="category_no" name="category_no"></select></div>
+		    <div><select class="form-control input-default" id="category_no" name="category_no">
+		    </select></div>
 		
 			
  			<label for="project_photo_file">프로젝트 대표사진</label>
  			<div><input type="file" class="form-control input-default" id="project_photo_file" name="project_photo_file"> </div>
- 			<p>사진규격은 width: 650px, height: 487.5px 추천</p>
+ 	
  			
  			
  			<label for="targetprice">목표 금액</label>
@@ -321,23 +343,23 @@ $(function () {
  			
  			
  			<label for="startdate">시작 날짜</label>
- 			<div><input type="date" class="form-control input-default" id="startdate" name="startdate"></div>
+ 			<div><input type="date" class="form-control input-default" id="startdate" name="startdate" value="2019-09-19"></div>
  			
  			
  			<label for="enddate">종료 날짜</label>
- 			<div><input type="date" class="form-control input-default" id="enddate" name="enddate"></div>
+ 			<div><input type="date" class="form-control input-default" id="enddate" name="enddate" value="2019-09-25"></div>
  			
  			<div class="btn2" id="btn2"><a href="#" >다음</a></div>			 
  			
- 		</div>
+ 		</div>  
  		
-        <!-- #tab1 -->
-        
-        <div id="tab2" class="tab_content">
+ 		<div id="tab2" class="tab_content">
         
         <label for="business_name">사업자명</label>
         <div><input type="text" class="form-control input-default" id="business_name" name="business_name" value="고정제목"></div>
  		
+ 		<label for="business_no">사업자번호</label>
+ 		<div><input type="text" class="form-control input-default" id="business_no" name="business_no" value="0000220202020202020"></div>
  		
  		<label for="business_division">사업자 구분</label>
  		<div>
@@ -359,8 +381,10 @@ $(function () {
  			
         </div>
         <!-- #tab2 -->
-    
-        <div id="tab3" class="tab_content">
+ 		
+ 		
+ 		
+ 		<div id="tab3" class="tab_content">
         
         
         <label for="alias">창작자 이름</label>
@@ -381,49 +405,33 @@ $(function () {
         </div>
         
         <!-- #tab3 -->
-        
-    	<div id="tab4" class="tab_content">
-    
-    	<div id="contentoption1">직접파일올리기</div>
-    	<div id="contentoption2">내용작성하기</div>
-    	
-    	<div id="directpdf">
-    	<label for="project_contents_file">프로젝트 설명 pdf파일 직접 업로드하기</label>
-    	<div>
-    	<input type="file" class="form-control input-default" id="project_contents_file" name="project_contents_file">
-    	</div>
-    	</div>
-		
-		<div id="summerwrite">
-    	<div id="gide" style="border: 1px solid; width: 100%; height: 200px; margin: auto;">
-		<h1>작성가이드</h1>
-		</div>
-		 <textarea id="summernote" name="summernote"></textarea> 
-		</div>
-		
-		<div class="btn2" id="btn5"><a href="#" >다음</a></div>		
-    	</div>   	
-    	
-    	<!-- #tab4 -->
-   
-     	<div id="tab5" class="tab_content">    	
+ 		
+ 		
+ 		<div id="tab4" class="tab_content">
+       <textarea id="summernote" name="summernote"></textarea>
+       <input type="file" class="form-control input-default" id="project_contents_file" name="project_contents_file">
+ 		<div class="btn2"  id="btn5"><a href="#">다음</a></div>		
+ 		
+ 			
+        </div>
+        <!-- #tab4 -->
+ 		
+ 		
+ 		<div id="tab5" class="tab_content">    	
     	
     	<div id="optform">
-    	</div>
-   		
+    	</div> 	
+    	
 	    <input type="hidden" id="btncnt" name="btncnt" value="0">
 	    <input type="button" value="옵션 추가 " id="up">
 		<input type="button" value="옵션 삭제 " id="down">
-    	<div class="btn2" id="btn6"><a href="#" >다음</a></div>	
+    	<div class="btn2"  id="btn6"><a href="#">다음</a></div>
     	</div> 
     	
-    	<!-- #tab5 -->
-    	
-    	<div id="tab6" class="tab_content">  
-    	
-    	<!-- <input type="checkbox" name="terms" value="1">약관1<br>
-    	<input type="checkbox" name="terms" value="2">약관2<br> -->    	
-    	 	
+    	<!-- #tab5 -->		
+ 		
+ 		
+ 		<div id="tab6" class="tab_content">  
     	 <div id="signature-pad" class="m-signature-pad">
         <div class="m-signature-pad--body">
             <canvas width="300" height="100"></canvas>
@@ -432,24 +440,22 @@ $(function () {
             <button type="button" class="button clear" data-action="clear">지우기</button>
             <button type="button" class="button save" data-action="save">저장</button>            
         </div>
+    	</div>   
+   		  <input type="submit" value="등록">
     	</div> 
-   		
-    	<input type="submit" id="save" value="등록하기">
-    
-    	</div> 
-    	<!-- #tab6 -->
+    	<!-- #tab3 -->  
     	
-    	<!-- 로그인 했으면 이거 넣어줘야 함 -->
-    	<input type="text" name="${_csrf.parameterName}" value="${_csrf.token}">
     	
-   	
-    <!-- .tab_container -->
+    	
+ 		
+ 		
+     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+  
     </form>
     </div>
     <!-- #container -->
  </div>
- 
-<script>
+ <script>
       $('#summernote').summernote({
         placeholder: '작성가이드를 참고해서 작성해보세요!',
         tabsize: 2,
@@ -459,6 +465,8 @@ $(function () {
       
        
 </script>
+ 
+
 
 </body>
 </html>
