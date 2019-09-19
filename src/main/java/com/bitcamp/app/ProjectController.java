@@ -139,7 +139,7 @@ public class ProjectController {
 	}
 	
 	// 카테고리선택 json ( 프로젝트 등록페이지에서)
-	@RequestMapping(value="project/category", method=RequestMethod.GET)
+	@RequestMapping(value="/project/category", method=RequestMethod.GET)
 	public @ResponseBody List<CategoryDTO> category(	
 		@RequestParam String main_category){		
 		 System.out.println(" ajax" + main_category) ;		
@@ -160,7 +160,7 @@ public class ProjectController {
 	}	
 	
 	// 서명 ajax 
-	@RequestMapping(value="sign", method= {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/sign", method= {RequestMethod.GET,RequestMethod.POST})
 	public @ResponseBody String sign(@RequestParam String sign									
 									,HttpServletRequest request // 업로드
 									,Principal principal

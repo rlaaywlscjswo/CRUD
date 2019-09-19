@@ -1,75 +1,113 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>문희는 포도가 머꼬찌푼뎅</title>
 <style>
-	 .answer {
-	 	border: 1px solid silver;
-	 	display: inline-block;
-	 	height: 40px;
-	 	position: relative;
-	 	width: 100%;
-	 }
+.wrap {
+	margin: 0 auto;
+	margin-top: 50px;
+	width: 1500px;
+}
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 	jQuery.noConflict();
-	jQuery(document).ready(function($) {
-		
-		// $('.answer').hide();
-		
-		$('tbody tr').on('click', function() {
-			
-			// var service_no = $(this).find('td:eq(0)').text();
-			// alert(service_no);
-			$(this).siblings('p').css('background-color', 'crimson');
-			
-		}); // end on
-		
-	}); // end ready
+	jQuery(document).ready(
+			function($) {
+
+				$('.card-header').on(
+						'click',
+						function() {
+
+							var service_no = $(this).find('span:eq(0)').text(); // service_no
+
+							$('form').find('input:eq(1)').on(
+									'click',
+									function() { // 작성 완료 버튼 클릭 시
+										var service_reply = $(this).prev()
+												.val();
+
+										$.ajax({
+											url : 'aCS',
+											data : 'service_no=' + service_no
+													+ '&service_reply='
+													+ service_reply,
+											success : function(data) {
+												alert('고객 센터 가서 확인해보자!');
+												location.reload();
+											},
+											error : function(data) {
+												console.log('service_no : ' + service_no);
+												console.log('service_reply : ' + service_reply);
+												alert('실패임 ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ');
+											}
+										}); // end ajax
+
+									}); // end on			
+
+						}); // end on		
+
+			}); // end ready
 </script>
 </head>
 <body>
 
-	<!-- 펀딩 회원 목록 -->
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th scope="col">문의 번호</th>
-				<th scope="col">문의 제목</th>
-				<th scope="col">작성자</th>
-				<th scope="col">분류</th>
-			</tr>
-		</thead>
+	<div class="wrap">
 
-		<tbody>
-			<c:forEach var="adminCS" items="${adminCS}">
-				<tr>
-					<td>${adminCS.service_no}</td>
-					<td>${adminCS.service_title}</td>
-					<td>${adminCS.name}</td>
-					<td>
-					<c:set var="qn" value="${adminCS.question_no}" />
-					<c:choose>
-						<c:when test="${qn == 1}">회원 관련</c:when>
-						<c:when test="${qn == 2}">사업자 관련</c:when>
-						<c:when test="${qn == 3}">프로젝트 관련</c:when>
-						<c:when test="${qn == 4}">후원 관련</c:when>
-						<c:when test="${qn == 5}">배송 관련</c:when>
-						<c:when test="${qn == 6}">환불 관련</c:when>
-						<c:otherwise>뭐지..</c:otherwise>
-					</c:choose>					
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	
-	<div class="answer"></div>
+		<!-- 펀딩 회원 목록 -->
+		<c:forEach var="adminCS" items="${adminCS}">
+			<div class="accordion" id="accordionExample">
+				<div class="card">
+					<div class="card-header" id="headingOne">
+						<h2 class="mb-0">
+							<button class="btn btn-link" type="button" data-toggle="collapse"
+								data-target="#${adminCS.service_no}" aria-expanded="true"
+								aria-controls="collapseOne">
+								<span>${adminCS.service_no}</span>
+								<span>문의 제목 : ${adminCS.service_title} / </span>
+								<span>작성자 : ${adminCS.name} / </span>
+								<span>
+									<c:set var="qn" value="${adminCS.question_no}" />
+									<c:choose>
+										<c:when test="${qn == 1}">분류 : 회원 관련 / </c:when>
+										<c:when test="${qn == 2}">분류 : 사업자 관련 / </c:when>
+										<c:when test="${qn == 3}">분류 : 프로젝트 관련 / </c:when>
+										<c:when test="${qn == 4}">분류 : 후원 관련 / </c:when>
+										<c:when test="${qn == 5}">분류 : 배송 관련 / </c:when>
+										<c:when test="${qn == 6}">분류 : 환불 관련 / </c:when>
+										<c:otherwise>뭐지..</c:otherwise>
+									</c:choose>
+								</span> <span>문의 내용 : ${adminCS.service_contents}</span>
+							</button>
+						</h2>
+					</div>
+
+					<div id="${adminCS.service_no}" class="collapse"
+						aria-labelledby="headingOne" data-parent="#accordionExample">
+						<div class="card-body">
+
+							<c:set value="${adminCS.service_reply}" var="sr" />
+							<c:choose>
+								<c:when test="${sr == null}">
+									<form>
+										<input type="text" style="width: 400px; height: 100px;">
+										<input type="button" class="btn btn-primary" value="작성 완료">
+									</form>
+								</c:when>
+								<c:otherwise>${adminCS.service_reply}</c:otherwise>
+							</c:choose>
+						</div>
+					</div>
+					<!-- 답변 작성 끝 -->
+				</div>
+			</div>
+		</c:forEach>
+
+	</div>
 
 </body>
 </html>

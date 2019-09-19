@@ -1,7 +1,6 @@
 package com.bitcamp.app;
 
 import java.io.File;
-import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +29,7 @@ public class MypageController {
 
 	@Inject
 	private MemberService memservice;
+
 	// 마이 페이지 - main
 	@RequestMapping("/mypage")
 	public String mypage() {
@@ -45,31 +44,43 @@ public class MypageController {
 
 		String email = principal.getName();
 
-		List<MemberDTO> myProfile = service.myProfile(email);
+		MemberDTO myProfile = service.myProfile(email);
 		model.addAttribute("myProfile", myProfile);
 
 		return "/mypage/mypage_info.temp";
 
 	} // end myProfile method
-	
-	
+
 	@RequestMapping("/updatephoto")
-	public @ResponseBody String updatePhoto(@RequestParam String email, @RequestParam String photo, HttpServletRequest request,Principal principal) {
+	public @ResponseBody String updatePhoto(@RequestParam String email, @RequestParam String photo,
+			HttpServletRequest request, Principal principal) {
 		MemberDTO mdto = memservice.memberinfo(principal.getName());
 		MultipartFile photo_file = mdto.getPhoto_file(); // 프로필사진 파일
-		
+
 		try {
-			String photo_path = request.getSession().getServletContext().getRealPath(path); //경로
+			String photo_path = request.getSession().getServletContext().getRealPath(path); // 경로
 			File file = new File(photo_path, photo_file.getOriginalFilename());
 			photo_file.transferTo(file);
-			mdto.setPhoto(path+"/"+mdto.getPhoto_file().getOriginalFilename());
-			System.out.println("프로필사진파일명: "+mdto.getPhoto());
+			mdto.setPhoto(path + "/" + mdto.getPhoto_file().getOriginalFilename());
+			System.out.println("프로필사진파일명: " + mdto.getPhoto());
 			service.updatePhoto(email, mdto.getPhoto());
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println(e);
-		}		
+		}
 		return "/mypage/mypage_info.temp";
 	}
+
+	// 비밀 번호 변경
+	@RequestMapping("adadafdgaa")
+	public @ResponseBody void updatePassword(@RequestParam(required = false, defaultValue = "") String password,
+			Principal principal) {
+		
+		String email = principal.getName();
+		
+		// service.updatePassword(email, dto);
+
+	} // end updatePassword method
+
 	// 마이 페이지 - 내가 만든 프로젝트
 	@RequestMapping("mypro")
 	public String mypage_MyProjectList(@RequestParam(required = false, defaultValue = "1") int currPage,
@@ -101,9 +112,9 @@ public class MypageController {
 	// 마이 페이지 - 내 후원 내역
 
 	@RequestMapping("/support")
-	public String mySupport_list(
-			@RequestParam(required = false, defaultValue = "1") int currPage,
-			@RequestParam(required = false, defaultValue = "") String support_search, Principal principal, Model model) {
+	public String mySupport_list(@RequestParam(required = false, defaultValue = "1") int currPage,
+			@RequestParam(required = false, defaultValue = "") String support_search, Principal principal,
+			Model model) {
 
 		String email = principal.getName();
 
@@ -114,7 +125,7 @@ public class MypageController {
 		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
 
 		List<SupportDTO> mySupport_list = service.mySupport_list(dto.getStartRow(), pagePerSize, support_search, email);
-		
+
 		model.addAttribute("dto", dto);
 		model.addAttribute("mySupport_list", mySupport_list);
 

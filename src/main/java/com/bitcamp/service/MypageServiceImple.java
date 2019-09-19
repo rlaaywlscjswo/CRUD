@@ -20,7 +20,7 @@ public class MypageServiceImple implements MypageService {
 
 	// 마이 페이지 - 내 프로필
 	@Override
-	public List<MemberDTO> myProfile(String email) {
+	public MemberDTO myProfile(String email) {
 
 		return mypageMapper.myProfile(email);
 
@@ -35,6 +35,18 @@ public class MypageServiceImple implements MypageService {
 		map.put("photo", photo);		
 		return mypageMapper.updatePhoto(map);
 	} // end updatePhoto method
+	
+	// 비밀 번호 수정
+	@Override
+	public int updatePassword(String email, MemberDTO dto) {
+		
+		HashMap<String, Object> hm = new HashMap<>();
+		hm.put("email", email);
+		hm.put("password", dto.getPassword());
+		
+		return mypageMapper.updatePassword(hm);
+		
+	} // end updatePassword method
 	
 	
 	// 마이 페이지 - 내가 만든 프로젝트

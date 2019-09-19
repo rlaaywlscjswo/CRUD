@@ -111,13 +111,13 @@ public class AdminController {
 
 	} // end changeAuth method
 
-	
 	// pdf 받아오기
-	@RequestMapping(value="/getpdf" ,method= {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value = "/getpdf", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody String getpdf(@RequestParam int project_no) {
 		String result = adminService.getPdf(project_no);
 		return result;
 	}
+
 	// 펀딩 현황 목록
 	@RequestMapping("/spro")
 	public String admin_sproject(@RequestParam(required = false, defaultValue = "1") int currPage,
@@ -137,36 +137,36 @@ public class AdminController {
 		return "/admin/admin_sproject.temp";
 
 	} // end admin_sproject method
-	
+
 	// 승인 시 권한 변경, 프로젝트 상태 변경 (1로)
 	@RequestMapping("agree")
 	public @ResponseBody void agree(@RequestParam(required = false, defaultValue = "1") int project_no) {
-		
+
 		System.out.println("동의는 잘 넘어왔어요? : " + project_no);
-		
+
 		adminService.agree(project_no);
 		adminService.psChange(project_no);
-		
+
 	} // end agree method
-	
+
 	// 거절 시 프로젝트 상태 변경 (2로)
 	@RequestMapping("disagree")
 	public @ResponseBody void disagree(@RequestParam(required = false, defaultValue = "1") int project_no) {
-		
+
 		System.out.println("거절도 잘 넘어왔어요? : " + project_no);
-		
+
 		adminService.disagree(project_no);
-		
+
 	} // end disagree method
-	
+
 	// 승인 대기 프로젝트 승인 여부 (pdf controller)
 	@RequestMapping("/agreeee")
 	public @ResponseBody String agreeee(@RequestParam(required = false, defaultValue = "1") int project_no) {
-		
+
 		System.out.println("바보야 : " + project_no);
-		
+
 		return "바보야 : " + project_no;
-		
+
 	} // end agree method
 
 	// Excel Download
@@ -180,17 +180,27 @@ public class AdminController {
 		System.out.println("★★★★★ Excel Down End ★★★★★");
 
 	} // end ExcelDown method
-	
+
 	// 고객 문의
 	@RequestMapping("/adcs")
 	public String admin_cs(Model model) {
-		
+
 		List<CSDTO> adminCS = adminService.adminCS();
-		
+
 		model.addAttribute("adminCS", adminCS);
-		
+
 		return "/admin/admin_cs.temp";
-		
+
 	} // end admin_cs method
+
+	// 고객 문의 답변 작성
+	@RequestMapping("aCS")
+	public @ResponseBody void answerCS(@RequestParam(required = false, defaultValue = "") String service_reply,
+			@RequestParam(required = false, defaultValue = "1") int service_no) {
+		
+		System.out.println("service_no는 " + service_no + " 고 service_reply는 " + service_reply + " 야");
+		adminService.answerCS(service_reply, service_no);
+
+	} // end answerCS method
 
 } // end AdminController class

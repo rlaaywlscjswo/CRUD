@@ -181,13 +181,17 @@ $(function () {
     // 메인카테고리에 해당하는 서브카테고리불러오기
     $("#main_category").on('change',function(){
     	$("#category_no").empty();   	
-    	
+    	var csrfHeaderName="${_csrf.headerName}";
+		var csrfTokenValue="${_csrf.token}";
        var main_category=$(this).val();       
         $.ajax({  
         	method:"GET",
         	dataType: "JSON",        	
-            url:"http://localhost:8080/project/category",
+            url:"/project/category",
       		data:'main_category='+main_category, 
+      		beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
             success:function(data){   
             	console.log(data);            	
             	$.each(data,function(i,item){
@@ -241,18 +245,7 @@ $(function () {
       	
       	console.log(btncount);
     	
-    });   
-    
-    
-    
-    	 
-    	 
-    	 
-   
-	
-    
-  
-    
+    });       
  // sign pad
     
  var canvas = $("#signature-pad canvas")[0];
@@ -276,7 +269,7 @@ $(function () {
 					var csrfTokenValue="${_csrf.token}";
 					
 					$.ajax({
-						url : "http://localhost:8080/sign",
+						url : "/sign",
 						method : "POST",
 						dataType : "text",
 						beforeSend: function(xhr){
@@ -319,9 +312,7 @@ $(function () {
     	<div id="tab1" class="tab_content">       
  			<label for="project_title">프로젝트 제목</label>
  			<div><input type="text" class="form-control input-default" id="project_title" name="project_title" value="고정제목"></div>
- 			
- 			
-			<label for="main_category">대분류</label>
+ 			<label for="main_category">대분류</label>
 			<div>
 			<select class="form-control input-default" id="main_category" name="main_category" id="default">			
 			<option value="">대분류를 선택하세요</option>

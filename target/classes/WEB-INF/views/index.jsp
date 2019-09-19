@@ -18,7 +18,7 @@
         <!-- Single Slide -->
         <div class="welcome-single-slide">
             <!-- Post Thumb -->
-            <img src="/resources/yummy/img/bg-img/slide-1.jpg" alt="">
+            <img src="http://localhost:8080/resources/img/v.jpg" alt="">
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
@@ -26,7 +26,7 @@
                     <a href="#">5 Comment</a>
                 </div>
                 <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                    <h5>재밌는 비디오 게임</h5>
                 </a>
             </div>
         </div>
