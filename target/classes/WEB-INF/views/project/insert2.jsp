@@ -359,7 +359,7 @@ $(function () {
         <div><input type="text" class="form-control input-default" id="business_name" name="business_name" value="고정제목"></div>
  		
  		<label for="business_no">사업자번호</label>
- 		<div><input type="text" class="form-control input-default" id="business_no" name="business_no" value="0000220202020202020"></div>
+ 		<div><input type="text" class="form-control input-default" id="business_no" name="business_no"></div>
  		
  		<label for="business_division">사업자 구분</label>
  		<div>
