@@ -7,16 +7,7 @@
 <title>Insert title here</title>
 <link href="/resources/css/passwordfind.css" rel="stylesheet"/>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<style type="text/css">
-.box_inn_sub{
-	display: inline;
-}
-#pwd{
-	position: relative;
-}
-</style>
 <script type="text/javascript">
-
 var key="";
 function mailkey(anthkey)
 {
