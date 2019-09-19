@@ -23,14 +23,17 @@
 			access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/spro"
 			access="hasRole('ROLE_ADMIN')" />
+			
+		<security:intercept-url pattern="/projectresult"
+			access="hasRole('ANONYMOUS')" />
 		
 		<security:intercept-url pattern="/sec_manager"
 			access="hasRole('ROLE_MANAGER')" />
 		<security:intercept-url pattern="/sec_member"
 			access="isAuthenticated()" />  <!-- 인증 된 회원 모두 -->
 
-		<security:access-denied-handler
-			ref="customAccessDenied" />
+	<!-- 	<security:access-denied-handler
+			ref="customAccessDenied" /> -->
 
 		<security:form-login login-page="/sec_login"
 			authentication-success-handler-ref="customLoginSuccess" />
@@ -41,8 +44,8 @@
 			invalidate-session="true" logout-success-url="/yummy"
 			delete-cookies="remember-me, JSESSION_ID" />
 			
-		<!-- <security:csrf disabled="true" /> -->
-		<security:csrf />
+		 <security:csrf  /> 
+		
 	</security:http>
 
 

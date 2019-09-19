@@ -187,7 +187,7 @@ $(function () {
         $.ajax({  
         	method:"GET",
         	dataType: "JSON",        	
-            url:"http://localhost:8080/project/category",
+            url:"/project/category",
       		data:'main_category='+main_category, 
       		beforeSend: function(xhr){
 				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
@@ -269,7 +269,7 @@ $(function () {
 					var csrfTokenValue="${_csrf.token}";
 					
 					$.ajax({
-						url : "http://localhost:8080/sign",
+						url : "/sign",
 						method : "POST",
 						dataType : "text",
 						beforeSend: function(xhr){
