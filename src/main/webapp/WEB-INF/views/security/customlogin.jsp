@@ -1,176 +1,299 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<link
+	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css">
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
 <!DOCTYPE html>
-<html>
+<html lang='en' class=''>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<script
+	src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script>
+<script
+	src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script>
+<script
+	src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>
+<meta charset='UTF-8'>
+<meta name="robots" content="noindex">
+<link rel="shortcut icon" type="image/x-icon"
+	href="//production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+<link rel="mask-icon" type=""
+	href="//production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg"
+	color="#111" />
+<link rel="canonical" href="https://codepen.io/frytyler/pen/EGdtg" />
+
+<link rel='stylesheet prefetch'
+	href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+<script
+	src='https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js'></script>
+<style class="cp-pen-styles">
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+.btn {
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	padding: 4px 10px 4px;
+	margin-bottom: 0;
+	font-size: 13px;
+	line-height: 18px;
+	color: #333333;
+	text-align: center;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	vertical-align: middle;
+	background-color: #f5f5f5;
+	background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff),
+		to(#e6e6e6));
+	background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: linear-gradient(top, #ffffff, #e6e6e6);
+	background-repeat: repeat-x;
+	filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff,
+		endColorstr=#e6e6e6, GradientType=0);
+	border-color: #e6e6e6 #e6e6e6 #e6e6e6;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border: 1px solid #e6e6e6;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px
+		rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px
+		rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px
+		rgba(0, 0, 0, 0.05);
+	cursor: pointer;
+	*margin-left: .3em;
+}
+
+.btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
+	background-color: #e6e6e6;
+}
+
+.btn-large {
+	padding: 9px 14px;
+	font-size: 15px;
+	line-height: normal;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.btn:hover {
+	color: #333333;
+	text-decoration: none;
+	background-color: #e6e6e6;
+	background-position: 0 -15px;
+	-webkit-transition: background-position 0.1s linear;
+	-moz-transition: background-position 0.1s linear;
+	-ms-transition: background-position 0.1s linear;
+	-o-transition: background-position 0.1s linear;
+	transition: background-position 0.1s linear;
+}
+
+.btn-primary, .btn-primary:hover {
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	color: #ffffff;
+}
+
+.btn-primary.active {
+	color: rgba(255, 255, 255, 0.75);
+}
+
+.btn-primary {
+	background-color: #4a77d4;
+	background-image: -moz-linear-gradient(top, #6eb6de, #4a77d4);
+	background-image: -ms-linear-gradient(top, #6eb6de, #4a77d4);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6eb6de),
+		to(#4a77d4));
+	background-image: -webkit-linear-gradient(top, #6eb6de, #4a77d4);
+	background-image: -o-linear-gradient(top, #6eb6de, #4a77d4);
+	background-image: linear-gradient(top, #6eb6de, #4a77d4);
+	background-repeat: repeat-x;
+	filter: progid:dximagetransform.microsoft.gradient(startColorstr=#6eb6de,
+		endColorstr=#4a77d4, GradientType=0);
+	border: 1px solid #3762bc;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px
+		rgba(0, 0, 0, 0.5);
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary.active,
+	.btn-primary.disabled, .btn-primary[disabled] {
+	filter: none;
+	background-color: #4a77d4;
+}
+
+.btn-block {
+	width: 100%;
+	display: block;
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	font-family: 'Open Sans', sans-serif;
+	background: #092756;
+	background: -moz-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4)
+		10%, rgba(138, 114, 76, 0) 40%),
+		-moz-linear-gradient(top, rgba(57, 173, 219, .25) 0%,
+		rgba(42, 60, 87, .4) 100%),
+		-moz-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+	background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4)
+		10%, rgba(138, 114, 76, 0) 40%),
+		-webkit-linear-gradient(top, rgba(57, 173, 219, .25) 0%,
+		rgba(42, 60, 87, .4) 100%),
+		-webkit-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+	background: -o-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4)
+		10%, rgba(138, 114, 76, 0) 40%),
+		-o-linear-gradient(top, rgba(57, 173, 219, .25) 0%,
+		rgba(42, 60, 87, .4) 100%),
+		-o-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+	background: -ms-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4)
+		10%, rgba(138, 114, 76, 0) 40%),
+		-ms-linear-gradient(top, rgba(57, 173, 219, .25) 0%,
+		rgba(42, 60, 87, .4) 100%),
+		-ms-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+	background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4)
+		10%, rgba(138, 114, 76, 0) 40%),
+		linear-gradient(to bottom, rgba(57, 173, 219, .25) 0%,
+		rgba(42, 60, 87, .4) 100%),
+		linear-gradient(135deg, #670d10 0%, #092756 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D',
+		endColorstr='#092756', GradientType=1);
+}
+
+.login {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	margin: -150px 0 0 -150px;
+	width: 300px;
+	height: 300px;
+}
+
+.login h1 {
+	color: #fff;
+	text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+	letter-spacing: 1px;
+	text-align: center;
+}
+
+input {
+	width: 100%;
+	margin-bottom: 10px;
+	background: rgba(0, 0, 0, 0.3);
+	border: none;
+	outline: none;
+	padding: 10px;
+	font-size: 13px;
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+	border: 1px solid rgba(0, 0, 0, 0.3);
+	border-radius: 4px;
+	box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2), 0 1px 1px
+		rgba(255, 255, 255, 0.2);
+	-webkit-transition: box-shadow .5s ease;
+	-moz-transition: box-shadow .5s ease;
+	-o-transition: box-shadow .5s ease;
+	-ms-transition: box-shadow .5s ease;
+	transition: box-shadow .5s ease;
+}
+
+input:focus {
+	box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4), 0 1px 1px
+		rgba(255, 255, 255, 0.2);
+}
+</style>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+<meta http-equiv="Cache-Control"
+	content="no-store, no-cache, must-revalidate">
 <meta http-equiv="Cache-Control" content="post-check=0, pre-check=0">
 <meta http-equiv="Pragma" content="No-Cache">
 <meta name="format-detection" content="telephone=no">
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<style>
-* {
-	margin: 0 auto;
-	padding: 0;
-}
 
-.wrap {
-	display: inline-block;
-	height: 600px;
-	left: 465px;
-	position: absolute;
-	top: 100px;
-	width: 1000px;
-}
-
-h1 {
-	display: inline-block;
-	left: 240px;
-	position: absolute;
-	top: 100px;
-}
-
-span {
-	display: inline-block;
-	left: 280px;
-	position: absolute;
-	top: 200px;
-}
-
-form {
-	display: inline-block;
-	height: 200px;
-	left: 280px;
-	position: absolute;
-	top: 270px;
-	width: 400px;
-	position: absolute;
-}
-
-input[type=text], [type=password] {
-	border: 2px solid dodgerblue;
-	border-radius: 10px;
-}
-
-input[type=submit] {
-	border: none;
-}
-
-#email {
-	display: inline-block;
-	font-size: 1em;
-	margin-bottom: 10px;
-	position: relative;
-}
-
-#username {
-	display: inline-block;
-	font-size: 1em;
-	height: 35px;
-	margin-bottom: 15px;
-	position: relative;
-	width: 400px;
-}
-
-#pwd {
-	display: inline-block;
-	font-size: 1em;
-	margin-bottom: 10px;
-	position: relative;
-}
-
-#password {
-	display: inline-block;
-	font-size: 1em;
-	height: 35px;
-	position: relative;
-	width: 400px;
-}
-
-#login_button{
-	display: inline-block;
-	font-size: 1em;
-	position: relative;
-	top: 50px;
-	width: 150px;
-}
-
-#signup {
-	background-color: #f5f5f5;
-	border: 1px solid silver;
-	display: inline-block;
-	height: 25px;
-	left: 520px;
-	position: relative;
-	text-align: center;
-	top: 477px;
-	width: 150px;
-}
-#naver_id_login{
-	display: inline-block;
-}
-</style>
 <script>
-$(document).ready(function(){
-	let email = "${email}";
-	if(email != ""){
-		console.log("이프문");
-		$('#username').val(email);
-	}
-});
+	$(document).ready(function() {
+		let email = "${email}";
+		if (email != "") {
+			console.log("이프문");
+			$('#username').val(email);
+		}
+	});
 </script>
 </head>
 <body>
-	<div class="wrap">
-		<div>
-		<h1>병훈쓰가 만든 임시 로그인 페이지</h1>
-
-		<span>Enter your email address and your password to sign in.</span>
-
-		<form action="/login" method="post">
-			<div>
-
-				<label for="username" id="email"><strong>Email
-						address</strong></label> <input type="text" name="username" id="username">
-			</div>
-
-			<div>
-				<label for="password" id="pwd"><strong>Password</strong></label> <input
-					type="password" name="password" id="password" value="123123123">
-			</div>
-
-			<div>
-				<input type="submit" value="로그인" id="login_button">
-			</div>
-			
-			<div>
-				<input type="checkbox" name="remember-me" checked="checked"> 로그인 유지하기
-			</div>
-
-			<input type="hidden" name="${_csrf.parameterName}"
-				value="${_csrf.token}">
+	<div class="login">
+		<h1>Login</h1>
+		<form method="post" action="/login">
+			<label for="username"></label> <input type="text" name="username"
+				id="username" placeholder="Username" /> <label
+				for="password"></label> <input type="password" name="password"
+				id="password" placeholder="Password" /> <input
+				type="checkbox" name="remember-me" checked="checked"
+				style="display: inline-block; left: 54%; margin-left: 0px; position: relative; width: 10px;"> <span style="color: #fff; display: inline-block; left:55%; position: relative;">remember me</span>
+			<button type="submit" class="btn btn-primary btn-block btn-large" style="margin-bottom: 5px;">sign
+				in</button>
+			<a href="/yummy"><input type="button" class="btn btn-primary btn-block btn-large"
+				value="go to main"></a> <input type="hidden"
+				name="${_csrf.parameterName}" value="${_csrf.token}">
 		</form>
-			</div>
-			<div id="signup"><a href="/signup">회원 가입</a></div>
-			<div id="naver_id_login"></div>
-			<div id="pwd"><a href="/passwordfind">패스워드 찾기</a> </div>
+		<a href="/signup"><button
+				class="btn btn-primary btn-block btn-large" style="display: inline-block; position: relative; top: -10.5px;">sign up</button></a> <a
+			href="/passwordfind"><button
+				class="btn btn-primary btn-block btn-large" style="display: inline-block; position: relative; top: -5.5px;">find password</button></a>
+		<div id="naver_id_login"></div>
 	</div>
+	<script
+		src='//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js'></script>
+	<script>
+		/* 
 
-<script type="text/javascript">
-	//&svctype=0
-  	var naver_id_login = new naver_id_login("TuceI6ryHcQLt78CA67C", "http://localhost:8080/naverlogin");
-  	var state = naver_id_login.getUniqState();
-  	naver_id_login.setButton("white", 4,50);
-  	naver_id_login.setDomain("http://localhost:8080/yummy");
-  	naver_id_login.setState(state);
-  	/* naver_id_login.setPopup(false); */
-  	naver_id_login.init_naver_id_login();
-  	//window.close();
-  </script>
+		I built this login form to block the front end of most of my freelance wordpress projects during the development stage. 
+
+		This is just the HTML / CSS of it but it uses wordpress's login system. 
+
+		Nice and Simple
+
+		 */
+		//# sourceURL=pen.js
+	</script>
+	<script type="text/javascript">
+		//&svctype=0
+		var naver_id_login = new naver_id_login("TuceI6ryHcQLt78CA67C",
+				"http://localhost:8080/naverlogin");
+		var state = naver_id_login.getUniqState();
+		naver_id_login.setButton("white", 5, 65);
+		naver_id_login.setDomain("http://localhost:8080/yummy");
+		naver_id_login.setState(state);
+		/* naver_id_login.setPopup(false); */
+		naver_id_login.init_naver_id_login();
+		//window.close();
+	</script>
 </body>
 </html>
