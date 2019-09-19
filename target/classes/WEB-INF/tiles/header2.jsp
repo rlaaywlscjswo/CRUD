@@ -74,7 +74,7 @@
                         <!-- Search Form -->
                         <div class="search-hidden-form">
                             <form method="get"
-							action="/projectlist?currPage=${page.startBlock }">
+							action="/projectlist?currPage=${page.startBlock }" autocomplete="off">
                                 <input type="text" name="searchtxt" id="search-anything" id="searchtxt" placeholder="검색하세요!">
                                 <input type="submit" value="" class="d-none">
                                 <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span>
