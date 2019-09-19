@@ -1,75 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:security="http://www.springframework.org/schema/security"
+   xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="passwordEncoder"
-		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-	<bean id="customUserDetailsService"
-		class="com.bitcamp.security.CustomUserDetailsService" />
-	<bean id="customLoginSuccess"
-		class="com.bitcamp.security.CustomLoginSuccessHandler" />
-	<bean id="customAccessDenied"
-		class="com.bitcamp.security.CustomAccessDeniedHandler" />
+   <bean id="passwordEncoder"
+      class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+   <bean id="customUserDetailsService"
+      class="com.bitcamp.security.CustomUserDetailsService" />
+   <bean id="customLoginSuccess"
+      class="com.bitcamp.security.CustomLoginSuccessHandler" />
+   <bean id="customAccessDenied"
+      class="com.bitcamp.security.CustomAccessDeniedHandler" />
 
-	<security:http>
+   <security:http>
         <security:headers>
          <security:frame-options disabled="true"></security:frame-options>
         </security:headers>
-		<!-- 관리자 페이지 -->
-		<security:intercept-url pattern="/fmember"
-			access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/spro"
-			access="hasRole('ROLE_ADMIN')" />
-			
-		<security:intercept-url pattern="/projectresult"
-			access="hasRole('ANONYMOUS')" />
-		
-		<security:intercept-url pattern="/sec_manager"
-			access="hasRole('ROLE_MANAGER')" />
-		<security:intercept-url pattern="/sec_member"
-			access="isAuthenticated()" />  <!-- 인증 된 회원 모두 -->
+      <!-- 관리자 페이지 -->
+      <security:intercept-url pattern="/fmember"
+         access="hasRole('ROLE_ADMIN')" />
+      <security:intercept-url pattern="/spro"
+         access="hasRole('ROLE_ADMIN')" />
+         
+      <security:intercept-url pattern="/projectresult"
+         access="hasRole('ANONYMOUS')" />
+      
+      <security:intercept-url pattern="/sec_manager"
+         access="hasRole('ROLE_MANAGER')" />
+      <security:intercept-url pattern="/sec_member"
+         access="isAuthenticated()" />  <!-- 인증 된 회원 모두 -->
 
-	<!-- 	<security:access-denied-handler
-			ref="customAccessDenied" /> -->
+   <!--    <security:access-denied-handler
+         ref="customAccessDenied" /> -->
 
-		<security:form-login login-page="/sec_login"
-			authentication-success-handler-ref="customLoginSuccess" />
+      <security:form-login login-page="/sec_login"
+         authentication-success-handler-ref="customLoginSuccess" />
 
-		<security:remember-me
-			data-source-ref="dataSource" token-validity-seconds="604800" />
-		<security:logout logout-url="/customLogout"
-			invalidate-session="true" logout-success-url="/yummy"
-			delete-cookies="remember-me, JSESSION_ID" />
-	      <security:csrf request-matcher-ref="csrfMatcher" disabled="true" /> 
-	     <security:csrf/>	
-	      
-	</security:http>
-	<bean id="csrfMatcher" class="org.springframework.security.web.util.matcher.OrRequestMatcher">
-	  <constructor-arg>
-	   <list value-type="org.springframework.security.web.util.matcher.RequestMatcher">
+      <security:remember-me
+         data-source-ref="dataSource" token-validity-seconds="604800" />
+      <security:logout logout-url="/customLogout"
+         invalidate-session="true" logout-success-url="/yummy"
+         delete-cookies="remember-me, JSESSION_ID" />
+         <security:csrf request-matcher-ref="csrfMatcher" disabled="true" /> 
+        <security:csrf/>   
+         
+   </security:http>
+   <bean id="csrfMatcher" class="org.springframework.security.web.util.matcher.OrRequestMatcher">
+     <constructor-arg>
+      <list value-type="org.springframework.security.web.util.matcher.RequestMatcher">
                 <bean class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
                     <constructor-arg name="pattern" value="*.do"/>
                     <constructor-arg name="httpMethod" value="GET"/>
                 </bean>
+                
+                
+                <bean class="org.springframework.security.web.util.matcher.AntPathRequestMatcher">
+                    <constructor-arg name="pattern" value="*/projectresult"/>
+                    <constructor-arg name="httpMethod" value="POST"/>
+                </bean>
         </list>
-	  </constructor-arg>
-		
-	</bean>
-	
+     </constructor-arg>
+      
+   </bean>
    
-	<security:authentication-manager>
+   
+   <security:authentication-manager>
 
-		<security:authentication-provider
-			user-service-ref="customUserDetailsService">
+      <security:authentication-provider
+         user-service-ref="customUserDetailsService">
 
-			<security:password-encoder
-				ref="passwordEncoder" />
+         <security:password-encoder
+            ref="passwordEncoder" />
 
-		</security:authentication-provider>
+      </security:authentication-provider>
 
-	</security:authentication-manager>
+   </security:authentication-manager>
 
 </beans>

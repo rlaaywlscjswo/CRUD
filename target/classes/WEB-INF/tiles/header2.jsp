@@ -67,14 +67,6 @@
                 <!--  Login Register Area -->
                 <div class="col-7 col-sm-6">
                     <div class="signup-search-area d-flex align-items-center justify-content-end">
-                        <div class="login_register_area d-flex">
-                            <div class="login">
-                                <a href="/sec_login">Sing in</a>
-                            </div>
-                            <div class="register">
-                                <a href="/customLogout">Logout</a>
-                            </div>
-                        </div>
                         <!-- Search Button Area -->
                         <div class="search_button">
                             <a class="searchBtn" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
@@ -82,7 +74,7 @@
                         <!-- Search Form -->
                         <div class="search-hidden-form">
                             <form method="get"
-							action="/projectlist?currPage=${page.startBlock }">
+							action="/projectlist?currPage=${page.startBlock }" autocomplete="off">
                                 <input type="text" name="searchtxt" id="search-anything" id="searchtxt" placeholder="검색하세요!">
                                 <input type="submit" value="" class="d-none">
                                 <span class="searchBtn"><i class="fa fa-times" aria-hidden="true"></i></span>
