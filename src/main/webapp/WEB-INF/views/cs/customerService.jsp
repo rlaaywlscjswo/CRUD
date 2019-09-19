@@ -152,73 +152,64 @@
 			</article>
 		</section>
 		<!-- end 자주 하는 질문 -->
+		<h4>회원 Q&A</h4>
+		<ul>
+			<!-- forEach 돌리면 됨 -->
+			<c:forEach var="csList" items="${csList}">
+				<li>
+					<div class="accordion" id="accordionExample">
+						<div class="card">
+							<div class="card-header" id="headingOne">
+								<h2 class="mb-0">
+									<button class="btn btn-link" type="button"
+										data-toggle="collapse" data-target="#${csList.sn}"
+										aria-expanded="true" aria-controls="collapseOne">
 
-
-		<div class="accordion" id="accordionExample">
-			<div class="card">
-				<div class="card-header" id="headingOne">
-					<h2 class="mb-0">
-						<button class="btn btn-link" type="button" data-toggle="collapse"
-							data-target="#collapseOne" aria-expanded="true"
-							aria-controls="collapseOne">제목이랑 기타 등등</button>
-					</h2>
-				</div>
-
-				<div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-					data-parent="#accordionExample">
-					<div class="card-body">여기는 내용
-					
-					<hr>
-					
-					여기는 답변?
-					</div>
-				</div>
-
-			</div>
-		</div>
-
-
-		<section>
-			<!-- 회원 Q&A 목록 -->
-			<article>
-				<ul>
-					<li><h4>회원 Q&A</h4></li>
-					<!-- forEach 돌리면 됨 -->
-					<c:forEach var="csList" items="${csList}">
-						<li>
-							<div>
-								<!-- 질문 영역 -->
-								<div>
-									<!-- 질문 - 제목 영역 -->
-									<span>제목 : ${csList.st}</span> <span>질문자 :
-										${csList.name}</span> <span>공개 여부 : ${csList.ss}</span> <span>질문
-										번호 : ${csList.sn}</span>
-								</div>
-								<div>
-									<!-- 질문 - 내용 영역 -->
-									<p>내용 : ${csList.sc}
-									<p>
-										<!-- <span>수정</span>
-									<span id="deleteQuestion">삭제</span> -->
-								</div>
+										<!-- 질문 - 제목 영역 -->
+										<span>제목 : ${csList.st}</span> <span>질문자 :
+											${csList.name}</span> <span>공개 여부 : ${csList.ss}</span> <span>질문
+											번호 : ${csList.sn}</span>
+									</button>
+								</h2>
 							</div>
-							<p>
-								<!-- 답변 단락 -->
-								<c:set var="reply" value="${csList.sr}" />
-								<c:choose>
-									<c:when test="${reply == null}">
+
+							<div id="${csList.sn}" class="collapse"
+								aria-labelledby="headingOne" data-parent="#accordionExample">
+								<div class="card-body">
+									<!-- 질문 - 내용 영역 -->
+									<c:set value="${csList.ss}" var="ss" />
+									<c:choose>
+										<c:when test="${ss == 1}">비공개 처리 된 질문입니다.</c:when>
+										<c:otherwise>
+											<p>내용 : ${csList.sc}</p>
+
+
+
+											<hr>
+
+											<p>
+												<!-- 답변 단락 -->
+												<c:set var="reply" value="${csList.sr}" />
+												<c:choose>
+													<c:when test="${reply == null}">
 										아직 작성 된 답변이 없습니다.
 									</c:when>
-									<c:otherwise>
+													<c:otherwise>
 										답변 : ${csList.sr}
 									</c:otherwise>
-								</c:choose>
-							</p>
-						</li>
-					</c:forEach>
-				</ul>
-			</article>
-		</section>
+												</c:choose>
+											</p>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</li>
+			</c:forEach>
+		</ul>
+
 		<!-- end 회원 Q&A 목록 -->
 
 		<!-- 페이징 -->
