@@ -23,9 +23,9 @@ $(document).ready(function(){
 		$.ajax({
             method:"POST",
             url:"/emailcheck",
-            beforeSend:function(xhr){
-            	xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-            },
+            beforeSend: function(xhr){
+	             xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+	          },
             data:JSON.stringify({"email":id}),
             contentType:"application/json;charset=UTF-8",
             success:function(data){
@@ -52,9 +52,9 @@ $(document).ready(function(){
 		$.ajax({
 			 method:"POST",
 	         url:"/mailSending",
-	         beforeSend:function(xhr){
-	        	 xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
-	         },
+	         beforeSend: function(xhr){
+	             xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+	          },
 	         data:JSON.stringify({"email":id}),
 	         contentType:"application/json;charset=UTF-8",
 	         success:function(authkey){
