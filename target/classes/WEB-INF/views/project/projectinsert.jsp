@@ -183,7 +183,9 @@ $(function () {
     	$("#category_no").empty();   	
     	var csrfHeaderName="${_csrf.headerName}";
 		var csrfTokenValue="${_csrf.token}";
-       var main_category=$(this).val();       
+       var main_category=$(this).val();     
+       console.log(csrfTokenValue);
+		console.log(csrfHeaderName);
         $.ajax({  
         	method:"GET",
         	dataType: "JSON",        	
@@ -192,7 +194,8 @@ $(function () {
       		beforeSend: function(xhr){
 				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
 			},
-            success:function(data){   
+            success:function(data){  
+            	console.log("ajax1");
             	console.log(data);            	
             	$.each(data,function(i,item){
             		console.log(item.category_no);  
@@ -201,8 +204,11 @@ $(function () {
             		});
             }
         });          
-    });  
+    });   
 
+    
+  
+    
   //옵션 추가 버튼을 눌렀을때 옵션form 추가로 나옴
     var btncount=0; // 추가할때 증가, 삭제할때 감소
     
@@ -247,8 +253,7 @@ $(function () {
     	
     });       
  // sign pad
-    
- var canvas = $("#signature-pad canvas")[0];
+    var canvas = $("#signature-pad canvas")[0];
 		var sign = new SignaturePad(canvas, {
 			minWidth: 2,
 			maxWidth: 4,
@@ -267,18 +272,18 @@ $(function () {
 					var ss = sign.toDataURL(); 
 					var csrfHeaderName="${_csrf.headerName}";
 					var csrfTokenValue="${_csrf.token}";
-					
+					console.log(csrfTokenValue);
+					console.log(csrfHeaderName);
 					$.ajax({
 						url : "/sign",
-						method : "POST",
+						 method : "GET", 
 						dataType : "text",
 						beforeSend: function(xhr){
 							xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
-						},
-						data : {						
-							sign : ss							
-						},
+						},					
+						data: "sign="+ss,
 						success : function(r){
+							console.log("ajax2");
 							console.log(r);
 							alert("저장완료 : " + r);
 							sign.clear();
@@ -290,6 +295,7 @@ $(function () {
 				}
 			}
 		});
+ 
 		
 });			
 </script>
@@ -308,7 +314,7 @@ $(function () {
     
 <div class="tab_container">
  
- <form method="post" action="projectresult" enctype="multipart/form-data">
+ <form method="post" action="/projectresult" enctype="multipart/form-data">
     	<div id="tab1" class="tab_content">       
  			<label for="project_title">프로젝트 제목</label>
  			<div><input type="text" class="form-control input-default" id="project_title" name="project_title" value="고정제목"></div>
@@ -401,11 +407,7 @@ $(function () {
         <!-- #tab3 -->
         
     	<div id="tab4" class="tab_content">
-    	
-    	<!-- <select id="contentoption">
-    	<option>직접 pdf파일 올리기</option>
-    	<option>작성하기</option>
-    	</select> -->
+    >
     	<div id="contentoption1">직접파일올리기</div>
     	<div id="contentoption2">내용작성하기</div>
     	
@@ -420,7 +422,7 @@ $(function () {
     	<div id="gide" style="border: 1px solid; width: 100%; height: 200px; margin: auto;">
 		<h1>작성가이드</h1>
 		</div>
-		<textarea id="summernote" name="summernote"></textarea>
+		 <textarea id="summernote" name="summernote"></textarea> 
 		</div>
 		
 		<div class="btn2" id="btn5"><a href="#" >다음</a></div>		
@@ -449,7 +451,7 @@ $(function () {
     	<!-- <input type="checkbox" name="terms" value="1">약관1<br>
     	<input type="checkbox" name="terms" value="2">약관2<br> -->    	
     	 	
-    	<div id="signature-pad" class="m-signature-pad">
+    	 <div id="signature-pad" class="m-signature-pad">
         <div class="m-signature-pad--body">
             <canvas width="300" height="100"></canvas>
         </div>
@@ -457,15 +459,17 @@ $(function () {
             <button type="button" class="button clear" data-action="clear">지우기</button>
             <button type="button" class="button save" data-action="save">저장</button>            
         </div>
-    	</div>
+    	</div> 
    		
-   		<input type="submit" id="save" value="등록하기">
+    	<input type="submit" id="save" value="등록하기">
+    
     	</div> 
     	<!-- #tab6 -->
     	
     	<!-- 로그인 했으면 이거 넣어줘야 함 -->
-    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">    	
-    
+    	<input type="text" name="${_csrf.parameterName}" value="${_csrf.token}">
+    	
+   	
     <!-- .tab_container -->
     </form>
     </div>
@@ -477,7 +481,7 @@ $(function () {
         placeholder: '작성가이드를 참고해서 작성해보세요!',
         tabsize: 2,
         height: 200
-      });
+      }); 
       
       
        

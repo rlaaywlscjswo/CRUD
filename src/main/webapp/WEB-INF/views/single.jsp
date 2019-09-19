@@ -61,11 +61,16 @@
 
 	//댓글 목록 
 	function commentList() {
+		var csrfHeaderName="${_csrf.headerName}";
+		var csrfTokenValue="${_csrf.token}";
 		$.ajax({
 					url : '/replylist',
 					type : 'post',
 					data : {
 						"project_no" : project_no
+					},
+					beforeSend: function(xhr){
+						xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
 					},
 					success : function(result) {
 						var a = "";
@@ -100,10 +105,15 @@
 
 	//댓글 등록
 	function commentInsert(insertData) {
+		var csrfHeaderName="${_csrf.headerName}";
+		var csrfTokenValue="${_csrf.token}";
 		$.ajax({
 			url : '/replyinsert',
 			type : 'post',
 			data : insertData,
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
 			success : function(data) {
 				if (data == 1) {
 					commentList(); //댓글 작성 후 댓글 목록 reload
@@ -114,7 +124,7 @@
 	}
 
 	//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
-	function commentUpdate(reply_no, reply_contents) {
+	function commentUpdate(reply_no, reply_contents) {		
 		console.log('no:' + reply_no);
 		console.log('contents:' + reply_contents);
 		var a = '';
@@ -129,10 +139,15 @@
 
 	//댓글 수정
 	function commentUpdateProc(reply_no) {
+		var csrfHeaderName="${_csrf.headerName}";
+		var csrfTokenValue="${_csrf.token}";
 		var updateContent = $('[name=reply_contents' + reply_no + ']').val();
 		$.ajax({
 			url : '/replyupdate',
 			type : 'post',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
 			data : {
 				'reply_contents' : updateContent,
 				'reply_no' : reply_no
@@ -146,9 +161,14 @@
 
 	//댓글 삭제 
 	function commentDelete(reply_no) {
+		var csrfHeaderName="${_csrf.headerName}";
+		var csrfTokenValue="${_csrf.token}";
 		$.ajax({
 			url : '/replydelete/' + reply_no,
 			type : 'post',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
 			success : function(data) {
 				alert('삭제하겠습니까?');
 				if (data == 1)
@@ -232,6 +252,7 @@
 		
 
 												<button type="button" name="replyinsertbtn">등록</button>
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 											</form>
 											</sec:authorize>
 											<div class="replylist">
@@ -303,7 +324,8 @@
 																<input type="hidden" name="option_contents" value="${opt.option_contents }">
 																<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
 																<input type="hidden" name="alias" value="${list.alias}">   											
-																<button class="btn btn-primary">후원하기</button>   										
+																<button class="btn btn-primary">후원하기</button>  
+																<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> 										
                                             				</form>                                             
                                         					</div>
                                     						</div>
@@ -363,7 +385,7 @@
 											<input type="hidden" name="alias" value="${list.alias}">   
 											
 											<button class="btn btn-primary">후원하기</button>   
-										
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                                             </form>                                             
                                         </div>
                                     </div>
