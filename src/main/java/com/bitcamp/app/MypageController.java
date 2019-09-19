@@ -70,16 +70,31 @@ public class MypageController {
 		return "/mypage/mypage_info.temp";
 	}
 
-	// 비밀 번호 변경
-	@RequestMapping("adadafdgaa")
-	public @ResponseBody void updatePassword(@RequestParam(required = false, defaultValue = "") String password,
+	// 전화 번호 변경
+	@RequestMapping("updatephone")
+	public @ResponseBody void updatePassword(@RequestParam(required = false, defaultValue = "") String phone,
 			Principal principal) {
 		
 		String email = principal.getName();
+		MemberDTO dto = new MemberDTO();
+		dto.setPhone(phone);
+		System.out.println("컨트롤러 전화 번호 : " + dto.getPhone());
 		
-		// service.updatePassword(email, dto);
+		service.updatePhone(email, dto);
 
 	} // end updatePassword method
+	
+	// 회원 탈퇴
+	@RequestMapping("deleteMember")
+	public @ResponseBody void deleteMember(Principal principal) {
+		
+		String email = principal.getName();
+		System.out.println("탈퇴 전 email check : " + email);
+		
+		service.deleteAuth(email);
+		service.deleteMember(email);
+		
+	} // end deleteMember method
 
 	// 마이 페이지 - 내가 만든 프로젝트
 	@RequestMapping("mypro")

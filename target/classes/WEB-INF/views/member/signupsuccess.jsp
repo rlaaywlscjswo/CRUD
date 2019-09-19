@@ -73,7 +73,7 @@ a:nth-child(2) {
 		<div id="guide"><br><br><br><br>넘나 허전쓰.. 사이트 이용 가이드 넣으면 좋을 듯</div>
 
 		<div id="cong-button">
-			<a href="/sec_login">로그인 하기</a> <a href="/main">메인으로 돌아가기</a>
+			<a href="/sec_login">로그인 하기</a> <a href="/yummy">메인으로 돌아가기</a>
 		</div>
 
 	</div>

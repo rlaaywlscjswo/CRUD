@@ -13,8 +13,15 @@ public interface MypageService {
 	// 프로필사진 수정
 	public String updatePhoto(String email, String photo);
 	
-	// 비밀 번호 수정
-	public int updatePassword(String email, MemberDTO dto);
+	// 전화 번호 수정
+	public int updatePhone(String email, MemberDTO dto);
+	
+	// 권한부터 삭제해주고 
+	
+	public int deleteAuth(String email);
+	
+	// 후에 회원 삭제
+	public int deleteMember(String email);
 	
 	// 마이 페이지 - 내가 만든 프로젝트
 
