@@ -131,8 +131,6 @@
 		</div>
 		<!-- 검색 끝 -->
 
-		<hr>
-
 		<section>
 			<!-- 자주 하는 질문 -->
 			<article>
@@ -155,7 +153,30 @@
 		</section>
 		<!-- end 자주 하는 질문 -->
 
-		<hr>
+
+		<div class="accordion" id="accordionExample">
+			<div class="card">
+				<div class="card-header" id="headingOne">
+					<h2 class="mb-0">
+						<button class="btn btn-link" type="button" data-toggle="collapse"
+							data-target="#collapseOne" aria-expanded="true"
+							aria-controls="collapseOne">제목이랑 기타 등등</button>
+					</h2>
+				</div>
+
+				<div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+					data-parent="#accordionExample">
+					<div class="card-body">여기는 내용
+					
+					<hr>
+					
+					여기는 답변?
+					</div>
+				</div>
+
+			</div>
+		</div>
+
 
 		<section>
 			<!-- 회원 Q&A 목록 -->
@@ -200,30 +221,6 @@
 		</section>
 		<!-- end 회원 Q&A 목록 -->
 
-		<hr>
-
-		<!-- 		<div> 수정 양식
-			<form action="wq" method="get">
-        		<select name="question_no">
-            		<option value="1">회원 관련</option>
-           			<option value="2">사업자 관련</option>
-         		    <option value="3">프로젝트 관련</option>
-            		<option value="4">후원 관련</option>
-          		    <option value="5">배송 관련</option>
-         		    <option value="6">환불 관련</option>
-       			</select>
-        		<label for="service_title"></label>
-        		<input type="text" id="service_title" name="service_title" placeholder="제목을 입력해주세요.">
-        		<label for="service_secret"></label>
-        		<input type="radio" id="service_secret" name="service_secret" value="0">공개
-        		<input type="radio" id="service_secret" name="service_secret" value="1">비공개
-        		<textarea rows="10" cols="40" name="service_contents" placeholder="내용을 입력해주세요."></textarea>
-        		<input type="submit" value="수정 완료">
-        	</form>
-		</div> end 수정 양식
-		
-		<hr> -->
-
 		<!-- 페이징 -->
 		<div class="col-12" id="paging">
 			<div class="pagination-area d-sm-flex mt-15">
@@ -255,8 +252,6 @@
 			</div>
 		</div>
 		<!-- 페이징 끝 -->
-
-		<hr>
 
 		<div>
 			<!-- <a href="#"><span>질문 작성</span></a> -->
