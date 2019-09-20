@@ -18,7 +18,7 @@
         <!-- Single Slide -->
         <div class="welcome-single-slide">
             <!-- Post Thumb -->
-            <img src="http://localhost:8080/resources/img/v.jpg" alt="">
+            <img src="/resources/img/3001.jpg" alt="3001">
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
@@ -26,7 +26,7 @@
                     <a href="#">5 Comment</a>
                 </div>
                 <a href="#">
-                    <h5>재밌는 비디오 게임</h5>
+                    <h5>모바일앱 개발!</h5>
                 </a>
             </div>
         </div>
@@ -34,7 +34,119 @@
         <!-- Single Slide -->
         <div class="welcome-single-slide">
             <!-- Post Thumb -->
-            <img src="/resources/yummy/img/bg-img/slide-2.jpg" alt="">
+            <img src="/resources/img/2002.jpg" alt="2002">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">5 Comment</a>
+                </div>
+                <a href="#">
+                    <h5>재밌는 웹툰!</h5>
+                </a>
+            </div>
+        </div>
+
+        <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="/resources/img/1.jpg" alt="1">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">PC 게임</a>
+                </div>
+                <a href="#">
+                    <h5>PC 게임</h5>
+                </a>
+            </div>
+        </div>
+
+        <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="/resources/img/2001.jpg" alt="2001">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">5 Comment</a>
+                </div>
+                <a href="#">
+                    <h5>만화!</h5>
+                </a>
+            </div>
+        </div>
+
+        <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="/resources/img/4002.jpg" alt="">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">5 Comment</a>
+                </div>
+                <a href="#">
+                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                </a>
+            </div>
+        </div>
+        
+         <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="/resources/img/2003.jpg" alt="">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">5 Comment</a>
+                </div>
+                <a href="#">
+                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                </a>
+            </div>
+        </div>
+        
+         <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="/resources/img/4001.jpg" alt="">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">5 Comment</a>
+                </div>
+                <a href="#">
+                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                </a>
+            </div>
+        </div>
+        
+          <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="http://localhost:8080/resources/img/3.png" alt="">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">5 Comment</a>
+                </div>
+                <a href="#">
+                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                </a>
+            </div>
+        </div>
+        
+         <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="/resources/img/4003.jpg" alt="">
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
@@ -47,10 +159,28 @@
             </div>
         </div>
 
-        <!-- Single Slide -->
+   <!-- Single Slide -->
         <div class="welcome-single-slide">
             <!-- Post Thumb -->
-            <img src="/resources/yummy/img/bg-img/slide-3.jpg" alt="">
+            <img src="/resources/img/2.jpg" alt="">
+            <!-- Overlay Text -->
+            <div class="project_title">
+                <div class="post-date-commnents d-flex">
+                    <a href="#">May 19, 2017</a>
+                    <a href="#">5 Comment</a>
+                </div>
+                <a href="#">
+                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
+                </a>
+            </div>
+        </div>
+        
+         
+        
+           <!-- Single Slide -->
+        <div class="welcome-single-slide">
+            <!-- Post Thumb -->
+            <img src="/resources/img/1001.jpg" alt="">
             <!-- Overlay Text -->
             <div class="project_title">
                 <div class="post-date-commnents d-flex">
@@ -63,37 +193,15 @@
             </div>
         </div>
 
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="/resources/yummy/img/bg-img/slide-4.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
 
-        <!-- Single Slide -->
-        <div class="welcome-single-slide">
-            <!-- Post Thumb -->
-            <img src="/resources/yummy/img/bg-img/slide-4.jpg" alt="">
-            <!-- Overlay Text -->
-            <div class="project_title">
-                <div class="post-date-commnents d-flex">
-                    <a href="#">May 19, 2017</a>
-                    <a href="#">5 Comment</a>
-                </div>
-                <a href="#">
-                    <h5>“I’ve Come and I’m Gone”: A Tribute to Istanbul’s Street</h5>
-                </a>
-            </div>
-        </div>
+
+
+
+
+
+
+
+
 
     </section>
     <!-- ****** Welcome Area End ****** -->
