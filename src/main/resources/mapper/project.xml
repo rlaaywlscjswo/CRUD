@@ -246,7 +246,7 @@
     		
 		on project.project_no = so.project_no
 		join member on project.no = member.no
-		where to_days(enddate) - to_days(now()) > 0
+		where to_days(enddate) - to_days(now()) > 0 and project_status = 1
 		order by project_views desc
 	</select>
 	
@@ -266,7 +266,7 @@
     		
 		on project.project_no = so.project_no
 		join member on project.no = member.no
-		where to_days(now()) - to_days(startdate) <![CDATA[ < ]]> 7 and to_days(enddate) - to_days(now()) > 0
+		where to_days(now()) - to_days(startdate) <![CDATA[ < ]]> 7 and to_days(enddate) - to_days(now()) > 0 and project_status = 1
 		order by startdate desc
 	</select>
 	
@@ -286,7 +286,7 @@
     		
 		on project.project_no = so.project_no
 		join member on project.no = member.no
-		where to_days(enddate) - to_days(now()) > 0 and round(ifnull(ntargetprice, 0), 2) > 95
+		where to_days(enddate) - to_days(now()) > 0 and round(ifnull(ntargetprice, 0), 2) > 95 and project_status = 1
 		group by project.project_no
 	</select>
 	

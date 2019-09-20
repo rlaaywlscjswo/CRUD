@@ -110,10 +110,12 @@ public class ProjectController {
 		System.out.println("카테고리list total : "+totalCount);
 		int pageSize =9;
 		int blockSize = 5;
-		PageDTO page = new PageDTO(currPage, totalCount, pageSize, blockSize);		
+		PageDTO page = new PageDTO(currPage, totalCount, pageSize, blockSize);
+		System.out.println("으어어어어 : " + page.getStartRow());
 		List<ProjectDTO> projectlist = service.projectcategoryList(sub_category, page.getStartRow(), page.getEndRow());
 		model.addAttribute("list", projectlist);	
-		model.addAttribute("page", page);		
+		model.addAttribute("page", page);	
+		model.addAttribute("sub_category", sub_category);
 		return "project/projectcategorylist.temp";
 	}
 	
