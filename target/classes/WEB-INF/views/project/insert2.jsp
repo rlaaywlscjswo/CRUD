@@ -587,12 +587,11 @@ $(function () {
             <button type="button" class="button save" data-action="save">저장</button>            
         </div>
     	</div>   
-    		<a href="#" id="insert">등록</a>
-   		  <!-- <input type="submit" value="등록"> -->
+    		 <a href="#" id="insert" >체크체크</a> 
+   		   <input type="submit" value="등록" style="position: relative; left: 50px;"> 
     	</div> 
     	<!-- #tab3 -->  
      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-  
     </form>
     </div>
     <!-- #container -->
