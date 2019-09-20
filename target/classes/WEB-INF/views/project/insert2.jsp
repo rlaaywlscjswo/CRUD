@@ -13,8 +13,8 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script> 
-<link href="http://localhost:8080/resources/css/css.css" rel="stylesheet">
-<script src="http://localhost:8080/resources/js/signature_pad.min.js"></script>
+<link href="/resources/css/css.css" rel="stylesheet">
+<script src="/resources/js/signature_pad.min.js"></script>
 
 <style type="text/css">
 /* ul.tabs {
