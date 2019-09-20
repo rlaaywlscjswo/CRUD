@@ -114,7 +114,6 @@ $(document).ready(function(){
 	$('body').on('click', "#next3", function(){
 		if(pwd1.val() == pwd2.val() && pawd1.val() != ""){
 			$('form').submit();
-			//location.href="/passwordupdate?email="+$('#email').val()+"&password="+$('#password').val(); 
 		}
 	});
 });

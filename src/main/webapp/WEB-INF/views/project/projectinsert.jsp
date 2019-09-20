@@ -94,6 +94,10 @@ text-align: center;
 .bg-dark{
 margin-top: 800px;  
 }
+
+#modalbtn{
+	display: none;
+}
 </style>
 <script type="text/javascript">
 $(function () {
@@ -111,15 +115,66 @@ $(function () {
         var activeTab = $(this).attr("rel");
         $("#" + activeTab).fadeIn()
     });    
+    // (1) 기본 정보
+    let project_title = $('#project_title').val();				// 프로젝트 제목
+    let main_category = $('#main_category').val();				// 대분류
+    let category_no = $('#category_no').val();					// 소분류
+    let project_photo_file = $('#project_photo_file').val();	// 프로젝트 대표사진
+    let targetprice = $('#targetprice').val();					// 목표 금액
+    let startdate = $('#startdate').val();						// 시작 날짜
+    let enddate = $('#enddate').val();							// 종료 날짜
+    
+    
+    // 다음눌렀을때 다음탭으로 이동!
+    $('#btn2').on('click',function(){
+    	if(project_title == '' || project_title == null){
+    		$("#exampleModalCenterTitle").text("프로젝트 제목을 입력하세요.");
+    		$("#modalbtn").trigger("click");
+    	} else if(main_category == '' || main_category == null) {
+    		$("#exampleModalCenterTitle").text("대분류를 선택 해주세요.");
+    		$("#modalbtn").trigger("click");
+    	} else if(category_no == '' || category_no == null) {
+    		$("#exampleModalCenterTitle").text("소분류를 선택 해주세요.");
+    		$("#modalbtn").trigger("click");
+    	} else if(project_photo_file == '' || project_photo_file == null){
+    		$("#exampleModalCenterTitle").text("프로젝트 대표사진을 업로드 해주세요.");
+    		$("#modalbtn").trigger("click");
+    	} else if(targetprice == '' || targetprice =< 1000000) {
+    		$("#exampleModalCenterTitle").text("목표금액을 입력해주세요. (최소 금액 100만원 이상)");
+    		$("#modalbtn").trigger("click");
+    	} else if(startdate == '' || startdate == null) {
+    		$("#exampleModalCenterTitle").text("시작 날짜를 입력해주세요.");
+    		$("#modalbtn").trigger("click");
+    	} else if(enddate == '' || enddate == null) {
+    		$("#exampleModalCenterTitle").text("종료 날짜를 입력해주세요.");
+    		$("#modalbtn").trigger("click");
+    	} else {
+    		$("ul.tabs li").removeClass("active").css("color", "#333")
+            $("ul.tabs li:eq(1)").addClass("active").css("color", "darkred")  	
+            $('.tab_content').hide()
+            $('.tab_content:eq(1)').show()    		
+    	}
+    });
+    
+    
+    // (2) 사업자 정보
+    let business_name = $('#business_name').val();				// 사업자명
+    let business_no = $('#business_no').val();					// 사업자 번호
+    let business_division = $('input[name="business_division"]:checked').val(); // 사업자 구분
+    let business_addr = $('#business_addr').val();				// 소재지
+    let business_startdate = $('#business_startdate').val();	// 법인설립연월일
+    let business_url = $('#business_url').val();				// 홈페이지 주소
+    
+    // (3) 창작자 정보
+    let alias = $('#alias').val();								// 창작자 이름
+    let img_file = $('#img_file').val();						// 창작자 프로필 사진
+    let introduce = $('#introduce').text();						// 창작자 소개
+    
+    // (4) 프로젝트 설명
+    let project_contents_file = $('#project_contents_file').val(); // 파일올릴때
+    let note-editable = $('.note-editable p').text(); // 써머노트
     
   
-    // 다음눌렀을때 다음탭으로 이동!
-    $('#btn2').on('click',function(){    	
- 			$("ul.tabs li").removeClass("active").css("color", "#333")
-        	$("ul.tabs li:eq(1)").addClass("active").css("color", "darkred")  	
-        	$('.tab_content').hide()
-        	$('.tab_content:eq(1)').show()
-    });
     
     $('#btn3').on('click',function(){
     	$("ul.tabs li").removeClass("active").css("color", "#333")
@@ -449,15 +504,30 @@ $(function () {
     <!-- #container -->
  </div>
  
+ 
+ <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span id="close" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-outline-primary btn-primary" data-dismiss="modal">확인</button>        
+      </div>
+    </div>
+  </div>
+</div>
+<button type="button" id="modalbtn" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">모달 창</button>
 <script>
       $('#summernote').summernote({
         placeholder: '작성가이드를 참고해서 작성해보세요!',
         tabsize: 2,
         height: 200
       }); 
-      
-      
-       
 </script>
 
 </body>
