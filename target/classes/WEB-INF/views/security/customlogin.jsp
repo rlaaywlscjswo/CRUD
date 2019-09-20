@@ -1,3 +1,9 @@
+<%@page import="java.util.Enumeration"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
@@ -5,11 +11,6 @@
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-<!DOCTYPE html>
-<html lang='en' class=''>
-<head>
 <script
 	src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script>
 <script
@@ -223,6 +224,9 @@ input:focus {
 	box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4), 0 1px 1px
 		rgba(255, 255, 255, 0.2);
 }
+.main{
+	margin-bottom: 15px;
+}
 </style>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 <meta http-equiv="Cache-Control"
@@ -241,7 +245,7 @@ input:focus {
 	$(document).ready(function() {
 		let email = "${email}";
 		if (email != "") {
-			console.log("이프문");
+			console.log("ì´íë¬¸");
 			$('#username').val(email);
 		}
 	});
@@ -249,24 +253,23 @@ input:focus {
 </head>
 <body>
 	<div class="login">
-		<h1>Login</h1>
+		<h1>로그인</h1>
 		<form method="post" action="/login">
 			<label for="username"></label> <input type="text" name="username"
-				id="username" placeholder="Username" /> <label
+				id="username" placeholder="이메일" /> <label
 				for="password"></label> <input type="password" name="password"
-				id="password" placeholder="Password" /> <input
+				id="password" placeholder="비밀번호" /> <input
 				type="checkbox" name="remember-me" checked="checked"
-				style="display: inline-block; left: 54%; margin-left: 0px; position: relative; width: 10px;"> <span style="color: #fff; display: inline-block; left:55%; position: relative;">remember me</span>
-			<button type="submit" class="btn btn-primary btn-block btn-large" style="margin-bottom: 5px;">sign
-				in</button>
-			<a href="/yummy"><input type="button" class="btn btn-primary btn-block btn-large"
-				value="go to main"></a> <input type="hidden"
+				style="display: inline-block; left: 54%; margin-left: 0px; position: relative; width: 10px;"> <span style="color: #fff; display: inline-block; left:55%; position: relative;">로그인 유지하기</span>
+			<button type="submit" class="btn btn-primary btn-block btn-large" style="margin-bottom: 5px;">로그인</button>
+			<a href="/yummy"><input type="button" class="btn btn-primary btn-block btn-large main"
+				value="메인으로"></a> <input type="hidden"
 				name="${_csrf.parameterName}" value="${_csrf.token}">
 		</form>
 		<a href="/signup"><button
-				class="btn btn-primary btn-block btn-large" style="display: inline-block; position: relative; top: -10.5px;">sign up</button></a> <a
+				class="btn btn-primary btn-block btn-large" style="display: inline-block; position: relative; top: -10.5px;">회원가입</button></a> <a
 			href="/passwordfind"><button
-				class="btn btn-primary btn-block btn-large" style="display: inline-block; position: relative; top: -5.5px;">find password</button></a>
+				class="btn btn-primary btn-block btn-large" style="display: inline-block; position: relative; top: -5.5px;">비밀번호 찾기</button></a>
 		<div id="naver_id_login"></div>
 	</div>
 	<script

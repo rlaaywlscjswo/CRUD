@@ -6,6 +6,7 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">
 #c{
 	width: 60px;
@@ -14,6 +15,13 @@
     right: 5px;
 }
 </style>
+<script>
+$(document).ready(function(){
+	$('#logout').on('click', function() {
+		document.logout.submit();
+	});
+});
+</script>
 </head>
 <body>
 <!-- Background Pattern Swither -->
@@ -62,10 +70,9 @@
                         <a href="/sec_login">로그인</a>
                         </sec:authorize>
                         <sec:authorize access="isAuthenticated()">
-                        <!-- <a href="/customLogout">로그아웃</a> -->
-                        <form action="/customLogout" method="post">
+						<a href="#" id="logout">로그아웃</a>
+                        <form action="/customLogout" name="logout" method="post">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-							<button>로그아웃</button>
 						</form>
                         </sec:authorize>
                     </div>
