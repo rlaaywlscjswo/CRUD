@@ -142,6 +142,9 @@
 			
 			$('.close').on('click', function() {
 				$('#myModal').css('display', 'none');
+				$('html, body').css({'overflow': 'auto', 'height': '100%'}); 
+				//scroll hidden 해제
+				$('#element').off('scroll touchmove mousewheel');
 			}); // end 모달 창 닫기 버튼 클릭 시
 			
 /* 			$(document).on('click', function(event) {				

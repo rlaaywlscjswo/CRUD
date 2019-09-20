@@ -27,14 +27,17 @@
 	margin: 15% auto; /* 15% from the top and centered */
 	padding: 20px;
 	border: 1px solid #888;
-	width: 50%; /* Could be more or less, depending on screen size */
+	width: 30%; /* Could be more or less, depending on screen size */
 }
 /* The Close Button */
 .close {
 	color: #aaa;
+	display: inline-block;
 	float: right;
 	font-size: 28px;
 	font-weight: bold;
+	left: 93%;
+	position: relative;
 }
 
 .close:hover, .close:focus {
@@ -70,6 +73,21 @@
 	position: relative;
 	top: -20px;
 }
+
+h4 {
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+
+h5 {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+textarea {
+	display: inline-block;
+	position: relative;
+}
 </style>
 <script>
 	window.onload = function() {
@@ -101,18 +119,15 @@
 		}
 
 	}; // end javaScript
-
-	/* jQuery.noConflict();
-	 jQuery(document).ready(function($) {
-	
-	 $('#deleteQuestion').on('click', function(service_no) {
-	
-	 alert('아 왜!!');
-	 $(location).attr('href' ,'dq');
-	
-	 }); // end on
-	
-	 }); // end ready */
+</script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+	jQuery.noConflict();
+	jQuery(document).ready(function($) {
+		
+		$('.modal-content').children('form').find('input').css('margin-bottom', '10px');
+		
+	}); // end ready
 </script>
 </head>
 <body>
@@ -136,24 +151,65 @@
 			<article>
 				<ul>
 					<li><h4>자주 하는 질문 목록</h4></li>
-					<li>
-						<h5>자주하는 질문 1</h5>
-						<p>답변</p>
-					</li>
-					<li>
-						<h5>자주하는 질문 2</h5>
-						<p>답변</p>
-					</li>
-					<li>
-						<h5>자주하는 질문 1</h5>
-						<p>답변</p>
-					</li>
+					<li><div class="accordion" id="accordionExample">
+							<div class="card">
+								<div class="card-header" id="headingOne">
+									<h5>크라우드펀딩이란 무엇인가요?</h5>
+								</div>
+
+								<div id="collapseOne" class="c" aria-labelledby="headingOne"
+									data-parent="#accordionExample">
+									<div class="card-body">
+										<p>
+											크라우드펀딩(crowdfunding) 은 소셜 네트워크 서비스를 이용해 소규모 후원을 받거나 투자 등의
+											목적으로 인터넷과 같은 플랫폼을 통해 다수의 개인들로부터 자금을 모으는 행위입니다. <br> 주로
+											자선활동, 이벤트 개최, 상품 개발 등을 목적으로 자금을 모집합니다. <br> 투자 방식 및 목적에
+											따라 지분 투자, 대출, 보상, 후원 등으로 분류할 수 있습니다.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div></li>
+					<li><div class="accordion" id="accordionExample">
+							<div class="card">
+								<div class="card-header" id="headingOne">
+									<h5>두 번째 질문은 무엇인가요?</h5>
+								</div>
+
+								<div id="collapseOne" class="c" aria-labelledby="headingOne"
+									data-parent="#accordionExample">
+									<div class="card-body">
+										<p>
+											두 번째 답변입니다.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div></li>
+					<li><div class="accordion" id="accordionExample">
+							<div class="card">
+								<div class="card-header" id="headingOne">
+									<h5>세 번째 질문은 무엇인가요?</h5>
+								</div>
+
+								<div id="collapseOne" class="c" aria-labelledby="headingOne"
+									data-parent="#accordionExample">
+									<div class="card-body">
+										<p>
+											세 번째 답변입니다.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div></li>
 				</ul>
 			</article>
 		</section>
 		<!-- end 자주 하는 질문 -->
-		<h4>회원 Q&A</h4>
+
+
 		<ul>
+			<li><h4>회원 Q&A</h4></li>
 			<!-- forEach 돌리면 됨 -->
 			<c:forEach var="csList" items="${csList}">
 				<li>
@@ -259,7 +315,7 @@
 
 
 					<form action="wq" method="get">
-						<select name="question_no">
+						<select name="question_no"  class="custom-select custom-select-sm">
 							<option value="1">회원 관련</option>
 							<option value="2">사업자 관련</option>
 							<option value="3">프로젝트 관련</option>
@@ -267,13 +323,13 @@
 							<option value="5">배송 관련</option>
 							<option value="6">환불 관련</option>
 						</select> <label for="service_title"></label> <input type="text"
-							id="service_title" name="service_title" placeholder="제목을 입력해주세요.">
-						<label for="service_secret"></label> <input type="radio"
+							id="service_title" name="service_title" placeholder="제목을 입력해주세요." class="form-control form-control-sm" style="display: inline-block; width: 300px;">
+						<br><label for="service_secret"></label> <input type="radio"
 							id="service_secret" name="service_secret" value="0">공개 <input
 							type="radio" id="service_secret" name="service_secret" value="1">비공개
-						<textarea rows="10" cols="40" name="service_contents"
+						<br><textarea rows="10" cols="40" name="service_contents"
 							placeholder="내용을 입력해주세요."></textarea>
-						<input type="submit" value="작성 완료">
+						<input type="submit" value="작성 완료" class="btn btn-primary">
 					</form>
 
 				</div>

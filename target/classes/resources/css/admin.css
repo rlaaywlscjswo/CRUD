@@ -25,9 +25,12 @@
 /* The Close Button */
 .close {
 	color: #aaa;
+	display: inline-block;
 	float: right;
 	font-size: 28px;
 	font-weight: bold;
+	left: 93%;
+	position: relative;
 }
 
 .close:hover, .close:focus {

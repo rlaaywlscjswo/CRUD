@@ -51,6 +51,7 @@ public interface MemberMapper {
 	public int sentcount(HashMap<String, Object> map);
 	public String memberpwd(String email);
 	public int passwordupdate(MemberDTO dto);
+	public int memberAddresult(MemberDTO dto);
 	
 	
 }

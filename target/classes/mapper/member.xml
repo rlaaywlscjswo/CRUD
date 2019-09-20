@@ -31,6 +31,9 @@
 			values(#{email}, #{name}, #{password}, #{birth})
 		</if>
 	</insert>
+	<select id="memberAddresult" parameterType="com.bitcamp.dto.MemberDTO" resultType="int">
+		select no from member where email = #{email} 
+	</select>
 	
 	<select id="address" parameterType="int" resultType="com.bitcamp.dto.AddressDTO">
 		select * from address where no = #{no} and default_addr = 1

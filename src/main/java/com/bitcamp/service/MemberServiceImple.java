@@ -37,9 +37,10 @@ public class MemberServiceImple implements MemberService {
 		String changePassword = encoder.encode(dto.getPassword());
 		dto.setPassword(changePassword);
 		
-		dto.setNo(mapper.maxno());
+		//dto.setNo(mapper.maxno());
 		int result = 0;
 		if(mapper.memberAdd(dto) == 1) {
+			dto.setNo(mapper.memberAddresult(dto));
 			result = mapper.grantedAuth(dto);
 		} else {
 			System.out.println("가입 실패 ㅜㅜ");
