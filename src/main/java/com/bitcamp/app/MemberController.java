@@ -170,6 +170,11 @@ public class MemberController {
 		return "/member/signupsuccess";
 	}
 	
+	@RequestMapping("/uhuhuh")
+	public String uhuhuh() {
+		return "/member/signupsuccess";
+	} // 테스트용
+	
 	@RequestMapping(value = "/passwordupdate", method=RequestMethod.POST)
 	public String passwordupdate(MemberDTO dto, @RequestParam(value="auth", required=false) String auth, @RequestParam(value="confirmPassword", required=false) String confirmPassword) {
 		memberService.passwordupdate(dto);
