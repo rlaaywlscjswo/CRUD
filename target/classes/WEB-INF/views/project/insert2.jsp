@@ -30,6 +30,10 @@
     position: relative;
     left: 300px;
 } */
+#insert{
+position: relative;
+top: 50px;
+}
 ul.tabs li {
     float: left;
     text-align:center;

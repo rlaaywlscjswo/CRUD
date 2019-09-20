@@ -160,10 +160,7 @@ $(document).ready(function(){
                                         <a class="dropdown-item" href="/projectcategorylist=일본">일본</a>
                                         <a class="dropdown-item" href="/projectcategorylist=프랑스">프랑스</a>     
                                     </div>
-                                </li> 
-                               <li class="nav-item">
-                                    <a class="nav-link" href="archive.html">일단 살려둠</a>
-                                </li>                                
+                                </li>                                                             
                             </ul>
                         </div>
                     </nav>

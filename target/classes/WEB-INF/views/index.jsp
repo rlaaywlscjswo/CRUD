@@ -47,7 +47,7 @@
 
 		<div class="welcome-single-slide">
 			<!-- Post Thumb -->
-			<img src="http://localhost:8080/resources/img/3.png" alt="3">
+			<img src="/resources/img/3.jpg" alt="3">
 			<!-- Overlay Text -->
 			<div class="project_title">
 				<div class="post-date-commnents d-flex">
