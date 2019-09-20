@@ -1,5 +1,7 @@
 package com.bitcamp.app;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,7 +48,7 @@ public class SecurityController {
 	} // end memberPage method
 
 	@RequestMapping(value = "/sec_login", method = {RequestMethod.POST, RequestMethod.GET})
-	public String customLogin(@RequestParam(value="email", required=false) String email, Model model) {
+	public String customLogin(@RequestParam(value="email", required=false) String email, Model model, HttpServletRequest request) {
 		model.addAttribute("email", email);
 		return "/security/customlogin";
 
