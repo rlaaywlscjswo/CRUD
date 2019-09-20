@@ -180,6 +180,7 @@ public class MemberController {
 	public @ResponseBody int eamilcheck(@RequestBody Map<String, String> email) {
 		System.out.println("check....");
 		String e=email.get("email");
+		System.out.println(email);
 		int result  = memberService.emailCheck(e);
 		System.out.println("result..."+result);
 		return result;

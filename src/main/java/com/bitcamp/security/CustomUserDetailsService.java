@@ -19,9 +19,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-		System.out.println("★CustomUserDetailsService★");
 		MemberDTO dto = mapper.getUserById(email);
-		System.out.println(dto);
+		System.out.println("★CustomUserDetailsService★ : " + email);
 		
 		if (dto == null) {
 			throw new UsernameNotFoundException(email);

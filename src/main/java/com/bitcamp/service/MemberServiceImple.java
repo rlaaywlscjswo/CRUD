@@ -38,10 +38,13 @@ public class MemberServiceImple implements MemberService {
 		dto.setPassword(changePassword);
 		
 		dto.setNo(mapper.maxno());
-		
-		mapper.memberAdd(dto);
-		
-		return mapper.grantedAuth(dto);
+		int result = 0;
+		if(mapper.memberAdd(dto) == 1) {
+			result = mapper.grantedAuth(dto);
+		} else {
+			System.out.println("가입 실패 ㅜㅜ");
+		}
+		return result;
 	}
 
 	@Override

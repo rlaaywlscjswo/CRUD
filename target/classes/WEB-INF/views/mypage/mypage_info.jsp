@@ -40,7 +40,7 @@
 				data: "email=" + email,
 				success: function(data) {
 					if (data == 1) {
-						console(data);
+						// console(data);
 						$('form').next().submit();
 					} else {
 						alert('바보');
