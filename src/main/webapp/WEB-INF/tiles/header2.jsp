@@ -17,12 +17,14 @@
 </head>
 <body>
 <!-- Background Pattern Swither -->
+    <sec:authorize access="isAuthenticated()">
     <div id="pattern-switcher">
     <a href="/projectinsert">프로젝트 등록</a>
     </div>
     <div id="patter-close">
         <i class="fa fa-times" aria-hidden="true"></i>
     </div>
+    </sec:authorize>
 <!-- ****** Top Header Area Start ****** -->
     <div class="top_header_area">
         <div class="container">
