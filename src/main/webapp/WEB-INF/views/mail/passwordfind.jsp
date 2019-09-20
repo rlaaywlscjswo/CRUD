@@ -16,6 +16,7 @@ function mailkey(anthkey)
 
 $(document).ready(function(){
 	$('#next').on('click', function() {
+		console.log('test');
 		id = document.getElementById("userId").value;
 		var csrfHeaderName = "${_csrf.headerName}";
 		var csrfTokenValue = "${_csrf.token}";
@@ -39,7 +40,7 @@ $(document).ready(function(){
                 	s.eq(0).attr('class', '');
                 	s.eq(1).attr('class', 'on');
                 	$('#mailauth').css("display", "");
-                	$('.btn_area').empty().append('<a  href="#" id="next2" class="btn_next2">');
+                	$('.btn_area').empty().append('<input type="button" id="next2" class="btn btn-primary" style="cursor:pointer" value="다음">');
                 	$('#email').val(id);
                 }
             }
@@ -47,6 +48,8 @@ $(document).ready(function(){
 	}); //next
 	
 	$('#btnEmailAuthNo').on('click', function(){
+		$(this).css('cursor', 'wait');
+		$('body, input, p, span').css('cursor', 'wait');
 		var csrfHeaderName = "${_csrf.headerName}";
 		var csrfTokenValue = "${_csrf.token}";
 		$.ajax({
@@ -54,10 +57,13 @@ $(document).ready(function(){
 	         url:"/mailSending",
 	         beforeSend: function(xhr){
 	             xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
-	          },
+	         },
 	         data:JSON.stringify({"email":id}),
 	         contentType:"application/json;charset=UTF-8",
 	         success:function(authkey){
+	        	 $('#btnEmailAuthNo').css('cursor', '');
+	        	 $('body, input, p, span').css('cursor', '');
+	        	 $('#next2').css('cursor', 'pointer');
 	        	 alert(id+" 으로 정상적으로 인증키를 발송하였습니다."+ " "+authkey);
 	        	 mailkey(authkey);
 	    	}
@@ -73,14 +79,17 @@ $(document).ready(function(){
 	});
 	
 	$('body').on('click', "#next2", function(){
-		if(key == $('#auth').val()){
+		let auth = $('#auth').val();
+		if(key == auth && auth != ""){
 			$('#mailauth').css("display", "none");
         	let s = $('.process').children();
         	s.eq(1).attr('class', '');
         	s.eq(2).attr('class', 'on');
         	$('#passworddiv').css("display", "");
-        	$('.btn_area').empty().append('<a  href="#" id="next3" class="btn_next2">');
+        	$('.btn_area').empty().append('<input type="button" id="next3" class="btn btn-primary" style="cursor:pointer" value="다음">');
         	console.log($('#email').val(id));
+		} else {
+			$('#cl').empty().append('<img alt="cy" src="/resources/img/cancel.png">');
 		}
 	});
 	
@@ -103,7 +112,7 @@ $(document).ready(function(){
 	});
 	
 	$('body').on('click', "#next3", function(){
-		if(pwd1.val() == pwd2.val()){
+		if(pwd1.val() == pwd2.val() && pawd1.val() != ""){
 			$('form').submit();
 			//location.href="/passwordupdate?email="+$('#email').val()+"&password="+$('#password').val(); 
 		}
@@ -148,7 +157,7 @@ $(document).ready(function(){
 						</div>
 						<div id="passworddiv" style="display: none">
 							<ul>
-								<li><input type="password" id="password" name="password" placeholder="변경할 비밀번호 8자리를 입력해주세요." class="password" required="required" minlength="8"></li>
+								<li><input type="password" id="password" name="password" placeholder="비밀번호 8자리를 입력해주세요." class="password" required="required" minlength="8"></li>
 								<li><input type="password" id="confirmPassword" name="confirmPassword" placeholder="다시 입력해주세요." class="password" required="required"  minlength="8"><span id="pwd"></span> </li>
 							</ul>
 						</div>
@@ -156,7 +165,8 @@ $(document).ready(function(){
 						</form>
 					</div>
 					<div class="btn_area">
-						<a href="#" id="next" class="btn_next2"><span class="blind">다음</span></a>
+						<input type="button" id="next" class="btn btn-primary" style="cursor:pointer"value="다음">
+						<!-- <a href="#" id="next" class="btn btn-primary"><span class="blind">다음</span></a> --> <!-- btn_next2 -->
 					</div>
 				</div>
 			</div>
