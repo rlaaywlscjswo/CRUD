@@ -39,13 +39,20 @@
 				url: "deleteMember",
 				data: "email=" + email,
 				success: function(data) {
-					alert('안녕.. 흑흑..');
-					location.reload();
+					if (data == 1) {
+						console(data);
+						$('form').next().submit();
+					} else {
+						alert('바보');
+					}
+					
 				}, error: function(data) {
-					alert('ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 탈퇴 실패 ㅋㅋㅋㅋ 못 벗어남');
+					alert('ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 탈퇴 실패 ㅋㅋㅋㅋ 못 벗어남' + data);
 				}
 			}); // end ajax
 		}); // end on
+		
+		
 		
 	}); // end ready
 </script>
@@ -97,7 +104,12 @@ $(function () {
 			<input type="button" class="btn btn-primary" value="전화 번호 수정">
 			<input type="button" class="btn btn-primary" value="회원 탈퇴" style="display: inline-block; left: 30%; position: relative;">
 		</form>
+		
+		 <form action="/customLogout" method="post" id="logoutbtn">
+			<input type="text" name="${_csrf.parameterName}" value="${_csrf.token}">
+		</form>
 	</div>
+	
 
 
 	

@@ -60,7 +60,11 @@
                         <a href="/sec_login">로그인</a>
                         </sec:authorize>
                         <sec:authorize access="isAuthenticated()">
-                        <a href="/customLogout">로그아웃</a>
+                        <!-- <a href="/customLogout">로그아웃</a> -->
+                        <form action="/customLogout" method="post">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+							<button>로그아웃</button>
+						</form>
                         </sec:authorize>
                     </div>
                 </div>

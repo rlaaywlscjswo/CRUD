@@ -86,13 +86,14 @@ public class MypageController {
 	
 	// 회원 탈퇴
 	@RequestMapping("deleteMember")
-	public @ResponseBody void deleteMember(Principal principal) {
+	public @ResponseBody int deleteMember(Principal principal) {
 		
 		String email = principal.getName();
 		System.out.println("탈퇴 전 email check : " + email);
 		
 		service.deleteAuth(email);
-		service.deleteMember(email);
+		
+		return service.deleteMember(email);
 		
 	} // end deleteMember method
 
