@@ -115,64 +115,65 @@ $(function () {
         var activeTab = $(this).attr("rel");
         $("#" + activeTab).fadeIn()
     });    
-    // (1) 기본 정보
-    let project_title = $('#project_title').val();				// 프로젝트 제목
-    let main_category = $('#main_category').val();				// 대분류
-    let category_no = $('#category_no').val();					// 소분류
-    let project_photo_file = $('#project_photo_file').val();	// 프로젝트 대표사진
-    let targetprice = $('#targetprice').val();					// 목표 금액
-    let startdate = $('#startdate').val();						// 시작 날짜
-    let enddate = $('#enddate').val();							// 종료 날짜
     
-    
-    // 다음눌렀을때 다음탭으로 이동!
-    $('#btn2').on('click',function(){
+    function defaultinfo() {
+    	 // (1) 기본 정보
+	    let project_title = $('#project_title').val();				// 프로젝트 제목
+	    let main_category = $('#main_category').val();				// 대분류
+	    let category_no = $('#category_no').val();					// 소분류
+	    let project_photo_file = $('#project_photo_file').val();	// 프로젝트 대표사진
+	    let targetprice = $('#targetprice').val();					// 목표 금액
+	    let startdate = $('#startdate').val();						// 시작 날짜
+	    let enddate = $('#enddate').val();							// 종료 날짜
+	    
+    	console.log("project_title : "+project_title);
+    	console.log("main_category : "+main_category);
+    	console.log("category_no : "+category_no);
+    	console.log("project_photo_file : "+project_photo_file);
+    	console.log("targetprice : "+targetprice);
+    	console.log("startdate : "+startdate);
+    	console.log("enddate : "+enddate);
     	if(project_title == '' || project_title == null){
     		$("#exampleModalCenterTitle").text("프로젝트 제목을 입력하세요.");
     		$("#modalbtn").trigger("click");
+    		return;
     	} else if(main_category == '' || main_category == null) {
     		$("#exampleModalCenterTitle").text("대분류를 선택 해주세요.");
     		$("#modalbtn").trigger("click");
+    		return;
     	} else if(category_no == '' || category_no == null) {
     		$("#exampleModalCenterTitle").text("소분류를 선택 해주세요.");
     		$("#modalbtn").trigger("click");
+    		return;
     	} else if(project_photo_file == '' || project_photo_file == null){
     		$("#exampleModalCenterTitle").text("프로젝트 대표사진을 업로드 해주세요.");
     		$("#modalbtn").trigger("click");
-    	} else if(targetprice == '' || targetprice =< 1000000) {
+    		return;
+    	} else if(targetprice == '' || targetprice <= 1000000) {
     		$("#exampleModalCenterTitle").text("목표금액을 입력해주세요. (최소 금액 100만원 이상)");
     		$("#modalbtn").trigger("click");
+    		return;
     	} else if(startdate == '' || startdate == null) {
     		$("#exampleModalCenterTitle").text("시작 날짜를 입력해주세요.");
     		$("#modalbtn").trigger("click");
+    		return;
     	} else if(enddate == '' || enddate == null) {
     		$("#exampleModalCenterTitle").text("종료 날짜를 입력해주세요.");
     		$("#modalbtn").trigger("click");
-    	} else {
-    		$("ul.tabs li").removeClass("active").css("color", "#333")
+    		return;
+    	}
+	}
+    
+    // 다음눌렀을때 다음탭으로 이동!
+    $('#btn2').on('click',function(){
+    	defaultinfo();
+    		/* $("ul.tabs li").removeClass("active").css("color", "#333")
             $("ul.tabs li:eq(1)").addClass("active").css("color", "darkred")  	
             $('.tab_content').hide()
-            $('.tab_content:eq(1)').show()    		
-    	}
+            $('.tab_content:eq(1)').show() */    		
     });
     
     
-    // (2) 사업자 정보
-    let business_name = $('#business_name').val();				// 사업자명
-    let business_no = $('#business_no').val();					// 사업자 번호
-    let business_division = $('input[name="business_division"]:checked').val(); // 사업자 구분
-    let business_addr = $('#business_addr').val();				// 소재지
-    let business_startdate = $('#business_startdate').val();	// 법인설립연월일
-    let business_url = $('#business_url').val();				// 홈페이지 주소
-    
-    // (3) 창작자 정보
-    let alias = $('#alias').val();								// 창작자 이름
-    let img_file = $('#img_file').val();						// 창작자 프로필 사진
-    let introduce = $('#introduce').text();						// 창작자 소개
-    
-    // (4) 프로젝트 설명
-    let project_contents_file = $('#project_contents_file').val(); // 파일올릴때
-    let note-editable = $('.note-editable p').text(); // 써머노트
     
   
     
