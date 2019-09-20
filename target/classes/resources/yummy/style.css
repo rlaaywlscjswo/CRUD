@@ -250,9 +250,7 @@ li {
     margin: 0;
 }
 
-.font-shadow-into-light {
-    font-family: 'Shadows Into Light Two', cursive !important;
-}
+
 
 .yummy-table {
     display: table;
@@ -909,6 +907,7 @@ li {
     width: 200px;
     margin: auto;
     border-radius: 50%;
+    border: 1px solid #ADDCAF;
 }
 
 .about-me-widget h4 {
