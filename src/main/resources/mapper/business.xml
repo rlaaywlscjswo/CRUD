@@ -5,8 +5,8 @@
 <mapper namespace="com.bitcamp.mapper.BusinessMapper">
 <insert id="businessInsert" parameterType="com.bitcamp.dto.BusinessDTO">
 insert into business (
-business_name,business_division,business_addr,business_startdate,business_url,no) 
-values(#{business_name}, #{business_division}, #{business_addr},#{business_startdate},#{business_url},2)
+business_no,business_name,business_division,business_addr,business_startdate,business_url,no) 
+values(#{business_no},#{business_name}, #{business_division}, #{business_addr},#{business_startdate},#{business_url},#{no})
 </insert>
 
 </mapper>

@@ -114,18 +114,11 @@ $(function () {
     
   
     // 다음눌렀을때 다음탭으로 이동!
-    $('#btn2').on('click',function(){
-    	
-    	
-    	
-    	
+    $('#btn2').on('click',function(){    	
  			$("ul.tabs li").removeClass("active").css("color", "#333")
         	$("ul.tabs li:eq(1)").addClass("active").css("color", "darkred")  	
         	$('.tab_content').hide()
         	$('.tab_content:eq(1)').show()
- 
-    	
-    	
     });
     
     $('#btn3').on('click',function(){
@@ -133,37 +126,31 @@ $(function () {
     	$("ul.tabs li:eq(2)").addClass("active").css("color", "darkred")  	
     	$('.tab_content').hide()
     	$('.tab_content:eq(2)').show()    
-    	
     });
     
     $('#btn4').on('click',function(){
     	$("ul.tabs li").removeClass("active").css("color", "#333")
     	$("ul.tabs li:eq(3)").addClass("active").css("color", "darkred")  	
     	$('.tab_content').hide()
-    	$('.tab_content:eq(3)').show()    
-    	
+    	$('.tab_content:eq(3)').show()  
     });
     
     $('#btn5').on('click',function(){
     	$("ul.tabs li").removeClass("active").css("color", "#333")
     	$("ul.tabs li:eq(4)").addClass("active").css("color", "darkred")  	
     	$('.tab_content').hide()
-    	$('.tab_content:eq(4)').show()    
-    	
+    	$('.tab_content:eq(4)').show()   
     });
     
     $('#btn6').on('click',function(){
-    	
     	// 옵션 form에 하나라도 null이면 다음으로 넘어갈때 alert창 띄워주기
     	$("ul.tabs li").removeClass("active").css("color", "#333")
     	$("ul.tabs li:eq(5)").addClass("active").css("color", "darkred")  	
     	$('.tab_content').hide()
     	$('.tab_content:eq(5)').show()    
-    	
     });
     
-   $("#main_category option:eq(0)").attr("selected","selected");    
-   
+   $("#main_category option:eq(0)").attr("selected","selected");   
    $("#summerwrite").hide();
    $('#directpdf').hide();
    
@@ -181,21 +168,13 @@ $(function () {
     // 메인카테고리에 해당하는 서브카테고리불러오기
     $("#main_category").on('change',function(){
     	$("#category_no").empty();   	
-    	var csrfHeaderName="${_csrf.headerName}";
-		var csrfTokenValue="${_csrf.token}";
-       var main_category=$(this).val();     
-       console.log(csrfTokenValue);
-		console.log(csrfHeaderName);
+       var main_category=$(this).val();           
         $.ajax({  
         	method:"GET",
         	dataType: "JSON",        	
             url:"/project/category",
       		data:'main_category='+main_category, 
-      		beforeSend: function(xhr){
-				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
-			},
-            success:function(data){  
-            	console.log("ajax1");
+            success:function(data){              	
             	console.log(data);            	
             	$.each(data,function(i,item){
             		console.log(item.category_no);  
@@ -206,9 +185,6 @@ $(function () {
         });          
     });   
 
-    
-  
-    
   //옵션 추가 버튼을 눌렀을때 옵션form 추가로 나옴
     var btncount=0; // 추가할때 증가, 삭제할때 감소
     
@@ -276,12 +252,12 @@ $(function () {
 					console.log(csrfHeaderName);
 					$.ajax({
 						url : "/sign",
-						 method : "GET", 
+						 method : "POST", 
 						dataType : "text",
 						beforeSend: function(xhr){
 							xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
 						},					
-						data: "sign="+ss,
+						data: {"sign":ss},
 						success : function(r){
 							console.log("ajax2");
 							console.log(r);
@@ -407,7 +383,7 @@ $(function () {
         <!-- #tab3 -->
         
     	<div id="tab4" class="tab_content">
-    >
+    
     	<div id="contentoption1">직접파일올리기</div>
     	<div id="contentoption2">내용작성하기</div>
     	
@@ -435,9 +411,6 @@ $(function () {
     	<div id="optform">
     	</div>
    		
-    	
-    	
-    	
 	    <input type="hidden" id="btncnt" name="btncnt" value="0">
 	    <input type="button" value="옵션 추가 " id="up">
 		<input type="button" value="옵션 삭제 " id="down">

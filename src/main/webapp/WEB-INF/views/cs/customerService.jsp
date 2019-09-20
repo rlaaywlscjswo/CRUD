@@ -131,8 +131,6 @@
 		</div>
 		<!-- 검색 끝 -->
 
-		<hr>
-
 		<section>
 			<!-- 자주 하는 질문 -->
 			<article>
@@ -154,75 +152,65 @@
 			</article>
 		</section>
 		<!-- end 자주 하는 질문 -->
+		<h4>회원 Q&A</h4>
+		<ul>
+			<!-- forEach 돌리면 됨 -->
+			<c:forEach var="csList" items="${csList}">
+				<li>
+					<div class="accordion" id="accordionExample">
+						<div class="card">
+							<div class="card-header" id="headingOne">
+								<h2 class="mb-0">
+									<button class="btn btn-link" type="button"
+										data-toggle="collapse" data-target="#${csList.sn}"
+										aria-expanded="true" aria-controls="collapseOne">
 
-		<hr>
-
-		<section>
-			<!-- 회원 Q&A 목록 -->
-			<article>
-				<ul>
-					<li><h4>회원 Q&A</h4></li>
-					<!-- forEach 돌리면 됨 -->
-					<c:forEach var="csList" items="${csList}">
-						<li>
-							<div>
-								<!-- 질문 영역 -->
-								<div>
-									<!-- 질문 - 제목 영역 -->
-									<span>제목 : ${csList.st}</span> <span>질문자 :
-										${csList.name}</span> <span>공개 여부 : ${csList.ss}</span> <span>질문
-										번호 : ${csList.sn}</span>
-								</div>
-								<div>
-									<!-- 질문 - 내용 영역 -->
-									<p>내용 : ${csList.sc}
-									<p>
-										<!-- <span>수정</span>
-									<span id="deleteQuestion">삭제</span> -->
-								</div>
+										<!-- 질문 - 제목 영역 -->
+										<span>제목 : ${csList.st}</span> <span>질문자 :
+											${csList.name}</span> <span>공개 여부 : ${csList.ss}</span> <span>질문
+											번호 : ${csList.sn}</span>
+									</button>
+								</h2>
 							</div>
-							<p>
-								<!-- 답변 단락 -->
-								<c:set var="reply" value="${csList.sr}" />
-								<c:choose>
-									<c:when test="${reply == null}">
+
+							<div id="${csList.sn}" class="collapse"
+								aria-labelledby="headingOne" data-parent="#accordionExample">
+								<div class="card-body">
+									<!-- 질문 - 내용 영역 -->
+									<c:set value="${csList.ss}" var="ss" />
+									<c:choose>
+										<c:when test="${ss == 1}">비공개 처리 된 질문입니다.</c:when>
+										<c:otherwise>
+											<p>내용 : ${csList.sc}</p>
+
+
+
+											<hr>
+
+											<p>
+												<!-- 답변 단락 -->
+												<c:set var="reply" value="${csList.sr}" />
+												<c:choose>
+													<c:when test="${reply == null}">
 										아직 작성 된 답변이 없습니다.
 									</c:when>
-									<c:otherwise>
+													<c:otherwise>
 										답변 : ${csList.sr}
 									</c:otherwise>
-								</c:choose>
-							</p>
-						</li>
-					</c:forEach>
-				</ul>
-			</article>
-		</section>
+												</c:choose>
+											</p>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</li>
+			</c:forEach>
+		</ul>
+
 		<!-- end 회원 Q&A 목록 -->
-
-		<hr>
-
-		<!-- 		<div> 수정 양식
-			<form action="wq" method="get">
-        		<select name="question_no">
-            		<option value="1">회원 관련</option>
-           			<option value="2">사업자 관련</option>
-         		    <option value="3">프로젝트 관련</option>
-            		<option value="4">후원 관련</option>
-          		    <option value="5">배송 관련</option>
-         		    <option value="6">환불 관련</option>
-       			</select>
-        		<label for="service_title"></label>
-        		<input type="text" id="service_title" name="service_title" placeholder="제목을 입력해주세요.">
-        		<label for="service_secret"></label>
-        		<input type="radio" id="service_secret" name="service_secret" value="0">공개
-        		<input type="radio" id="service_secret" name="service_secret" value="1">비공개
-        		<textarea rows="10" cols="40" name="service_contents" placeholder="내용을 입력해주세요."></textarea>
-        		<input type="submit" value="수정 완료">
-        	</form>
-		</div> end 수정 양식
-		
-		<hr> -->
 
 		<!-- 페이징 -->
 		<div class="col-12" id="paging">
@@ -255,8 +243,6 @@
 			</div>
 		</div>
 		<!-- 페이징 끝 -->
-
-		<hr>
 
 		<div>
 			<!-- <a href="#"><span>질문 작성</span></a> -->

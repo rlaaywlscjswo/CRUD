@@ -1,20 +1,14 @@
 package com.bitcamp.dto;
 
 public class BusinessDTO {
-	private int business_no; // 사업자등록번호
+	private String business_no; // 사업자등록번호
 	private String business_name; // 기업명
 	private String business_division; // 사업자 구분
 	private String business_addr; // 소재지
 	private String business_startdate; // 법인 설입 연월일
 	private String business_url; // 홈페이지
 	private int no; // 회원번호 
-	public int getBusiness_no() {
-		return business_no;
-	}
-	public void setBusiness_no(int business_no) {
-		this.business_no=1;
-		//this.business_no = business_no;
-	}
+	
 	public String getBusiness_name() {
 		return business_name;
 	}
@@ -50,6 +44,12 @@ public class BusinessDTO {
 	}
 	public void setNo(int no) {
 		this.no = no;
+	}
+	public String getBusiness_no() {
+		return business_no;
+	}
+	public void setBusiness_no(String business_no) {
+		this.business_no = business_no;
 	}
 
 
