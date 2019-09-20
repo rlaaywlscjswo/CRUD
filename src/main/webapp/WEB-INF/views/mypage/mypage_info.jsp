@@ -106,7 +106,7 @@ $(function () {
 		</form>
 		
 		 <form action="/customLogout" method="post" id="logoutbtn">
-			<input type="text" name="${_csrf.parameterName}" value="${_csrf.token}">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		</form>
 	</div>
 	

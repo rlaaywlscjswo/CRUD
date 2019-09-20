@@ -154,7 +154,8 @@ body {
 	height: 100%;
 	font-family: 'Open Sans', sans-serif;
 	background: #092756;
-	background: -moz-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4)
+	<!-- 기존 -->
+	/* background: -moz-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4)
 		10%, rgba(138, 114, 76, 0) 40%),
 		-moz-linear-gradient(top, rgba(57, 173, 219, .25) 0%,
 		rgba(42, 60, 87, .4) 100%),
@@ -178,7 +179,12 @@ body {
 		10%, rgba(138, 114, 76, 0) 40%),
 		linear-gradient(to bottom, rgba(57, 173, 219, .25) 0%,
 		rgba(42, 60, 87, .4) 100%),
-		linear-gradient(135deg, #670d10 0%, #092756 100%);
+		linear-gradient(135deg, #670d10 0%, #092756 100%); */
+		<!-- 기존 -->
+	background: -webkit-linear-gradient(43deg, rgb(244, 210, 215),
+		rgb(220, 255, 186));
+	background: linear-gradient(43deg, rgb(244, 210, 215),
+		rgb(220, 255, 186));
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D',
 		endColorstr='#092756', GradientType=1);
 }
@@ -258,7 +264,7 @@ input:focus {
 			<label for="username"></label> <input type="text" name="username"
 				id="username" placeholder="이메일" /> <label
 				for="password"></label> <input type="password" name="password"
-				id="password" placeholder="비밀번호" /> <input
+				id="password" placeholder="비밀번호" value="123123123" /> <input
 				type="checkbox" name="remember-me" checked="checked"
 				style="display: inline-block; left: 54%; margin-left: 0px; position: relative; width: 10px;"> <span style="color: #fff; display: inline-block; left:55%; position: relative;">로그인 유지하기</span>
 			<button type="submit" class="btn btn-primary btn-block btn-large" style="margin-bottom: 5px;">로그인</button>
