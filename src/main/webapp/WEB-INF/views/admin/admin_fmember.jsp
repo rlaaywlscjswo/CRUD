@@ -97,7 +97,7 @@
 		<form method="get" action="fmember?currPage=${dto.firstPageOfBlock}">
 			<label for="fmember_search"></label>
 			<input class="form-control form-control-sm" type="text" 
-			id="admin_search" name="fmember_search" placeholder="  회원 이름으로 검색해주세요 :)">
+			id="bh_search" name="fmember_search" placeholder="  회원 이름으로 검색해주세요 :)">
 			<input type="submit" value="찾아줘!!"	id="fmember_find" class="btn btn-primary">
 		</form>
 	</div>

@@ -166,7 +166,7 @@
 		<form method="get" action="spro?currPage=${dto.firstPageOfBlock}">
 			<label for="sproject_search" id="sproject_label"></label> <input
 				class="form-control form-control-sm" type="text"
-				id="admin_search" name="sproject_search"
+				id="bh_search" name="sproject_search"
 				placeholder="  프로젝트 이름으로 검색해주세요 :)"> <input
 				type="submit" value="찾아줘!!" class="btn btn-primary">
 		</form>

@@ -6,21 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>마이 페이지 - 내 프로젝트</title>
+<link href="\resources\css/admin.css" rel="stylesheet">
 </head>
 <body>
 
-	<div class="myProjectWrap">
+	<div class="wrap">
 
 		<div id="theNumbersOfMyProject">내가 만든 프로젝트 개수 :
 			${theNumbersOfMyProject}개</div>
 
 
 		<!-- 검색 -->
-		<div id="myProject_searching">
+		<div id="search">
 			<form method="get" action="mypro?currPage=${dto.firstPageOfBlock}">
 				<label for="project_search" id="project_label"></label> <input
 					class="form-control form-control-sm" type="text"
-					id="project_search" name="project_search"
+					id="bh_search" name="project_search"
 					placeholder="  프로젝트 이름으로 검색해주세요 :)" style="width: 400px;">
 				<input type="submit" value="찾아줘!!" id="project_find"
 					class="btn btn-primary">
@@ -63,7 +64,7 @@
 
 
 		<!-- 페이징 -->
-		<div class="col-12">
+		<div class="col-12" id="paging">
 			<div class="pagination-area d-sm-flex mt-15">
 				<nav aria-label="#">
 					<ul class="pagination">

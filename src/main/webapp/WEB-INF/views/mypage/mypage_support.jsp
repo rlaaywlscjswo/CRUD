@@ -6,25 +6,25 @@
 <head>
 <meta charset="UTF-8">
 <title>마이 페이지 - 내 후원 현황</title>
-
+<link href="\resources\css/admin.css" rel="stylesheet">
 </head>
 <body>
 
-	<div class="mypage_support_wrap">
+	<div class="wrap">
 
 		<!-- filter -->
-		<div id="support_filter">
+<!-- 		<div id="support_filter">
 			<span id="filter_all">모두 보기</span> <span id="filter_ing">진행 중인
 				프로젝트</span> <span id="filter_complete">목표 금액을 달성한 프로젝트</span>
-		</div>
+		</div> -->
 		
 		
 		<!-- 검색 -->
-		<div id="support_searching">
+		<div id="search">
 			<form method="get" action="support?currPage=${dto.firstPageOfBlock}">
 				<label for="support_search" id="search_label"></label> <input
 					class="form-control form-control-sm" type="text"
-					id="support_search" name="support_search"
+					id="bh_search" name="support_search"
 					placeholder="  프로젝트 이름으로 검색해주세요 :)" style="width: 400px;">
 				<input type="submit" value="찾아줘!!" id="support_find"
 					class="btn btn-primary">
@@ -67,7 +67,7 @@
 
 
 		<!-- 페이징 -->
-		<div class="col-12">
+		<div class="col-12" id="paging">
 			<div class="pagination-area d-sm-flex mt-15">
 				<nav aria-label="#">
 					<ul class="pagination">
