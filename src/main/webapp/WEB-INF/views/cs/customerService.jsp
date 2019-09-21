@@ -88,6 +88,7 @@ textarea {
 	display: inline-block;
 	position: relative;
 }
+
 </style>
 <script>
 	window.onload = function() {
@@ -173,14 +174,16 @@ textarea {
 					<li><div class="accordion" id="accordionExample">
 							<div class="card">
 								<div class="card-header" id="headingOne">
-									<h5>두 번째 질문은 무엇인가요?</h5>
+									<h5>어떤 사람들이 이용하면 좋은가요?</h5>
 								</div>
 
 								<div id="collapseOne" class="c" aria-labelledby="headingOne"
 									data-parent="#accordionExample">
 									<div class="card-body">
 										<p>
-											두 번째 답변입니다.
+											아이디어는 있으나 금전적인 제약으로 상품화하기 힘든 분이나,
+											이미 상품화한 아이디어 상품이 있으나 대기업의 등쌀에 밀려
+											마땅히 판매할 곳이 없으신 분들 모두 이용하면 좋은 사이트입니다!
 										</p>
 									</div>
 								</div>
@@ -189,14 +192,15 @@ textarea {
 					<li><div class="accordion" id="accordionExample">
 							<div class="card">
 								<div class="card-header" id="headingOne">
-									<h5>세 번째 질문은 무엇인가요?</h5>
+									<h5>프로젝트 등록은 어떻게 하나요?</h5>
 								</div>
 
 								<div id="collapseOne" class="c" aria-labelledby="headingOne"
 									data-parent="#accordionExample">
 									<div class="card-body">
 										<p>
-											세 번째 답변입니다.
+											회원 가입 후 사이트 우측에 있는 '프로젝트 등록' 버튼을 누르시고
+											작성 순서에 맞게 등록해주시면 됩니다.
 										</p>
 									</div>
 								</div>
@@ -221,10 +225,24 @@ textarea {
 										data-toggle="collapse" data-target="#${csList.sn}"
 										aria-expanded="true" aria-controls="collapseOne">
 
-										<!-- 질문 - 제목 영역 -->
-										<span>제목 : ${csList.st}</span> <span>질문자 :
-											${csList.name}</span> <span>공개 여부 : ${csList.ss}</span> <span>질문
-											번호 : ${csList.sn}</span>
+										<!-- 질문 - 제목 영역 -->	
+													
+										
+										<c:set value="${csList.ss}" var="ss" />
+										<c:if test="${ss == 0}">
+										
+										<span style="background-color: #e9ecef;">제목</span>
+										<span> : ${csList.st}</span>
+
+										<span style="background-color: #e9ecef;">작성자</span>
+										<span> : ${csList.name}</span>
+
+<%-- 										<span style="background-color: #e9ecef;">질문 번호</span>
+										<span> ${csList.sn}</span> --%>
+
+										</c:if>
+										<c:if test="${ss == 1}">비공개 처리 된 질문입니다.</c:if>
+										
 									</button>
 								</h2>
 							</div>
@@ -233,7 +251,7 @@ textarea {
 								aria-labelledby="headingOne" data-parent="#accordionExample">
 								<div class="card-body">
 									<!-- 질문 - 내용 영역 -->
-									<c:set value="${csList.ss}" var="ss" />
+									
 									<c:choose>
 										<c:when test="${ss == 1}">비공개 처리 된 질문입니다.</c:when>
 										<c:otherwise>
@@ -315,7 +333,7 @@ textarea {
 
 
 					<form action="wq" method="get">
-						<select name="question_no"  class="custom-select custom-select-sm">
+						<select name="question_no" class="form-control form-control-sm">
 							<option value="1">회원 관련</option>
 							<option value="2">사업자 관련</option>
 							<option value="3">프로젝트 관련</option>

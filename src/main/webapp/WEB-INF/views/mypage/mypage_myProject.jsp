@@ -39,7 +39,11 @@
 						<div class="card-body">
 							<h5 class="card-title">${myProject_list.project_title}</h5>
 							<p class="card-text">
-								모인 금액 : ${myProject_list.sumop}원<br>
+							
+								<c:set var="moin" value="${myProject_list.sumop}" />
+								<c:if test="${moin == null}">후원 받은 금액 : 후원 받은 금액이 없습니다. <br></c:if>
+								<c:if test="${moin != null}">후원 받은 금액 : ${myProject_list.sumop}원<br></c:if>
+								
 								<c:set var="rd" value="${myProject_list.remainingDay}" />
 								<c:choose>
 									<c:when test="${rd < 2}">남은 시간 : ${myProject_list.nam}시간<br>
@@ -47,13 +51,15 @@
 									<c:otherwise>남은 날 : ${myProject_list.remainingDay}일<br>
 									</c:otherwise>
 								</c:choose>
-								달성 퍼센트 : ${myProject_list.reachper}%<br> 계약서 :
+								<c:set var="dal" value="${myProject_list.reachper}"/>
+								<c:if test="${dal == null}">달성률 : 후원 받은 금액이 없습니다.<br></c:if>
+								<c:if test="${dal != null}">달성률 : ${myProject_list.reachper}% <br></c:if>
+								
+								<!-- 여기야!!!! -->
+								 계약서 :
 								${myProject_list.project_contract}<br>
 
 
-							</p>
-							<p class="card-text">
-								<small class="text-muted">Last updated 3 mins ago</small>
 							</p>
 						</div>
 					</div>

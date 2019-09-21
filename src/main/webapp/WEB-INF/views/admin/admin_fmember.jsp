@@ -127,26 +127,33 @@
 					<td>${fmlist.email}</td>
 					<td>${fmlist.project_title}</td>
 					<td><c:set var="ara" value="${fmlist.arating}" /> <c:choose>
-							<c:when test="${ara == null}">아직 등록 된 평점이 없..</c:when>
+							<c:when test="${ara == null}">아직 등록 된 평점이 없습니다.</c:when>
 							<c:otherwise>${fmlist.arating}점</c:otherwise>
 						</c:choose></td>
 					<td><c:set var="sop" value="${fmlist.sumop}" /> <c:set
 							var="ntp" value="${fmlist.ntargetprice}" /> <c:choose>
-							<c:when test="${sop == null}">아직 후원을 받지 못했.. / ${fmlist.ntargetprice}원</c:when>
+							<c:when test="${sop == null}">아직 후원을 받지 못했습니다. / ${fmlist.ntargetprice}원</c:when>
 							<c:when test="${sop > ntp}">
 								<span>${fmlist.sumop}원</span> / ${fmlist.ntargetprice}원</c:when>
 							<c:otherwise>${fmlist.sumop}원 / ${fmlist.ntargetprice}원</c:otherwise>
 						</c:choose></td>
 					<td><c:set var="rper" value="${fmlist.reachper}" /> <c:choose>
 							<c:when test="${rper > 100}">
-								<span style="color: dodgerblue;">프로젝트 성공! </span>
+								<span>프로젝트 성공! </span>
 								<span> / </span>
-								<span style="color: lime;"> ${fmlist.reachper}%</span>
+								<span> ${fmlist.reachper}%</span>
 							</c:when>
-							<c:when test="${rper == null}">아직염.. / 0%</c:when>
-							<c:otherwise>아직염.. / ${fmlist.reachper}%</c:otherwise>
+							<c:when test="${rper == null}">아직 후원을 받지 못했습니다. / 0%</c:when>
+							<c:otherwise>아직 후원을 받는 중입니다. / ${fmlist.reachper}%</c:otherwise>
 						</c:choose></td>
+						
+						
+						<!-- 여기야!! -->
 					<td>${fmlist.project_contract}</td>
+					
+					
+					
+					
 				</tr>
 			</c:forEach>
 		</tbody>

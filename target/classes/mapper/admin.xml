@@ -157,6 +157,7 @@
 		parameterMap="hashmap">
 		select count(project_no) from project
 		<where>
+			and project_no not in (1, 2, 3, 1001, 1002, 1003, 2001, 2002, 2003, 2004, 3001, 4001, 4002)
 			<if test="sproject_search!=null and sproject_search!=''">
 				and project_title like CONCAT('%',#{sproject_search},'%')
 			</if>
@@ -167,6 +168,7 @@
 	<select id="admin_sproject" resultType="com.bitcamp.dto.ProjectDTO"  parameterMap="hashmap">
 		select project_no, project_title, project_status from project 
 		<where>
+			and project_no not in (1, 2, 3, 1001, 1002, 1003, 2001, 2002, 2003, 2004, 3001, 4001, 4002)
 			<if test="sproject_search!=null and sproject_search!=''">
 				and project_title like CONCAT('%',#{sproject_search},'%')
 			</if>
@@ -198,6 +200,7 @@
 	<!-- Excel용 Full List -->
 	<select id="admin_Allsproject" resultType="com.bitcamp.dto.ProjectDTO">
 		select project_no, project_title, project_status from project
+		where project_no not in (1, 2, 3, 1001, 1002, 1003, 2001, 2002, 2003, 2004, 3001, 4001, 4002)
 	</select>
 	
 	<!-- 거절 된 프로젝트 지워주기 -->

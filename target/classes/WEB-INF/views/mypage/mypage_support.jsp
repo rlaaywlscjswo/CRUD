@@ -52,11 +52,8 @@
 								<br> 선택한 옵션 :
 								<c:out value="${mySupport_list.option_name}" />
 								<br> 후원 금액 :
-								<c:out value="${mySupport_list.option_price}" />
+								<c:out value="${mySupport_list.option_price}원" />
 
-							</p>
-							<p class="card-text">
-								<small class="text-muted">Last updated 3 mins ago</small>
 							</p>
 						</div>
 					</div>
