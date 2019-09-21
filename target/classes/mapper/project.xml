@@ -30,6 +30,7 @@
 	<result column="alias" property="alias"/>
 	<result column="img" property="img"/>
 	<result column="project_contents" property="project_contents"/>
+	<result column="introduce" property="introduce"/>
 	<result column="no" property="no"/>
 	</resultMap>
 
@@ -150,7 +151,7 @@
 	select sum(option_price) as sumop,
 	(to_days(p.enddate)-to_days(now())) as remainingDay,
 	p.project_photo, p.project_title, p.project_views, p.category_no, p.enddate,
-	p.targetprice, p.alias, p.img, p.project_contents, p.project_no, p.no
+	p.targetprice, p.alias, p.img, p.project_contents, p.project_no, p.no,p.introduce
 	from support s left join `option` o
 	on s.option_no = o.option_no
 	right join project p
