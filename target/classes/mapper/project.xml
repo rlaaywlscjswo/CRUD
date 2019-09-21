@@ -84,10 +84,13 @@
 
 	<select id="projectList" resultMap="listdto"
 		parameterType="java.util.HashMap">
-		select alias, project_no,project_title,
-		category_no,project_views, project_photo
-		from
-		project		
+		select round(ifnull(sum(option_price), 0) / targetprice * 100, 2) as reachper,
+		alias, p.project_no,project_title,
+		p.category_no,project_views, project_photo
+		from support s left join `option` o
+        on s.option_no = o.option_no
+        right join project p
+        on o.project_no = p.project_no		
 		<where>
 			and project_status = 1 
 			<if test="searchtxt !=null and searchtxt !='' ">
@@ -115,7 +118,7 @@
 		on p.category_no = c.category_no		
 		where p.project_status = 1 and c.sub_category=#{sub_category}
 		order by startdate desc
-		limit #{startRow},9
+		limit  #{startRow},9		
 	</select>
 
 	<select id="projectsearchno" parameterType="int"

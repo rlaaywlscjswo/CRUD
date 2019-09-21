@@ -229,7 +229,7 @@
 									</ul>
 									<div class="tab-content">
 										<div class="tab-pane fade show active" id="qwe">										
-											<iframe src="http://localhost:8080${list.project_contents }" style="width:100%; height: 882px;" frameborder="0"></iframe>
+											<iframe src="${list.project_contents }" style="width:100%; height: 882px;" frameborder="0"></iframe>
 										</div>
 										<div class="tab-pane fade" id="asd">
 											<sec:authorize access="isAuthenticated()">  
