@@ -65,21 +65,21 @@ public class AdminController {
 
 	// 통계 페이지
 	@RequestMapping("/stats")
-	public @ResponseBody Map<String, Object> stats(@RequestParam(required = false, defaultValue = "0") int no) {
+	public @ResponseBody Map<String, Object> stats(@RequestParam(required = false, defaultValue = "") String email) {
 
-		System.out.println("no값을 알려주세요.." + no);
+		System.out.println("email값을 알려주세요.." + email);
 
 		// 통계
 		// 이름 가져오기
-		String getName = adminService.getName(no);
+		String getName = adminService.getName(email);
 		// 성공 횟수
-		int successCount = adminService.successCount(no);
+		int successCount = adminService.successCount(email);
 		// 총 프로젝트 등록 횟수
-		int regipro = adminService.theNumbersOfRegiProject(no);
+		int regipro = adminService.theNumbersOfRegiProject(email);
 		// 평균 달성률
-		float avgdal = adminService.avgdal(no);
+		float avgdal = adminService.avgdal(email);
 		// 평균 평점
-		float avgRating = adminService.avgRating(no);
+		float avgRating = adminService.avgRating(email);
 
 		Map<String, Object> map = new HashMap<>();
 		map.put("getName", getName);

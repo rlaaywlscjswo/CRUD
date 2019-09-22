@@ -43,13 +43,14 @@
 	jQuery.noConflict();
 	jQuery(document).ready(function($) {
 		
-		$('tbody tr').on('click', function() {
-			 var d=$(this).find('td:eq(0)').text();
+		$('tbody tr').find('td:eq(2)').on('click', function() {
+			 var d=$(this).text();
+			 console.log(d);
 			 // $('.modal-content').find('h3:eq(0)').css('background-color', 'lime');
 			 // $('.modal-content table tr').find('td:eq(0)').css('background-color', 'dodgerblue');
 			$.ajax({
 				url:"/stats",
-				data: "no="+d,
+				data: "email="+d,
 				dataType:"json",
 				success:function(data) {
 					

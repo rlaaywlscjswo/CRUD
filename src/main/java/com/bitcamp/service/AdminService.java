@@ -21,15 +21,15 @@ public interface AdminService {
 	
 	// 통계
 	//이름 가져오기
-	public String getName(int no);
+	public String getName(String email);
 	// 성공 횟수
-	public int successCount(int no);
+	public int successCount(String email);
 	// 총 프로젝트 등록 횟수
-	public int theNumbersOfRegiProject(int no);	
+	public int theNumbersOfRegiProject(String email);	
 	// 평균 달성률
-	public float avgdal(int no);
+	public float avgdal(String email);
 	// 평균 평점
-	public float avgRating(int no);
+	public float avgRating(String email);
 	
 	// for paging
 	public int sproject_totalCount(String sproject_search);

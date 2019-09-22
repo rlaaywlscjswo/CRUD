@@ -74,52 +74,52 @@
 	<!-- 통계 자료 -->
 	
 	<!-- 이름 가져오기 -->
-	<select id="getName" resultType="String" parameterType="int">
-		select name from member where no = #{no}
+	<select id="getName" resultType="String" parameterType="String">
+		select name from member where no = (select no from member where email = #{email})
 	</select>
 	
 	<!-- 성공 횟수 -->
-	<select id="successCount" resultType="int" parameterType="int">
+	<select id="successCount" resultType="int" parameterType="String">
 		select count(d.dal)
 		from (select project.project_no, ifnull(round(sum(option_price) / targetprice * 100, 2), 0) as dal
 		from support join `option` on support.option_no = `option`.option_no
 		right join project on project.project_no = `option`.project_no
 		join member on member.no = project.no
 		join authority on authority.no = member.no
-		where auth = 'ROLE_MANAGER' and member.no = #{no}
+		where auth = 'ROLE_MANAGER' and member.no = (select no from member where email = #{email})
 		group by project.project_no) as d
 		where d.dal > 100
 	</select>
 	
 	<!-- 총 프로젝트 등록 횟수 -->
-	<select id="theNumbersOfRegiProject" resultType="int" parameterType="int">
+	<select id="theNumbersOfRegiProject" resultType="int" parameterType="String">
 		select count(project.project_no)
 		from project join member on project.no = member.no
 		join authority on authority.no = member.no
-		where auth = 'ROLE_MANAGER' and member.no = #{no}
+		where auth = 'ROLE_MANAGER' and member.no = (select no from member where email = #{email})
 	</select>
 	
 	<!-- 평균 달성률 -->
-	<select id="avgdal" resultType="float" parameterType="int">
+	<select id="avgdal" resultType="float" parameterType="String">
 		select round(avg(d.dal), 2)
 		from (select project.project_no, ifnull(round(sum(option_price) / targetprice * 100, 2), 0) as dal
 		from support join `option` on support.option_no = `option`.option_no
 		right join project on project.project_no = `option`.project_no
 		join member on member.no = project.no
 		join authority on authority.no = member.no
-		where auth = 'ROLE_MANAGER' and member.no = #{no}
+		where auth = 'ROLE_MANAGER' and member.no = (select no from member where email = #{email})
 		group by project.project_no) as d
 	</select>
 	
 	<!-- 평균 평점 -->
-	<select id="avgRating" resultType="float" parameterType="int">
+	<select id="avgRating" resultType="float" parameterType="String">
 		select round(avg(ravg), 1)
 		from (
 		select ifnull(round(avg(rating), 1), 0) as ravg
 		from project join member on project.no = member.no
 		join authority on authority.no = member.no
 		left join reply on reply.project_no = project.project_no
-		where auth = 'ROLE_MANAGER' and member.no = #{no}
+		where auth = 'ROLE_MANAGER' and member.no = (select no from member where email = #{email})
 		group by project.project_no ) as t
 	</select>
 	
