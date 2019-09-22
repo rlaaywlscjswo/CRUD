@@ -15,6 +15,11 @@
 #page li {
 	display: inline-block;
 }
+
+.caroro{
+	width: 350px;
+	height: 300px;
+}
 </style>
 </head>
 <body>
@@ -27,8 +32,8 @@
 					<c:if test="${not empty item.project_no}">
 						<div class="col-12 col-md-6 col-lg-4">
 							<div class="card h-100">
-								<a href="projectdetail/${item.project_no }"><img
-									class="card-img-top" src="${item.project_photo }"
+								<a href="projectdetail/${item.project_no }"><img 
+									class="card-img-top caroro" src="${item.project_photo }"
 									alt="프로젝트대표사진"></a>
 								<div class="card-body">
 									<div class="progress">

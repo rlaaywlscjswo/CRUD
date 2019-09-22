@@ -236,7 +236,7 @@
 						<div class="single-post">
 							<!-- Post Thumb -->
 							<div class="post-thumb">
-								<img src="${newProject.project_photo}" alt="프로젝트대표사진">
+								<img class="caroro" src="${newProject.project_photo}" alt="프로젝트대표사진">
 							</div>
 							<!-- Post Content -->
 							<div class="post-content">
@@ -271,7 +271,7 @@
 						<div class="single-post">
 							<!-- Post Thumb -->
 							<div class="post-thumb">
-								<img src="${popularProject.project_photo}" alt="프로젝트대표사진">
+								<img class="caroro" src="${popularProject.project_photo}" alt="프로젝트대표사진">
 							</div>
 							<!-- Post Content -->
 							<div class="post-content">
@@ -304,7 +304,7 @@
 						<div class="single-post">
 							<!-- Post Thumb -->
 							<div class="post-thumb">
-								<img src="${successApproach.project_photo}" alt="프로젝트대표사진">
+								<img class="caroro" src="${successApproach.project_photo}" alt="프로젝트대표사진">
 							</div>
 							<!-- Post Content -->
 							<div class="post-content">
@@ -326,49 +326,6 @@
 							</div>
 						</div>
 					</c:forEach>
-				</div>
-			</div>
-
-
-
-
-
-
-
-
-
-
-
-			<div class="row">
-				<div class="col-12 col-md-6 col-lg-4">
-					<div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
-						<img src="/resources/yummy/img/catagory-img/1.jpg" alt="">
-						<div class="catagory-title">
-							<a href="#">
-								<h5>Food</h5>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-md-6 col-lg-4">
-					<div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
-						<img src="/resources/yummy/img/catagory-img/2.jpg" alt="">
-						<div class="catagory-title">
-							<a href="#">
-								<h5>Cooking</h5>
-							</a>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 col-md-6 col-lg-4">
-					<div class="single_catagory wow fadeInUp" data-wow-delay=".9s">
-						<img src="/resources/yummy/img/catagory-img/3.jpg" alt="">
-						<div class="catagory-title">
-							<a href="#">
-								<h5>Life Style</h5>
-							</a>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>

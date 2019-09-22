@@ -35,6 +35,11 @@
 
 .starrating > input:hover ~ label
 { color: #ffca08 ;  } /* Set yellow color when star hover */
+
+.caroro{
+	height: 450px;
+    width: 600px;
+}
 </style>
 <!-- 댓글 JS  -->
 
@@ -214,7 +219,7 @@
 							<div class="single-post">
 								<!-- Post Thumb -->
 								<div class="post-thumb">
-									<img src="${list.project_photo }" alt="프로젝트대표사진">
+									<img class="caroro" src="${list.project_photo }" alt="프로젝트대표사진">
 								</div>
 								<!-- Post Content -->
 								<div class="post-content">
