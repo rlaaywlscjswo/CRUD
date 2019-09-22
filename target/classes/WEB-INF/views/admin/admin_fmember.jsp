@@ -125,7 +125,7 @@
 
 					<td>${fmlist.no}</td>
 					<td>${fmlist.name}</td>
-					<td>${fmlist.email}</td>
+					<td><a href="#">${fmlist.email}</a></td>
 					<td>${fmlist.project_title}</td>
 					<td><c:set var="ara" value="${fmlist.arating}" /> <c:choose>
 							<c:when test="${ara == null}">아직 등록 된 평점이 없습니다.</c:when>

@@ -87,6 +87,10 @@ a:nth-child(2) {
 	position: relative;
 }
 
+#cong-button {
+	z-index: 1000;
+}
+
 </style>
 </head>
 <body>

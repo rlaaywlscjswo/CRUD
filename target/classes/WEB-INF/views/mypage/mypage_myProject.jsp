@@ -46,8 +46,9 @@
 								
 								<c:set var="rd" value="${myProject_list.remainingDay}" />
 								<c:choose>
-									<c:when test="${rd < 2}">남은 시간 : ${myProject_list.nam}시간<br>
+									<c:when test="${rd < 2 && rd > -1}">남은 시간 : ${myProject_list.nam}시간<br>
 									</c:when>
+									<c:when test="${rd < -1}">남은 날 : 이미 종료된 프로젝트입니다. <br></c:when>
 									<c:otherwise>남은 날 : ${myProject_list.remainingDay}일<br>
 									</c:otherwise>
 								</c:choose>

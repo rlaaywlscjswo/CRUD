@@ -128,6 +128,12 @@ textarea {
 		
 		$('.modal-content').children('form').find('input').css('margin-bottom', '10px');
 		
+		$('button').on('click', function() {
+			
+			console.log($(this).text());
+			
+		}); // end on
+		
 	}); // end ready
 </script>
 </head>
