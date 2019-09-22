@@ -77,6 +77,7 @@ h2 {
 
 .width-120px {
 	width: 120px;
+	height:110px;
 	margin-right: 10px;
 }
 
@@ -124,13 +125,29 @@ label {
     max-width: 100%;
 }
    
+.protitle{
+	display: -webkit-inline-box;
+}
 
+.titleh4{
+	width: 75%;S
+}
 .pnum{
 	width: 25%;
 	display: inline-block;
 }
 
+.addrs{
+	display: -webkit-inline-box;	
+}
 
+.numnum{
+	display: -webkit-inline-box;
+}
+
+.form-control{	
+	height: 100%;	
+}
 input[type="checkbox"],
 input[type="radio"] {
     border: 0;

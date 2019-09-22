@@ -344,7 +344,7 @@ li {
 }
 
 .top_header_area .top_social_bar > a:hover {
-    color: #fc6c3f;
+    color: #ADDCA;
 }
 
 .top_header_area .top_social_bar > a:last-of-type {
@@ -599,7 +599,7 @@ li {
 }
 
 .single_catagory:hover .catagory-title {
-    background-color: #fc6c3f;
+    background-color: #ADDCAF;
 }
 
 .catagory-title a > h5 {
@@ -686,7 +686,7 @@ li {
 
 .single-post h2:hover,
 .single-post h4:hover {
-    color: #fc6c3f;
+    color: #ADDCAF;
 }
 
 .single-post p {
@@ -827,7 +827,7 @@ li {
 }
 
 .single-icon > a:hover {
-    color: #fc6c3f;
+    color: #ADDCAF;
 }
 
 .single-icon > a > i {
@@ -929,7 +929,7 @@ li {
 }
 
 .subscribe-link > a:hover {
-    color: #fc6c3f;
+    color: #ADDCAF;
 }
 
 .subscribe-link {
@@ -1018,7 +1018,7 @@ li {
     min-width: 130px;
     height: 40px;
     border: 1px solid #ADDCAF;
-    color: #fc6c3f;
+    color:#ADDCAF;
     font-size: 12px;
     display: inline-block;
     text-transform: uppercase;
@@ -1057,7 +1057,7 @@ li {
 .newsletter-form button {
     width: 40px;
     height: 40px;
-    background-color: #fc6c3f;
+    background-color: #ADDCAF;
     border: none;
     color: #fff;
     border-radius: 30px;
@@ -1176,7 +1176,7 @@ li {
     text-transform: uppercase;
     font-weight: 500;
     color: #fff;
-    background-color: #fc6c3f;
+    background-color: #ADDCAF;
     border-radius: 30px;
 }
 
@@ -1253,7 +1253,7 @@ li {
 
 .yummy-blockquote {
     padding-left: 30px;
-    border-left: 2px solid #fc6c3f;
+    border-left: 2px solid #ADDCAF;
 }
 
 .yummy-blockquote h5 {
@@ -1295,7 +1295,7 @@ li {
 
 .tags-area a:hover {
     color: #fff;
-    background-color: #fc6c3f;
+    background-color: #ADDCAF;
 }
 
 .related-post-area {

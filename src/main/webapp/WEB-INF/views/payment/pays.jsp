@@ -19,37 +19,36 @@
 				<div class="card">
 					<div class="card-body">
 						<div>
-							<div class="pull-left margin-right-20">
+						<ul class="list-unstyled margin-top-5 margin-bottom-0">							
+								<li class="padding-bottom-0 padding-top-0 ">
+								<div class="protitle">
 								<img class="width-120px border-radius"
 									src="https://d2v80xjmx68n4w.cloudfront.net/gigs/small/3a2A41523607533.jpg"
 									title="[크몽 입성 기념 50%할인] 고퀄리티 디자인 홈페이지를 24시간 내 제작해 드립니다."
 									onerror="this.onerror=null;this.src='/img/404/no_gig_sm_image.jpg';">
-							</div>
-							<div>
-								<h4 class="card-title order-info-gig-body margin-top-0">[크몽
+								<h4 class="card-title order-info-gig-body margin-top-0 titleh4">[크몽
 									입성 기념 50%할인] 고퀄리티 디자인 홈페이지를 24시간 내 제작해 드립니다.</h4>
-								<div class="margin-top-20 color-primary">
-									<img class="border-round width-20px"
-										src="https://d2v80xjmx68n4w.cloudfront.net/members/thumbs/jSRDC1523950893.jpg"
-										title="SOMEGUYFACTORY"
-										onerror="this.onerror=null;this.src='/img/tools/main_user.png';">
-									<span class="font-color-lighter">SOMEGUYFACTORY</span>
 								</div>
-							</div>
+								</li>
+								<li class="padding-bottom-0 padding-top-0">								
+									<span class="font-color-lighter">SOMEGUYFACTORY</span>
+								</li>
+							</ul>
+						
 						</div>
 
 						<table class="order-table">
 							<colgroup>
-								<col width="55%">
 								<col width="15%">
+								<col width="55%">
 								<col width="15%">
 								<col width="15%">
 							</colgroup>
 							<thead class="order-package">
 								<tr>
-									<th>옵션항목</th>
-									<th class="text-center">수량선택</th>
-									<th class="text-center">작업일</th>
+									<th class="text-center">옵션</th>
+									<th>옵션내용</th>
+									<th class="text-center">수량</th>
 									<th class="text-right">가격</th>
 								</tr>
 							</thead>
@@ -87,13 +86,6 @@
 
 					</div>
 				</div>
-
-
-
-
-
-
-
 			</div>
 		</div>
 
@@ -140,7 +132,7 @@
 											연락처</strong></label></li>
 								<li>
 
-									<div class="pnum">
+									<div class="pnum numnum">
 										<select class="form-control input-xs">
 											<option value="010" selected="">010</option>
 											<option value="011">011</option>
@@ -192,6 +184,7 @@
 											<input type="text" maxlength="4"
 												class="form-control input-xs">
 										</div>
+										
 									</div>
 
 
@@ -210,12 +203,13 @@
 								<li>
 									<div class="pnum">
 										<button class="btn btn-xss kmong-purple-btn">주소 찾기</button>
-
+										
+										<div class="addrs">
 										<input type="text" class="form-control input-xs width-100"
 											placeholder="우편번호"> <input type="text"
 											class="form-control input-xs" placeholder="기본주소"> <input
 											type="text" class="form-control input-xs" placeholder="나머지주소">
-
+										</div>
 									</div>
 									<div class="rows" style="display: none;">
 										<div class="col-xs-12 padding-left-0 margin-top-5">
