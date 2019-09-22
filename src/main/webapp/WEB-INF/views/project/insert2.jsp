@@ -107,6 +107,12 @@ margin-top: 800px;
 </style>
 <script type="text/javascript">
 $(function () {
+	var windowWidth = $( window ).width();
+	if(windowWidth < 500) {
+	console.log("모바일버전입니다");
+	} else {
+	//창 가로 크기가 500보다 클 경우
+	}	
 	$("#pattern-switcher").hide();
 	$("#patter-close").hide();
 	
@@ -503,7 +509,7 @@ $(function () {
  			<label for="enddate">종료 날짜</label>
  			<div><input type="date" class="form-control input-default" id="enddate" name="enddate" value="2019-09-25"></div>
  			
- 			<div class="btn2" id="btn2"><a href="#" >다음</a></div>			 
+ 			<div class="btn2 btn btn-primary" id="btn2"><a href="#" >다음</a></div>			 
  		</div>  
  		
  		<div id="tab2" class="tab_content">
@@ -528,7 +534,7 @@ $(function () {
  		
  		<label for="business_url">홈페이지</label>
  		<div><input type="text" class="form-control input-default" id="business_url" name="business_url" value="고정페이지"></div> 		
- 		<div class="btn2"  id="btn3"><a href="#">다음</a></div>		
+ 		<div class="btn2 btn btn-primary"  id="btn3"><a href="#">다음</a></div>		
  			
         </div>
         <!-- #tab2 -->
@@ -539,7 +545,7 @@ $(function () {
 		<div><input type="file" class="form-control input-default" id="img_file" name="img_file"></div>
 		<label for="introduce">창작자 소개</label>
 		<div><textarea class="form-control input-default" id="introduce" name="introduce">1111</textarea></div>
-		<div class="btn2" id="btn4"><a href="#" >다음</a></div>		
+		<div class="btn2 btn btn-primary" id="btn4"><a href="#" >다음</a></div>		
         </div>
         
         <!-- #tab3 -->
@@ -562,7 +568,7 @@ $(function () {
 		 <textarea id="summernote" name="summernote"></textarea> 
 		</div>
 		
-		<div class="btn2" id="btn5"><a href="#" >다음</a></div>		
+		<div class="btn2 btn btn-primary" id="btn5"><a href="#" >다음</a></div>		
     	</div>   
         <!-- #tab4 -->
  		<div id="tab5" class="tab_content">    	
@@ -571,9 +577,9 @@ $(function () {
     	</div> 	
     	
 	    <input type="hidden" id="btncnt" name="btncnt" value="0">
-	    <input type="button" value="옵션 추가 " id="up">
-		<input type="button" value="옵션 삭제 " id="down">
-    	<div class="btn2"  id="btn6"><a href="#">다음</a></div>
+	    <input type="button" class="btn btn-primary" value="옵션 추가 " id="up">
+		<input type="button" class="btn btn-primary" value="옵션 삭제 " id="down">
+    	<div class="btn2 btn btn-primary"  id="btn6"><a href="#">다음</a></div>
     	</div> 
     	
     	<!-- #tab5 -->		
@@ -583,12 +589,12 @@ $(function () {
             <canvas width="300" height="100"></canvas>
         </div>
         <div class="m-signature-pad--footer">           
-            <button type="button" class="button clear" data-action="clear">지우기</button>
-            <button type="button" class="button save" data-action="save">저장</button>            
+            <button type="button" class="button clear btn btn-primary" data-action="clear">지우기</button>
+            <button type="button" class="button save btn btn-primary" data-action="save">저장</button>            
         </div>
     	</div>   
-    		 <a href="#" id="insert" >체크체크</a> 
-   		   <input type="submit" value="등록" style="position: relative; left: 50px;"> 
+    		 <a href="#" class="btn btn-primary" id="insert" >체크체크</a> 
+   		   <input type="submit" class="btn btn-primary" value="등록" style="position: relative; left: 50px;"> 
     	</div> 
     	<!-- #tab3 -->  
      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">

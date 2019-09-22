@@ -81,7 +81,7 @@
 			<!-- Overlay Text -->
 			<div class="project_title">
 				<div class="post-date-commnents d-flex">
-					<a href="#">액세서리</a> 
+					<a href="#">액세서리</a>
 				</div>
 				<a href="#">
 					<h5>Simple necklace</h5>
@@ -95,7 +95,7 @@
 			<!-- Overlay Text -->
 			<div class="project_title">
 				<div class="post-date-commnents d-flex">
-					<a href="#">패션잡화</a> 
+					<a href="#">패션잡화</a>
 				</div>
 				<a href="#">
 					<h5>핸드메이드 월렛</h5>
@@ -111,7 +111,7 @@
 			<!-- Overlay Text -->
 			<div class="project_title">
 				<div class="post-date-commnents d-flex">
-					<a href="#">만화</a> 
+					<a href="#">만화</a>
 				</div>
 				<a href="#">
 					<h5>만화</h5>
@@ -139,7 +139,7 @@
 			<!-- Overlay Text -->
 			<div class="project_title">
 				<div class="post-date-commnents d-flex">
-					<a href="#">소설</a> 
+					<a href="#">소설</a>
 				</div>
 				<a href="#">
 					<h5>제노사이드</h5>
@@ -153,7 +153,7 @@
 			<!-- Overlay Text -->
 			<div class="project_title">
 				<div class="post-date-commnents d-flex">
-					<a href="#">시집</a> 
+					<a href="#">시집</a>
 				</div>
 				<a href="#">
 					<h5>읽어보 시집</h5>
@@ -168,7 +168,7 @@
 			<!-- Overlay Text -->
 			<div class="project_title">
 				<div class="post-date-commnents d-flex">
-					<a href="#">모바일 앱</a> 
+					<a href="#">모바일 앱</a>
 				</div>
 				<a href="#">
 					<h5>모바일앱 개발!</h5>
@@ -183,7 +183,7 @@
 			<!-- Overlay Text -->
 			<div class="project_title">
 				<div class="post-date-commnents d-flex">
-					<a href="#">도서 번역</a> 
+					<a href="#">도서 번역</a>
 				</div>
 				<a href="#">
 					<h5>영미권</h5>
@@ -211,7 +211,7 @@
 			<!-- Overlay Text -->
 			<div class="project_title">
 				<div class="post-date-commnents d-flex">
-					<a href="#">도서 번역</a> 
+					<a href="#">도서 번역</a>
 				</div>
 				<a href="#">
 					<h5>프랑스</h5>
@@ -236,7 +236,8 @@
 						<div class="single-post">
 							<!-- Post Thumb -->
 							<div class="post-thumb">
-								<img class="caroro" src="${newProject.project_photo}" alt="프로젝트대표사진">
+								<img class="caroro" src="${newProject.project_photo}"
+									alt="프로젝트대표사진">
 							</div>
 							<!-- Post Content -->
 							<div class="post-content">
@@ -244,14 +245,21 @@
 									<div class="post-author-date-area d-flex">
 										<!-- Post Author -->
 										<div class="post-author">
-											<a>지울거임</a>
+											<a>남은 날 : ${newProject.nam }일</a>
 										</div>
 										<!-- Post Date -->
 										<div class="post-date">
 											<a>${newProject.alias}</a>
-										</div>
-									</div>
+										</div>										
+									</div>									
 								</div>
+								<!-- 달성률 -->
+										<div class="progress">
+											<div class="progress-bar progress-bar-striped active"
+												role="progressbar" aria-valuenow="${newProject.ntargetprice }"
+												aria-valuemin="0" aria-valuemax="100"
+												style="width:${newProject.ntargetprice }% ">${newProject.ntargetprice }%</div>
+										</div>
 								<a href="projectdetail/${newProject.project_no }">
 									<h6>${newProject.project_title}</h6>
 								</a>
@@ -271,7 +279,8 @@
 						<div class="single-post">
 							<!-- Post Thumb -->
 							<div class="post-thumb">
-								<img class="caroro" src="${popularProject.project_photo}" alt="프로젝트대표사진">
+								<img class="caroro" src="${popularProject.project_photo}"
+									alt="프로젝트대표사진">
 							</div>
 							<!-- Post Content -->
 							<div class="post-content">
@@ -279,7 +288,7 @@
 									<div class="post-author-date-area d-flex">
 										<!-- Post Author -->
 										<div class="post-author">
-											<a>지울거임</a>
+											<a>남은 날 : ${popularProject.nam }일</a>
 										</div>
 										<!-- Post Date -->
 										<div class="post-date">
@@ -287,6 +296,13 @@
 										</div>
 									</div>
 								</div>
+										<!-- 달성률 -->
+										<div class="progress">
+											<div class="progress-bar progress-bar-striped active"
+												role="progressbar" aria-valuenow="${popularProject.ntargetprice }"
+												aria-valuemin="0" aria-valuemax="100"
+												style="width:${popularProject.ntargetprice }% ">${popularProject.ntargetprice }%</div>
+										</div>
 								<a href="projectdetail/${popularProject.project_no }">
 									<h6>${popularProject.project_title}</h6>
 								</a>
@@ -304,7 +320,8 @@
 						<div class="single-post">
 							<!-- Post Thumb -->
 							<div class="post-thumb">
-								<img class="caroro" src="${successApproach.project_photo}" alt="프로젝트대표사진">
+								<img class="caroro" src="${successApproach.project_photo}"
+									alt="프로젝트대표사진">
 							</div>
 							<!-- Post Content -->
 							<div class="post-content">
@@ -312,7 +329,7 @@
 									<div class="post-author-date-area d-flex">
 										<!-- Post Author -->
 										<div class="post-author">
-											<a>지울거임</a>
+											<a>남은 날 : ${successApproach.nam }일</a>
 										</div>
 										<!-- Post Date -->
 										<div class="post-date">
@@ -320,6 +337,13 @@
 										</div>
 									</div>
 								</div>
+								<!-- 달성률 -->
+										<div class="progress">
+											<div class="progress-bar progress-bar-striped active"
+												role="progressbar" aria-valuenow="${successApproach.ntargetprice }"
+												aria-valuemin="0" aria-valuemax="100"
+												style="width:${successApproach.ntargetprice }% ">${successApproach.ntargetprice }%</div>
+										</div>
 								<a href="projectdetail/${successApproach.project_no }">
 									<h6>${successApproach.project_title}</h6>
 								</a>
@@ -334,6 +358,6 @@
 
 
 	<!-- ****** Instagram Area Start ****** -->
-	
+
 </body>
 </html>

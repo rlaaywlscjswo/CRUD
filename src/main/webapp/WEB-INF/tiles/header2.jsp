@@ -19,7 +19,8 @@
 $(document).ready(function(){
 	$('#logout').on('click', function() {
 		document.logout.submit();
-	});
+	});	
+	
 });
 </script>
 </head>

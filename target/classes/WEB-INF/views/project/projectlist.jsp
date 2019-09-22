@@ -13,14 +13,13 @@
 
 	<section class="archive-area section_padding_80">
 		<div class="container">
-			<div class="row">
-
+			<div class="row">			
 				<!-- Single Post -->
 				<c:forEach var="item" items="${list }">
 					<div class="col-12 col-md-6 col-lg-4">
 						<div class="card h-100">
 							<a href="projectdetail/${item.project_no }"><img
-								class="card-img-top" src="${item.project_photo }" alt="프로젝트대표사진"></a>
+								class="card-img-top caroro" src="${item.project_photo }" alt="프로젝트대표사진"></a>
 							<div class="card-body">
 								<div class="progress">
 									<div class="progress-bar progress-bar-striped active"

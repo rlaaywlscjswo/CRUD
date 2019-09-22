@@ -157,7 +157,7 @@ public class ProjectController {
 		List<CategoryDTO> maincategorylist = categoryservice.maincategoryList();		
 		model.addAttribute("mainlist",maincategorylist);		
 		System.out.println("insert : "+model);		
-		return "project/insert2.temp"; 
+		return "project/projectinsert.temp"; 
 	
 	}	
 	
