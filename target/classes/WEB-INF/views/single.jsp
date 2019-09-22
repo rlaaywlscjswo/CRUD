@@ -46,7 +46,8 @@
 <script type="text/javascript">
 	var project_no = ${list.project_no}; // 프로젝트 번호
 	console.log("프번프번"+project_no);
-	$(function() {
+	
+	$(function() {		
 		commentList(); //페이지 로딩시 댓글 목록 출력 
 
 		$('[name=replyinsertbtn]').click(function() { //댓글 등록 버튼 클릭시 
@@ -233,7 +234,7 @@
 											data-toggle="tab" href="#zxc">환불정책</a></li>
 									</ul>
 									<div class="tab-content">
-										<div class="tab-pane fade show active" id="qwe">										
+										<div class="tab-pane fade show active" id="qwe">																		
 											<iframe src="${list.project_contents }" style="width:100%; height: 882px;" frameborder="0"></iframe>
 										</div>
 										<div class="tab-pane fade" id="asd">

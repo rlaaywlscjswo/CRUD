@@ -147,9 +147,8 @@
 							<c:otherwise>아직 후원을 받는 중입니다. / ${fmlist.reachper}%</c:otherwise>
 						</c:choose></td>
 						
-						
-						<!-- 여기야!! -->
-					<td>${fmlist.project_contract}</td>
+					
+					<td><button onclick="window.open('${fmlist.project_contract}')">계약서</button></td>
 					
 					
 					

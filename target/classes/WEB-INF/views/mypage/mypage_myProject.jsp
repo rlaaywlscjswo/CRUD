@@ -54,10 +54,8 @@
 								<c:set var="dal" value="${myProject_list.reachper}"/>
 								<c:if test="${dal == null}">달성률 : 후원 받은 금액이 없습니다.<br></c:if>
 								<c:if test="${dal != null}">달성률 : ${myProject_list.reachper}% <br></c:if>
-								
-								<!-- 여기야!!!! -->
-								 계약서 :
-								${myProject_list.project_contract}<br>
+								<button onclick="window.open('${myProject_list.project_contract}')">계약서</button>									
+								<br>
 
 
 							</p>
