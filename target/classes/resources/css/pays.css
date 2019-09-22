@@ -127,6 +127,7 @@ label {
    
 .protitle{
 	display: -webkit-inline-box;
+	width: 100%;
 }
 
 .titleh4{
@@ -138,13 +139,20 @@ label {
 }
 
 .addrs{
-	display: -webkit-inline-box;	
+	display: -webkit-inline-box;
+	width: 100%;	
 }
 
 .numnum{
 	display: -webkit-inline-box;
+	width: 25%;
 }
 
+.numtail{
+	width: 60%;
+	display: -webkit-inline-box;
+	
+}
 .form-control{	
 	height: 100%;	
 }

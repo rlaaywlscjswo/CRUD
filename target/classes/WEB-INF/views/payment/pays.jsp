@@ -130,7 +130,7 @@
 
 								<li><label><strong class="shipping-necessary">
 											연락처</strong></label></li>
-								<li>
+								<li style="width:588px; ">
 
 									<div class="pnum numnum">
 										<select class="form-control input-xs">
@@ -170,7 +170,7 @@
 											<option value="0303">0303</option>
 										</select>
 
-
+										<div class="numtail">
 										<div>-</div>
 
 										<div>
@@ -184,7 +184,7 @@
 											<input type="text" maxlength="4"
 												class="form-control input-xs">
 										</div>
-										
+										</div>
 									</div>
 
 
@@ -201,14 +201,13 @@
 
 								</li>
 								<li>
-									<div class="pnum">
-										<button class="btn btn-xss kmong-purple-btn">주소 찾기</button>
-										
+									<div class="pnum">										
 										<div class="addrs">
 										<input type="text" class="form-control input-xs width-100"
 											placeholder="우편번호"> <input type="text"
 											class="form-control input-xs" placeholder="기본주소"> <input
 											type="text" class="form-control input-xs" placeholder="나머지주소">
+											<button class="btn btn-xss btn btn-primary">주소 찾기</button>
 										</div>
 									</div>
 									<div class="rows" style="display: none;">
@@ -252,7 +251,7 @@
 									class="pull-right"> <span class="tahoma color-red"
 										style="display: none;">- <span>0</span>원
 									</span>
-										<button class="btn btn-xss kmong-purple-btn margin-left-10"
+										<button class="btn btn-xss btn btn-primary margin-left-10"
 											data-toggle="modal" data-target="#selectedCouponModal">쿠폰선택</button>
 								</span> <!-- Modal -->
 									<div class="modal fade" id="selectedCouponModal"
@@ -370,11 +369,11 @@
 									</ul>
 								</li>
 							</ul>
-						</div>
-						<input type="submit" id="reqpay"
-							style="width: 100%; margin: 0 auto;" value="결제">
-					</div>
+						</div>						
+					</div>					
 				</div>
+				<input type="submit" id="reqpay" class="btn btn-primary"
+							style="width: 100%; margin: 0 auto;" value="결제">
 			</div>
 		</div>
 		<!--결제방법  -->
