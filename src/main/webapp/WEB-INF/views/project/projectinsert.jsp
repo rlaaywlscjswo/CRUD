@@ -225,7 +225,7 @@ margin-top: 800px;
 				$("#modalbtn").trigger("click");
 			}
 		}
-
+		
 		// 새로운 tab
 		$('.big_tab li').first().addClass("activeClass");
 		$(".tab-contents").not(':first').hide();
@@ -574,13 +574,13 @@ margin-top: 800px;
 			<label for="startdate">시작 날짜</label>
 			<div>
 				<input type="date" class="form-control input-default" id="startdate"
-					name="startdate" value="2019-09-19">
+					name="startdate" value="2019-09-19" style="width: 40%;">
 			</div>
 
 			<label for="enddate">종료 날짜</label>
 			<div>
 				<input type="date" class="form-control input-default" id="enddate"
-					name="enddate" value="2019-09-25">
+					name="enddate" value="2019-09-25" style="width: 40%;">
 			</div>
 
 			<div class="btn2 btn btn-primary" id="btn2">
@@ -618,7 +618,7 @@ margin-top: 800px;
 			<div>
 				<input type="date" class="form-control input-default"
 					id="business_startdate" name="business_startdate"
-					value="2019-03-21">
+					value="2019-03-21" style="width: 40%;">
 			</div>
 
 			<label for="business_url">홈페이지</label>
@@ -681,7 +681,6 @@ margin-top: 800px;
 
 		<div id="tab05" class="tab-contents">
 			<div id="optform"></div>
-
 			<input type="hidden" id="btncnt" name="btncnt" value="0"> <input
 				type="button" class="btn btn-primary" value="옵션 추가 " id="up">
 			<input type="button" class="btn btn-primary" value="옵션 삭제 " id="down">
@@ -690,19 +689,25 @@ margin-top: 800px;
 			</div>
 		</div>
 
-		<div id="tab06" class="tab-contents">
-			<div id="signature-pad" class="m-signature-pad">
-				<div class="m-signature-pad--body">
+		<div id="tab06" class="tab-contents">	
+			<div>
+			<input type="checkbox" value="ddd" id="okok">
+			<textarea rows="10" cols="50" readonly="readonly" >약관머시기</textarea><br>
+			
+			</div>
+			<div id="signature-pad" class="m-signature-pad">	
+				<div class="m-signature-pad--body">			
 					<canvas width="300" height="100"></canvas>
 				</div>
 				<div class="m-signature-pad--footer">
 					<button type="button" class="button clear btn btn-primary"
 						data-action="clear">지우기</button>
 					<button type="button" class="button save btn btn-primary"
-						data-action="save">저장</button>
+						data-action="save" style="z-index: 1000;">저장</button>
+					<a href="#" class="btn btn-primary" id="insert">등록</a> 
 				</div>
 			</div>
-			<a href="#" class="btn btn-primary" id="insert">등록</a> 
+			
 		
 		</div>
 		<input type="hidden" name="${_csrf.parameterName}"
@@ -727,12 +732,21 @@ margin-top: 800px;
 </div>
 	<button type="button" id="modalbtn" class="btn btn-primary"
 		data-toggle="modal" data-target="#exampleModalCenter">모달 창</button>
-	<script>
+	<script>		
 		$('#summernote').summernote({
-			placeholder : '작성가이드를 참고해서 작성해보세요!',
-			tabsize : 2,
-			height : 200
-		});
+			  toolbar: [
+			    // [groupName, [list of button]]
+			    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    ['font', ['strikethrough', 'superscript', 'subscript']],
+			    ['fontsize', ['fontsize']],
+			    ['color', ['color']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],			    
+			  ],
+			  placeholder : '작성가이드를 참고해서 작성해보세요!',
+				tabsize : 2,
+				height : 200
+			});
 	</script>
 </body>
 </html>
