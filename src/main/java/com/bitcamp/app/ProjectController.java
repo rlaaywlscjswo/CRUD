@@ -61,9 +61,9 @@ public class ProjectController {
 	@Resource // pdf 서비스
 	private PDFService pdfservice;
 	
-	// 임시 메인
-	@RequestMapping("yummy")
-	public String yummy(Model model) {
+	// 메인 페이지 
+	@RequestMapping("/main")
+	public String main(Model model) {
 				// 병훈쓰 인기 프로젝트
 				List<ProjectDTO> popularProject = service.popularProject();
 				model.addAttribute("popularProject", popularProject);
@@ -82,23 +82,6 @@ public class ProjectController {
 	public String s() {
 		return "single.temp";
 	}
-	// 메인 페이지
-	@RequestMapping("main") 
-	public String main(Model model) {			
-		// 병훈쓰 인기 프로젝트
-		List<ProjectDTO> popularProject = service.popularProject();
-		model.addAttribute("popularProject", popularProject);
-		
-		// 병훈쓰 새로운 프로젝트
-		List<ProjectDTO> newProject = service.newProject();
-		model.addAttribute("newProject", newProject);
-		
-		// 병훈쓰 성공 임박 프로젝트
-		List<ProjectDTO> successApproach = service.successApproach();
-		model.addAttribute("successApproach", successApproach);
-		
-		return "main";
-	}		
 
 	// 프로젝트 카테고리 선택 결과 목록 페이지 
 	@RequestMapping("/projectcategorylist={sub_category}")

@@ -51,7 +51,7 @@
 						<!-- Logo Area Start -->
 						<div class="col-12">
 							<div class="logo_area text-center">
-								<a href="/yummy" class="yummy-logo"><img id="c" alt="c"
+								<a href="/main" class="yummy-logo"><img id="c" alt="c"
 									src="http://localhost:8080/resources/yummy/img/B_02.png">RUD</a>
 							</div>
 						</div>
