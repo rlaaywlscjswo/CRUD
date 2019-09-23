@@ -7,13 +7,33 @@
 <meta charset="UTF-8">
 <title>마이 페이지 - 내 프로젝트</title>
 <link href="\resources\css/admin.css" rel="stylesheet">
+<style>
+
+	#theNumbersOfMyProject {
+		display: inline-block;
+		margin-bottom: 10px;
+		position: relative;
+	}
+	
+	#theNumbersOfMyProject span {
+		font-size: 2em;
+	}
+	
+	p button {
+		display: inline-block;
+		left: 65%;
+		margin-bottom: 5px;
+		top: 15px;
+		position: relative;
+	}
+</style>
 </head>
 <body>
 
 	<div class="wrap">
 
 		<div id="theNumbersOfMyProject">내가 만든 프로젝트 개수 :
-			${theNumbersOfMyProject}개</div>
+			<span>${theNumbersOfMyProject}개</span></div>
 
 
 		<!-- 검색 -->
@@ -29,6 +49,7 @@
 		</div>
 
 		<!-- 내가 만든 프로젝트 목록 -->
+		<div class="myproList">
 		<c:forEach var="myProject_list" items="${myProject_list}">
 			<div class="card mb-3" style="max-width: 540px;">
 				<div class="row no-gutters">
@@ -55,7 +76,8 @@
 								<c:set var="dal" value="${myProject_list.reachper}"/>
 								<c:if test="${dal == null}">달성률 : 후원 받은 금액이 없습니다.<br></c:if>
 								<c:if test="${dal != null}">달성률 : ${myProject_list.reachper}% <br></c:if>
-								<button onclick="window.open('${myProject_list.project_contract}')">계약서</button>									
+								<button onclick="window.open('${myProject_list.project_contract}')"
+								class="btn btn-primary">계약서 보기</button>									
 								<br>
 
 
@@ -65,6 +87,7 @@
 				</div>
 			</div>
 		</c:forEach>
+		</div>
 		<!-- 내가 만든 프로젝트 목록 끝 -->
 
 

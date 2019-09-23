@@ -88,6 +88,12 @@ textarea {
 	display: inline-block;
 	position: relative;
 }
+
+#myBtn {
+	display: inline-block;
+	left: 90%;
+	position: relative;
+}
 </style>
 <script>
 	window.onload = function() {

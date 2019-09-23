@@ -62,7 +62,5 @@ public class SecurityController {
 		return "/security/customlogout";
 
 	} // end memberPage method
-	
-	
 
 } // end SecurityController class
