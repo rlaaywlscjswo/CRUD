@@ -17,8 +17,16 @@ public class MemberDTO {
 	private String joindate; // 가입일
 	private boolean enabled; // 접근
 	private int rank_no; // 등급 번호
-	private int auth_no; // 권한 번호	
 	private String sign; // 서명이미지 경로
+	private String auth; // 권한
+
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
 
 	private List<AuthorityDTO> authList; // 권한 list
 	private List<ProjectDTO> projectList; // 프로젝트 list
@@ -118,14 +126,6 @@ public class MemberDTO {
 	public void setRank_no(int rank_no) {
 		this.rank_no = rank_no;
 	}
-
-	public int getAuth_no() {
-		return auth_no;
-	}
-
-	public void setAuth_no(int auth_no) {
-		this.auth_no = auth_no;
-	}	
 
 	public String getSign() {
 		return sign;

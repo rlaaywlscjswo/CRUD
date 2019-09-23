@@ -92,6 +92,20 @@ $(function () {
 			<input type="text" name="name" id="name" value="${myProfile.name}" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; width: 300px;"> <br>
 			<label for="email">이메일</label>
 			<input type="text" name="email" id="email" value="${myProfile.email}" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; width: 300px;"> <br>
+			<label for="auth">회원 등급</label>
+			<c:set value="${myProfile.auth}" var="auth" />
+			<c:if test="${auth == 'ROLE_ADMIN'}">
+				<input type="text" name="auth" id="auth" value="관리자" readonly="readonly" 
+				class="form-control form-control-sm" style="display: inline-block; width: 300px;">
+			</c:if>
+			<c:if test="${auth == 'ROLE_MANAGER'}">
+				<input type="text" name="auth" id="auth" value="창작자" readonly="readonly" 
+				class="form-control form-control-sm" style="display: inline-block; width: 300px;">
+			</c:if>
+			<c:if test="${auth == 'ROLE_MEMBER'}">
+				<input type="text" name="auth" id="auth" value="일반 회원" readonly="readonly" 
+				class="form-control form-control-sm" style="display: inline-block; width: 300px;">
+			</c:if> <br>
 			<label for="phone">전화 번호</label>
 			<c:set value="${myProfile.phone}" var="myphone" />
 			<c:if test="${myphone == null}">

@@ -12,15 +12,16 @@
 	<resultMap type="com.bitcamp.dto.MemberDTO" id="mdto">
 		<result column="name" property="name" />
 		<result column="email" property="email" />
+		<result column="auth" property="auth" />
 		<result column="password" property="password" />
 		<result column="photo" property="photo" />
 		<result column="phone" property="phone" />
 	</resultMap>
 
 	<select id="myProfile" resultMap="mdto">
-		select name, email, photo, phone, password
-		from member
-		where email = #{email}
+		select name, email, auth, phone, password
+		from member join authority on member.no = authority.no
+		where email =  #{email}
 	</select>
 
 	<update id="updatePhoto" parameterType="java.util.HashMap">
