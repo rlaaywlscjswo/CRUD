@@ -48,7 +48,10 @@
 								후원 일자 :
 								<c:out value="${mySupport_list.da}" />
 								<br> 후원 진행 사항 :
-								<c:out value="${mySupport_list.support_status}" />
+								<c:set value="${mySupport_list.support_status}" var="stats" />
+								<c:if test="${stats == 0}">미배송</c:if>
+								<c:if test="${stats == 1}">배송 중</c:if>
+								<c:if test="${stats == 2}">배송 완료</c:if>								
 								<br> 선택한 옵션 :
 								<c:out value="${mySupport_list.option_name}" />
 								<br> 후원 금액 :
