@@ -12,47 +12,60 @@
 		margin-top: 50px;
 		width: 1500px;
 	} 
+	
+	.card-text a input {
+		left: 47%;
+		top: 115px;
+	}
+	
+	.card-text input:nth-child(11) {
+		left: 50%;
+		top: 115px;
+	}
+	
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 	jQuery.noConflict();
 	jQuery(document).ready(function($) {
-		$('form').find('input:eq(3)').on('click', function() {
-			var phone = $(this).prev().val();
-			$.ajax({
-				url: "updatephone",
-				data: "phone=" + phone,
-				success: function(data) {
-					alert('성공임 ㅋㅋㅋㅋ : ' + phone)
-				}, error: function() {
-					alert('실패임 ㅋㅋㅋㅋ');
-				}
-			}); // end ajax
-			
-		}); // end on
+
+		// $('.card-text').find('input:eq(8)').css('background-color', 'crimson');
 		
-		$('form').find('input:eq(4)').on('click', function() {
-			$(this).css('background-color', 'crimson');
-			alert('진짜 탈퇴 할거야?! 진짜아아아아아아아앙?!');
-			var email = $(this).prev().val();
-			$.ajax({
-				url: "deleteMember",
-				data: "email=" + email,
-				success: function(data) {
-					if (data == 1) {
-						// console(data);
-						$('form').next().submit();
-					} else {
-						alert('바보');
-					}
+			$('.card-text').find('input:eq(6)').on('click', function() {
+				var phone = $(this).prev().val(); // 전화 번호
 					
-				}, error: function(data) {
-					alert('ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 탈퇴 실패 ㅋㅋㅋㅋ 못 벗어남' + data);
-				}
-			}); // end ajax
-		}); // end on
+				console.log(phone);						
+
+					$.ajax({
+						url: "updatephone",
+						data: "phone=" + phone,
+						success: function(data) {
+							alert(phone + ' 으로 변경 성공');
+						}, error: function() {
+							alert('실패임 ㅋㅋㅋㅋ');
+						}
+					}); // end ajax
+
+			}); // end on
+
 		
-		
+		$('.card-text').find('input:eq(8)').on('click', function() { // 회원 탈퇴
+			// $(this).css('background-color', 'crimson');
+			
+			if (confirm('정말 탈퇴 하시겠습니까?')) {
+	 			$.ajax({
+					url: "deleteMember",
+					success: function(data) {
+						$('form').submit();				
+					}, error: function(data) {
+						alert('ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ 탈퇴 실패 ㅋㅋㅋㅋ 못 벗어남' + data);
+					}
+				}); // end ajax
+			} else {
+				alert('탈퇴가 취소 되었습니다.');
+			}
+ 
+		}); // end on		
 		
 	}); // end ready
 </script>
@@ -86,44 +99,58 @@ $(function () {
 <body>
 
 	<div class="wrap">
-		<form>
-			<label>사진</label><br>
-			<label for="name">이름</label>
-			<input type="text" name="name" id="name" value="${myProfile.name}" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; width: 300px;"> <br>
-			<label for="email">이메일</label>
-			<input type="text" name="email" id="email" value="${myProfile.email}" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; width: 300px;"> <br>
-			<label for="auth">회원 등급</label>
+	
+<div class="card mb-3" style="height: 405px; left: 23%; max-width: 810px;">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="..." class="card-img" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">
+        	<input type="text" name="name" id="name" value="이름" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; margin-top: 50px; width: 50px;">
+        	<input type="text" name="name" id="name" value="${myProfile.name}" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; width: 105px;">
+        </h5>
+        <p class="card-text">
+        	<input type="text" name="email" id="email" value="이메일" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; width: 60px;">
+        	<input type="text" name="email" id="email" value="${myProfile.email}" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; width: 200px;"> <br>
 			<c:set value="${myProfile.auth}" var="auth" />
+			<input type="text" name="auth" id="auth" value="회원 등급" readonly="readonly" 
+				class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 80px;">
 			<c:if test="${auth == 'ROLE_ADMIN'}">
 				<input type="text" name="auth" id="auth" value="관리자" readonly="readonly" 
-				class="form-control form-control-sm" style="display: inline-block; width: 300px;">
+				class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 70px;">
 			</c:if>
 			<c:if test="${auth == 'ROLE_MANAGER'}">
 				<input type="text" name="auth" id="auth" value="창작자" readonly="readonly" 
-				class="form-control form-control-sm" style="display: inline-block; width: 300px;">
+				class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 70px;">
 			</c:if>
 			<c:if test="${auth == 'ROLE_MEMBER'}">
 				<input type="text" name="auth" id="auth" value="일반 회원" readonly="readonly" 
-				class="form-control form-control-sm" style="display: inline-block; width: 300px;">
-			</c:if> <br>
-			<label for="phone">전화 번호</label>
+				class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 82px;">
+			</c:if> <br>  
+			<input type="tel" name="phone" id="phone" value="전화 번호" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 80px;">
 			<c:set value="${myProfile.phone}" var="myphone" />
 			<c:if test="${myphone == null}">
-				<input type="tel" name="phone" id="phone" placeholder=" 전화 번호를 입력해주세요 :)" class="form-control form-control-sm" style="display: inline-block; width: 300px;">
+				<input type="tel" name="phone" id="phone" placeholder=" 전화 번호를 입력해주세요 :)" class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 220px;">
 			</c:if>
 			<c:if test="${myphone != null}">
-				<input type="tel" name="phone" id="phone" value="${myProfile.phone}" class="form-control form-control-sm" style="display: inline-block; width: 300px;">
-			</c:if>
-			
+				<input type="tel" name="phone" id="phone" value="${myProfile.phone}" class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 200px;">
+			</c:if> 
 			<input type="button" class="btn btn-primary" value="전화 번호 수정">
-			<input type="button" class="btn btn-primary" value="회원 탈퇴" style="display: inline-block; left: 30%; position: relative;">
-			<a href="/passwordfind"><input type="button" class="btn btn-primary" style="display: inline-block; position: relative; top: -5.5px;">비밀번호 찾기</button></a>
-		</form>
-		
-		 <form action="/customLogout" method="post" id="logoutbtn">
+			<a href="/passwordfind"><input type="button" class="btn btn-primary" value="비밀 번호 수정" style="display: inline-block; position: relative;"></a>
+			<input type="button" class="btn btn-primary" value="회원 탈퇴" style="display: inline-block; position: relative;">
+			
+        </p>
+ 			<form action="/customLogout" method="post" id="logoutbtn">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		</form>
-	</div>
+			</form> 	
+      </div>
+    </div>
+  </div>
+</div>
+
+	</div> <!-- end .wrap -->
 	
 
 
