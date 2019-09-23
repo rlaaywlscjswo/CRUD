@@ -106,7 +106,7 @@ public class MypageController {
 		String email = principal.getName();
 
 		int totalCount = service.myProject_totalCount(project_search, email);
-		int pagePerSize = 2;
+		int pagePerSize = 4;
 		int blockPerSize = 3;
 
 		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
@@ -135,7 +135,7 @@ public class MypageController {
 		String email = principal.getName();
 
 		int totalCount = service.mySupport_totalCount(support_search, email);
-		int pagePerSize = 2;
+		int pagePerSize = 4;
 		int blockPerSize = 3;
 
 		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);

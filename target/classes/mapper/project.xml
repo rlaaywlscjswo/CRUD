@@ -101,6 +101,7 @@
 				CONCAT('%',#{searchtxt},'%')			
 			</if>
 		</where>
+		group by project_no
 		order by startdate desc
 		limit #{startRow},9
 	</select>
