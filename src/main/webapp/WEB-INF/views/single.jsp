@@ -12,15 +12,17 @@
 
 /* Styling h1 and links
 ––––––––––––––––––––––––––––––––– */
+.start{
+float:left;
+width:500px;
 
-
-
+}
 .starrating > input {display: none;}  /* Remove radio buttons */
 
 .starrating > label:before { 
   content: "\f005"; /* Star */
   margin: 2px;
-  font-size: 8em;
+  font-size: 1em;
   font-family: FontAwesome;
   display: inline-block; 
 }
@@ -249,22 +251,38 @@
 											<form method="post" name="replyinsertform">
 												<input type="hidden" id="project_no" name="project_no"
 													value="${list.project_no }">
-		<div class="container">
-        <div class="starrating risingstar d-flex justify-content-center flex-row-reverse">
-            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
-            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
-            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
-            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
-            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
-        </div>
-  		</div>
-												<textarea style="width: 100%; resize: none;"
+												<div class="comment_area section_padding_50 clearfix">
+												<ol>
+												<li class="single_comment_area">
+												<div class="comment-wrapper d-flex">
+												<div class="comment-author">
+												<img src="/resources/yummy/img/blog-img/17.jpg" alt="">
+												</div>
+												<div class="comment-content">
+												<span class="comment-date text-muted">
+													<div class="container start">
+        												<div class="starrating risingstar d-flex justify-content-center flex-row-reverse">
+            									<input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+            									<input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+            									<input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+            									<input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+            									<input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+        												</div>
+  													</div>
+												</span>
+												<h5></h5>
+												<p>
+													<textarea style="width: 100%; resize: none;"
 													id="reply_contents" class="form-control"
-													name="reply_contents"></textarea>
-		
-
-												<button type="button" name="replyinsertbtn">등록</button>
-												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+													name="reply_contents"></textarea>														
+												</p>
+												<button type="button" name="replyinsertbtn" class="replyinsertbtn">등록</button>
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">																								
+												</div>
+												</div>
+												</li>
+												</ol>
+												</div>	
 											</form>
 											</sec:authorize>
 											<div class="replylist">

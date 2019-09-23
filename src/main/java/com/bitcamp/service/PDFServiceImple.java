@@ -26,7 +26,7 @@ import com.itextpdf.tool.xml.pipeline.end.PdfWriterPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipeline;
 import com.itextpdf.tool.xml.pipeline.html.HtmlPipelineContext;
 
-@SuppressWarnings("deprecation")
+
 @Service
 public class PDFServiceImple implements PDFService {
 
@@ -90,7 +90,7 @@ public class PDFServiceImple implements PDFService {
 			
 			//css
 			CSSResolver cssresolver = new StyleAttrCSSResolver();		
-	        CssFile cssFile = helper.getCSS(new FileInputStream("d:/pdf.css")); 
+	        CssFile cssFile = helper.getCSS(new FileInputStream("C:/bitcamp/study/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/CRUD/resources/css/pdf.css")); 
 	        System.out.println("css주소 맞냐"+cssFile);
 	       cssresolver.addCss(cssFile); 
 	        
