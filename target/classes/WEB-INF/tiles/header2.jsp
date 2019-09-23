@@ -41,11 +41,13 @@ $(document).ready(function(){
                 <div class="col-5 col-sm-6">
                     <!--  Top Social bar start -->
                     <div class="top_social_bar">
-                        <a href="#" id="talk">쪽지함</a>
+                        <a href="#" id="talk"><img src="/resources/img/mailbox.png" alt="쪽지함"></a>
                         <ul>
                         <sec:authorize access="isAuthenticated()">
                         <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">마이 페이지</a>
+                                    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img src="/resources/img/user-account-box.png" alt="마이페이지">
+                                    </a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
                                         <a class="dropdown-item" href="/info">내 프로필</a>
                                         <a class="dropdown-item" href="/support">내 후원 내역</a>
