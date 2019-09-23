@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>CRUD</title>
 	<!-- Favicon -->
     <link rel="icon" href="/resources/yummy/img/A_02.png">
 

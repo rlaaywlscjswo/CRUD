@@ -26,7 +26,7 @@
 /* ***** Fonts ***** */
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700|Quicksand:300,400,500,700|Shadows+Into+Light+Two');
-
+@import url('https://fonts.googleapis.com/css?family=Manjari:700&display=swap');
 /* ***** Import CSS ***** */
 
 @import 'css/bootstrap/bootstrap.min.css';
@@ -436,8 +436,8 @@ li {
 -------------------- */
 
 .logo_area .yummy-logo {
-    font-family: 'Shadows Into Light Two', cursive;
-    font-size: 60px;
+   	font-family: 'Manjari', sans-serif;
+    font-size: 70px;
     margin-bottom: 0;
     padding: 35px 0 20px 0;
     display: inline-block;
