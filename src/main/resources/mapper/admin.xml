@@ -203,11 +203,16 @@
 		where project_no not in (1, 2, 3, 1001, 1002, 1003, 2001, 2002, 2003, 2004, 3001, 4001, 4002)
 	</select>
 	
-	<!-- 거절 된 프로젝트 지워주기 -->
+	<!-- 거절 된 프로젝트 지워주기 (매주 금요일 저녁 6시에 삭제) -->
 	<delete id="deleteDisagree">
 		delete from project where project_status = 2
 	</delete>
 	
+	<!-- 남은 날이 -1보다 작으면 지난 프로젝트로 변경 (매일 밤 11시 59분에 변경) -->
+		<update id="updateStatus">
+			<![CDATA[update project set project_status = 3 where (to_days(enddate) - to_days(now())) < -1]]>
+		</update>
+		
 	<!-- 고객 문의 -->
 	
 	<resultMap type="hashmap" id="adcsdto">
