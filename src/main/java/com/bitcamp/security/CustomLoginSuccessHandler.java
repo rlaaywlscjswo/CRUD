@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -37,15 +36,15 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		System.out.println("ROLE_NAME : " + roleNames);
 		
 		if (roleNames.contains("ROLE_ADMIN")) {
-			response.sendRedirect("/yummy");
+			response.sendRedirect("/main");
 		}
 		
 		if (roleNames.contains("ROLE_MANAGER")) {
-			response.sendRedirect("/yummy");
+			response.sendRedirect("/main");
 		}
 		
 		if (roleNames.contains("ROLE_MEMBER")) {
-			response.sendRedirect("/yummy");
+			response.sendRedirect("/main");
 		}
 		
 		// response.sendRedirect("/");

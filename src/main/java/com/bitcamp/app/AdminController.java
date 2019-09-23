@@ -101,7 +101,7 @@ public class AdminController {
 
 	} // end adminPage method
 
-	@RequestMapping("/changeAuth")
+/*	@RequestMapping("/changeAuth")
 	public String changeAuth(Principal principal, Model model) {
 
 		int result = service.changeAuth(principal.getName());
@@ -110,7 +110,7 @@ public class AdminController {
 		return "redirect:/admin";
 
 	} // end changeAuth method
-
+*/
 	// pdf 받아오기
 	@RequestMapping(value = "/getpdf", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody String getpdf(@RequestParam int project_no) {
