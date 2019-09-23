@@ -128,6 +128,7 @@ label {
 .protitle{
 	display: -webkit-inline-box;
 	width: 100%;
+	margin-bottom: 0px;
 }
 
 .titleh4{
@@ -340,4 +341,11 @@ label {
 }
 .radioul, .radioul li{
 	display: inline-block;
+}
+.font-color-lighter {
+    margin-bottom: 0px;
+    margin: 0 auto;
+}
+#bottom-0 {
+    margin-bottom: 0px;
 }

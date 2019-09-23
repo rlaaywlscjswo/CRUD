@@ -6,8 +6,212 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="/resources/css/pays.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+$(document).ready(function(){
+	let num = ${opt.option_price}; //$(".price").text(); 		
+	var regexp = /\B(?=(\d{3})+(?!\d))/g;
+	$(".price").text(num.toString().replace(regexp, ','));
+	//return num.toString().replace(regexp, ',');
+	
+	
+	$('.goPopup').on('click', function(){
+		// 주소검색을 수행할 팝업 페이지를 호출합니다.
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+		var pop = window.open("jusoPopup","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+	    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+	});
+	
+	// 상세주소 수정 할 때, 전제 주소도 동시에 변경.
+	$('#addrDetail').on('keyup', function(val){
+		let addr1 = document.getElementById('roadaddrPart1').value;
+		let addr2 = document.getElementById('roadaddrPart2').value;
+		let detail = document.getElementById('addrDetail').value;
+		document.getElementById('fulladdr').value="";
+		document.getElementById('fulladdr').value=addr1 +", "+detail + " " + addr2;
+	});
+	
+	//기존 배송지 주소가 있으면, 기본 배송지 선택 없으면 신규 배송지 선택 (라디오 버튼 선택)
+	let defaultaddr = "${addr.roadaddrPart1}";
+	if(!defaultaddr == null || !defaultaddr == "" || !defaultaddr == "undefined" ) {
+		$("#address_name").val("${addr.address_name}");
+		$("#address_photo").val("${addr.address_photo }");
+		$("#alias").val("${addr.alias }");
+		jusoCallBack("${addr.roadaddrPart1}", "${addr.addrDetail}", "${addr.roadaddrPart2}", "${addr.jibunaddr}", "${addr.zipno}");
+		$("#basicaddr").prop("checked", true).prop("disabled", false)
+	} else {
+		$("input[name='addr_add']").prop("checked", true);
+		$("#newaddr").prop("checked", true);
+	}
+	
+	//기본 배송지 클릭시 자동 완성, 신규 배송지 클릭시 텍스트창 클리어!
+	$("input[name='addrs']").change(function addr_change() {
+		if($("input[name='addrs']:checked").val() == "basicaddr" ){
+			$("#address_name").val("${addr.address_name}");
+			$("#address_photo").val("${addr.address_photo }");
+			$("#alias").val("${addr.alias }");
+			$("#zipno").val("${addr.zipno}");
+			$("#addrDetail").val("${addr.addrDetail}");
+			$("#fulladdr").val("${addr.roadaddrPart1 }, ${addr.addrDetail} ${addr.roadaddrPart2}");
+			$("input[name='addr_add']").prop("checked", false);
+		} else { 
+			$("#address_name").val("");
+			$("#address_photo").val("");
+			$("#alias").val("");
+			$("#zipno").val("");
+			$("#addrDetail").val("");
+			$("#fulladdr").val("");
+			$("input[name='addr_add']").prop("checked", true);
+		}
+	});
+	
+	//주소목록 팝업 호출
+	$('#addrslist').on('click', function(){
+		let pop = window.open("addrPopup?no=${member.no}","pop","width=720,height=900, scrollbars=yes, resizable=yes"); 
+		console.log("자식 브라우저 : ${member.no}")
+	});
+	 
+	//배송지 목록 추가 여부
+	$('#reqpay').on('click', function() {
+		let addr_check = $("input[name='addr_add']").is(':checked'); // 주소지 추가 true, false
+		$("input[name='addr_add']").val(addr_check);
+		//console.log($("input[name='addr_add']").val());
+		let defaultaddr_check = $("input[name='default_addrs']").is(':checked'); // 기본주소지 설정 true, false
+		$("input[name='default_addrs']").val(defaultaddr_check);
+		//console.log($("input[name='default_addr']").val());
+	});
+	
+	//결제 수단 선택
+	var paymethod = "card";	
+	$("#option").on('change', function() {
+		console.log($(this).val());
+		$("#options").val($(this).val());
+	});
+	
+	// 결제 방법
+	$("#frm").on('submit', function( event ) {
+		event.preventDefault();
+		let paymethod = $("#payselect").val();	
+		requestPay(paymethod);
+	});
+	
+	// 결제
+	function requestPay(paymethod) {
+		var IMP = window.IMP; // 생략가능
+		IMP.init('iamport'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		let option = parseInt($("#option_price").text()); // 상품 가격
+		//let del = $("#delivery_pay").text();
+		let delivery = 0;//parseInt($("#delivery_pay").text()); // 배송비
+	IMP.request_pay({
+	    pg : 'inicis',  
+	    pay_method : paymethod,  
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    name : "${opt.option_name}",			// 상품명
+	    amount : ${opt.option_price} + delivery,// 결제 금액
+	    buyer_email : "${member.email}", 		// 메일주소
+	    buyer_name : $("#address_name").val(),	// 구매자 이름
+	    buyer_tel : $("#address_photo").val(),	// 구매자 연락처
+	    buyer_addr : $("#fulladdr").val(),		// 구매자 주소
+	    buyer_postcode : $("#zipno").val(),		// 구매자 우편번호
+	    m_redirect_url : 'https://www.yourdomain.com/payments/complete' 
+	    //모바일 결제시, 결제가 끝나고 랜딩되는 URL을 지정 (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	    	// jQuery로 HTTP 요청
+	    	var msg = '결제가 완료되었습니다.';
+	        msg += '고유ID : ' + rsp.imp_uid;
+	        msg += '상점 거래ID : ' + rsp.merchant_uid;
+	        msg += '결제 금액 : ' + rsp.paid_amount;
+	        msg += '카드 승인번호 : ' + rsp.apply_num;
+	        
+	        $("#frm").off('submit');
+	        $('form').trigger('submit');
+	        
+	        /* jQuery.ajax({
+	            url: "https://www.myservice.com/payments/complete", // 가맹점 서버
+	            method: "POST",
+	            headers: { "Content-Type": "application/json" },
+	            data: {
+	                imp_uid: rsp.imp_uid,
+	                merchant_uid: rsp.merchant_uid
+	            }
+	        }).done(function (data) {
+	          // 가맹점 서버 결제 API 성공시 로직
+	          console.log("결제 성공!! : "+data);
+	        }) */
+	      } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	      }
+	    alert(msg);
+		});
+	}
+	
+	// 요청사항
+	$('#options').on('click', function() {
+		$("#memos").toggle();
+		let display_status = $("#memos").val();
+		if(display_status == "off"){
+			$("#memos").val("on");
+		} else {
+			$("#memos").val("off");
+		}
+		//$('#memos').css('display', '');
+	});
+	$(document).on('click', function(e) {
+		/* if($("#memos").val() == "on"){
+			$('#memos').css('display', 'none').val("off");
+		} */
+		//console.log(e.target);
+		//console.log($("#memos").is(e.target));
+		//console.log($("#memos").css('display'));
+		if(!$("#options").is(e.target)){
+		//if($("#memos").css('display') == 'block'){
+			$('#memos').css('display', 'none');
+			//$('#memos').css('display', 'none').val("off");
+		} 
+	});
+	
+	$('.memo').on('mouseover', function() {
+		$(this).css('background-color', '#d3d3d3');
+	});
+	$('.memo').on('mouseout', function() {
+		$(this).css('background-color', '');
+	});
+	
+	$('.memo').on('click', function name() {
+		$('#options').val($(this).text());
+	});
+	
+});
+
+function jusoCallBack(roadaddrPart1, addrDetail, roadaddrPart2, jibunaddr, zipno){		
+	document.form.roadaddrPart1.value = roadaddrPart1;
+	document.form.roadaddrPart2.value = roadaddrPart2;
+	document.form.addrDetail.value = addrDetail;
+	document.form.zipno.value = zipno;
+	document.form.jibunaddr.value = jibunaddr;
+	// 전체 주소
+	document.getElementById('fulladdr').value=roadaddrPart1 +", "+addrDetail + " " + roadaddrPart2;
+}
+
+function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, address_name, address_photo) {
+	document.form.roadaddrPart1.value = roadaddrPart1;
+	document.form.roadaddrPart2.value = roadaddrPart2;
+	document.form.addrDetail.value = addrDetail;
+	document.form.zipno.value = zipno;
+	document.form.alias.value = alias;
+	document.form.address_name.value = address_name;
+	document.form.address_photo.value = address_photo;
+	$("#basicaddr").prop("checked", true).prop("disabled", false);
+	$("input[name='addr_add']").prop("checked", false);
+	document.getElementById('fulladdr').value=roadaddrPart1 +", "+addrDetail + " " + roadaddrPart2;
+}
+</script>
 </head>
 <body>
+<form name="form" id="frm" method="post" action="success">
 	<div class="col-xs-offset-1 col-xs-10">
 		<div class="rows">
 			<div class="col-xs-12">
@@ -20,18 +224,14 @@
 					<div class="card-body">
 						<div>
 						<ul class="list-unstyled margin-top-5 margin-bottom-0">							
-								<li class="padding-bottom-0 padding-top-0 ">
+								<li class="padding-bottom-0 padding-top-0 " id="bottom-0">
 								<div class="protitle">
-								<img class="width-120px border-radius"
-									src="https://d2v80xjmx68n4w.cloudfront.net/gigs/small/3a2A41523607533.jpg"
-									title="[크몽 입성 기념 50%할인] 고퀄리티 디자인 홈페이지를 24시간 내 제작해 드립니다."
-									onerror="this.onerror=null;this.src='/img/404/no_gig_sm_image.jpg';">
-								<h4 class="card-title order-info-gig-body margin-top-0 titleh4">[크몽
-									입성 기념 50%할인] 고퀄리티 디자인 홈페이지를 24시간 내 제작해 드립니다.</h4>
+								<img class="width-120px border-radius" src="${pdto.project_photo }" title="이미지">
+								<h4 class="card-title order-info-gig-body margin-top-0 titleh4">${pdto.project_title }</h4>
 								</div>
 								</li>
 								<li class="padding-bottom-0 padding-top-0">								
-									<span class="font-color-lighter">SOMEGUYFACTORY</span>
+									<span class="font-color-lighter">${alias}</span>
 								</li>
 							</ul>
 						
@@ -39,47 +239,28 @@
 
 						<table class="order-table">
 							<colgroup>
-								<col width="15%">
-								<col width="55%">
-								<col width="15%">
+								<col width="30%">
+								<col width="50%">
 								<col width="15%">
 							</colgroup>
 							<thead class="order-package">
 								<tr>
 									<th class="text-center">옵션</th>
 									<th>옵션내용</th>
-									<th class="text-center">수량</th>
 									<th class="text-right">가격</th>
 								</tr>
 							</thead>
 							<tbody class="order-option">
 								<tr>
-									<td><span>원페이지 디자인(랜딩페이지)</span>
+									<td>
 										<ul class="list-unstyled orderBill">
 											<li
-												class="padding-left-5  padding-bottom-0 padding-right-10 font-color-light padding-bottom-0">
-												<img class="done" alt="옵션" src="/resources/img/24px.svg">&nbsp;반응형
-												웹 &nbsp;
-											</li>
-											<li
-												class="padding-left-5  padding-bottom-0 padding-right-10 font-color-light padding-bottom-0">
-												<img class="done" alt="옵션" src="/resources/img/24px.svg">&nbsp;섹션
-												수 &nbsp;
+												class="padding-left-5  padding-bottom-0 padding-right-10 font-color-light padding-bottom-0 jumuninfo">
+												<img class="done" alt="옵션" src="/resources/img/24px.svg">&nbsp;${opt.option_name } &nbsp;
 											</li>
 										</ul></td>
-									<td>
-										<div
-											class="gig-detail-default-option margin-right-10 margin-top-0">
-											<div class="pull-right gig-detail-decision-option-btn">
-												<a> <i class="fa fa-minus" aria-hidden="true"></i>
-												</a> <span><b>1</b></span> <a> <i class="fa fa-plus"
-													aria-hidden="true"></i>
-												</a>
-											</div>
-										</div>
-									</td>
-									<td class="text-center">1&nbsp;일</td>
-									<td class="text-right"><span class="tahoma">100,000</span>원</td>
+									<td class="text-center">${opt.option_contents}</td>
+									<td class="text-right"><span id="option_price" class="tahoma price">${opt.option_price }</span>원</td>
 								</tr>
 							</tbody>
 						</table>
@@ -97,8 +278,8 @@
 					<div class="card-body">
 						<div class="card-text">
 							<ul class="list-unstyled margin-top-5 margin-bottom-0">
-								<li class="padding-bottom-0 padding-top-0">이름</li>
-								<li class="padding-bottom-0 padding-top-0">이메일</li>
+								<li class="padding-bottom-0 padding-top-0">이름 <span>&nbsp;:&nbsp;${member.name }</span></li>
+								<li class="padding-bottom-0 padding-top-0">이메일<span>&nbsp;:&nbsp;${member.email }</span></li>
 							</ul>
 						</div>
 					</div>
@@ -113,25 +294,33 @@
 					<div class="card-body">
 						<div class="card-text">
 							<ul class="list-inline margin-bottom-0">
-								<li><label> <input id="isDeliveryData"
-										class="position-absolute" name="ShippingInputArea"
-										type="radio"> <span class="awesome-radio-text">
-											기본배송지 </span>
-								</label> <label> <input id="newDeliveryData"
-										class="position-absolute" name="ShippingInputArea"
-										type="radio"> <span class="awesome-radio-text">
-											신규 배송지 </span>
-								</label></li>
-
-								<li><label><strong class="shipping-necessary">
-											이름 </strong></label></li>
-								<li><input type="text" class="form-control input-xs pnum"
-									placeholder="받는 분"></li>
-
-								<li><label><strong class="shipping-necessary">
-											연락처</strong></label></li>
+								<li>
+									<span>배송지 선택&nbsp;&nbsp; </span>
+									<input id="basicaddr" name="addrs" type="radio" class="radio" value="basicaddr" disabled="disabled"> <label	for="basicaddr">기본 배송지</label>
+									<input id="newaddr" name="addrs" type="radio" class="radio" value="newaddr"> <label	for="newaddr">신규 배송지</label>
+								</li>
+								<li>
+									<label for="address_name">
+										<strong class="shipping-necessary">이름</strong>
+									</label>
+								</li>
+								<li>
+									<input type="text" id="address_name" name="address_name" class="form-control input-xs pnum address_name" placeholder="받는 분" required="required">
+								</li>
+								<li>
+									<label for="alias">
+										<strong class="shipping-necessary">배송지 명</strong>
+									</label>
+								</li>
+								<li>
+									<input type="text" id="alias" name="alias" class="form-control input-xs pnum" required="required">
+								</li>
+								<li>
+									<label for="address_photo">
+										<strong class="shipping-necessary">연락처</strong>
+									</label>
+								</li>
 								<li style="width:588px; ">
-
 									<div class="pnum numnum">
 										<select class="form-control input-xs">
 											<option value="010" selected="">010</option>
@@ -175,59 +364,52 @@
 
 										<div>
 											<input type="text" maxlength="4"
-												class="form-control input-xs">
+												class="form-control input-xs" required="required">
 										</div>
 
 										<div>-</div>
 
 										<div>
 											<input type="text" maxlength="4"
-												class="form-control input-xs">
+												class="form-control input-xs" required="required">
 										</div>
 										</div>
-									</div>
-
-
-									<div class="col-xs-12 padding-left-0 margin-top-5"
-										style="display: none;">
-										<h6 class="margin-none color-red">필수 항목입니다.</h6>
+										<input type="hidden" id="address_photo" name="address_photo">
 									</div>
 
 								</li>
 
-
-
-								<li><label><strong class="shipping-necessary">주소</strong></label>
-
+								<li>
+									<label for="fulladdr">
+										<strong class="shipping-necessary">주소</strong>
+									</label>
 								</li>
 								<li>
 									<div class="pnum">										
 										<div class="addrs">
-										<input type="text" class="form-control input-xs width-100"
-											placeholder="우편번호"> <input type="text"
-											class="form-control input-xs" placeholder="기본주소"> <input
-											type="text" class="form-control input-xs" placeholder="나머지주소">
-											<button class="btn btn-xss btn btn-primary">주소 찾기</button>
-										</div>
-									</div>
-									<div class="rows" style="display: none;">
-										<div class="col-xs-12 padding-left-0 margin-top-5">
-											<h6 class="margin-none color-red">필수 항목입니다.</h6>
+										<input type="text" id="zipno" class="form-control input-xs width-100 goPopup" name="zipno" required="required" readonly="readonly" placeholder="우편번호">
+										<input type="button" id="goPopup" class="btn btn-xss btn btn-primary goPopup" value="우편 번호"/>
+										<input type="checkbox" name="addr_add" id="addr_add" value="addr_add"> 배송지목록에 추가 
+										<input type="checkbox" id="default_addrs" name="default_addrs" value="default_addr"> 기본 배송지로 설정 <br>
 										</div>
 									</div>
 								</li>
-								<li><label><strong> 배송 메시지 </strong></label>
-									<div class="select-control">
-										<select class="select-control input-xs">
-											<option value="">배송 시 요청사항을 선택하세요.</option>
-											<option value="부재시 경비실에 맡겨주세요.">부재시 경비실에 맡겨주세요.</option>
-											<option value="부재시 휴대폰으로 연락주세요.">부재시 휴대폰으로 연락주세요.</option>
-											<option value="집 앞에 놓아주세요.">집 앞에 놓아주세요.</option>
-											<option value="택배함에 넣어주세요.">택배함에 넣어주세요.</option>
-										</select>
+								<li id="fdaddr">
+									<label for="fulladdr"></label>
+									<input type="text" id="fulladdr" class="form-control input-xs" name="fulladdr" readonly="readonly" placeholder="기본주소" > 
+									<input type="text" id="addrDetail" class="form-control input-xs" name="addrDetail" required="required" placeholder="나머지주소" />
+								</li>
+								
+								<li><label for="options">요청 사항</label>
+									<input type="text" id="options" name="options" class="form-control input-xs" value="요청사항을 직접 입력하세요.">
+									<div id="memos" style="display: none;">
+										<ul>
+											<li class="memo">배송 전에 미리 연락 바랍니다.</li>
+											<li class="memo">부재시 경비실에 맡겨 주세요.</li>
+											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
+										</ul>
 									</div>
-									<h6 class="margin-none font-color-lighter line-height">*
-										주문 후 배송지를 수정하실 경우에는 전문가에게 문의해주시길 바랍니다.</h6></li>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -247,85 +429,15 @@
 					<div class="card-body">
 						<div class="card-text">
 							<ul class="list-unstyled margin-top-5 margin-bottom-0">
-								<li><label><strong>쿠폰 사용</strong></label> <span
-									class="pull-right"> <span class="tahoma color-red"
-										style="display: none;">- <span>0</span>원
-									</span>
-										<button class="btn btn-xss btn btn-primary margin-left-10"
-											data-toggle="modal" data-target="#selectedCouponModal">쿠폰선택</button>
-								</span> <!-- Modal -->
-									<div class="modal fade" id="selectedCouponModal"
-										aria-labelledby="selectedCoupon" tabindex="-1" role="dialog"
-										aria-hidden="true">
-										<div class="modal-dialog modal-position" style="width: 450px;">
-											<div class="modal-content">
-												<div class="modal-header border-bottom-none">
-													<button type="button" class="close" data-dismiss="modal"
-														aria-label="Close">
-														<span aria-hidden="true">×</span>
-													</button>
-												</div>
-												<div class="modal-body padding-top-0">
-
-													<div>
-														<h4 class="margin-none NGB margin-bottom-10">적용 가능한
-															쿠폰</h4>
-
-
-														<div style="display: none;">
-															<ul class="list-group">
-																<li
-																	class="list-group-item coupon-group-item border-radius-none padding-left-0 radio-active">
-																	<div class="awesome-radio">
-																		<label> <input type="radio"
-																			class="buyerCouponRadioInput"
-																			name="couponRadioButton" checked=""> <span
-																			class="awesome-radio-body"></span>
-																			<div class="awesome-radio-text margin-left-10">
-																				사용안함</div>
-																		</label>
-																	</div>
-																</li>
-
-
-															</ul>
-														</div>
-
-
-														<div>
-															<div class="border-solid text-center"
-																style="height: 197px; line-height: 197px;">
-																<div class="font-color-lighter">적용 가능한 쿠폰이 없습니다.</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div
-													class="width-100 bg-color-f1 padding-left-15 padding-right-15 padding-bottom-15 padding-top-25">
-													<span class="margin-none NGB font-size-h4">총 할인 금액</span> <span
-														class="pull-right color-red font-size-h3"><span
-														style="display: none;">-</span><span class="tahoma">0</span>원</span>
-													<a class="btn btn-block btn-black margin-top-15">쿠폰 적용</a>
-												</div>
-											</div>
-										</div>
-									</div></li>
-
-
-								<li><label><strong>총 서비스 금액</strong> </label> <span
-									class="pull-right"><span class="tahoma">100,000</span>원</span>
-								</li>
 								<li>
 									<h3 class="margin-none">
 										<b>총 결제금액</b> <span class="font-size-h5">(VAT 포함)</span>
 									</h3>
 									<h2 class="text-center margin-top-50 color-red"
 										style="font-size: 30px !important;">
-										<span class="tahoma"> 100,000원 </span>
+										<span class="tahoma price"> ${opt.option_price}</span><span>원</span>
 									</h2>
 								</li>
-
-
 							</ul>
 						</div>
 					</div>

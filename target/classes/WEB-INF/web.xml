@@ -77,9 +77,9 @@
 
 
 
-	<error-page>
+	<!-- <error-page>
 		<error-code>500</error-code>
 		<location>/WEB-INF/views/security/customlogin.jsp</location>
-	</error-page>
+	</error-page> -->
 
 </web-app>

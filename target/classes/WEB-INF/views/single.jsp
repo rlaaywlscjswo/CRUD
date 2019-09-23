@@ -7,6 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style type="text/css">
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
@@ -53,7 +54,7 @@
 	var project_no = ${list.project_no}; // 프로젝트 번호
 	console.log("프번프번"+project_no);
 	
-	$(function() {		
+	$(document).ready(function(){		
 		commentList(); //페이지 로딩시 댓글 목록 출력 
 
 		$('[name=replyinsertbtn]').click(function() { //댓글 등록 버튼 클릭시 
@@ -62,12 +63,18 @@
 			commentInsert(insertData); //Insert 함수호출(아래)
 		});		
 		
-		
+		let no = 0+${list.no};
+		console.log(no);
+		$('#talk').on('click', function() {
+			let uri = encodeURI("/talkreply/"+no);
+			console.log(uri);
+			let pop = window.open(uri, "pop", "width=750,height=495, scrollbars=yes, resizable=yes");
+		});/* 
         	$('#talk').on('click', function() { //인코딩 문제 방지
-    			let uri = encodeURI("/talk");
+    			let uri = encodeURI("/talkreply/"+no);
     			console.log(uri);
     			let pop = window.open(uri, "pop", "width=750,height=495, scrollbars=yes, resizable=yes");
-    		});
+    		}); */
 
 	});
 
@@ -333,6 +340,8 @@
 																<input type="hidden" name="option_price" value="${opt.option_price }">
 																<input type="hidden" name="option_contents" value="${opt.option_contents }">
 																<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
+																<input type="hidden" name="project_photo" value="${list.project_photo }">
+																<input type="hidden" name="project_title" value="${list.project_title}">
 																<input type="hidden" name="alias" value="${list.alias}">   											
 																<button class="btn btn-primary">후원하기</button>  
 																<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> 										
@@ -364,7 +373,8 @@
 							<h4 class="font-shadow-into-light">${list.alias}</h4>
 							<p>${list.introduce }</p>
 							
-						<a href="/talkreply/${list.no }" class="btn btn-primary" id="talk">쪽지로 문의하기</a> 
+						<a href="#" class="btn btn-primary" id="talk">쪽지로 문의하기</a>
+						<!-- <button class="btn btn-primary" id="talk">쪽지로 문의하기</button> --> 
 						</div>
 
 						<!-- 옵션목록들 -->
@@ -392,6 +402,8 @@
 											<input type="hidden" name="option_price" value="${opt.option_price }">
 											<input type="hidden" name="option_contents" value="${opt.option_contents }">
 											<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
+											<input type="hidden" name="project_photo" value="${list.project_photo }">
+											<input type="hidden" name="project_title" value="${list.project_title}">
 											<input type="hidden" name="alias" value="${list.alias}">   
 											
 											<button class="btn btn-primary">후원하기</button>   

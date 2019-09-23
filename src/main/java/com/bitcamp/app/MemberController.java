@@ -193,18 +193,19 @@ public class MemberController {
 
 	
 	@RequestMapping(value = "/pay", method=RequestMethod.POST)
-	public String pay(OptionDTO odto, @RequestParam(defaultValue="null") String alias, Model model, Principal principal) {
+	public String pay(OptionDTO odto, ProjectDTO pdto, @RequestParam(defaultValue="null") String alias, Model model, Principal principal) {
 		if("null".equals(alias)) {
 			ProjectDTO dto = memberService.projectinfo(odto.getOption_no());
 			alias = dto.getAlias();
 		}
 		MemberDTO mdto = memberService.memberinfo(principal.getName());
 		AddressDTO adto = memberService.address(mdto.getNo());
+		model.addAttribute("pdto", pdto);
 		model.addAttribute("opt", odto);
 		model.addAttribute("member", mdto);
 		model.addAttribute("addr", adto);
 		model.addAttribute("alias", alias);
-		return "/payment/pay.temp";
+		return "/payment/pays.temp";
 	}
 	@RequestMapping("/jusoPopup")
 	public String jusoPopup() {
