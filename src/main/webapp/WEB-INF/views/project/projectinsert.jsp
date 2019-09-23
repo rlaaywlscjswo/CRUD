@@ -67,7 +67,7 @@ color:#F4D2D7;
 margin-top: 800px;  
 }
 #modalbtn {
-	/* display: none; */
+	 display: none; 
 }
 </style>
 <script type="text/javascript">
@@ -78,6 +78,7 @@ margin-top: 800px;
 		$(".tab_content").hide();
 		$(".tab_content:first").show();
 
+		
 		function defaultinfo() {
 			// (1) 기본 정보
 			let project_title = $('#project_title').val(); // 프로젝트 제목
@@ -200,7 +201,7 @@ margin-top: 800px;
 						$("#exampleModalCenterTitle").text(
 								(i + 1) + "번째 옵션, 옵션명을 입력해주세요.");
 						$("#modalbtn").trigger("click");
-					} else if (option_price[i] <= 1000) {
+					} else if (option_price[i] < 999) {
 						$("#exampleModalCenterTitle").text(
 								(i + 1) + "번째 옵션, 가격을 입력해주세요. (최소 1000원 이상)");
 						$("#modalbtn").trigger("click");
@@ -372,6 +373,7 @@ margin-top: 800px;
 						$('.tab_content').hide()
 						$('.tab_content:eq(4)').show()
 					} else {
+						$("form").submit();
 						console.log("등록하자");
 					}
 				});
@@ -666,13 +668,7 @@ margin-top: 800px;
 			<div id="summerwrite">
 				<div id="gide"
 					style="border: 1px solid; width: 100%; height: 200px; margin: auto;">
-					<h2>작성 가이드</h2>
-					<p>
-						글을 '잘' 쓰기보다는 <b>'솔직하게'</b> 써보세요. <br>
-						우리는 완벽한 형식과 정확한 문법과 맞춤법을 원하는 게 아니예요. <br>
-						잘 쓰여진 글보다는 창작자 본인의 생각과 마음이 잘 반영이 된 글을 보고싶어요 :) <br>
-						프로젝트의 창작 동기와 과정, 계획을 솔직하게 정성껏 적어주세요.
-					</p>
+					<h1>작성가이드</h1>
 				</div>
 				<textarea id="summernote" name="summernote"></textarea>
 			</div>
@@ -706,15 +702,29 @@ margin-top: 800px;
 						data-action="save">저장</button>
 				</div>
 			</div>
-			<a href="#" class="btn btn-primary" id="insert">체크체크</a> <input
-				type="submit" class="btn btn-primary" value="등록"
-				style="position: relative; left: 50px;">
+			<a href="#" class="btn btn-primary" id="insert">등록</a> 
+		
 		</div>
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}">
 	</form>
 
-
+   <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span id="close" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-outline-primary btn-primary" data-dismiss="modal">확인</button>        
+      </div>
+    </div>
+  </div>
+</div>
 	<button type="button" id="modalbtn" class="btn btn-primary"
 		data-toggle="modal" data-target="#exampleModalCenter">모달 창</button>
 	<script>
