@@ -67,7 +67,7 @@ color:#F4D2D7;
 margin-top: 800px;  
 }
 #modalbtn {
-	/* display: none; */
+	 display: none; 
 }
 </style>
 <script type="text/javascript">
@@ -78,6 +78,7 @@ margin-top: 800px;
 		$(".tab_content").hide();
 		$(".tab_content:first").show();
 
+		
 		function defaultinfo() {
 			// (1) 기본 정보
 			let project_title = $('#project_title').val(); // 프로젝트 제목
@@ -200,7 +201,7 @@ margin-top: 800px;
 						$("#exampleModalCenterTitle").text(
 								(i + 1) + "번째 옵션, 옵션명을 입력해주세요.");
 						$("#modalbtn").trigger("click");
-					} else if (option_price[i] <= 1000) {
+					} else if (option_price[i] < 999) {
 						$("#exampleModalCenterTitle").text(
 								(i + 1) + "번째 옵션, 가격을 입력해주세요. (최소 1000원 이상)");
 						$("#modalbtn").trigger("click");
@@ -224,7 +225,7 @@ margin-top: 800px;
 				$("#modalbtn").trigger("click");
 			}
 		}
-
+		
 		// 새로운 tab
 		$('.big_tab li').first().addClass("activeClass");
 		$(".tab-contents").not(':first').hide();
@@ -372,6 +373,7 @@ margin-top: 800px;
 						$('.tab_content').hide()
 						$('.tab_content:eq(4)').show()
 					} else {
+						$("form").submit();
 						console.log("등록하자");
 					}
 				});
@@ -572,13 +574,13 @@ margin-top: 800px;
 			<label for="startdate">시작 날짜</label>
 			<div>
 				<input type="date" class="form-control input-default" id="startdate"
-					name="startdate" value="2019-09-19">
+					name="startdate" value="2019-09-19" style="width: 40%;">
 			</div>
 
 			<label for="enddate">종료 날짜</label>
 			<div>
 				<input type="date" class="form-control input-default" id="enddate"
-					name="enddate" value="2019-09-25">
+					name="enddate" value="2019-09-25" style="width: 40%;">
 			</div>
 
 			<div class="btn2 btn btn-primary" id="btn2">
@@ -616,7 +618,7 @@ margin-top: 800px;
 			<div>
 				<input type="date" class="form-control input-default"
 					id="business_startdate" name="business_startdate"
-					value="2019-03-21">
+					value="2019-03-21" style="width: 40%;">
 			</div>
 
 			<label for="business_url">홈페이지</label>
@@ -665,7 +667,7 @@ margin-top: 800px;
 
 			<div id="summerwrite">
 				<div id="gide"
-					style="border: 1px solid; width: 100%; height: 200px; margin: auto;">
+					style="border: 1px solid; width: 100%; height: 200px; margin: auto;">				
 					<h2>작성 가이드</h2>
 					<p>
 						글을 '잘' 쓰기보다는 <b>'솔직하게'</b> 써보세요. <br>
@@ -685,7 +687,6 @@ margin-top: 800px;
 
 		<div id="tab05" class="tab-contents">
 			<div id="optform"></div>
-
 			<input type="hidden" id="btncnt" name="btncnt" value="0"> <input
 				type="button" class="btn btn-primary" value="옵션 추가 " id="up">
 			<input type="button" class="btn btn-primary" value="옵션 삭제 " id="down">
@@ -694,35 +695,64 @@ margin-top: 800px;
 			</div>
 		</div>
 
-		<div id="tab06" class="tab-contents">
-			<div id="signature-pad" class="m-signature-pad">
-				<div class="m-signature-pad--body">
+		<div id="tab06" class="tab-contents">	
+			<div>
+			<input type="checkbox" value="ddd" id="okok">
+			<textarea rows="10" cols="50" readonly="readonly" >약관머시기</textarea><br>
+			
+			</div>
+			<div id="signature-pad" class="m-signature-pad">	
+				<div class="m-signature-pad--body">			
 					<canvas width="300" height="100"></canvas>
 				</div>
 				<div class="m-signature-pad--footer">
 					<button type="button" class="button clear btn btn-primary"
 						data-action="clear">지우기</button>
 					<button type="button" class="button save btn btn-primary"
-						data-action="save">저장</button>
+						data-action="save" style="z-index: 1000;">저장</button>
+					<a href="#" class="btn btn-primary" id="insert">등록</a> 
 				</div>
 			</div>
-			<a href="#" class="btn btn-primary" id="insert">체크체크</a> <input
-				type="submit" class="btn btn-primary" value="등록"
-				style="position: relative; left: 50px;">
+			
+		
 		</div>
 		<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}">
 	</form>
 
-
+   <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span id="close" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-outline-primary btn-primary" data-dismiss="modal">확인</button>        
+      </div>
+    </div>
+  </div>
+</div>
 	<button type="button" id="modalbtn" class="btn btn-primary"
 		data-toggle="modal" data-target="#exampleModalCenter">모달 창</button>
-	<script>
+	<script>		
 		$('#summernote').summernote({
-			placeholder : '작성가이드를 참고해서 작성해보세요!',
-			tabsize : 2,
-			height : 200
-		});
+			  toolbar: [
+			    // [groupName, [list of button]]
+			    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    ['font', ['strikethrough', 'superscript', 'subscript']],
+			    ['fontsize', ['fontsize']],
+			    ['color', ['color']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],			    
+			  ],
+			  placeholder : '작성가이드를 참고해서 작성해보세요!',
+				tabsize : 2,
+				height : 200
+			});
 	</script>
 </body>
 </html>

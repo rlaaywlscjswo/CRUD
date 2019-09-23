@@ -26,7 +26,7 @@
 /* ***** Fonts ***** */
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700|Quicksand:300,400,500,700|Shadows+Into+Light+Two');
-
+@import url('https://fonts.googleapis.com/css?family=Manjari:700&display=swap');
 /* ***** Import CSS ***** */
 
 @import 'css/bootstrap/bootstrap.min.css';
@@ -436,8 +436,8 @@ li {
 -------------------- */
 
 .logo_area .yummy-logo {
-    font-family: 'Shadows Into Light Two', cursive;
-    font-size: 60px;
+   	font-family: 'Manjari', sans-serif;
+    font-size: 70px;
     margin-bottom: 0;
     padding: 35px 0 20px 0;
     display: inline-block;
@@ -1400,7 +1400,7 @@ li {
     margin: 5px 0;
 }
 
-.comment-wrapper .comment-content a {
+.comment-wrapper .comment-content a{
     min-width: 80px;
     height: 30px;
     border: 1px solid #ebebeb;
@@ -1411,9 +1411,24 @@ li {
     display: inline-block;
 }
 
-.comment-wrapper .comment-content a.active {
+.comment-wrapper .comment-content a.active{
     color: #fff;
     background-color: #ADDCAF;
+}
+
+.replyinsertbtn{
+	 min-width: 80px;
+    height: 30px;
+    border: 1px solid #ebebeb;
+    line-height: 30px;
+    font-size: 12px;
+    text-align: center;
+    color: #232d37;
+    display: inline-block;
+	color: #fff;
+    background-color: #ADDCAF;
+	
+	
 }
 
 /* Bg Pattern */
