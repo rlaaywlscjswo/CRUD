@@ -666,7 +666,13 @@ margin-top: 800px;
 			<div id="summerwrite">
 				<div id="gide"
 					style="border: 1px solid; width: 100%; height: 200px; margin: auto;">
-					<h1>작성가이드</h1>
+					<h2>작성 가이드</h2>
+					<p>
+						글을 '잘' 쓰기보다는 <b>'솔직하게'</b> 써보세요. <br>
+						우리는 완벽한 형식과 정확한 문법과 맞춤법을 원하는 게 아니예요. <br>
+						잘 쓰여진 글보다는 창작자 본인의 생각과 마음이 잘 반영이 된 글을 보고싶어요 :) <br>
+						프로젝트의 창작 동기와 과정, 계획을 솔직하게 정성껏 적어주세요.
+					</p>
 				</div>
 				<textarea id="summernote" name="summernote"></textarea>
 			</div>

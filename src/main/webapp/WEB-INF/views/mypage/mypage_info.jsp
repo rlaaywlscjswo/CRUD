@@ -117,6 +117,7 @@ $(function () {
 			
 			<input type="button" class="btn btn-primary" value="전화 번호 수정">
 			<input type="button" class="btn btn-primary" value="회원 탈퇴" style="display: inline-block; left: 30%; position: relative;">
+			<a href="/passwordfind"><input type="button" class="btn btn-primary" style="display: inline-block; position: relative; top: -5.5px;">비밀번호 찾기</button></a>
 		</form>
 		
 		 <form action="/customLogout" method="post" id="logoutbtn">
