@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,23 +37,30 @@ public class CSController {
 
 	@RequestMapping("/cs")
 	public String customerService(@RequestParam(required = false, defaultValue = "1") int currPage,
-			@RequestParam(required = false, defaultValue = "") String cs_search, Model model) {
+			@RequestParam(required = false, defaultValue = "0") int no,
+			@RequestParam(required = false, defaultValue = "") String cs_search, Model model, Principal principal) {
+		
+		System.out.println("no값 잘 받았나요? : " + no);
 
 		int totalCount = service.csList_totalCount(cs_search);
 		int pagePerSize = 5;
 		int blockPerSize = 3;
 
 		PagingDTO dto = new PagingDTO(currPage, totalCount, pagePerSize, blockPerSize);
-		
+
 		// 질문 목록
 		List<CSDTO> csList = service.csList(dto.getStartRow(), pagePerSize, cs_search);
 		model.addAttribute("csList", csList);
-		model.addAttribute("dto", dto);
+		model.addAttribute("dto", dto);		
+		
+		// no값 추출
+		String email = principal.getName();
+		no = service.getNo(email);
+		model.addAttribute("no", no);
 
 		return "/cs/customerService.temp";
 
 	} // end customerService method
-
 
 	@RequestMapping("dq")
 	public String deleteQuestion() {

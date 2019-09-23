@@ -37,7 +37,6 @@
 													+ '&service_reply='
 													+ service_reply,
 											success : function(data) {
-												alert('고객 센터 가서 확인해보자!');
 												location.reload();
 											},
 											error : function(data) {

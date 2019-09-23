@@ -36,9 +36,9 @@
  	</resultMap>
  	
  	<select id="csList" resultMap="csdto" parameterType="java.util.HashMap">
- 		select st, (select name from member where no = mno) as name, ss, sc, sr, sn
+		select st, (select name from member where no = mno) as name, ss, sc, sr, sn, no
 		from (select service_title as st, member.no as mno, service_secret as ss, service_contents as sc, 
-		service_reply as sr, service_no as sn
+		service_reply as sr, service_no as sn, member.no as no
 		from member join service on member.no = service.no) as mns
 		<where>
 			<if test="cs_search!=null and cs_search!=''">
@@ -46,6 +46,11 @@
 			</if>
 		</where>
 		limit #{startRow}, #{pagePerSize}
+ 	</select>
+ 	
+ 	<!-- no값 추출 -->
+ 	<select id="getNo" resultType="int" parameterType="String">
+ 		select no from member where email = #{email}
  	</select>
  	
  	<!-- 질문 수정 -->

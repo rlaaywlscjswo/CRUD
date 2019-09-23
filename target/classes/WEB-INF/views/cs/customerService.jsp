@@ -88,7 +88,6 @@ textarea {
 	display: inline-block;
 	position: relative;
 }
-
 </style>
 <script>
 	window.onload = function() {
@@ -124,17 +123,31 @@ textarea {
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
 	jQuery.noConflict();
-	jQuery(document).ready(function($) {
-		
-		$('.modal-content').children('form').find('input').css('margin-bottom', '10px');
-		
-		$('button').on('click', function() {
-			
-			console.log($(this).text());
-			
-		}); // end on
-		
-	}); // end ready
+	jQuery(document).ready(
+			function($) {
+
+				$('.modal-content').children('form').find('input').css(
+						'margin-bottom', '10px');
+
+				$('button').on('click', function() {
+
+					var no = $(this).children().last().text();
+					
+					$.ajax({
+						
+						url: '/cs',
+						data: 'no=' + no,
+						success: function(data) {
+							console.log('성공쓰? (씨익) : ' + no);
+						}, error: function(data) {
+							alert('으어어 에러다!!!! : ' + no);
+						}
+						
+					}); // end ajax
+
+				}); // end on
+
+			}); // end ready
 </script>
 </head>
 <body>
@@ -186,11 +199,8 @@ textarea {
 								<div id="collapseOne" class="c" aria-labelledby="headingOne"
 									data-parent="#accordionExample">
 									<div class="card-body">
-										<p>
-											아이디어는 있으나 금전적인 제약으로 상품화하기 힘든 분이나,
-											이미 상품화한 아이디어 상품이 있으나 대기업의 등쌀에 밀려
-											마땅히 판매할 곳이 없으신 분들 모두 이용하면 좋은 사이트입니다!
-										</p>
+										<p>아이디어는 있으나 금전적인 제약으로 상품화하기 힘든 분이나, 이미 상품화한 아이디어 상품이 있으나
+											대기업의 등쌀에 밀려 마땅히 판매할 곳이 없으신 분들 모두 이용하면 좋은 사이트입니다!</p>
 									</div>
 								</div>
 							</div>
@@ -204,10 +214,8 @@ textarea {
 								<div id="collapseOne" class="c" aria-labelledby="headingOne"
 									data-parent="#accordionExample">
 									<div class="card-body">
-										<p>
-											회원 가입 후 사이트 우측에 있는 '프로젝트 등록' 버튼을 누르시고
-											작성 순서에 맞게 등록해주시면 됩니다.
-										</p>
+										<p>회원 가입 후 사이트 우측에 있는 '프로젝트 등록' 버튼을 누르시고 작성 순서에 맞게 등록해주시면
+											됩니다.</p>
 									</div>
 								</div>
 							</div>
@@ -231,24 +239,33 @@ textarea {
 										data-toggle="collapse" data-target="#${csList.sn}"
 										aria-expanded="true" aria-controls="collapseOne">
 
-										<!-- 질문 - 제목 영역 -->	
-													
-										
+										<!-- 질문 - 제목 영역 -->
+
+
 										<c:set value="${csList.ss}" var="ss" />
-										<c:if test="${ss == 0}">
-										
-										<span style="background-color: #e9ecef;">제목</span>
-										<span> : ${csList.st}</span>
 
-										<span style="background-color: #e9ecef;">작성자</span>
-										<span> : ${csList.name}</span>
+											<span style="background-color: #e9ecef;">제목</span> : 
+											<span>${csList.st}</span>
 
-<%-- 										<span style="background-color: #e9ecef;">질문 번호</span>
-										<span> ${csList.sn}</span> --%>
+											<span style="background-color: #e9ecef;">작성자</span> : 
+											<span>${csList.name}</span>
+											
+											<span style="background-color: #e9ecef;">공개 여부</span> : 
+											<c:if test="${ss == 0}">
+												<span>공개</span>
+											</c:if>
+											<c:if test="${ss == 1}">
+												<span>비공개</span>
+											</c:if>
+																						
+											<span style="display: none;">회원 번호</span> 
+											<span style="display: none;">${csList.no}</span>
 
-										</c:if>
-										<c:if test="${ss == 1}">비공개 처리 된 질문입니다.</c:if>
-										
+											<%-- <span style="background-color: #e9ecef;">질문 번호</span>
+											<span> ${csList.sn}</span> --%>
+
+										<%-- <c:if test="${ss == 1}">비공개 처리 된 질문입니다.</c:if> --%>
+
 									</button>
 								</h2>
 							</div>
@@ -257,13 +274,38 @@ textarea {
 								aria-labelledby="headingOne" data-parent="#accordionExample">
 								<div class="card-body">
 									<!-- 질문 - 내용 영역 -->
-									
+											<c:set value="${no}" var="loginNo" />
+											<c:set value="${csList.no}" var="csNo" />	
+											
+													
+
 									<c:choose>
-										<c:when test="${ss == 1}">비공개 처리 된 질문입니다.</c:when>
-										<c:otherwise>
+										<c:when test="${ss == 1}">
+											<c:if test="${loginNo == csNo}">
 											<p>내용 : ${csList.sc}</p>
 
+											<hr>
 
+											<p>
+												<!-- 답변 단락 -->
+												<c:set var="reply" value="${csList.sr}" />
+												<c:choose>
+													<c:when test="${reply == null}">
+										아직 작성 된 답변이 없습니다.
+									</c:when>
+													<c:otherwise>
+										답변 : ${csList.sr}
+									</c:otherwise>
+												</c:choose>
+											</p>
+											</c:if>
+											
+											<c:if test="${loginNo != csNo}">
+												비공개 처리 된 질문입니다.
+											</c:if>											
+										</c:when>
+										<c:otherwise>
+											<p>내용 : ${csList.sc}</p>
 
 											<hr>
 
@@ -347,11 +389,14 @@ textarea {
 							<option value="5">배송 관련</option>
 							<option value="6">환불 관련</option>
 						</select> <label for="service_title"></label> <input type="text"
-							id="service_title" name="service_title" placeholder="제목을 입력해주세요." class="form-control form-control-sm" style="display: inline-block; width: 300px;">
-						<br><label for="service_secret"></label> <input type="radio"
+							id="service_title" name="service_title" placeholder="제목을 입력해주세요."
+							class="form-control form-control-sm"
+							style="display: inline-block; width: 300px;"> <br>
+						<label for="service_secret"></label> <input type="radio"
 							id="service_secret" name="service_secret" value="0">공개 <input
 							type="radio" id="service_secret" name="service_secret" value="1">비공개
-						<br><textarea rows="10" cols="40" name="service_contents"
+						<br>
+						<textarea rows="10" cols="40" name="service_contents"
 							placeholder="내용을 입력해주세요."></textarea>
 						<input type="submit" value="작성 완료" class="btn btn-primary">
 					</form>

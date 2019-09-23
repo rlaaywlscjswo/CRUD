@@ -19,6 +19,9 @@ public interface CSMapper {
 	// 질문 목록
 	public List<CSDTO> csList(HashMap<String, Object> hm);
 	
+	// no값 추출
+	public int getNo(String email);
+	
 	// 질문 수정
 	
 	// 질문 삭제

@@ -15,6 +15,9 @@ public interface CSService {
 	// 질문 목록
 	public List<CSDTO> csList(int startRow, int pagePerSize, String cs_search);
 	
+	// no값 추출
+	public int getNo(String email);
+	
 	// 질문 수정
 	
 	// 질문 삭제

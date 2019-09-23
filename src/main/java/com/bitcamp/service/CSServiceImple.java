@@ -54,6 +54,14 @@ public class CSServiceImple implements CSService {
 		
 	} // end csList method
 	
+	// no값 추출
+	@Override
+	public int getNo(String email) {
+		
+		return mapper.getNo(email);
+		
+	} // end getNo method
+	
 	// 질문 수정
 	
 	// 질문 삭제
