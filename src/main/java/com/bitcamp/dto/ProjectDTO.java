@@ -24,6 +24,10 @@ public class ProjectDTO {
 	private int category_no; // 카테고리 번호
 	private String remainingDay;
 	private int sumop;
+	private String main_category;
+	private String sub_category;
+	
+	
 	
 	public MultipartFile getProject_contract_file() {
 		return project_contract_file;
@@ -152,6 +156,18 @@ public class ProjectDTO {
 	}
 	public void setSumop(int sumop) {
 		this.sumop = sumop;
+	}
+	public String getMain_category() {
+		return main_category;
+	}
+	public void setMain_category(String main_category) {
+		this.main_category = main_category;
+	}
+	public String getSub_category() {
+		return sub_category;
+	}
+	public void setSub_category(String sub_category) {
+		this.sub_category = sub_category;
 	}
 	
 	

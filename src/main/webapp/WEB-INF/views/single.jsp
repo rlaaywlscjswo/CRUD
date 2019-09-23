@@ -40,6 +40,12 @@
 	height: 450px;
     width: 600px;
 }
+
+#good {
+    /* width: 100%; */
+    border: 1px solid;
+    width: 585px;
+    }
 </style>
 <!-- 댓글 JS  -->
 
@@ -194,9 +200,9 @@
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="#"><i
 									class="fa fa-home" aria-hidden="true"></i></a></li>
-							<li class="breadcrumb-item"><a href="#"></a></li>		
-							<li class="breadcrumb-item"><a href="#"></a></li>											
-							<li class="breadcrumb-item active" aria-current="page">${list.project_title }</li>
+							<li class="breadcrumb-item">${list.main_category}</li>		
+							<li class="breadcrumb-item"><a href="/projectcategorylist=${list.sub_category}">${list.sub_category}</a></li>											
+							<li class="breadcrumb-item active" aria-current="page">${list.project_title}</li>
 						</ol>
 					</nav>
 				</div>
@@ -289,14 +295,12 @@
 							<div class="widget-title">
 								<h6>${list.project_title }</h6>
 							</div>
-							<div class="subscribe-link">
-								<p>조회수 ${list.project_views }</p>
-								<p>카테고리번호 ${list.category_no }</p>
+							<div class="subscribe-link">	
 								 <p>모인금액: ${list.sumop }</p>
    								 <p>남은날짜:${list.remainingDay }</p>
-								<p>종료일:${list.enddate }</p>
-								<p>
-									펀딩진행중<br>목표금액인${list.targetprice }이 모여야만 결제됩니다.
+								 <p>종료일:${list.enddate }</p>
+								 <p>
+									펀딩진행중<br>목표금액인${list.targetprice }원이 모여야만 결제됩니다.
 								</p>
 								<button type="button" class="btn btn-primary"
 									data-toggle="modal" data-target="#exampleModalCenter">
@@ -321,9 +325,9 @@
                                         					<div class="yummy-table-cell">
                                         					<form action="/pay" method="post">	
                                             					<h2>${opt.option_name}</h2>
-																<p>가격 ${opt.option_price }</p>
-																<p>내용 ${opt.option_contents }</p>
-																<p>수량 ${opt.option_quantity }</p> 
+																<p>가격 : ${opt.option_price }원</p>
+																<p>내용 : ${opt.option_contents }</p>
+																<p>수량 : ${opt.option_quantity }</p> 
 																<input type="hidden" name="option_no" value="${opt.option_no }">
 																<input type="hidden" name="option_name" value="${opt.option_name }">
 																<input type="hidden" name="option_price" value="${opt.option_price }">
@@ -352,13 +356,13 @@
 						<!-- 창작자 설명 -->
 						<div class="single-widget-area about-me-widget text-center">
 							<div class="widget-title">
-								<h6>여기다가는 창작자 소개</h6>
+								<h6>창작자 소개</h6>
 							</div>
 							<div class="about-me-widget-thumb">
 								<img src="${list.img}" alt="창작자프로필">
 							</div>
 							<h4 class="font-shadow-into-light">${list.alias}</h4>
-							<p>소개글 ${list.introduce }</p>
+							<p>${list.introduce }</p>
 							
 						<a href="/talkreply/${list.no }" class="btn btn-primary" id="talk">쪽지로 문의하기</a> 
 						</div>
@@ -380,9 +384,9 @@
                                         <div class="yummy-table-cell">
                                         	<form action="/pay" method="post">	
                                             <h2>${opt.option_name}</h2>
-											<p>가격 ${opt.option_price }</p>
-											<p>내용 ${opt.option_contents }</p>
-											<p>수량 ${opt.option_quantity }</p> 
+											<p>가격 : ${opt.option_price }원</p>
+											<p>내용 : ${opt.option_contents }</p>
+											<p>수량 : ${opt.option_quantity }</p> 
 											<input type="hidden" name="option_no" value="${opt.option_no }">
 											<input type="hidden" name="option_name" value="${opt.option_name }">
 											<input type="hidden" name="option_price" value="${opt.option_price }">

@@ -375,11 +375,8 @@ public class ProjectController {
 	
 	// 프로젝트 상세 페이지
 	@RequestMapping("projectdetail/{project_no}")
-	public String projectdetail(@PathVariable int project_no,  Model model) {	
-	
-		
-		
-		ProjectDTO detail = service.projectDetail(project_no);
+	public String projectdetail(@PathVariable int project_no,  Model model) {			
+		ProjectDTO detail = service.projectDetail(project_no);		
 		System.out.println("========================내용pdf:"+detail.getProject_contents());
 		List<OptionDTO> option= service.projectoptionList(project_no);
 		int viewcnt = service.viewcnt(project_no);			
