@@ -422,6 +422,13 @@ public class AdminServiceImple implements AdminService {
 		System.out.println("마피아는 고개를 들어주세요..");
 	} // end deleteDisagree method
 	
+	// 남은 날이 -1보다 작으면 지난 프로젝트로 변경 (매일 밤 11시 59분에 변경)
+	@Override
+	public void updateStatus() {
+		mapper.updateStatus();
+		System.out.println("잘 변경 됐나요?");
+	} // end updateStatus method
+	
 	// 고객 문의
 	@Override
 	public List<CSDTO> adminCS() {

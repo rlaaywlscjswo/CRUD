@@ -54,7 +54,7 @@
 		base-package="com.bitcamp.mapper" />
 	
 		
-		<!-- 병훈쓰 spring quartz -->
+		<!-- 병훈쓰 spring quartz - 거절 된 프로젝트 지워주기 (매주 금요일 저녁 6시에 삭제) -->
 		<bean id="delete_Disagree" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 			<property name="targetObject" ref="adminService" />
 			<property name="targetMethod" value="deleteDisagree" />
@@ -69,6 +69,24 @@
 		<bean id="deleteDisagreeScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 			<property name="triggers">
 				<list><ref bean="deleteDisagreeTrigger" /></list>
+			</property>
+		</bean>
+		
+		<!-- 병훈쓰 spring quartz - 남은 날이 -1보다 작으면 지난 프로젝트로 변경 (매일 밤 11시 59분에 변경) -->
+		<bean id="update_status" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+			<property name="targetObject" ref="adminService" />
+			<property name="targetMethod" value="updateStatus" />
+			<property name="concurrent" value="false" />
+		</bean>
+		<!-- 트리거 -->
+		<bean id="updateStatusTrigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+			<property name="jobDetail" ref="update_status" />
+			<property name="cronExpression" value="0 59 23 * * ?" />
+		</bean>
+		<!-- 스케쥴러 -->
+		<bean id="updateStatusScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+			<property name="triggers">
+				<list><ref bean="updateStatusTrigger2" /></list>
 			</property>
 		</bean>
 

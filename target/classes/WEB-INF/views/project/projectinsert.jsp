@@ -568,7 +568,7 @@ margin-top: 800px;
 			<label for="targetprice">목표 금액</label>
 			<div>
 				<input type="number" class="form-control input-default"
-					id="targetprice" name="targetprice" value="1111">
+					id="targetprice" name="targetprice" value="10000000">
 			</div>
 
 			<label for="startdate">시작 날짜</label>
@@ -676,7 +676,7 @@ margin-top: 800px;
 						프로젝트의 창작 동기와 과정, 계획을 솔직하게 정성껏 적어주세요.
 					</p>
 				</div>
-				<textarea id="summernote" name="summernote"></textarea>
+				<textarea id="summernote" name="summernote" class="note-editable"></textarea>
 			</div>
 
 			<div class="btn2 btn btn-primary" id="btn5">

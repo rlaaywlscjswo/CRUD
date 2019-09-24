@@ -7,6 +7,7 @@ import java.nio.charset.Charset;
 
 import org.springframework.stereotype.Service;
 
+import com.bitcamp.dto.BusinessDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Image;
@@ -77,8 +78,9 @@ public class PDFServiceImple implements PDFService {
 		return result;
 	}
 	
+	// 계약서
 	@Override
-	public void htmlcreate(String sign, String project_contract,ProjectDTO dto) {
+	public void htmlcreate(String sign, String project_contract,ProjectDTO dto,BusinessDTO busdto, String name) {
 		
 	String result = ""; // 초기값이 null이 들어가면 오류가 발생될수 있기 때문에 공백을 지정
 		
@@ -110,20 +112,21 @@ public class PDFServiceImple implements PDFService {
 			XMLWorker worker = new XMLWorker(css, true);
 			XMLParser xmlparser = new XMLParser(worker, Charset.forName("UTF-8"));
 			
+			// 회원이름, 
 			// 폰트 설정에서 별칭으로 줬던 "MalgunGothic"을 html 안에 폰트로 지정한다.
-			String htmlStr = "<html><head><body style='font-family: malgun;'>"			
-			            + " <h1>펀딩 계약서</h1>" + 
-			            "    <p>창작자: "+ dto.getAlias() +"</p>" + 
-			            "    <p>프로젝트 제목:"+dto.getProject_title() +"</p>" + 
-			            "    <p>사업자등록번호</p>" + 
-			            "    <p>서명</p>" + 
-			            "    <p>(인)</p>"
-					+ "</body></head></html>";
+			String htmlStr = "<html><head><body style='font-family: malgun;'>"+			
+			            "    <h1>펀딩 계약서</h1><br></br>" + 
+			            "    <p>CRUD 회원 "+name+"(는)은 프로젝트 '"+dto.getProject_title()+"'(을)를 <br></br>"+
+			            dto.getStartdate()+"~"+dto.getEnddate()+"동안 목표금액인"+dto.getTargetprice()+" 원을 달성했을 시 펀딩을 성공한다.</p><br></br>"+ 
+			            "    <p>사업자등록번호 : "+busdto.getBusiness_no()+"</p>" + 
+			            "	 <p>사업자명 : "+busdto.getBusiness_name()+"</p><br></br>"+    
+			            "    <p>서명 (인)</p>" + 			           
+					    "</body></head></html>";
 			 
 			StringReader strReader = new StringReader(htmlStr);
 			xmlparser.parse(strReader);		
 			Image jpg =Image.getInstance(sign);
-			jpg.setAbsolutePosition(200,0);
+			jpg.setAbsolutePosition(95,540);
 			document.add(jpg);	
 			document.close();
 		} catch (Exception e) {

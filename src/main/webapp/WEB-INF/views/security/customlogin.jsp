@@ -268,7 +268,7 @@ input:focus {
 				type="checkbox" name="remember-me" checked="checked"
 				style="display: inline-block; left: 54%; margin-left: 0px; position: relative; width: 10px;"> <span style="color: #fff; display: inline-block; left:55%; position: relative;">로그인 유지하기</span>
 			<button type="submit" class="btn btn-primary btn-block btn-large" style="margin-bottom: 5px;">로그인</button>
-			<a href="/yummy"><input type="button" class="btn btn-primary btn-block btn-large main"
+			<a href="/main"><input type="button" class="btn btn-primary btn-block btn-large main"
 				value="메인으로"></a> <input type="hidden"
 				name="${_csrf.parameterName}" value="${_csrf.token}">
 		</form>

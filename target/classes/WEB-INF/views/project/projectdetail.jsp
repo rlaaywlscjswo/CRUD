@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
@@ -7,362 +7,297 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-<style type="text/css">
-/*  */
-body{
-/* background-image: url("/resources/img/cloud.jpg"); */
- background-image: linear-gradient(to top, #ffe6e6,#e5ccff, #cce6ff,#ccdcff);
-}
-
-#main{
-width: 80%;
-margin: 0 auto;
-/* background-image: linear-gradient(to top, #ffe6e6,#e5ccff, #cce6ff); */
-background-color: rgba(255,255,255,0.5);
-
-}
-
-#first{
-width:1231px;
-height: 750.33px;
-margin: 0 auto;
-}
-#title{
-height: 50px;
-width: 1231px;
-font-size:40px;
-margin: 0 auto;
-text-align: center;
-}
-#photo{
-width: 650px;
-height: 487.5px;
-overflow: hidden;
-background-color: #fff;
-background-clip: border-box;
-border: 1px solid rgba(0, 0, 0, 0.125);
-border-radius: 10px;
-box-shadow: 6px 11px 41px -28px #a99de7;
-}
-
-#project_photo_path{
-width: 100%;
-height: 100%;
-}
-
-#side{
-width: 360px;
-height: 495.33px;
-float: right;
-position: relative;
-bottom: 500px;
-right: 10px;
-}
-#paybtn{ 
- position: relative;
- top:150px;
-}
-#second{
-width: 1231px;
-height: 22517.33px;
-margin: 0 auto;
-}
-#content{
-border: 1px solid;
-width: 690px;
-height: 22121px;
-background-color: white;
-}
-
-#right{
-	width: 500px;
-    height: 500px;
-    float: right;
-    position: relative;
-    bottom: 22480px;
-    right: 85px;
-}
-#img{
-    width: 100px;
-    height: 100px;
-    border-radius: 100px;
-    position: relative;
-    left: 200px;
-    bottom: 75px;
-}
-#writer{
-width: 360px;
-height: 390px;
-margin: 0 auto;
-}
-
-#option{
-width: 360px;
-height: 312px;
-margin: 0 auto;
-margin-top: 20px;
-}
-
-.pdfobject-container {
-    width: 100%;
-    max-width: 600px;
-    height: 600px;
-    margin: 2em 0;
-}
- 
-.pdfobject { border: solid 1px #666; }
-#results { padding: 1rem; }
-.hidden { display: none; }
-.success { color: #4F8A10; background-color: #DFF2BF; }
-.fail { color: #D8000C; background-color: #FFBABA; }
-
-#replyimg{
-width: 50px;
-height: 50px;
-border: 1px solid;
-border-radius: 50px;
-}
-
-
-
-</style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">	
-var project_no = ${list.project_no}; // 프로젝트 번호
-$(function(){	
-    commentList(); //페이지 로딩시 댓글 목록 출력 
-    
-    $('[name=replyinsertbtn]').click(function(){ //댓글 등록 버튼 클릭시 
-        var insertData = $('[name=replyinsertform]').serialize(); //commentInsertForm의 내용을 가져옴
-        console.log(insertData);
-        commentInsert(insertData); //Insert 함수호출(아래)
-    });
-    
-});
+<style type="text/css">
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
+/* Styling h1 and links
+––––––––––––––––––––––––––––––––– */
+.start{
+float:left;
+width:500px;
 
-  
-//댓글 목록 
-function commentList(){
-    $.ajax({
-        url : '/replylist',
-        type : 'post',
-        data : {"project_no" : project_no},
-        success: function(result) {	   
-        	var a = "";
-        	if(result.length < 1){		        		 
-        		 a += '<p>' +"등록된댓글 ㄴㄴ" + '</p>';				  
-			} else {
-				$.each(result, function(key, value){ 	    
-					console.log(value.reply_contents);					
-					a += '<div class="card" style="width: 800px; height: 150px;">';		
-					a += '<div class="card-body">';
-	                a += '<div class="commentInfo'+value.reply_no+'">'+'댓글번호 : '+value.reply_no+' / 작성자 : '+value.name;
-	                a += '<a onclick="commentUpdate('+value.reply_no+',\''+value.reply_contents+'\');"> 수정 </a>';
-	                a += '<a onclick="commentDelete('+value.reply_no+');"> 삭제 </a> </div>';
-	                a += '<div class="commentContent'+value.reply_no+'"> <p> 내용 : '+value.reply_contents +'</p>';
-	                a += '</div></div></div>';
-	            });
+}
+.starrating > input {display: none;}  /* Remove radio buttons */
+
+.starrating > label:before { 
+  content: "\f005"; /* Star */
+  margin: 2px;
+  font-size: 1em;
+  font-family: FontAwesome;
+  display: inline-block; 
+}
+
+.starrating > label
+{
+  color: #222222; /* Start color when not clicked */
+}
+
+.starrating > input:checked ~ label
+{ color: #ffca08 ; } /* Set yellow color when star checked */
+
+.starrating > input:hover ~ label
+{ color: #ffca08 ;  } /* Set yellow color when star hover */
+
+.caroro{
+	height: 450px;
+    width: 600px;
+}
+
+#good {
+    /* width: 100%; */
+    border: 1px solid;
+    width: 585px;
+    }
+</style>
+<!-- 댓글 JS  -->
+
+<script type="text/javascript">
+	var project_no = ${list.project_no}; // 프로젝트 번호
+	console.log("프번프번"+project_no);
+	
+	$(document).ready(function(){		
+		commentList(); //페이지 로딩시 댓글 목록 출력 
+
+		$('[name=replyinsertbtn]').click(function() { //댓글 등록 버튼 클릭시 
+			var insertData = $('[name=replyinsertform]').serialize(); //commentInsertForm의 내용을 가져옴
+			console.log(insertData);
+			commentInsert(insertData); //Insert 함수호출(아래)
+		});		
+		
+		let no = 0+${list.no};
+		console.log(no);
+		$('#talk').on('click', function() {
+			let uri = encodeURI("/talkreply/"+no);
+			console.log(uri);
+			let pop = window.open(uri, "pop", "width=750,height=495, scrollbars=yes, resizable=yes");
+		});/* 
+        	$('#talk').on('click', function() { //인코딩 문제 방지
+    			let uri = encodeURI("/talkreply/"+no);
+    			console.log(uri);
+    			let pop = window.open(uri, "pop", "width=750,height=495, scrollbars=yes, resizable=yes");
+    		}); */
+
+	});
+
+	//댓글 목록 
+	function commentList() {
+		var csrfHeaderName="${_csrf.headerName}";
+		var csrfTokenValue="${_csrf.token}";
+		$.ajax({
+					url : '/replylist',
+					type : 'post',
+					data : {
+						"project_no" : project_no
+					},
+					beforeSend: function(xhr){
+						xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+					},
+					success : function(result) {
+						var a = "";
+						if (result.length < 1) {
+							a += '<p>' + "등록된댓글 ㄴㄴ" + '</p>';
+						} else {
+							$.each(result,function(key, value) {
+								console.log(value.reply_contents);
+												a += '<div class="comment_area section_padding_50 clearfix">';
+												a += '<ol>';
+												a += '<li class="single_comment_area">';
+												a += '<div class="comment-wrapper d-flex">';
+												a += '<div class="comment-author">';
+												a += '<img src="/resources/yummy/img/blog-img/17.jpg" alt="">';
+												a += '</div>';
+												a += '<div class="comment-content">';
+												a += '<span class="comment-date text-muted" class="commentInfo'+value.reply_no+'">'
+													 + '평점 : '+ value.rating
+													 + '</span>';
+												a += '<h5>'+value.name+'</h5>';
+												a += '<p class="commentContent'+value.reply_no+'">'
+														+ value.reply_contents
+														+ '</p>';
+												a += '<a onclick="commentUpdate('+value.reply_no+',\''+value.reply_contents+'\');" class="active">수정</a> <a onclick="commentDelete('+value.reply_no+');">삭제</a>';
+												a += '</div></div></li></ol></div>';												
+											});
+						}
+						$(".replylist").html(a);
+					}
+				});
+	}
+
+	//댓글 등록
+	function commentInsert(insertData) {
+		var csrfHeaderName="${_csrf.headerName}";
+		var csrfTokenValue="${_csrf.token}";
+		$.ajax({
+			url : '/replyinsert',
+			type : 'post',
+			data : insertData,
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
+			success : function(data) {
+				if (data == 1) {
+					commentList(); //댓글 작성 후 댓글 목록 reload
+					$('[name=reply_contents]').val('');
 				}
-        	 $(".replylist").html(a);
-        }
-    });
-}
-													
-//댓글 등록
-function commentInsert(insertData){
-	  $.ajax({
-	        url : '/replyinsert',
-	        type : 'post',
-	        data : insertData,
-	        success : function(data){
-	            if(data == 1) {
-	                commentList(); //댓글 작성 후 댓글 목록 reload
-	                $('[name=reply_contents]').val('');
-            }
-        }
-    });
-}
- 
-//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
-function commentUpdate(reply_no, reply_contents){
-	console.log('no:'+reply_no);
-	console.log('contents:'+reply_contents);	
-    var a ='';    
-    a += '<div class="input-group">';
-    a += '<input type="text" name="reply_contents'+reply_no+'" value="'+reply_contents+'"/>';
-    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+reply_no+');">수정</button> </span>';
-    a += '</div>';    
-    $('.commentContent'+reply_no).html(a);
-    
-}
- 
-//댓글 수정
-function commentUpdateProc(reply_no){
-    var updateContent = $('[name=reply_contents'+reply_no+']').val();    
-    $.ajax({
-        url : '/replyupdate',
-        type : 'post',
-        data : {'reply_contents' : updateContent, 'reply_no' : reply_no},
-        success : function(data){        	
-            if(data == 1) commentList(project_no); //댓글 수정후 목록 출력 
-        }
-    });
-}
- 
-//댓글 삭제 
-function commentDelete(reply_no){
-    $.ajax({
-        url : '/replydelete/'+reply_no,
-        type : 'post',
-        success : function(data){
-        	alert('삭제하겠습니까?');
-            if(data == 1) commentList(project_no); //댓글 삭제후 목록 출력 
-        }
-    });
-}
-</script>
+			}
+		});
+	}
 
+	//댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
+	function commentUpdate(reply_no, reply_contents) {		
+		console.log('no:' + reply_no);
+		console.log('contents:' + reply_contents);
+		var a = '';
+		a += '<div class="input-group">';
+		a += '<input type="text" name="reply_contents'+reply_no+'" value="'+reply_contents+'"/>';
+		a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('
+				+ reply_no + ');">수정</button> </span>';
+		a += '</div>';
+		$('.commentContent' + reply_no).html(a);
+
+	}
+
+	//댓글 수정
+	function commentUpdateProc(reply_no) {
+		var csrfHeaderName="${_csrf.headerName}";
+		var csrfTokenValue="${_csrf.token}";
+		var updateContent = $('[name=reply_contents' + reply_no + ']').val();
+		$.ajax({
+			url : '/replyupdate',
+			type : 'post',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
+			data : {
+				'reply_contents' : updateContent,
+				'reply_no' : reply_no
+			},
+			success : function(data) {
+				if (data == 1)
+					commentList(project_no); //댓글 수정후 목록 출력 
+			}
+		});
+	}
+
+	//댓글 삭제 
+	function commentDelete(reply_no) {
+		var csrfHeaderName="${_csrf.headerName}";
+		var csrfTokenValue="${_csrf.token}";
+		$.ajax({
+			url : '/replydelete/' + reply_no,
+			type : 'post',
+			beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
+			success : function(data) {
+				alert('삭제하겠습니까?');
+				if (data == 1)
+					commentList(project_no); //댓글 삭제후 목록 출력 
+			}
+		});
+	}
+</script>
 </head>
 <body>
-<div id="first">
-<div id="title"></div>
-<div id="views">조회수${list.project_views }</div>
-<div id="category">카테고리번호${list.category_no }</div>
-<div id="photo">
-<img id="project_photo_path" alt="프로젝트대표사진" src="${list.project_photo }">
-</div>
-<aside id="side">
-<div class="card" style="width: 360px; height: 495.33px;">
-  <div class="card-body">   
-    <p class="card-text">
-    <p>모인금액: ${list.sumop }</p>
-    <p>남은날짜:${list.remainingDay }</p>
-<p>종료일:${list.enddate }</p>
-<p>후원자</p>
-<div id="taget">펀딩진행중<br>목표금액인${list.targetprice }이 모여야만 결제됩니다.</div>
-<div id="paybtn">
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  후원하기
-</button>
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-    <c:forEach var="opt" items="${option }">
-	<form action="/pay" method="post">
-		<div id="option">
-		<div class="card" style="width: 360px;height: 312px;">
- 	    <div class="card-body">
-    	<h5 class="card-title">후원 옵션</h5>
-    	<h6 class="card-subtitle mb-2 text-muted">서브없음</h6>
-    	<p class="card-text">
-    	<c:out value="${opt.option_no }"/><br>
-		<c:out value="${opt.option_name}"/><br>
-		<c:out value="${opt.option_price }"/><br>
-		<c:out value="${opt.option_contents }"/><br>
-		<c:out value="${opt.option_quantity }"/><br>
-		<c:out value="${opt.project_no }"/><br>
-		
-		<input type="hidden" name="option_no" value="${opt.option_no }">
-		<input type="hidden" name="option_name" value="${opt.option_name }">
-		<input type="hidden" name="option_price" value="${opt.option_price }">
-		<input type="hidden" name="option_contents" value="${opt.option_contents }">
-		<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
-		<input type="hidden" name="alias" value="${list.alias}">   	    
-    	                                   
-    	</p>
-   		<button class="btn btn-sm btn-outline-secondary">후원하기</button>
-  		</div>
-		</div>		
+	<!-- ****** Breadcumb Area Start ****** -->
+	<div class="breadcumb-nav">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="#"><i
+									class="fa fa-home" aria-hidden="true"></i></a></li>
+							<li class="breadcrumb-item">${list.main_category}</li>		
+							<li class="breadcrumb-item"><a href="/projectcategorylist=${list.sub_category}">${list.sub_category}</a></li>											
+							<li class="breadcrumb-item active" aria-current="page">${list.project_title}</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
 		</div>
-	</form>
-</c:forEach>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>        
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</p>    
-</div>
-</div>
-</aside>
-</div>
-
-
-
-
-<div id="second">
-<!-- tab!!!  -->
-<ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#qwe">프로젝트 상세 설명</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#asd">평점 및 댓글</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#zxc">환불</a>
-  </li>
-</ul>
-<div class="tab-content">
-  <div class="tab-pane fade show active" id="qwe">
-  <div id="content">
-	<div id="pdf">
-	<div id="my-pdf" class=" pdfobject-container">
-	<embed class="pdfobject" src="https://pipwerks.com/pdfobject/file.php?item=sample-3pp#view=FitV&amp;pagemode=thumbs&amp;search=lorem%20ipsum&amp;page=2" type="application/pdf" style="overflow: auto; width: 100%; height: 100%;" internalinstanceid="79">
 	</div>
-	</div>
-	</div>
-  
-  <iframe src="${list.project_contents }" style="width:624px; height: 882px;" frameborder="0"></iframe>
-  
-  </div>
-  <div class="tab-pane fade" id="asd">  	
-	<sec:authorize access="isAuthenticated()">  
-	<div class="card" style="width: 800px; height: 150px;">
-  	<div class="card-body">	
- 	<form method="post" name="replyinsertform">
- 	<input type="hidden" id="project_no" name="project_no" value="${list.project_no }"> 	
- 	<!-- <input type="text" id="reply_contents" name="reply_contents"> -->
- 	<textarea style="width: 100%; resize: none;" id="reply_contents" name="reply_contents"></textarea>
- 	<!-- <fieldset class="rate">
-    <input type="radio" id="rating10" name="rating" value="5" /><label for="rating10" title="5 stars"></label>
-    <input type="radio" id="rating9" name="rating" value="4.5" /><label class="half" for="rating9" title="4 1/2 stars"></label>
-    <input type="radio" id="rating8" name="rating" value="4" /><label for="rating8" title="4 stars"></label>
-    <input type="radio" id="rating7" name="rating" value="3.5" /><label class="half" for="rating7" title="3 1/2 stars"></label>
-    <input type="radio" id="rating6" name="rating" value="3" /><label for="rating6" title="3 stars"></label>
-    <input type="radio" id="rating5" name="rating" value="2.5" /><label class="half" for="rating5" title="2 1/2 stars"></label>
-    <input type="radio" id="rating4" name="rating" value="2" /><label for="rating4" title="2 stars"></label>
-    <input type="radio" id="rating3" name="rating" value="1.5" /><label class="half" for="rating3" title="1 1/2 stars"></label>
-    <input type="radio" id="rating2" name="rating" value="1" /><label for="rating2" title="1 star"></label>
-    <input type="radio" id="rating1" name="rating" value="0.5" /><label class="half" for="rating1" title="1/2 star"></label>
-	</fieldset> -->
- 	<button type="button" name="replyinsertbtn">댓글등록</button>
- 	</form>
- 	</div>
- 	</div>
- 	
- 	</sec:authorize>	
- 	
- 	<div class="replylist">
- 	</div>	
- 		
- 		
-  </div>
-  <div class="tab-pane fade" id="zxc">
-   이 프로젝트의 환불 및 교환 정책
+	<!-- ****** Single Blog Area Start ****** -->
+	<section class="single_blog_area section_padding_80">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-12 col-lg-8">
+					<div class="row no-gutters">
+
+						<!-- Single Post Share Info -->
+						<div class="col-2 col-sm-1">
+							<div class="single-post-share-info mt-100"></div>
+						</div>
+
+						<!-- Single Post -->
+						<div class="col-10 col-sm-11">
+							<div class="single-post">
+								<!-- Post Thumb -->
+								<div class="post-thumb">
+									<img class="caroro" src="${list.project_photo }" alt="프로젝트대표사진">
+								</div>
+								<!-- Post Content -->
+								<div class="post-content">
+
+									<ul class="nav nav-tabs">
+										<li class="nav-item"><a class="nav-link active"
+											data-toggle="tab" href="#qwe">프로젝트 설명</a></li>
+										<li class="nav-item"><a class="nav-link"
+											data-toggle="tab" href="#asd">후기 및 평점</a></li>
+										<li class="nav-item"><a class="nav-link"
+											data-toggle="tab" href="#zxc">환불정책</a></li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane fade show active" id="qwe">																		
+											<iframe src="${list.project_contents }" style="width:100%; height: 882px;" frameborder="0"></iframe>
+										</div>
+										<div class="tab-pane fade" id="asd">
+											<sec:authorize access="isAuthenticated()">  
+											<!-- 댓글 form -->
+											<form method="post" name="replyinsertform">
+												<input type="hidden" id="project_no" name="project_no"
+													value="${list.project_no }">
+												<div class="comment_area section_padding_50 clearfix">
+												<ol>
+												<li class="single_comment_area">
+												<div class="comment-wrapper d-flex">
+												<div class="comment-author">
+												<img src="/resources/yummy/img/blog-img/17.jpg" alt="">
+												</div>
+												<div class="comment-content">
+												<span class="comment-date text-muted">
+													<div class="container start">
+        												<div class="starrating risingstar d-flex justify-content-center flex-row-reverse">
+            									<input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+            									<input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+            									<input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+            									<input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+            									<input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+        												</div>
+  													</div>
+												</span>
+												<h5></h5>
+												<p>
+													<textarea style="width: 100%; resize: none;"
+													id="reply_contents" class="form-control"
+													name="reply_contents"></textarea>														
+												</p>
+												<button type="button" name="replyinsertbtn" class="replyinsertbtn">등록</button>
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">																								
+												</div>
+												</div>
+												</li>
+												</ol>
+												</div>	
+											</form>
+											</sec:authorize>
+											<div class="replylist">
+ 											</div>																
+											
+										</div>
+										<div class="tab-pane fade" id="zxc">
+											
 • 모든 프로젝트 공통
 - 프로젝트 마감일 후에는 즉시 제작 및 실행에 착수하는 프로젝트 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.
 - 예상 전달일로부터 30일 이상 선물 전달이 이뤄지지 않을 경우, 환불을 원하시는 분들께는 수수료를 제한 후원금을 환불해 드립니다.
@@ -373,56 +308,145 @@ function commentDelete(reply_no){
 - 파손 또는 불량품 수령 시 3일 이내로 교환이 가능합니다.
 - 교환 및 AS 문의는 '창작자에게 문의하기'로 신청해 주세요.
 - 파손이나 불량품 교환시 발생하는 비용은 창작자가 부담합니다. 선물 확인을 위한 포장 훼손 외에 아이템의 가치가 훼손된 경우에는 교환 및 환불이 불가합니다.
-    </div>
-</div>
-</div>
+										</div>
+									</div>
+								</div>
+							</div>
 
 
+						
+						</div>
+					</div>
+				</div>
 
+				<!-- ****** Blog Sidebar ****** -->
+				<div class="col-12 col-sm-8 col-md-6 col-lg-4">
+					<div class="blog-sidebar mt-5 mt-lg-0">
+						<!-- 프로젝트 설명 -->
+						<div class="single-widget-area subscribe_widget text-center">
+							<div class="widget-title">
+								<h6>${list.project_title }</h6>
+							</div>
+							<div class="subscribe-link">	
+								 <p>모인금액: ${list.sumop }</p>
+   								 <p>남은날짜:${list.remainingDay }</p>
+								 <p>종료일:${list.enddate }</p>
+								 <p>
+									펀딩진행중<br>목표금액인${list.targetprice }원이 모여야만 결제됩니다.
+								</p>
+								<button type="button" class="btn btn-primary"
+									data-toggle="modal" data-target="#exampleModalCenter">
+									후원하기</button>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  										<div class="modal-dialog modal-dialog-centered" role="document">
+    										<div class="modal-content">
+     		 									<div class="modal-header">
+        											<h5 class="modal-title" id="exampleModalCenterTitle">후원 옵션</h5>
+        											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          												<span aria-hidden="true">&times;</span>
+        											</button>
+      											</div>
+      											<div class="modal-body">
+    												<c:forEach var="opt" items="${option }">
+	 													<div class="single-widget-area add-widget text-center">
+                            								<div class="add-widget-area">                            	
+                                							<div style="width: 289px; height: 207px;"></div>
+                                							<div class="add-text">
+                                    						<div class="yummy-table">
+                                        					<div class="yummy-table-cell">
+                                        					<form action="/pay" method="post">	
+                                            					<h2>${opt.option_name}</h2>
+																<p>가격 : ${opt.option_price }원</p>
+																<p>내용 : ${opt.option_contents }</p>
+																<p>수량 : ${opt.option_quantity }</p> 
+																<input type="hidden" name="option_no" value="${opt.option_no }">
+																<input type="hidden" name="option_name" value="${opt.option_name }">
+																<input type="hidden" name="option_price" value="${opt.option_price }">
+																<input type="hidden" name="option_contents" value="${opt.option_contents }">
+																<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
+																<input type="hidden" name="project_photo" value="${list.project_photo }">
+																<input type="hidden" name="project_title" value="${list.project_title}">
+																<input type="hidden" name="alias" value="${list.alias}">   											
+																<button class="btn btn-primary">후원하기</button>  
+																<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> 										
+                                            				</form>                                             
+                                        					</div>
+                                    						</div>
+                                							</div>                               
+                            								</div>
+                       		 								</div>			
+													</c:forEach>
+      											</div>
+      											<div class="modal-footer">
+        											<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>        
+      											</div>
+    										</div>
+  										</div>
+									</div>
+								</div>
+							</div>
 
-<div id="right">
-<div id="writer">
-<div class="card" style="width: 360px; height: 390px;">
-  <div class="card-body">
-    <h5 class="card-title">창작자 소개</h5>
-    <h6 class="card-subtitle mb-2 text-muted"> <div id="alias">창작자 : ${list.alias}</div> </h6>
-    <p class="card-text"><div><img id="img" alt="창작자 프로필 사진" src="${list.img}"></div>
-    <div id="introduce">소개글 : ${list.introduce }</div></p>
-   <button class="btn btn-sm btn-outline-secondary">쪽지로 문의하기</button> 
-  </div>
-</div>
-</div>
+						<!-- 창작자 설명 -->
+						<div class="single-widget-area about-me-widget text-center">
+							<div class="widget-title">
+								<h6>창작자 소개</h6>
+							</div>
+							<div class="about-me-widget-thumb">
+								<img src="${list.img}" alt="창작자프로필">
+							</div>
+							<h4 class="font-shadow-into-light">${list.alias}</h4>
+							<p>${list.introduce }</p>
+							
+						<a href="#" class="btn btn-primary" id="talk">쪽지로 문의하기</a>
+						<!-- <button class="btn btn-primary" id="talk">쪽지로 문의하기</button> --> 
+						</div>
 
-<c:forEach var="opt" items="${option }">
-		<form action="/pay" method="post">	
-		<div id="option">
-		<div class="card" style="width: 360px;height: 312px;">
- 	    <div class="card-body">
-    	<h5 class="card-title">후원 옵션</h5>
-    	<h6 class="card-subtitle mb-2 text-muted">서브없음</h6>
-    	<p class="card-text">
-    	<c:out value="${opt.option_no }"/><br>
-		<c:out value="${opt.option_name}"/><br>
-		<c:out value="${opt.option_price }"/><br>
-		<c:out value="${opt.option_contents }"/><br>
-		<c:out value="${opt.option_quantity }"/><br>
-		<c:out value="${opt.project_no }"/><br>
-     
-		<input type="hidden" name="option_no" value="${opt.option_no }">
-		<input type="hidden" name="option_name" value="${opt.option_name }">
-		<input type="hidden" name="option_price" value="${opt.option_price }">
-		<input type="hidden" name="option_contents" value="${opt.option_contents }">
-		<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
-		<input type="hidden" name="alias" value="${list.alias}">   	    
-    	                                   
-    	</p>
-   		<button class="btn btn-sm btn-outline-secondary">구매하기</button>
-  		</div>
-		</div>		
+						<!-- 옵션목록들 -->
+						<div class="single-widget-area popular-post-widget">
+							<div class="widget-title text-center">
+								<h6>후원 옵션</h6>
+							</div>
+							
+							<c:forEach var="opt" items="${option }">
+							
+							  <div class="single-widget-area add-widget text-center">
+                            	<div class="add-widget-area">
+                            	
+                                <div style="width: 289px; height: 207px;"></div>
+                                <div class="add-text">
+                                    <div class="yummy-table">
+                                        <div class="yummy-table-cell">
+                                        	<form action="/pay" method="post">	
+                                            <h2>${opt.option_name}</h2>
+											<p>가격 : ${opt.option_price }원</p>
+											<p>내용 : ${opt.option_contents }</p>
+											<p>수량 : ${opt.option_quantity }</p> 
+											<input type="hidden" name="option_no" value="${opt.option_no }">
+											<input type="hidden" name="option_name" value="${opt.option_name }">
+											<input type="hidden" name="option_price" value="${opt.option_price }">
+											<input type="hidden" name="option_contents" value="${opt.option_contents }">
+											<input type="hidden" name="option_quantity" value="${opt.option_quantity }">
+											<input type="hidden" name="project_photo" value="${list.project_photo }">
+											<input type="hidden" name="project_title" value="${list.project_title}">
+											<input type="hidden" name="alias" value="${list.alias}">   
+											
+											<button class="btn btn-primary">후원하기</button>   
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                                            </form>                                             
+                                        </div>
+                                    </div>
+                                </div>                               
+                            	</div>
+                       		 </div>							
+							</c:forEach>		
+						</div>
+						</div>
+				</div>
+			</div>
 		</div>
-	</form>
-</c:forEach>
-</div>
-
+	</section>
+	
+	<!-- ****** Single Blog Area End ****** -->
 </body>
 </html>

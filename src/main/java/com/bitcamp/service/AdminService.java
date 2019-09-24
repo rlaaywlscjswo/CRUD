@@ -55,6 +55,9 @@ public interface AdminService {
 	// 거절 된 프로젝트 지워주기 (매주 금요일 저녁 6시에 삭제)
 	public void deleteDisagree();
 	
+	// 남은 날이 -1보다 작으면 지난 프로젝트로 변경 (매일 밤 11시 59분에 변경)
+	public void updateStatus();
+	
 	// 고객 문의
 	public List<CSDTO> adminCS();
 	
