@@ -67,17 +67,11 @@ width:500px;
 		
 		let no = 0+${list.no};
 		console.log(no);
-		$('#talk').on('click', function() {
+		$('#talk2').on('click', function() {
 			let uri = encodeURI("/talkreply/"+no);
 			console.log(uri);
 			let pop = window.open(uri, "pop", "width=750,height=495, scrollbars=yes, resizable=yes");
-		});/* 
-        	$('#talk').on('click', function() { //인코딩 문제 방지
-    			let uri = encodeURI("/talkreply/"+no);
-    			console.log(uri);
-    			let pop = window.open(uri, "pop", "width=750,height=495, scrollbars=yes, resizable=yes");
-    		}); */
-
+		});
 	});
 
 	//댓글 목록 
@@ -398,7 +392,7 @@ width:500px;
 							<h4 class="font-shadow-into-light">${list.alias}</h4>
 							<p>${list.introduce }</p>
 							
-						<a href="#" class="btn btn-primary" id="talk">쪽지로 문의하기</a>
+						<a href="#" class="btn btn-primary" id="talk2">쪽지로 문의하기</a>
 						<!-- <button class="btn btn-primary" id="talk">쪽지로 문의하기</button> --> 
 						</div>
 

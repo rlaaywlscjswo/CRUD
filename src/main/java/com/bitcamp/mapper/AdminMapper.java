@@ -53,8 +53,14 @@ public interface AdminMapper {
 	// 승인 시 프로젝트 상태 변경 (1로)
 	public int psChange(int project_no);
 	
+	// 승인 시 쪽지 전달
+	public int agree_sendTalk(int no);
+	
 	// 거절 시 프로젝트 상태 변경 (2로)
 	public int disagree(int project_no);
+	
+	// 거절 시 쪽지 전달
+	public int diagree_sendTalk(int no);
 
 	// Excel용 Full List
 	public List<ProjectDTO> admin_Allsproject();

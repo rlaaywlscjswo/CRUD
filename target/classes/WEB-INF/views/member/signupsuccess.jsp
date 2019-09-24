@@ -60,35 +60,25 @@ body, html {
 }
 
 h1 {
-	font-size: 3em;
-}
-
-#guide {
-	border: 1px solid transparent;
-	background-color: white;"
 	display: inline-block;
-	height: 200px;
-	left: 16%;
-	width: 800px;
+	font-size: 3em;
+	left: 10%;
 	position: relative;
-	text-align: center;
-	top: 180px;
+	top: 250px;
 }
 
 #cong-button {
 	display: inline-block;
-	left: 340px;
+	left: -15%;
+	padding: 20px;
 	position: relative;
-	top: 220px;
+	top: 500px;
+	z-index: 1000;
 }
 
 a:nth-child(2) {
 	margin-left: 160px;
 	position: relative;
-}
-
-#cong-button {
-	z-index: 1000;
 }
 
 </style>
@@ -97,14 +87,12 @@ a:nth-child(2) {
 
 	<div class="container">
 		<div id="congratulation">
-			<h1 style="color: #5858FA;">회원 가입을 축하드립니다!!</h1>
+			<h1 style="color: #ff96ff;">회원 가입을 축하드립니다!!</h1>
 		</div>
-		
-		<div id="guide"><br><br><br><br>넘나 허전쓰.. 사이트 이용 가이드 넣으면 좋을 듯</div>
 
 		<div id="cong-button">
 			<a href="/sec_login"><button class="btn btn-primary">로그인 하기</button></a> 
-			<a href="/yummy"><button class="btn btn-primary">메인으로 돌아가기</button></a>
+			<a href="/main"><button class="btn btn-primary">메인으로 돌아가기</button></a>
 		</div>		
 	</div>
 	<!-- /.container -->

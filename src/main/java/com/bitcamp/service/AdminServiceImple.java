@@ -297,6 +297,14 @@ public class AdminServiceImple implements AdminService {
 		
 	} // end psChange method
 	
+	// 승인 시 쪽지 전달
+	@Override
+	public int agree_sendTalk(int no) {
+		
+		return mapper.agree_sendTalk(no);
+		
+	} // end agree_sendTalk method
+	
 	// 거절 시 프로젝트 상태 변경 (2로)
 	@Override
 	public int disagree(int project_no) {
@@ -304,6 +312,14 @@ public class AdminServiceImple implements AdminService {
 		return mapper.disagree(project_no);
 		
 	} // end disagree method
+	
+	// 거절 시 쪽지 전달
+	@Override
+	public int diagree_sendTalk(int no) {
+		
+		return mapper.diagree_sendTalk(no);
+		
+	} // end diagree_sendTalk method
 
 	// Excel Download
 	@Override

@@ -164,10 +164,11 @@ public class ProjectController {
 			@RequestParam String summernote, @RequestParam String[] option_name, @RequestParam int[] option_price,
 			@RequestParam String[] option_contents, @RequestParam int[] option_quantity, BusinessDTO busdto // 사업자 dto
 			, @RequestParam int btncnt) {
-
+		System.out.println("result!!!!!");
 		MemberDTO mdto = memberservice.memberinfo(principal.getName());
+		System.out.println("들어오니?????????"+mdto.getName());
 		dto.setNo(mdto.getNo());
-
+		
 		int projectsearchno = service.projectsearchno(dto.getCategory_no());
 		dto.setProject_no(projectsearchno);
 
@@ -240,88 +241,6 @@ public class ProjectController {
 		return "project/projectinsertresult.temp";
 	}
 
-	// 프로젝트 등록 결과 // 지워
-	@RequestMapping(value = "/projectresult")
-	public String projectinsertresult(HttpServletRequest request // upload
-			, BusinessDTO busdto // 사업자 dto
-			, @ModelAttribute ProjectDTO dto // 프로젝트 dto
-			, @RequestParam String[] option_name, @RequestParam int[] option_price,
-			@RequestParam String[] option_contents, @RequestParam int[] option_quantity, @RequestParam int btncnt // 옵션
-																													// 개수
-			, @RequestParam String summernote // summernote
-			, Principal principal) throws Exception {
-
-		// 로그인한 회원 정보
-		MemberDTO mdto = memberservice.memberinfo(principal.getName());
-
-		// 업로드
-		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일
-		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일
-		MultipartFile project_contract = dto.getProject_contract_file(); // 계약서pdf 파일
-		MultipartFile project_contents = dto.getProject_contents_file(); // 내용pdf 파일
-
-		// 서버에 업로드 되는 파일 이름 지정해주기
-		String contents_filename = "content" + System.currentTimeMillis() + ".pdf"; // 내용pdf 파일 이름
-		String contract_filename = "pdf" + System.currentTimeMillis() + ".pdf"; // 계약서pdf 파일 이름
-
-		try {
-			String uploadpath = request.getSession().getServletContext().getRealPath(path); // 경로
-			String contents_pdfpath = request.getSession().getServletContext().getRealPath(contentpdf); // 내용pdf 경로
-			String contract_pdfpath = request.getSession().getServletContext().getRealPath(pdfpath); // 계약서pdf 경로
-			String contents_pdfpath_realpath = contents_pdfpath + "\\" + contents_filename;
-			String contract_pdfpath_realpath = contract_pdfpath + "\\" + contract_filename;
-
-			pdfservice.createSummernotePdf(summernote, contents_pdfpath_realpath);
-			
-			pdfservice.htmlcreate(mdto.getSign(), contract_pdfpath_realpath, dto,busdto,mdto.getName()); // 계약서pdf 생성 service
-
-			dto.setProject_contract(pdfpath + "/" + contract_filename);
-
-			if (!project_photo.isEmpty() && !img.isEmpty()) { // 대표사진, 프로필사진 둘다있을때
-
-				File file = new File(uploadpath, project_photo.getOriginalFilename()); // 프로젝트 대표사진
-				project_photo.transferTo(file);
-				dto.setProject_photo(path + "/" + dto.getProject_photo_file().getOriginalFilename());
-
-				File file2 = new File(uploadpath, img.getOriginalFilename());// 창작자 프로필사진
-				img.transferTo(file2);
-				dto.setImg(path + "/" + dto.getImg_file().getOriginalFilename());
-
-				File file3 = new File(contents_pdfpath, contents_filename); // 직접올리는pdf
-				project_contents.transferTo(file3);
-				dto.setProject_contents(contentpdf + "/" + contents_filename);
-			}
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		}
-
-		int projectsearchno = service.projectsearchno(dto.getCategory_no());
-
-		dto.setProject_no(projectsearchno);
-		dto.setNo(mdto.getNo()); // 로그인한 no값을 insert쿼리문으로
-		System.out.println("회원번호 : " + dto.getNo());
-
-		service.projectInsert(dto); // projectdto
-		businessservice.businessInsert(busdto); // businesssdto
-
-		List<OptionDTO> list = new ArrayList<OptionDTO>();
-		for (int i = 0; i < option_price.length; i++) {
-			OptionDTO optdto = new OptionDTO();
-			optdto.setProject_no(projectsearchno);
-			optdto.setOption_name(option_name[i]);
-			optdto.setOption_price(option_price[i]);
-			optdto.setOption_contents(option_contents[i]);
-			optdto.setOption_quantity(option_quantity[i]);
-			list.add(optdto);
-			System.out.println("이름 : " + option_name[i]);
-			System.out.println("금액 : " + option_price[i]);
-			System.out.println("내용 : " + option_contents[i]);
-		}
-
-		service.projectoptionInsert(list);
-		return "project/projectinsertresult.temp";
-	}
-
 	// 프로젝트 상세 페이지
 	@RequestMapping("projectdetail/{project_no}")
 	public String projectdetail(@PathVariable int project_no, Model model) {
@@ -334,7 +253,6 @@ public class ProjectController {
 
 		return "project/projectdetail.temp";
 	}
-
 
 
 }

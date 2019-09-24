@@ -140,22 +140,28 @@ public class AdminController {
 
 	// 승인 시 권한 변경, 프로젝트 상태 변경 (1로)
 	@RequestMapping("agree")
-	public @ResponseBody void agree(@RequestParam(required = false, defaultValue = "1") int project_no) {
+	public @ResponseBody void agree(@RequestParam(required = false, defaultValue = "1") int project_no,
+			@RequestParam(required = false, defaultValue = "1") int no
+			) {
 
 		System.out.println("동의는 잘 넘어왔어요? : " + project_no);
+		System.out.println("no도 잘 넘어왔어요? : " + no);
 
 		adminService.agree(project_no);
 		adminService.psChange(project_no);
+		adminService.agree_sendTalk(no);
 
 	} // end agree method
 
 	// 거절 시 프로젝트 상태 변경 (2로)
 	@RequestMapping("disagree")
-	public @ResponseBody void disagree(@RequestParam(required = false, defaultValue = "1") int project_no) {
+	public @ResponseBody void disagree(@RequestParam(required = false, defaultValue = "1") int project_no, 
+			@RequestParam(required = false, defaultValue = "1") int no) {
 
 		System.out.println("거절도 잘 넘어왔어요? : " + project_no);
 
 		adminService.disagree(project_no);
+		adminService.diagree_sendTalk(no);
 
 	} // end disagree method
 
