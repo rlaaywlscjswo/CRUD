@@ -81,7 +81,7 @@ $(document).ready(function(){
 			$("#addrDetail").val("");
 			$("#fulladdr").val("");
 			$("input[name='default_addrs']").prop("checked", false);
-			$("input[name='addr_add']").prop("checked", true);
+			$("input[name='addr_add']").prop("checked", false);
 		}
 	});
 	
