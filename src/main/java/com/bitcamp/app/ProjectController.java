@@ -160,15 +160,15 @@ public class ProjectController {
 	}
 
 	@RequestMapping("/result")
-	public String result(HttpServletRequest request, @ModelAttribute ProjectDTO dto, /*Principal principal,*/
+	public String result(HttpServletRequest request, @ModelAttribute ProjectDTO dto, Principal principal,
 			@RequestParam String summernote, @RequestParam String[] option_name, @RequestParam int[] option_price,
 			@RequestParam String[] option_contents, @RequestParam int[] option_quantity, BusinessDTO busdto // 사업자 dto
 			, @RequestParam int btncnt) {
 		System.out.println("result!!!!!");
 		System.out.println("btncnt"+btncnt);
 		System.out.println("summernote"+summernote);
-		/*System.out.println("보자 : "+principal.getName());*/
-		MemberDTO mdto = memberservice.memberinfo("member@gmail.com");
+		System.out.println("보자 : "+principal.getName());
+		MemberDTO mdto = memberservice.memberinfo(principal.getName());
 		System.out.println("사람 정보 : "+mdto.getName());
 		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일
 		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일
