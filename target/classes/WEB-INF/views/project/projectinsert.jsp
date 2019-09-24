@@ -405,8 +405,7 @@ margin-top: 800px;
 						method : "GET",
 						dataType : "JSON",
 						url : "/project/category",
-						data : 'main_category=' + main_category,
-
+						data : 'main_category=' + main_category,					
 						success : function(data) {
 							console.log("ajax1");
 							console.log(data);
@@ -448,6 +447,7 @@ margin-top: 800px;
 								url : "/sign",
 								method : "POST",
 								dataType : "text",
+								timeout:10000,
 								beforeSend : function(xhr) {
 									xhr.setRequestHeader(csrfHeaderName,
 											csrfTokenValue);
@@ -471,8 +471,7 @@ margin-top: 800px;
 				});
 
 		$('#up')
-				.on(
-						'click',
+				.on('click',
 						function() {
 							var optform = document.getElementById("optform");
 							var str = "<hr>";
@@ -695,12 +694,7 @@ margin-top: 800px;
 			</div>
 		</div>
 
-		<div id="tab06" class="tab-contents">	
-			<div>
-			<input type="checkbox" value="ddd" id="okok">
-			<textarea rows="10" cols="50" readonly="readonly" >약관머시기</textarea><br>
-			
-			</div>
+		<div id="tab06" class="tab-contents">			
 			<div id="signature-pad" class="m-signature-pad">	
 				<div class="m-signature-pad--body">			
 					<canvas width="300" height="100"></canvas>
@@ -709,7 +703,7 @@ margin-top: 800px;
 					<button type="button" class="button clear btn btn-primary"
 						data-action="clear">지우기</button>
 					<button type="button" class="button save btn btn-primary"
-						data-action="save" style="z-index: 1000;">저장</button>
+						data-action="save" style="z-index: 1000;">저장</button>				
 					<a href="#" class="btn btn-primary" id="insert">등록</a> 
 				</div>
 			</div>

@@ -160,18 +160,16 @@ public class ProjectController {
 	}
 
 	@RequestMapping("/result")
-	public String result(HttpServletRequest request, @ModelAttribute ProjectDTO dto, Principal principal,
+	public String result(HttpServletRequest request, @ModelAttribute ProjectDTO dto, /*Principal principal,*/
 			@RequestParam String summernote, @RequestParam String[] option_name, @RequestParam int[] option_price,
 			@RequestParam String[] option_contents, @RequestParam int[] option_quantity, BusinessDTO busdto // 사업자 dto
 			, @RequestParam int btncnt) {
 		System.out.println("result!!!!!");
-		MemberDTO mdto = memberservice.memberinfo(principal.getName());
-		System.out.println("들어오니?????????"+mdto.getName());
-		dto.setNo(mdto.getNo());
-		
-		int projectsearchno = service.projectsearchno(dto.getCategory_no());
-		dto.setProject_no(projectsearchno);
-
+		System.out.println("btncnt"+btncnt);
+		System.out.println("summernote"+summernote);
+		/*System.out.println("보자 : "+principal.getName());*/
+		MemberDTO mdto = memberservice.memberinfo("member@gmail.com");
+		System.out.println("사람 정보 : "+mdto.getName());
 		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일
 		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일
 		MultipartFile project_contract = dto.getProject_contract_file(); // 계약서pdf 파일
@@ -179,6 +177,8 @@ public class ProjectController {
 		String contract_filename = "pdf" + System.currentTimeMillis() + ".pdf"; // 계약서pdf 파일 이름
 		String contents_filename = "content" + System.currentTimeMillis() + ".pdf"; // 내용pdf 파일 이름
 		String direct_contents_filename = "direct" + System.currentTimeMillis() + ".pdf"; // 직접올리는 pdf
+		
+	
 		try {
 			String uploadpath = request.getSession().getServletContext().getRealPath(path); // 경로
 			String contract_pdfpath = request.getSession().getServletContext().getRealPath(pdfpath); // 계약서pdf 경로
@@ -213,6 +213,13 @@ public class ProjectController {
 		}
 		System.out.println("categoryno" + dto.getCategory_no());
 
+		
+		
+		System.out.println("들어오니?????????"+mdto.getName());
+		dto.setNo(mdto.getNo());
+		
+		int projectsearchno = service.projectsearchno(dto.getCategory_no());
+		dto.setProject_no(projectsearchno);
 		System.out.println("사인경로" + mdto.getSign());
 
 		busdto.setNo(mdto.getNo());
