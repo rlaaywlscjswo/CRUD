@@ -267,7 +267,7 @@ $(document).ready(function(){
 	    pay_method : paymethod,  
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : "${opt.option_name}",			// 상품명
-	    amount : ${opt.option_price} + delivery,// 결제 금액
+	    amount : ${opt.option_price},			// 결제 금액
 	    buyer_email : "${member.email}", 		// 메일주소
 	    buyer_name : $("#address_name").val(),	// 구매자 이름
 	    buyer_tel : $("#address_photo").val(),	// 구매자 연락처
@@ -412,7 +412,7 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 		</li>
 		<li>
 			<label for="address_photo">연락처</label>
-			<input type="text" id="address_photo" name="address_photo" required="required" >
+			<input type="text" id="address_photo" name="addr	ess_photo" required="required" >
 		</li>
 		<li>
 			<label for="fulladdr">배송지 주소</label>

@@ -7,13 +7,21 @@
 <title>Insert title here</title>
 <link href="/resources/css/pays.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<style>
+.memo{
+	margin-bottom: 0px;
+}
+.radioul li{
+	margin-bottom: 0px;
+}
+</style>
 <script>
 $(document).ready(function(){
 	let num = ${opt.option_price}; //$(".price").text(); 		
 	var regexp = /\B(?=(\d{3})+(?!\d))/g;
 	$(".price").text(num.toString().replace(regexp, ','));
 	//return num.toString().replace(regexp, ',');
-	
 	
 	$('.goPopup').on('click', function(){
 		// 주소검색을 수행할 팝업 페이지를 호출합니다.
@@ -38,7 +46,12 @@ $(document).ready(function(){
 		$("#address_name").val("${addr.address_name}");
 		$("#address_photo").val("${addr.address_photo }");
 		$("#alias").val("${addr.alias }");
+		let strarr = $("#address_photo").val().split('-');
+		$('#phone_one').val(strarr[0]);
+		$('#phone_two').val(strarr[1]);
+		$('#phone_three').val(strarr[2]);
 		jusoCallBack("${addr.roadaddrPart1}", "${addr.addrDetail}", "${addr.roadaddrPart2}", "${addr.jibunaddr}", "${addr.zipno}");
+		$("input[name='default_addrs']").prop("checked", true);
 		$("#basicaddr").prop("checked", true).prop("disabled", false)
 	} else {
 		$("input[name='addr_add']").prop("checked", true);
@@ -54,6 +67,11 @@ $(document).ready(function(){
 			$("#zipno").val("${addr.zipno}");
 			$("#addrDetail").val("${addr.addrDetail}");
 			$("#fulladdr").val("${addr.roadaddrPart1 }, ${addr.addrDetail} ${addr.roadaddrPart2}");
+			let strarr = $("#address_photo").val().split('-');
+			$('#phone_one').val(strarr[0]);
+			$('#phone_two').val(strarr[1]);
+			$('#phone_three').val(strarr[2]);
+			$("input[name='default_addrs']").prop("checked", true);
 			$("input[name='addr_add']").prop("checked", false);
 		} else { 
 			$("#address_name").val("");
@@ -62,6 +80,7 @@ $(document).ready(function(){
 			$("#zipno").val("");
 			$("#addrDetail").val("");
 			$("#fulladdr").val("");
+			$("input[name='default_addrs']").prop("checked", false);
 			$("input[name='addr_add']").prop("checked", true);
 		}
 	});
@@ -74,6 +93,7 @@ $(document).ready(function(){
 	 
 	//배송지 목록 추가 여부
 	$('#reqpay').on('click', function() {
+		console.log("결제 클릭");		
 		let addr_check = $("input[name='addr_add']").is(':checked'); // 주소지 추가 true, false
 		$("input[name='addr_add']").val(addr_check);
 		//console.log($("input[name='addr_add']").val());
@@ -92,23 +112,29 @@ $(document).ready(function(){
 	// 결제 방법
 	$("#frm").on('submit', function( event ) {
 		event.preventDefault();
-		let paymethod = $("#payselect").val();	
+		
+		let phone_number = $('#phone_one').val()+"-"+$('#phone_two').val()+"-"+$('#phone_three').val();
+		$('#address_photo').val(phone_number);
+		console.log($('#address_photo').val());
+		
+		let paymethod = $("input[name='payselect']:checked").val(); 
+		console.log("음"+paymethod);
 		requestPay(paymethod);
 	});
 	
 	// 결제
 	function requestPay(paymethod) {
 		var IMP = window.IMP; // 생략가능
-		IMP.init('iamport'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+		IMP.init('imp17753765'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
 		let option = parseInt($("#option_price").text()); // 상품 가격
 		//let del = $("#delivery_pay").text();
-		let delivery = 0;//parseInt($("#delivery_pay").text()); // 배송비
+		//let delivery = 0;//parseInt($("#delivery_pay").text()); // 배송비
 	IMP.request_pay({
 	    pg : 'inicis',  
 	    pay_method : paymethod,  
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	    name : "${opt.option_name}",			// 상품명
-	    amount : ${opt.option_price} + delivery,// 결제 금액
+	    amount : "${opt.option_price}",// 결제 금액
 	    buyer_email : "${member.email}", 		// 메일주소
 	    buyer_name : $("#address_name").val(),	// 구매자 이름
 	    buyer_tel : $("#address_photo").val(),	// 구매자 연락처
@@ -128,8 +154,8 @@ $(document).ready(function(){
 	        $("#frm").off('submit');
 	        $('form').trigger('submit');
 	        
-	        /* jQuery.ajax({
-	            url: "https://www.myservice.com/payments/complete", // 가맹점 서버
+	        jQuery.ajax({
+	            url: "http://localhost:8080/sloth", // 가맹점 서버
 	            method: "POST",
 	            headers: { "Content-Type": "application/json" },
 	            data: {
@@ -139,7 +165,7 @@ $(document).ready(function(){
 	        }).done(function (data) {
 	          // 가맹점 서버 결제 API 성공시 로직
 	          console.log("결제 성공!! : "+data);
-	        }) */
+	        })
 	      } else {
 	        var msg = '결제에 실패하였습니다.';
 	        msg += '에러내용 : ' + rsp.error_msg;
@@ -204,6 +230,10 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 	document.form.alias.value = alias;
 	document.form.address_name.value = address_name;
 	document.form.address_photo.value = address_photo;
+	let strarr = address_photo.split('-');
+	$('#phone_one').val(strarr[0]);
+	$('#phone_two').val(strarr[1]);
+	$('#phone_three').val(strarr[2]);
 	$("#basicaddr").prop("checked", true).prop("disabled", false);
 	$("input[name='addr_add']").prop("checked", false);
 	document.getElementById('fulladdr').value=roadaddrPart1 +", "+addrDetail + " " + roadaddrPart2;
@@ -234,7 +264,6 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 									<span class="font-color-lighter">${alias}</span>
 								</li>
 							</ul>
-						
 						</div>
 
 						<table class="order-table">
@@ -298,14 +327,7 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 									<span>배송지 선택&nbsp;&nbsp; </span>
 									<input id="basicaddr" name="addrs" type="radio" class="radio" value="basicaddr" disabled="disabled"> <label	for="basicaddr">기본 배송지</label>
 									<input id="newaddr" name="addrs" type="radio" class="radio" value="newaddr"> <label	for="newaddr">신규 배송지</label>
-								</li>
-								<li>
-									<label for="address_name">
-										<strong class="shipping-necessary">이름</strong>
-									</label>
-								</li>
-								<li>
-									<input type="text" id="address_name" name="address_name" class="form-control input-xs pnum address_name" placeholder="받는 분" required="required">
+									<input type="button" id="addrslist" name="addrslist" value="배송지목록" />
 								</li>
 								<li>
 									<label for="alias">
@@ -316,13 +338,22 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 									<input type="text" id="alias" name="alias" class="form-control input-xs pnum" required="required">
 								</li>
 								<li>
+									<label for="address_name">
+										<strong class="shipping-necessary">이름</strong>
+									</label>
+								</li>
+								<li>
+									<input type="text" id="address_name" name="address_name" class="form-control input-xs pnum address_name" placeholder="받는 분" required="required">
+								</li>
+								<li>
 									<label for="address_photo">
 										<strong class="shipping-necessary">연락처</strong>
+										<input type="hidden" id="address_photo" name="address_photo">
 									</label>
 								</li>
 								<li style="width:588px; ">
 									<div class="pnum numnum">
-										<select class="form-control input-xs">
+										<select class="form-control input-xs" id="phone_one">
 											<option value="010" selected="">010</option>
 											<option value="011">011</option>
 											<option value="016">016</option>
@@ -364,17 +395,17 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 
 										<div>
 											<input type="text" maxlength="4"
-												class="form-control input-xs" required="required">
+												class="form-control input-xs" required="required" id="phone_two">
 										</div>
 
 										<div>-</div>
 
 										<div>
 											<input type="text" maxlength="4"
-												class="form-control input-xs" required="required">
+												class="form-control input-xs" required="required" id="phone_three">
 										</div>
 										</div>
-										<input type="hidden" id="address_photo" name="address_photo">
+										
 									</div>
 
 								</li>
@@ -396,7 +427,7 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 								</li>
 								<li id="fdaddr">
 									<label for="fulladdr"></label>
-									<input type="text" id="fulladdr" class="form-control input-xs" name="fulladdr" readonly="readonly" placeholder="기본주소" > 
+									<input type="text" id="fulladdr" class="form-control input-xs" name="fulladdr" required="required" readonly="readonly" placeholder="기본주소" > 
 									<input type="text" id="addrDetail" class="form-control input-xs" name="addrDetail" required="required" placeholder="나머지주소" />
 								</li>
 								
@@ -414,13 +445,8 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 						</div>
 					</div>
 				</div>
-
-
 			</div>
-
 		</div>
-		<!--배송지 정보-->
-
 
 		<div class="rows">
 			<div class="col-xs-12">
@@ -457,53 +483,59 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 							<ul class="list-unstyled margin-top-5 margin-bottom-0">
 								<li>
 									<ul class="radioul">
-										<li><input id="card" name="payselect" type="radio"
-											class="radio" checked="checked" value="card"> <label
-											for="card">신용카드</label></li>
-										<li><input id="kakao" name="payselect" type="radio"
-											class="radio" value="kakao"> <label for="kakao">카카오페이</label></li>
-										<li><input id="samsung" name="payselect" type="radio"
-											class="radio" value="samsung"> <label for="samsung">삼성페이</label></li>
-										<li><input id="payco" name="payselect" type="radio"
-											class="radio" value="payco"> <label for="payco"><img
-												style="height: 14px;"
-												src="https://s3-ap-northeast-1.amazonaws.com/kmong-static/assets/icon/ic_payco.png"></label></li>
-										<li><input id="vbank" name="payselect" type="radio"
-											class="radio" value="vbank"> <label for="vbank">가상계좌</label></li>
-										<li><input id="phone" name="payselect" type="radio"
-											class="radio" value="phone"> <label for="phone">휴대폰소액결제</label></li>
-										<li><input id="cultureland" name="payselect" type="radio"
-											class="radio" value="cultureland"> <label
-											for="cultureland">문화상품권</label></li>
-										<li><input id="happymoney" name="payselect" type="radio"
-											class="radio" value="happymoney"> <label
-											for="happymoney">해피머니</label></li>
+										<li>
+											<input id="card" name="payselect" type="radio" class="radio" checked="checked" value="card">
+											<label for="card">신용카드</label>
+										</li>
+										<li>
+											<input id="kakao" name="payselect" type="radio" class="radio" value="kakao">
+											<label for="kakao">카카오페이</label>
+										</li>
+										<li>
+											<input id="samsung" name="payselect" type="radio" class="radio" value="samsung">
+											<label for="samsung">삼성페이</label>
+										</li>
+										<li>
+											<input id="payco" name="payselect" type="radio" class="radio" value="payco">
+											<label for="payco">
+												<img style="height: 14px; position: relative; top: 5px;" src="https://s3-ap-northeast-1.amazonaws.com/kmong-static/assets/icon/ic_payco.png">
+											</label>
+										</li>
+										<li>
+											<input id="vbank" name="payselect" type="radio" class="radio" value="vbank">
+											<label for="vbank">가상계좌</label>
+										</li>
+										<li>
+											<input id="phone" name="payselect" type="radio" class="radio" value="phone">
+											<label for="phone">휴대폰소액결제</label>
+										</li>
+										<li>
+											<input id="cultureland" name="payselect" type="radio" class="radio" value="cultureland">
+											<label for="cultureland">문화상품권</label>
+										</li>
+										<li>
+											<input id="happymoney" name="payselect" type="radio" class="radio" value="happymoney">
+											<label for="happymoney">해피머니</label>
+										</li>
 									</ul>
 								</li>
 							</ul>
 						</div>						
 					</div>					
 				</div>
-				<input type="submit" id="reqpay" class="btn btn-primary"
-							style="width: 100%; margin: 0 auto;" value="결제">
+				<input type="submit" id="reqpay" class="btn btn-primary" style="width: 100%; margin: 0 auto;" value="결제">
 			</div>
 		</div>
-		<!--결제방법  -->
-
-
 
 	</div>
-	<!--전체-->
-
-
-
-
-
-
-
-
-
-
+	<input type="hidden"  id="roadaddrPart1"  name="roadaddrPart1" />
+	<input type="hidden"  id="roadaddrPart2"  name="roadaddrPart2" />
+	<input type="hidden"  id="jibunaddr"  name="jibunaddr" />
+	<input type="hidden" name="no" value="${member.no} ">
+	<input type="hidden" name="option_no" value="${opt.option_no}">
+	
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+</form>
 
 </body>
 </html>
