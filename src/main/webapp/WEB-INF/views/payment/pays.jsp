@@ -15,9 +15,28 @@
 .radioul li{
 	margin-bottom: 0px;
 }
+#addr_adds, #addr_add, #default_addrss, #default_addrs{
+	cursor:pointer;
+}
 </style>
 <script>
 $(document).ready(function(){
+	$('#addr_adds').on('click', function() {
+		if($("input[name='addr_add']").is(":checked")){
+			$("input[name='addr_add']").prop("checked", false);
+		} else {
+			$("input[name='addr_add']").prop("checked", true);
+		}
+		
+	});
+	$('#default_addrss').on('click', function() {
+		if($("input[name='default_addrs']").is(":checked")){
+			$("input[name='default_addrs']").prop("checked", false);
+		} else {
+			$("input[name='default_addrs']").prop("checked", true);
+		}
+	});
+	
 	let num = ${opt.option_price}; //$(".price").text(); 		
 	var regexp = /\B(?=(\d{3})+(?!\d))/g;
 	$(".price").text(num.toString().replace(regexp, ','));
@@ -351,9 +370,9 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 										<input type="hidden" id="address_photo" name="address_photo">
 									</label>
 								</li>
-								<li style="width:588px; ">
+								<li style="min-width:588px;">
 									<div class="pnum numnum">
-										<select class="form-control input-xs" id="phone_one">
+										<select class="form-control input-xs" id="phone_one" style="min-width: 77px;max-width: 100px ">
 											<option value="010" selected="">010</option>
 											<option value="011">011</option>
 											<option value="016">016</option>
@@ -395,14 +414,14 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 
 										<div>
 											<input type="text" maxlength="4"
-												class="form-control input-xs" required="required" id="phone_two">
+												class="form-control input-xs" required="required" id="phone_two" style="min-width: 65px;max-width: 100px">
 										</div>
 
 										<div>-</div>
 
 										<div>
 											<input type="text" maxlength="4"
-												class="form-control input-xs" required="required" id="phone_three">
+												class="form-control input-xs" required="required" id="phone_three" style="min-width: 65px;max-width: 100px">
 										</div>
 										</div>
 										
@@ -413,30 +432,38 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 								<li>
 									<label for="fulladdr">
 										<strong class="shipping-necessary">주소</strong>
-									</label>
+									</label><br>
+									<input type="checkbox" name="addr_add" id="addr_add" value="addr_add"><span id="addr_adds">배송지목록에 추가&nbsp;&nbsp;&nbsp;</span>
+									<input type="checkbox" id="default_addrs" name="default_addrs" value="default_addr"><span id="default_addrss">기본 배송지로 설정</span>
 								</li>
 								<li>
 									<div class="pnum">										
 										<div class="addrs">
 										<input type="text" id="zipno" class="form-control input-xs width-100 goPopup" name="zipno" required="required" readonly="readonly" placeholder="우편번호">
 										<input type="button" id="goPopup" class="btn btn-xss btn btn-primary goPopup" value="우편 번호"/>
-										<input type="checkbox" name="addr_add" id="addr_add" value="addr_add"> 배송지목록에 추가 
-										<input type="checkbox" id="default_addrs" name="default_addrs" value="default_addr"> 기본 배송지로 설정 <br>
 										</div>
 									</div>
 								</li>
-								<li id="fdaddr">
+								<li id="fdaddr" style="margin-top: -25px;">
 									<label for="fulladdr"></label>
-									<input type="text" id="fulladdr" class="form-control input-xs" name="fulladdr" required="required" readonly="readonly" placeholder="기본주소" > 
+									<input type="text" id="fulladdr" class="form-control input-xs" name="fulladdr" required="required" readonly="readonly" placeholder="기본주소" style="margin-bottom: 5px;"> 
 									<input type="text" id="addrDetail" class="form-control input-xs" name="addrDetail" required="required" placeholder="나머지주소" />
 								</li>
 								
 								<li><label for="options">요청 사항</label>
 									<input type="text" id="options" name="options" class="form-control input-xs" value="요청사항을 직접 입력하세요.">
 									<div id="memos" style="display: none;">
-										<ul>
+										<ul style="background-image: url('/resources/img/memo.png');">
 											<li class="memo">배송 전에 미리 연락 바랍니다.</li>
 											<li class="memo">부재시 경비실에 맡겨 주세요.</li>
+											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
+											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
+											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
+											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
+											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
+											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
+											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
+											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
 											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
 										</ul>
 									</div>

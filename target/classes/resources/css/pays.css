@@ -137,11 +137,15 @@ label {
 .pnum{
 	width: 25%;
 	display: inline-block;
+	margin-bottom: 0px;
 }
-
+#goPopup{
+	margin-left: 5px;
+}
 .addrs{
 	display: -webkit-inline-box;
-	width: 100%;	
+	width: 100%;
+	margin-bottom: 0px;	
 }
 
 .numnum{

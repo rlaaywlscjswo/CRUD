@@ -416,11 +416,10 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 		</li>
 		<li>
 			<label for="fulladdr">배송지 주소</label>
+			<input type="checkbox" name="addr_add" id="addr_add" value="addr_add"> 배송지목록에 추가 
+			<input type="checkbox" id="default_addrs" name="default_addrs" value="default_addr"> 기본 배송지로 설정<br>
 			<input type="text"  style="width:70px;" id="zipno"  class="goPopup" name="zipno" required="required" readonly="readonly"/>
 			<input type="button" id="goPopup" class="goPopup" value="우편 번호"/>
-		
-			<input type="checkbox" name="addr_add" id="addr_add" value="addr_add"> 배송지목록에 추가 
-			<input type="checkbox" id="default_addrs" name="default_addrs" value="default_addr"> 기본 배송지로 설정 <br>
 		</li>
 		<li id="fdaddr">
 			<label for="fulladdr"></label>
