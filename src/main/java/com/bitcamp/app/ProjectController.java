@@ -185,7 +185,7 @@ public class ProjectController {
 			String contents_pdfpath_realpath = contents_pdfpath + "\\" + contents_filename;
 			String contract_pdfpath_realpath = contract_pdfpath + "\\" + contract_filename;
 
-			pdfservice.htmlcreate(mdto.getSign(), contract_pdfpath_realpath, dto); // 계약서pdf 생성 service
+			pdfservice.htmlcreate(mdto.getSign(), contract_pdfpath_realpath, dto,busdto, mdto.getName()); // 계약서pdf 생성 service
 			dto.setProject_contract(pdfpath + "/" + contract_filename);
 
 			File file = new File(uploadpath, project_photo.getOriginalFilename()); // 프로젝트 대표사진
@@ -240,7 +240,7 @@ public class ProjectController {
 		return "project/projectinsertresult.temp";
 	}
 
-	// 프로젝트 등록 결과
+	// 프로젝트 등록 결과 // 지워
 	@RequestMapping(value = "/projectresult")
 	public String projectinsertresult(HttpServletRequest request // upload
 			, BusinessDTO busdto // 사업자 dto
@@ -272,8 +272,8 @@ public class ProjectController {
 			String contract_pdfpath_realpath = contract_pdfpath + "\\" + contract_filename;
 
 			pdfservice.createSummernotePdf(summernote, contents_pdfpath_realpath);
-
-			pdfservice.htmlcreate(mdto.getSign(), contract_pdfpath_realpath, dto); // 계약서pdf 생성 service
+			
+			pdfservice.htmlcreate(mdto.getSign(), contract_pdfpath_realpath, dto,busdto,mdto.getName()); // 계약서pdf 생성 service
 
 			dto.setProject_contract(pdfpath + "/" + contract_filename);
 
