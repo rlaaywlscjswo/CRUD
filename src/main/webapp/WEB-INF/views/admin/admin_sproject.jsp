@@ -206,6 +206,7 @@
 									height="20px">
 							</c:when>
 						</c:choose></td>
+						<td>${spro.no}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

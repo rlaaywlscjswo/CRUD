@@ -20,13 +20,13 @@ import com.bitcamp.dto.MemberDTO;
 import com.bitcamp.dto.PagingDTO;
 import com.bitcamp.dto.ProjectDTO;
 import com.bitcamp.service.AdminService;
-import com.bitcamp.service.MemberService;
+// import com.bitcamp.service.MemberService;
 
 @Controller
 public class AdminController {
 
-	@Autowired
-	private MemberService service;
+/*	@Autowired
+	private MemberService service;*/
 
 	@Autowired
 	private AdminService adminService;
