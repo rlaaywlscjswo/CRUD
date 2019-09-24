@@ -405,8 +405,7 @@ margin-top: 800px;
 						method : "GET",
 						dataType : "JSON",
 						url : "/project/category",
-						data : 'main_category=' + main_category,
-
+						data : 'main_category=' + main_category,					
 						success : function(data) {
 							console.log("ajax1");
 							console.log(data);
@@ -448,6 +447,7 @@ margin-top: 800px;
 								url : "/sign",
 								method : "POST",
 								dataType : "text",
+								timeout:10000,
 								beforeSend : function(xhr) {
 									xhr.setRequestHeader(csrfHeaderName,
 											csrfTokenValue);
@@ -471,8 +471,7 @@ margin-top: 800px;
 				});
 
 		$('#up')
-				.on(
-						'click',
+				.on('click',
 						function() {
 							var optform = document.getElementById("optform");
 							var str = "<hr>";
@@ -537,7 +536,7 @@ margin-top: 800px;
 			<label for="project_title">프로젝트 제목</label>
 			<div>
 				<input type="text" class="form-control input-default"
-					id="project_title" name="project_title" value="고정제목">
+					id="project_title" name="project_title">
 			</div>
 			<label for="main_category">대분류</label>
 			<div>
@@ -568,19 +567,19 @@ margin-top: 800px;
 			<label for="targetprice">목표 금액</label>
 			<div>
 				<input type="number" class="form-control input-default"
-					id="targetprice" name="targetprice" value="10000000">
+					id="targetprice" name="targetprice">
 			</div>
 
 			<label for="startdate">시작 날짜</label>
 			<div>
 				<input type="date" class="form-control input-default" id="startdate"
-					name="startdate" value="2019-09-19" style="width: 40%;">
+					name="startdate" style="width: 40%;">
 			</div>
 
 			<label for="enddate">종료 날짜</label>
 			<div>
 				<input type="date" class="form-control input-default" id="enddate"
-					name="enddate" value="2019-09-25" style="width: 40%;">
+					name="enddate" style="width: 40%;">
 			</div>
 
 			<div class="btn2 btn btn-primary" id="btn2">
@@ -593,7 +592,7 @@ margin-top: 800px;
 			<label for="business_name">사업자명</label>
 			<div>
 				<input type="text" class="form-control input-default"
-					id="business_name" name="business_name" value="고정제목">
+					id="business_name" name="business_name">
 			</div>
 
 			<label for="business_no">사업자번호</label>
@@ -611,20 +610,20 @@ margin-top: 800px;
 			<label for="business_addr">소재지</label>
 			<div>
 				<input type="text" class="form-control input-default"
-					id="business_addr" name="business_addr" value="고정주소">
+					id="business_addr" name="business_addr">
 			</div>
 
 			<label for="business_startdate">법인설립연월일</label>
 			<div>
 				<input type="date" class="form-control input-default"
 					id="business_startdate" name="business_startdate"
-					value="2019-03-21" style="width: 40%;">
+					 style="width: 40%;">
 			</div>
 
 			<label for="business_url">홈페이지</label>
 			<div>
 				<input type="text" class="form-control input-default"
-					id="business_url" name="business_url" value="고정페이지">
+					id="business_url" name="business_url" >
 			</div>
 			<div class="btn2 btn btn-primary" id="btn3">
 				<a href="#tab03">다음</a>
@@ -636,7 +635,7 @@ margin-top: 800px;
 			<label for="alias">창작자 이름</label>
 			<div>
 				<input type="text" class="form-control input-default" id="alias"
-					name="alias" value="고정이름">
+					name="alias">
 			</div>
 			<label for="img_file">창작자 프로필사진</label>
 			<div>
@@ -646,7 +645,7 @@ margin-top: 800px;
 			<label for="introduce">창작자 소개</label>
 			<div>
 				<textarea class="form-control input-default" id="introduce"
-					name="introduce">1111</textarea>
+					name="introduce"></textarea>
 			</div>
 			<div class="btn2 btn btn-primary" id="btn4">
 				<a href="#tab04">다음</a>
@@ -695,12 +694,7 @@ margin-top: 800px;
 			</div>
 		</div>
 
-		<div id="tab06" class="tab-contents">	
-			<div>
-			<input type="checkbox" value="ddd" id="okok">
-			<textarea rows="10" cols="50" readonly="readonly" >약관머시기</textarea><br>
-			
-			</div>
+		<div id="tab06" class="tab-contents">			
 			<div id="signature-pad" class="m-signature-pad">	
 				<div class="m-signature-pad--body">			
 					<canvas width="300" height="100"></canvas>
@@ -709,7 +703,7 @@ margin-top: 800px;
 					<button type="button" class="button clear btn btn-primary"
 						data-action="clear">지우기</button>
 					<button type="button" class="button save btn btn-primary"
-						data-action="save" style="z-index: 1000;">저장</button>
+						data-action="save" style="z-index: 1000;">저장</button>				
 					<a href="#" class="btn btn-primary" id="insert">등록</a> 
 				</div>
 			</div>

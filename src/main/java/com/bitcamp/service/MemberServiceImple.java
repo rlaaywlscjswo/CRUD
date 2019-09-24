@@ -86,6 +86,7 @@ public class MemberServiceImple implements MemberService {
 
 	@Override
 	public MemberDTO memberinfo(String email) {
+		System.out.println("여기는 memberinfo 서비스 임플이다!");
 		return mapper.memberinfo(email);
 	}
 
