@@ -13,13 +13,13 @@
 		width: 1500px;
 	} 
 	
-	.card-text a input {
+/* 	.card-text a input {
 		left: 47%;
 		top: 115px;
-	}
+	} */
 	
 	.card-text input:nth-child(11) {
-		left: 50%;
+		left: 90%;
 		top: 115px;
 	}
 	
@@ -70,48 +70,22 @@
 	}); // end ready
 </script>
 </head>
-<!-- <script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script>
-$(function () {
-	$("#updatebtn").click(function(){
-		
-		
-				
-		
-		
-		
-		
-	});
-	
-	
-	
-	
-	
-	
-});
-
-
-
-
-
-
-</script> -->
 <body>
 
 	<div class="wrap">
 	
-<div class="card mb-3" style="height: 405px; left: 23%; max-width: 810px;">
-  <div class="row no-gutters">
-    <div class="col-md-4">
+<div class="card mb-3" style="height: 405px; margin: 0 auto; max-width: 810px;">
+  <div class="row no-gutters" style="margin: 0 auto;">
+<!--     <div class="col-md-4">
       <img src="..." class="card-img" alt="...">
-    </div>
+    </div> -->
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title">
         	<input type="text" name="name" id="name" value="이름" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; margin-top: 50px; width: 50px;">
         	<input type="text" name="name" id="name" value="${myProfile.name}" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; width: 105px;">
         </h5>
-        <p class="card-text">
+        <p class="card-text" style="width: 500px;">
         	<input type="text" name="email" id="email" value="이메일" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; width: 60px;">
         	<input type="text" name="email" id="email" value="${myProfile.email}" readonly="readonly" class="form-control form-control-sm" style="display: inline-block; width: 200px;"> <br>
 			<c:set value="${myProfile.auth}" var="auth" />
@@ -119,11 +93,11 @@ $(function () {
 				class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 80px;">
 			<c:if test="${auth == 'ROLE_ADMIN'}">
 				<input type="text" name="auth" id="auth" value="관리자" readonly="readonly" 
-				class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 70px;">
+				class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 65px;">
 			</c:if>
 			<c:if test="${auth == 'ROLE_MANAGER'}">
 				<input type="text" name="auth" id="auth" value="창작자" readonly="readonly" 
-				class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 70px;">
+				class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 65px;">
 			</c:if>
 			<c:if test="${auth == 'ROLE_MEMBER'}">
 				<input type="text" name="auth" id="auth" value="일반 회원" readonly="readonly" 
@@ -138,7 +112,7 @@ $(function () {
 				<input type="tel" name="phone" id="phone" value="${myProfile.phone}" class="form-control form-control-sm" style="display: inline-block; margin-top: 10px; width: 200px;">
 			</c:if> 
 			<input type="button" class="btn btn-primary" value="전화 번호 수정">
-			<a href="/passwordfind"><input type="button" class="btn btn-primary" value="비밀 번호 수정" style="display: inline-block; position: relative;"></a>
+			<a href="/passwordfind"><input type="hidden" class="btn btn-primary" value="비밀 번호 수정" style="display: inline-block; position: relative;"></a>
 			<input type="button" class="btn btn-primary" value="회원 탈퇴" style="display: inline-block; position: relative;">
 			
         </p>
@@ -151,18 +125,6 @@ $(function () {
 </div>
 
 	</div> <!-- end .wrap -->
-	
-
-
-	
-<%-- 		<form action="/updatephoto" method="post" enctype="multipart/form-data">		
-		<label for="photo">프로필사진:</label>
-		<img alt="프로필사진" src="${myProfile.photo }"><br>
-		<input type="hidden" id="email" name="email" value="${myProfile.email}">
-		<input type="file" id="photo" name="photo">
-		<input type="submit" value="수정하기">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		</form> --%>
 
 </body>
 </html>

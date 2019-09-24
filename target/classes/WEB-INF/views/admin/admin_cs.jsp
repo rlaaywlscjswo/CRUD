@@ -67,20 +67,20 @@
 								data-target="#${adminCS.service_no}" aria-expanded="true"
 								aria-controls="collapseOne">
 								<span>${adminCS.service_no}</span>
-								<span>문의 제목 : ${adminCS.service_title} / </span>
+								<span>제목 : ${adminCS.service_title} / </span>
 								<span>작성자 : ${adminCS.name} / </span>
 								<span>
 									<c:set var="qn" value="${adminCS.question_no}" />
 									<c:choose>
-										<c:when test="${qn == 1}">분류 : 회원 관련 / </c:when>
-										<c:when test="${qn == 2}">분류 : 사업자 관련 / </c:when>
-										<c:when test="${qn == 3}">분류 : 프로젝트 관련 / </c:when>
-										<c:when test="${qn == 4}">분류 : 후원 관련 / </c:when>
-										<c:when test="${qn == 5}">분류 : 배송 관련 / </c:when>
-										<c:when test="${qn == 6}">분류 : 환불 관련 / </c:when>
+										<c:when test="${qn == 1}">분류 : 회원 관련 </c:when>
+										<c:when test="${qn == 2}">분류 : 사업자 관련 </c:when>
+										<c:when test="${qn == 3}">분류 : 프로젝트 관련 </c:when>
+										<c:when test="${qn == 4}">분류 : 후원 관련 </c:when>
+										<c:when test="${qn == 5}">분류 : 배송 관련 </c:when>
+										<c:when test="${qn == 6}">분류 : 환불 관련 </c:when>
 										<c:otherwise>뭐지..</c:otherwise>
 									</c:choose>
-								</span> <span>문의 내용 : ${adminCS.service_contents}</span>
+								</span> 
 							</button>
 						</h2>
 					</div>
@@ -88,6 +88,10 @@
 					<div id="${adminCS.service_no}" class="collapse"
 						aria-labelledby="headingOne" data-parent="#accordionExample">
 						<div class="card-body">
+						
+						<span>내용 : ${adminCS.service_contents}</span>
+						
+							<hr>
 
 							<c:set value="${adminCS.service_reply}" var="sr" />
 							<c:choose>

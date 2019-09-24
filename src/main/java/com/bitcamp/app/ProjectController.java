@@ -168,7 +168,7 @@ public class ProjectController {
 		System.out.println("btncnt"+btncnt);
 		System.out.println("summernote"+summernote);
 		System.out.println("보자 : "+principal.getName());
-		MemberDTO mdto = memberservice.memberinfo(principal.getName());
+		MemberDTO mdto = memberservice.memberinfo("test@test.com");
 		System.out.println("사람 정보 : "+mdto.getName());
 		MultipartFile project_photo = dto.getProject_photo_file(); // 프로젝트 대표사진 파일
 		MultipartFile img = dto.getImg_file(); // 창작자 프로필사진 파일
