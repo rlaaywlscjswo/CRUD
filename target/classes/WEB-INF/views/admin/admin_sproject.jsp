@@ -77,6 +77,7 @@
 			
 			$('#pdfhere').empty();
 			var project_no = $(this).parents('tr').children('td:eq(0)').text();
+			var no = $(this).parents('tr').children('td:eq(3)').text();			
 			
 			var html = '';
 			html += project_no;
@@ -98,7 +99,7 @@
 				console.log(project_no);				
 				$.ajax({					
 					url: "agree",
-					data: "project_no="+project_no,
+					data: "project_no="+project_no+"&no="+no,
 					success: function(data) {				
 						console.log('성공쓰');
 						console.log(project_no);
@@ -122,7 +123,7 @@
 				$.ajax({
 					
 					url: "disagree",
-					data: "project_no="+project_no,
+					data: "project_no="+project_no+"&no="+no,
 					success: function(data) {
 						console.log('성공쓰');
 						console.log(project_no);
