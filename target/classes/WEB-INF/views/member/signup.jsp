@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="UTF-8">
-<title>Teatime</title>
+<title>CRUD</title>
 <link href="resources/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="resources/css/sb-admin.css" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">

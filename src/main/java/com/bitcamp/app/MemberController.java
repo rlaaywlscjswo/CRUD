@@ -240,6 +240,12 @@ public class MemberController {
 		result = memberService.supportinsert(sdto);
 		return "/payment/success.temp";
 	}
+	@RequestMapping("/unread")
+	public @ResponseBody int unread(Principal principal) {
+		MemberDTO mdto = memberService.memberinfo(principal.getName());
+		int unread = memberService.unread(new TalkDTO(mdto.getNo(), 0));
+		return unread;
+	}
 	
 	// 받은 쪽지함 리스트.
 	@RequestMapping("/talk")

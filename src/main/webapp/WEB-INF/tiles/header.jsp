@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,13 @@
     bottom: 7px;
     right: 5px;
 }
+#imgposition{
+	display:none;
+	position: relative;
+    right: 10px;
+    top: -12px;
+    width: 8px;
+}
 </style>
 <script>
 $(document).ready(function(){
@@ -21,6 +29,26 @@ $(document).ready(function(){
 		document.logout.submit();
 	});	
 	
+	var csrfHeaderName = "${_csrf.headerName}";
+	var csrfTokenValue = "${_csrf.token}";
+	
+	setInterval(function() {
+		$.ajax({
+			type:"POST",
+			url:"/unread",
+			beforeSend: function(xhr){
+	            xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+	        },
+	        dataType:"json",
+	        success:function(data){
+	        	if(data > 0){
+	        		$('#imgposition').show();
+	        	} else {
+	        		$('#imgposition').hide();
+	        	}
+	        }
+		});	
+	}, 6000);
 });
 </script>
 </head>
@@ -43,7 +71,9 @@ $(document).ready(function(){
                 <div class="col-5 col-sm-6">
                     <!--  Top Social bar start -->
                     <div class="top_social_bar">
-                        <a href="#" id="talk"><img src="/resources/img/mailbox.png" alt="쪽지함"><img src="/resources/img/circle.png" alt="알람"></a>
+                        <a href="#" id="talk"><img src="/resources/img/mailbox.png" alt="쪽지함">
+                        	<img id="imgposition" src="/resources/img/circle.png" alt="알람">
+                        </a>
                         <ul>
                         <sec:authorize access="isAuthenticated()">
                         <li class="nav-item dropdown">
