@@ -166,8 +166,9 @@ public class ProjectController {
 			, @RequestParam int btncnt) {
 		System.out.println("result!!!!!");
 		MemberDTO mdto = memberservice.memberinfo(principal.getName());
-		dto.setNo(mdto.getNo());
 		System.out.println("들어오니?????????"+mdto.getName());
+		dto.setNo(mdto.getNo());
+		
 		int projectsearchno = service.projectsearchno(dto.getCategory_no());
 		dto.setProject_no(projectsearchno);
 
