@@ -112,7 +112,8 @@ $(document).ready(function(){
 	});
 	
 	$('body').on('click', "#next3", function(){
-		if(pwd1.val() == pwd2.val() && pawd1.val() != ""){
+		if(pwd1.val() == pwd2.val() && pwd1.val() != ""){
+			console.log("비번수정");
 			$('form').submit();
 		}
 	});

@@ -456,9 +456,9 @@ function addrCallBack(roadaddrPart1, addrDetail, roadaddrPart2, zipno, alias, ad
 										<ul style="background-image: url('/resources/img/memo.png');">
 											<li class="memo">배송 전에 미리 연락 바랍니다.</li>
 											<li class="memo">부재시 경비실에 맡겨 주세요.</li>
-											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
-											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
-											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
+											<li class="memo">현관문 앞에 두고 가주세요.</li>
+											<li class="memo">마당 안에 두고 가주세요.</li>
+											<li class="memo">연락주세요.</li>
 											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
 											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>
 											<li class="memo">부재시 전화 주시거나 문자 남겨 주세요.</li>

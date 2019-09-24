@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>결제가 완료되었습니다.</h1>
+<div style="width: 80%;
+    margin: 0 auto;
+    text-align: center;">
+	<img id="payimg" alt="이미지" src="/resources/img/paysu.png">
+	<p style="font-size: 12px;
+    margin-top: -10px;"><a href="/support">구매내역</a></p>
+</div>
 </body>
 </html>

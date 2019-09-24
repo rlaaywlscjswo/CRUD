@@ -489,4 +489,9 @@ public class MemberController {
 		return dto;
 	}
 	
+	@RequestMapping("/test10")
+	public String test() {
+		return "/payment/success.temp";
+	}
+	
 } // end MemberController class

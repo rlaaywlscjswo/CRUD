@@ -32,23 +32,21 @@ $(document).ready(function(){
 	var csrfHeaderName = "${_csrf.headerName}";
 	var csrfTokenValue = "${_csrf.token}";
 	
-	setInterval(function() {
-		$.ajax({
-			type:"POST",
-			url:"/unread",
-			beforeSend: function(xhr){
-	            xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
-	        },
-	        dataType:"json",
-	        success:function(data){
-	        	if(data > 0){
-	        		$('#imgposition').show();
-	        	} else {
-	        		$('#imgposition').hide();
-	        	}
-	        }
-		});	
-	}, 6000);
+	$.ajax({
+		type:"POST",
+		url:"/unread",
+		beforeSend: function(xhr){
+            xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+        },
+        dataType:"json",
+        success:function(data){
+        	if(data > 0){
+        		$('#imgposition').show();
+        	} else {
+        		$('#imgposition').hide();
+        	}
+        }
+	});	
 });
 </script>
 </head>
