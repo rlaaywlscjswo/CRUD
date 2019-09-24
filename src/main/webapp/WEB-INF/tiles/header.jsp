@@ -63,7 +63,7 @@ $(document).ready(function(){
                         <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">관리 페이지</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="/fmember">펀딩 회원 관리</a>
+                                        <a class="dropdown-item" href="/fmember">창작자 관리</a>
                                         <a class="dropdown-item" href="/spro">펀딩 현황 목록</a>
                                         <a class="dropdown-item" href="/adcs">고객 문의</a>                                       
                                     </div>
